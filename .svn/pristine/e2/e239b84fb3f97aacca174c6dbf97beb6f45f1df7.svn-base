@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/jquery-easyui-1.5.1/themes/default/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/jquery-easyui-1.5.1/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/budget/module/expenditure/budgetTableStyle.min.css?YTVERSIONCODE=2018051402">
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+
+	<body>
+		<div id="budgetTableStyle">
+			<!--顶部查询区域START-->
+			<div class="heard-search-model">
+				<div style="position: relative;">
+					<input type="text" class="yt-input search" id="queryParams" placeholder="请输入关键字">
+					<img class="clearImg" src="../../../../../resources-sasac/images/system/expensesReim/common/sc_ret.png">
+					<button class="yt-option-btn yt-search-btn" onselectstart="return false" id="heardSearchBtn">关键字查询 </button>
+					<button class="yt-option-btn yt-reset-btn" id="resetBtn">重置</button>
+				</div>
+			</div>
+			<!--顶部查询区域START-->
+			<!--多选区域START-->
+			<div class="status-model">
+				<label class="check-label yt-checkbox">  <!--check-->
+                     <input class="checkbox-state checkbox1" type="checkbox" name="test" value=""/>全部
+               		</label>
+				<label class="check-label yt-checkbox">  
+                     <input class="checkbox-state checkbox2" type="checkbox" name="test" value="1"/>已启用
+               		</label>
+				<label class="check-label yt-checkbox">  
+                     <input class="checkbox-state checkbox3" type="checkbox" name="test" value="2"/>未启用
+               		</label>
+			</div>
+			<!--多选区域END-->
+			<!--风险信息START-->
+			<div class="risk-info-model">
+				<!--功能按钮START-->
+				<div class="fun-btn-group">
+					<button class="yt-option-btn yt-common-btn" id="addRiskBtn">新增</button>
+					<button class="yt-option-btn yt-common-btn" id="blockUpBtn">启用</button>
+					<button class="yt-option-btn yt-common-btn  adjust adjust-style-btn" btnFlag="0">调整样式</button>
+					<button class="yt-option-btn yt-common-btn adjust adjust-config-btn" btnFlag="1">调整配置</button>
+					<button class="yt-option-btn yt-common-btn adjust adjust-val-btn" btnFlag="2">调整值</button>
+					<button class="yt-option-btn yt-common-btn update-plan-item">一键导入</button>
+				</div>
+				<!--功能按钮END-->
+				<!--风险信息表格START-->
+				<table class="yt-table" style="width: 100%;" id="tableList">
+					<thead class="yt-thead">
+						<tr>
+							<th width="100px" align="center">预算表编号</th>
+			 	    		<th width="100px" align="center">预算表类型</th>
+			 	    		<th align="center">预算表名称</th>
+			 	    		<th>进度状态</th>
+			 	    		<th style="width:90px;">状态</th>
+			 	    		<th width="90px" align="center">上次修改人</th>
+			 	    		<th width="160px" align="center">上次修改时间</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+					
+					</tbody>
+				</table>
+				<!--风险信息表格END-->
+				<div class="page-info table-page budget-table-page" onselectstart="return false"></div>
+				<!--底部操作按钮-->
+				<div style="text-align: center;padding: 20px 0px;">
+					<button class="yt-option-btn yt-cancel-btn" id="approveCanelBtn">返回</button>
+				</div>
+			</div>
+			<!--风险信息END-->
+			<!--编辑弹窗区域START-->
+			<div class="yt-pop-model yt-edit-alert update-data-pop">  
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-icon"><img src="../../../../../resources-sasac/images/common/copy-icon.png" style="width: 20px;height: 20px;"></span>
+					<span class="yt-edit-alert-title-msg">账套复制</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<div style="padding:10px 10px;" class="pop-query-group">
+						<div style="display: inline-block;">
+							<label><span class="not-null">*</span><span style="letter-spacing:5px;">所属年</span>度：</label>
+							<input class="yt-input" type="text" id="copyBooksYear" style="width: 140px;" placeholder="请输入所属年度" validform="{isNull:true,blurFlag:true,msg:'请输入所属年度'}"/>
+							<div class="valid-font" style="padding-left: 95px;"></div>
+						</div>
+						<div style="display: inline-block;margin-left: 10px;">
+							<label><span class="not-null">*</span><span style="letter-spacing:5px;">所属阶</span>段：</label>
+							<select class="yt-select budget-stage-sel" id="copyBudgetStage" placeholder="请选择所属阶段" validform="{isNull:true,blurFlag:true,msg:'请选择所属阶段'}">
+								<option value=""></option>
+							</select>
+							<div class="valid-font" style="padding-left: 95px;"></div>
+						</div>
+						<div style="display: inline-block;margin-left: 10px;">
+							<button class="yt-model-bot-btn yt-model-sure-btn query-plan-btn" type="button">查询</button>
+							<button class="yt-model-bot-btn yt-model-canel-btn reset-btn" type="button" style="margin-left: 10px;">重置</button>
+						</div>
+					</div>
+					<div style="height: 5px;background-color: #f3f3f3;margin-top: 10px;margin-bottom:10px;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+					<table class="table-one" style="margin: 0 10px;">
+						<tr>
+							<td>
+								<div style="padding-left: 18px;">
+									<label class="check-label yt-checkbox" style="margin-right: 20px;">  <!--check-->
+				                     	<input class="checkbox-state checkbox1" type="checkbox" name="test" value="1"/>复制表样
+				               		</label>
+									<label class="check-label yt-checkbox" style="margin-right: 20px;">  
+				                     	<input class="checkbox-state checkbox2" type="checkbox" name="test" value="2"/>复制配置
+				               		</label>
+									<label class="check-label yt-checkbox">  
+				                     	<input class="checkbox-state checkbox3" type="checkbox" name="test" value="3"/>复制值
+				               		</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td valign="top">
+								<div style="width: 100%;">
+									<table class="yt-table table-two" style="width: 100%;">
+										<colgroup>
+							              	<col style="width: 150px;" />
+							              	<col />
+							          	</colgroup>
+										<thead class="yt-thead">
+											<tr>
+												<th style="text-align: left;padding-left: 17px;">
+													<label class="check-label yt-checkbox">  
+								                     	<input class="pop-checkbox checkbox-all" type="checkbox" name="test" value=""/>预算编号
+													</label>
+												</th>
+												<th>预算表名称</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+								<div class="table-div-checkbox" style="width:100%;max-height: 320px;overflow: auto;">
+									<table class="yt-table" style="width: 100%;">
+										<colgroup>
+							              	<col style="width: 150px;" />
+							              	<col />
+							          	</colgroup>
+										<tbody class="yt-tbody">
+											
+										</tbody>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom">
+						<button class="yt-model-bot-btn yt-model-sure-btn sure-plan-btn" type="button">确定</button>
+						<button class="yt-model-bot-btn yt-model-canel-btn canel-btn" type="button">取消</button>
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--编辑弹窗区域END-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-valid.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<!--引用JS文件END-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/budget/module/expenditure/budgetTableStyle.min.js?YTVERSIONCODE=2018052802"></script>
+</html>

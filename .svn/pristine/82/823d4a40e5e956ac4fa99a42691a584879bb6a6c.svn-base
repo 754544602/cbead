@@ -1,0 +1,187 @@
+var planeListInfo = {
+
+	//初始化方法
+	init: function () {
+		//初始化列表
+		debugger
+		planeListInfo.getBillListInfo();
+		$(".plane-more-div").click(function () {
+			$(".plane-th-hide").show();
+			$(".plane-list-table").css("min-width", "2474px");
+			$(".plane-tbody-td").attr("colspan", "23");
+			$(".project-more-div").click(function () {
+				$(".plane-list-table").css("min-width", "2799px");
+				$(".plane-tbody-td").attr("colspan", "28");
+			});
+		});
+		$(".project-more-div").click(function () {
+			$(".project-th-hide").show();
+			$(".plane-tbody-td").attr("colspan", "21");
+			$(".plane-list-table").css("min-width","2000px");
+			$(".plane-more-div").click(function () {
+				$(".plane-list-table").css("min-width", "2799px");
+				$(".plane-tbody-td").attr("colspan", "21");
+			});
+		});
+		$(".page-return-btn").click(function () {
+			window.location.href = "reconciliationsList.html";
+		});
+	},
+	/**
+	 * 对账单信息列表
+	 */
+	getBillListInfo: function() {
+		$yt_baseElement.showLoading();
+		var keyword = $('#keyword').val();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "class/lookForAllByDistribution", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-tbody');
+					var htmlTr = '';
+					var num1 = 0;
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							htmlTr = '<tr>' +
+								'<td style="text-align: center;">' +
+								'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="select-teacher-pkId" value="' +v.projectCode + '"/></label>' + '</td>' +
+								'<td>' + i + '</td>' +
+								'<td>' + '2015-05-05' + '</td>' +
+								'<td class="plane-th-hide" style="display:none">' + '2015-05-05' + '</td>' +
+								'<td>' + '2728320727' + '</td>' +
+								'<td>' + '刘晓军' + '</td>' +
+								'<td>' + '大连-北京首都' + '</td>' +
+								'<td>' + 'CA1605' + '</td>' +
+								'<td class="plane-th-hide" style="text-align:right;display:none">' + '1720.00' + '</td>' +
+								'<td class="plane-th-hide" style="text-align:right;display:none">' + '50.00' + '</td>' +
+								'<td class="plane-th-hide" style="text-align:right;display:none">' + '10.00' + '</td>' +
+								'<td class="plane-th-hide" style="text-align:right;display:none">' + '0' + '</td>' +
+								'<td style="text-align:right;">' + '980' + '</td>' +
+								'<td class="plane-th-hide" style="display:none">' + '杨帆' + '</td>' +
+								'<td style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></td>'+
+								'<td>' + '第二期国企深化改革专题培训班' + '</td>' +
+								'<td>' + '胡斌' + '</td>' +
+								'<td>' + '南航CZ6128' + '</td>' +
+								'<td class="project-th-hide" style="display:none">' + '北京T3' + '</td>' +
+								'<td class="project-th-hide" style="display:none">' + '周水子' + '</td>' +
+								'<td class="project-th-hide" style="display:none">' + '2018-4-18——2018-4-18' + '</td>' +
+								'<td class="project-th-hide" style="display:none;text-align:right;">' + '1,600.00' + '</td>' +
+								'<td class="project-th-hide" style="display:none">' + '1次改签，1次退票 ' + '</td>' +
+								'<td class="project-th-hide" style="display:none;text-align:right;">' + '200.00' + '</td>' +
+								'<td style="text-align:right">' + '980.00' + '</td>' +
+								'<td>' + '0.00' + '</td>' +
+								'<td>' + '010234958' + '</td>' +
+								'<td style="text-align:right">' + '980.00' + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+							num1 += 10;							
+						});
+						var	htmlTrLast = '<tr>' +
+								'<td style="text-align: center;">' +
+								'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="select-teacher-pkId" value=""/></label>' + '</td>' +
+								'<td style="font-weight:bold;">' + "总计" + '</td>' +
+								'<td></td>' +
+								'<td></td>' +
+								'<td></td>' +
+								'<td></td>' +
+								'<td></td>' +
+								'<td class="bank-th-hide" style="text-align:right;display:none;font-weight: bold;">' + num1 + '</td>' +
+								'<td class="bank-th-hide" style="text-align:right;display:none;font-weight: bold;">' + num1 + '</td>' +
+								'<td class="bank-th-hide" style="text-align:right;display:none;font-weight: bold;">' + num1 + '</td>' +
+								'<td class="bank-th-hide" style="text-align:right;display:none;font-weight: bold;">' + num1 + '</td>' +
+								'<td style="text-align:right;font-weight: bold;">' + num1 + '</td>' +
+								'<td class="bank-th-hide" style="display:none;"></td>' +
+								'<td style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></td>'+
+								'<td>' + '第二期国企深化改革专题培训班' + '</td>' +
+								'<td>' + '胡斌' + '</td>' +
+								'<td>' + '南航CZ6128' + '</td>' +
+								'<td class="project-th-hide" style="display:none"></td>' +
+								'<td class="project-th-hide" style="display:none"></td>' +
+								'<td class="project-th-hide" style="display:none"></td>' +
+								'<td class="project-th-hide" style="display:none;text-align:right;font-weight: bold;">' + num1 + '</td>' +
+								'<td class="project-th-hide" style="display:none"></td>' +
+								'<td class="project-th-hide" style="display:none;text-align:right;font-weight: bold;">' + num1 + '</td>' +
+								'<td style="text-align:right;font-weight: bold;">' + num1 + '</td>' +
+								'<td style="text-align:right;font-weight: bold;">' + num1 + '</td>' +
+								'<td></td>' +
+								'<td style="text-align:right;font-weight: bold;">' + num1 + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTrLast);
+						
+					}
+
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 无效流水单信息列表
+	 */
+	getinvalidListInfo: function() {
+		$yt_baseElement.showLoading();
+		var keyword = $('#keyword').val();
+		$.ajax({
+			url: $yt_option.base_path + "", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.invalid-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							htmlTr = '<tr>' +
+								'<td>' + '2018-07-02' + '</td>' +
+								'<td>' + '2018-07-13' + '</td>' +
+								'<td>' + '2726101874' + '</td>' +
+								'<td>' + '韩雪雯' + '</td>' +
+								'<td>' + '南宁-大连' + '</td>' +
+								'<td>' + 'MU2774' + '</td>' +
+								'<td style="text-align:right">' + '1720' + '</td>' +
+								'<td style="text-align:right">' + '50' + '</td>' +
+								'<td style="text-align:right">' + '10' + '</td>' +
+								'<td style="text-align:right">' + '0' + '</td>' +
+								'<td style="text-align:right">' + '1780' + '</td>' +
+								'<td>' + '杨凯' + '</td>' +
+								
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					}
+
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+}
+$(function () {
+	//初始化方法
+	planeListInfo.init();
+});

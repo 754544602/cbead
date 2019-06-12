@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/ueditor/ueditor.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<title>审批流程</title>
+		<style type="text/css">
+			.details-textarea{
+				height: auto;
+			}
+		</style>
+	</head>
+	<!--该页面审批流程可更改-->
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<button class="page-return-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+					返回
+				</button>
+				<!--隐藏数据-->
+				<input type="hidden" id="tast-key" value="" />
+				<input type="hidden" value="" id="processInstanceId" />
+			</div>
+			<!--顶部条件查询END-->
+			
+			<!--数据展示区域START-->
+			
+			<!--班级STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p">新增新闻稿</p>
+			</div>
+			<div class="content-div-box list-box" style="padding: 0px; margin: 5px;">
+				<table class="add-tab" cellspacing="1px" cellpadding="1px" style="margin: 0 auto;width: 900px;">
+					<tr>
+						<td class="td-right">班级：</td>
+						<td class="projectCode projectCode-td" id="projectCode"></td>
+						<td class="td-right">项目主任：</td>
+						<td class="left-td" id="projectUserName"></td>
+					</tr>
+					<tr>
+						<td class="td-right">标题：</td>
+						<td class="left-td" id="title"></td>
+						<td class="td-right">发布时间：</td>
+						<td class="left-td" id="issueDayeString"></td>
+					</tr>
+				</table>
+				<div class="details-box">
+					<p class="details-title">讲稿内容</p>
+					<p class="details-textarea details-approve" id="details"></p>
+				</div>
+			</div>
+			<!--班级END-->
+			<!--审批流程STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p">审批流程</p>
+			</div>
+			<div class="content-div-box" style="padding: 0px; margin: 5px;">
+				
+				<div class="tab-content procedure-box" style="margin: 0 auto;width: 1000px;">
+					<div class="last-step last-step-div">
+						<div class="number-name-box">
+							<span class="number-box-span last-step-order" ></span>
+							<span class="name-box-span last-step-operate-person-userName" ></span>
+							<img src="../../resources/images/open/open-sp.png" width="100%" height="100%" />
+						</div>
+						<div class="view-box-div">
+							<span class="last-step-commentTime-span last-step-commentTime" style="width: 190px;"></span>
+							<table class="add-new-tab" cellspacing="1px" cellpadding="1px" style=" ">
+								<tr>
+									<td class="operate-state-title-td">操作状态：</td>
+									<td  class="sp-state last-step-operationState" style=""></td>
+								</tr>
+								<tr>
+									<td style="text-align: right; ">是否同意：</td>
+									<td style="text-align: left; ">
+										<label class="check-label yt-radio check">
+											<input id="agree" type="radio" class="radio" name="test" value="completed"/>同意
+										</label>
+										<label class="check-label yt-radio " style="margin-left: 20px;">
+										 	<input id="disagree" type="radio" class="radio" name="test" value="returnedSubmit"/>拒绝
+										</label>
+									</td>
+								</tr>
+								<tr class="hid-input">
+									<td style="text-align: right; ">下一步操作人：</td>
+									<td>
+										<select class="yt-select" id="dealingWithPeople" style="width: 275px;">
+											<option value="no">请选择下一步操作人</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: right; ">操作人意见：</td>
+									<td>
+										<input id="opintion" class="yt-input" type="text" validform="{isNull:true,size:20,msg:'请输入内容,不要超过20个字'}" style="width: 719px;float: left;"/>  
+    									<span class="valid-font" style="padding-left: 10px;"></span> 
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!--审批流程请步骤，流程第一步-->
+					<div class="first-step">
+						<div style="height: 150; ">
+							<div class="number-name-box">
+								<span class="number-box-span first-step-order" ></span>
+								<span class="name-box-span first-step-operate-person-userName" ></span>
+								<img src="../../resources/images/open/openFlow.png" width="100%" height="100%" />
+							</div>
+						</div>
+						<div style="height: 89px; margin-left: 77px;padding-top: 1px;position: relative;">
+								<ul class="view-box-ul">
+									<li  style="height: 30px;">
+										<span  class="first-step-taskName view-taskName-span"  style="float: left;"></span>
+									</li>
+									<li class="view-time-li first-step-commentTime" ></li>
+								</ul>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<!--审批流程END-->
+			<div class="yt-eidt-model-bottom" style="text-align: center;margin: 10px 0px;">
+				<input class="yt-model-bot-btn yt-model-sure-btn"  type="button" value="确定" />
+				<input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="取消" style="margin-left: 20px;" />
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/tabEdit/yt-tab-edit.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/news/addOrUpdateBean.js"></script>
+	<script type="text/javascript" src="../../resources/js/sortable/yt-sortable.js"></script>
+</html>

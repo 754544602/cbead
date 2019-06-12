@@ -1,0 +1,160 @@
+{
+ "flag":0,
+ "data":{
+		"trafficCost": [
+
+			{
+				"busiTripUser": "刘光国",
+				"busiTripCode":"1",
+				"level": "司级正职",
+				"startDate": "2017-12-16",
+				"startAddre": "天津",
+				"endDate": "2017-12-16",
+				"endAddre": "上海",
+				"vehicleName":"高铁一等座",
+				"vehicleCode":"1",
+				"vehicleParentName":"火车",
+				"vehicleParentCode":"2",
+				"cityMoney":"933.00",
+				"specialMsg":""
+			}, {
+				"busiTripUser": "刘光国",
+				"busiTripCode":"1",
+				"level": "司级正职",
+				"startDate": "2017-12-20",
+				"startAddre": "上海",
+				"endDate": "2017-12-20",
+				"endAddre": "天津",
+				"vehicleName":"高铁一等座",
+				"vehicleCode":"1",
+				"vehicleParentName":"火车",
+				"vehicleParentCode":"2",
+				"cityMoney":"933.00",
+				"specialMsg":""
+			}
+			, {
+				"busiTripUser": "吴大军",
+				"busiTripCode":"2",
+				"level": "处级正职",
+				"startDate": "2017-12-16",
+				"startAddre": "天津",
+				"endDate": "2017-12-16",
+				"endAddre": "上海",
+				"vehicleName":"高铁二等座",
+				"vehicleCode":"2",
+				"vehicleParentName":"火车",
+				"vehicleParentCode":"2",
+				"cityMoney":"553.00",
+				"specialMsg":""
+			}
+			, {
+				"busiTripUser": "吴大军",
+				"busiTripCode":"2",
+				"level": "处级正职",
+				"startDate": "2017-12-20",
+				"startAddre": "上海",
+				"endDate": "2017-12-20",
+				"endAddre": "天津",
+				"vehicleName":"高铁二等座",
+				"vehicleCode":"2",
+				"vehicleParentName":"火车",
+				"vehicleParentCode":"2",
+				"cityMoney":"553.00",
+				"specialMsg":""
+			}
+			, {
+				"busiTripUser": "赵欣",
+				"busiTripCode":"3",
+				"level": "科员",
+				"startDate": "2017-12-16",
+				"startAddre": "天津",
+				"endDate": "2017-12-16",
+				"endAddre": "上海",
+				"vehicleName":"高铁二等座",
+				"vehicleCode":"2",
+				"vehicleParentName":"火车",
+				"vehicleParentCode":"2",
+				"cityMoney":"553.00",
+				"specialMsg":""
+			}, {
+				"busiTripUser": "赵欣",
+				"busiTripCode":"3",
+				"level": "科员",
+				"startDate": "2017-12-20",
+				"startAddre": "上海",
+				"endDate": "2017-12-20",
+				"endAddre": "天津",
+				"vehicleName":"高铁二等座",
+				"vehicleCode":"2",
+				"vehicleParentName":"火车",
+				"vehicleParentCode":"2",
+				"cityMoney":"553.00",
+				"specialMsg":""
+			}
+		],
+		"hotelCost": [
+
+					{
+						"busiTripUser": "刘光国",
+						"busiTripCode":"1",
+						"level": "司级正职",
+						"avgMoney": "598.00",
+						"hotelDay": "4",
+						"hotelMoney": "2,392.00",
+						"hotelAddres": "上海",
+						"hotelAddresCode":"2",
+						"specialMsg":""
+					}, {
+
+						"busiTripUser": "吴大军",
+						"busiTripCode":"2",
+						"level": "处级正职",
+						"avgMoney": "328.00",
+						"hotelDay": "4",
+						"hotelMoney": "1,312.00",
+						"hotelAddres": "上海",
+						"hotelAddresCode":"2",
+						"specialMsg":""
+					}
+					,
+					{
+
+						"busiTripUser": "赵欣",
+						"busiTripCode":"3",
+						"level": "科员",
+						"avgMoney": "328.00",
+						"hotelDay": "4",
+						"hotelMoney": "1,312.00",
+						"hotelAddres": "上海",
+						"hotelAddresCode":"2",
+						"specialMsg":""
+					}
+				],
+		"otherCost": [],
+				"subsidyCost": [
+				      		
+								{
+									"busiTripUser": "刘光国",
+									"busiTripCode":"1",
+									"level": "局级正职",
+									"subsidyDay": "5",
+									"foodMoney": "500.00",
+									"cityTrafficMoney": "400.00"
+								}, {
+									"busiTripUser": "吴大军",
+									"busiTripCode":"2",
+									"level": "处级正职",
+									"subsidyDay": "5",
+									"foodMoney": "500.00",
+									"cityTrafficMoney": "400.00"
+								}, {
+									"busiTripUser": "赵欣",
+									"busiTripCode":"3",
+									"level": "科级",
+									"subsidyDay": "5",
+									"foodMoney": "500.00",
+									"cityTrafficMoney": "400.00"
+								}
+							]
+			}
+}

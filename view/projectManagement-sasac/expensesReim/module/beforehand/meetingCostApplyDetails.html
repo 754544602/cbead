@@ -1,0 +1,106 @@
+<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/reimApply/meetingCostApplyDetails.min.css" />
+
+	<body>
+		<div id="meetingDiv" style="padding-top: 20px;">
+			<!--标题START-->
+			<div class="label-title item" style="margin-bottom:15px;padding: 0 10px;">
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+					<span class="title-text">项目预算事项信息</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+			</div>
+			<!--标题END-->
+			<!--二级标题START-->
+			<div class="secondary-back"></div>
+			<div class="secondary-title">会议信息</div>
+			<!--二级标题END-->
+			<!--支出事项基本信息START-->
+			<div class="expenditure-matter-basic-information" style="margin-left: 27px;">
+				<table class="from-table" border="" cellspacing="" cellpadding="" style="margin-top:15px;">
+					<tbody>
+						<tr>
+							<td colspan="2">
+								<span class="field-title"><span style="letter-spacing: 5px;">会议名</span>称：</span><span id="meetName"></span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 20px;">
+								<span class="field-title"><span style="letter-spacing: 5px;">会议分</span>类：</span><span id="meetTypeName"></span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 20px;" colspan="2">
+								<span class="field-title"><span style="letter-spacing: 5px;">会议地</span>点：</span><span id="meetAddress"></span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 20px;">
+								<span class="field-title">会议开始日期：</span><span id="meetStartTime"></span>
+							</td>
+							<td style="padding-top: 20px;">
+								<span class="field-title">会议结束日期：</span><span id="meetEndTime"></span>
+							</td>
+							<td style="padding-top: 20px;">
+								<span class="field-title">会期：</span><span id="meetDays"></span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 20px;">
+								<span class="field-title"><span style="letter-spacing: 5px;">参会人</span>数：</span><span id="meetOfNum"></span>
+							</td>
+							<td style="padding-top: 20px;" colspan="2">
+								<span class="field-title">工作人员数量：</span><span id="meetWorkerNum"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--支出事项基本信息END-->
+			<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin-bottom: 20px;margin-top: 20px;"></div>
+			<!--费用明细START-->
+			<div class="label-title cost" style="margin-bottom: 10px;padding: 0 10px;">
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+					<span class="title-text">项目预算费用信息</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+			</div>
+			<div class="cost-detailed">
+				<div class="button-box min-but" style="text-align: left;padding-bottom: 10px;padding-left: 0px;">
+							<div class="secondary-back" style=""></div>
+							<div class="secondary-title" style="">
+								<span class="secondary-text" style="font-size: 16px; font-weight: bold;">费用明细</span>
+								<!--<div class="secondary-line"></div>-->
+							</div>
+						</div>
+				<table class="from-table" border="" cellspacing="" cellpadding="" style="margin-left: 27px;">
+					<tbody>
+						<tr>
+							<td>
+								<span class="field-title">住宿费（元）：</span><span id="meetHotel"></span>
+							</td>
+							<td>
+								<span class="field-title">伙食费（元）：</span><span id="meetFood"></span>
+							</td>
+							<td>
+								<span class="field-title">其他费用（元）：</span><span id="meetOther"></span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px;">
+								<span class="field-title">费用合计（元）：</span><span id="meetAmount"></span>
+							</td>
+							<td colspan="2" style="padding-top: 10px;">
+								<span class="field-title">人均日均费用金额（元/人天）：</span><span id="meetAverage"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--费用明细END-->
+		</div>

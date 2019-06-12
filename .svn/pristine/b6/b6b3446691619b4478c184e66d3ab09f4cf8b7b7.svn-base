@@ -1,0 +1,1046 @@
+var bankBillListInfo = {
+
+	//初始化方法
+	init: function() {
+		//获取列表数据
+		bankBillListInfo.getBillListInfo("2");
+		bankBillListInfo.getBankStatementDetails();
+		//返回按钮
+		$(".page-return-btn").on("click", function() {
+			window.location.href = "bankBillList.html";
+		});
+		//checkBox按钮事件
+		$(".check-box-load").on("change", function() {
+			if($('.check-sure input[type="checkbox"]').is(':checked')) {
+				debugger
+				if($('.check-cancel input[type="checkbox"]').is(':checked')) {
+					bankBillListInfo.getBillListInfo("2");
+				} else {
+					bankBillListInfo.getBillListInfo("1");
+				}
+			} else {
+				if($('.check-cancel input[type="checkbox"]').is(':checked')) {
+					bankBillListInfo.getBillListInfo("0");
+				} else {
+					$yt_baseElement.showLoading();
+					htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+						'<td colspan="18" align="center" style="border:0px;">' +
+						'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+						'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+						'</div>' +
+						'</td>' +
+						'</tr>';
+					$(".project-tbody").html(htmlTr);
+					$yt_baseElement.hideLoading();
+				}
+			}
+		})
+		$(".bank-more-div").on("click", function() {
+			$yt_baseElement.showLoading();
+			if($(".bank-more-div").text() == "查看更多") {
+				if($(".payment-list").hasClass("hide")) {} else {
+					$("#project-main").css("width", width + 1500 + "px");
+				}
+				var width = parseInt($("#project-main").css("width"));
+				$("#project-main").css("width", width + 1500 + "px");
+				$(".bank-th-hide").show();
+				$(".bank-more-div").text("收起");
+				$(".bank-more-div").css("right", "-483px")
+				var colspan = $(".bank-tbody-td").attr("colspan");
+				$(".bank-tbody-td").attr("colspan", colspan + 11);
+			} else {
+				var width = parseInt($("#project-main").css("width"));
+				$("#project-main").css("width", width - 1500 + "px");
+				$(".bank-th-hide").hide();
+				$(".bank-more-div").text("查看更多");
+				$(".bank-more-div").css("right", "0px")
+				var colspan = $(".bank-tbody-td").attr("colspan");
+				$(".bank-tbody-td").attr("colspan", colspan - 11);
+			}
+			$yt_baseElement.hideLoading();
+		});
+		//项目详情查看更多按钮
+		$(".project-more-div").on("click", function() {
+			$yt_baseElement.showLoading();
+			debugger
+			if($(".project-more-div").text() == "查看更多") {
+				var width = parseInt($("#project-main").css("width"));
+				$("#project-main").css("width", width + 385 + "px");
+				$(".project-th-hide").show();
+				$(".project-more-div").text("收起");
+				var colspan = $(".bank-tbody-td").attr("colspan");
+				$(".bank-tbody-td").attr("colspan", colspan + 3);
+			} else {
+				var width = parseInt($("#project-main").css("width"));
+				$("#project-main").css("width", width - 385 + "px");
+				$(".project-th-hide").show();
+				$(".project-more-div").text("查看更多");
+				var colspan = $(".bank-tbody-td").attr("colspan");
+				$(".bank-tbody-td").attr("colspan", colspan - 3);
+			}
+			$yt_baseElement.hideLoading();
+		});
+		//无效流水单查看更多按钮
+		$(".invalid-more-div").on("click", function() {
+			$(".invalid-hide").show();
+			$(".invalid-more-div").hide();
+		});
+		//确认入账
+		$(".account-entry-sure").on("click", function() {
+			bankBillListInfo.accountEntryInfo("1");
+		});
+		//取消入账
+		$(".account-entry-cancel").on("click", function() {
+			bankBillListInfo.accountEntryInfo("0");
+		});
+		//取消入账
+		$(".update-effective-true").on("click", function() {
+			bankBillListInfo.updateEffectiveInfo("1");
+		});
+		//取消入账
+		$(".update-effective-cancel").on("click", function() {
+			bankBillListInfo.updateEffectiveInfo("0");
+		});
+		//公布认领
+		$(".update-admission").on("click", function() {
+			bankBillListInfo.updateAdmission("1");
+		});
+		//手动入账弹窗
+		$(".admission-manual").on("click", function() {
+			//判断复选框
+			var checkLength = $(".project-tbody").find('label input[type="checkbox"]:checked').length;
+			if(checkLength == 0) {
+				$yt_alert_Model.prompt("请选择一条信息进行入账");
+				return false;
+			}
+			//手动入账弹窗方法
+			bankBillListInfo.classAlertFunc();
+		});
+		//复选框
+		//全选  
+		$(".check-all").on("click", function() {
+			//判断自己是否被选中  
+			if($(this).parent().hasClass("check")) {
+				//设置反选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("uncheck");
+			} else {
+				//调用设置选中方法,全选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("check");
+			}
+		});
+		//修改全选按钮状态
+		$(".project-tbody,.person-tbody,.company-tbody").on("change", "input[type='checkbox']", function() {
+			if($(this).parents("table").find("tbody input[type='checkbox']").length != $(this).parents("table").find("tbody input[type='checkbox']:checked").length) {
+				$(this).parents("table").find(".check-all").setCheckBoxState("uncheck");
+			} else {
+				$(this).parents("table").find(".check-all").setCheckBoxState("check");
+			}
+		});
+	},
+	//手动入账弹窗
+	classAlertFunc: function() {
+		//获取所属项目下拉列表
+		bankBillListInfo.getProjectInfo();
+		//初始化数据
+		$(".check-all").setCheckBoxState("uncheck")
+		$(".project-name-select").setSelectVal("0");
+		$(".project-name-select").niceSelect();
+		bankBillListInfo.getNoDetailedList("0");
+		bankBillListInfo.getDetailedPersonalList("0", "");
+		//下拉框change事件
+		//标识
+		var identifications = "";
+		//银行流水Id
+		var bankStatementDetailsIds = "";
+		var htmlUl = $(".accountName");
+		htmlUl.empty();
+		$(".project-tbody").find('label input[type="checkbox"]:checked').each(function(i, v) {
+			//获取对方户名
+			var otherPartyName = $(this).parents("tr").find("td.otherPartyName").text();
+			var htmlLi = '<li>' + otherPartyName + '</li>'
+			htmlUl.append(htmlLi);
+			//获取标识
+			var identification = $(this).parents("tr").find("input.identification").val();
+			//获取银行流水ID
+			var bankStatementDetailsId = $(this).parents("tr").find("input.pkId").val();
+			if(i == 0) {
+				identifications = identification;
+				bankStatementDetailsIds = bankStatementDetailsId;
+			} else {
+				identifications += "," + identification
+				bankStatementDetailsIds += "," + bankStatementDetailsId
+			}
+		})
+		//项目code
+		var projectCode = "";
+		$("select.project-name-select").change(function() {
+			if($(this).val() == "OTHER") {
+				//其他班级弹窗样式设置
+				$(".alert-table-div").hide();
+				$(".alert-div-input").hide();
+				$("#confiscate-amount").show();
+				$("#user-name").css({
+					float: "none",
+					'margin': "8px 48px 8px 84px"
+				});
+				$("#last-amount").css({
+					float: "none",
+					'margin': "8px 0px 8px 42px"
+				});
+				$("#form-class").css({
+					float: "none",
+					'margin': "8px 48px 8px 84px"
+				});
+				$(".select-teacher-div").width("auto");
+				$(".yt-edit-alert-main").height("auto");
+				$('.association-sure-btn').off().on('click', function() {
+					var uncollectedTotal = $(".uncollected-total").val();
+					bankBillListInfo.addNotReconciliations("", "", "", "", uncollectedTotal);
+				});
+				//计算弹出框位置
+				$yt_alert_Model.setFiexBoxHeight($(".select-teacher-div .yt-edit-alert-main"));
+				$yt_alert_Model.getDivPosition($(".select-teacher-div"));
+				$yt_model_drag.modelDragEvent($(".select-teacher-div .yt-edit-alert-title"));
+				$("select").niceSelect();
+			} else {
+				//弹窗样式设置
+				$(".alert-table-div").show();
+				$(".alert-div-input").show();
+				$("#confiscate-amount").hide();
+				$("#user-name").css({
+					float: "left",
+					'margin': "0px 0px 0px 20px"
+				});
+				$("#last-amount").css({
+					float: "left",
+					'margin': "0px 0px 0px 100px"
+				});
+				$("#form-class").css({
+					float: "left",
+					'margin': "0px 0px 0px 70px"
+				});
+				//初始化
+				$(".select-teacher-div").width("1100px");
+				$(".yt-edit-alert-main").height("736px");
+				//计算弹出框位置
+				$yt_alert_Model.setFiexBoxHeight($(".select-teacher-div .yt-edit-alert-main"));
+				$yt_alert_Model.getDivPosition($(".select-teacher-div"));
+				$yt_model_drag.modelDragEvent($(".select-teacher-div .yt-edit-alert-title"));
+				$("select").niceSelect();
+				//获取code
+				projectCode = $(this).val();
+				bankBillListInfo.getNoDetailedList(projectCode);
+				bankBillListInfo.getDetailedPersonalList(projectCode, "");
+				$(".search-btn").click(function() {
+					var keyword = $("#keyword").val();
+					bankBillListInfo.getDetailedPersonalList(projectCode, keyword);
+				})
+				//改变同时获取一次标识
+				if($(".payment-list").hasClass("hide") || $(".identifications-div").text() != "") {
+					var identifications = $(".identifications-div").text();
+					//获取选择项目之后的数据
+					bankBillListInfo.getProjectStatementByProjectCode(projectCode, identifications);
+				} else {
+					//标识
+					var identifications = "";
+					$(".project-tbody").find('label input[type="checkbox"]:checked').each(function(i, v) {
+						var identification = $(this).parents("tr").find("input.identification").val();
+						if(i == 0) {
+							identifications = identification;
+						} else {
+							identifications += "," + identification
+						}
+					})
+					bankBillListInfo.getProjectStatementByProjectCode(projectCode, identifications);
+				}
+			}
+		});
+
+		//关联按钮
+		$(".association-sure-btn").on("click", function() {
+			//关联的单位和个人新增的数据
+			var paymentListAdd = [];
+			$(".company-tbody,.person-tbody").find('label input[type="checkbox"]:checked').each(function() {
+				if($(this).hasClass("statement-check")) {
+
+				} else {
+					var paymentType = "";
+					var paymentValue = $(this).val();
+					if($(this).parents("tr").find("td").length > 6) {
+						paymentType = "2";
+					} else {
+						paymentType = "1";
+					}
+					var paymentListAddArr = {
+						paymentType: paymentType,
+						paymentValue: paymentValue
+					}
+					paymentListAdd.push(paymentListAddArr);
+				}
+			});
+			//关联的单位和个人删除的数据
+			var paymentListDelete = [];
+			$(".company-tbody,.person-tbody").find('input.statement-check').not("input:checked").each(function() {
+				var paymentType = "";
+				var paymentValue = $(this).val();
+				if($(this).parents("tr").find("td").length > 6) {
+					paymentType = "2";
+				} else {
+					paymentType = "1";
+				}
+				var paymentListDeleteArr = {
+					paymentType: paymentType,
+					paymentValue: paymentValue
+				}
+				paymentListDelete.push(paymentListDeleteArr);
+			});
+			//判断是否有选中的checkBox
+			//			var identifications = $(".identifications-div").text();
+			var identifications = "";
+			$(".project-tbody").find('label input[type="checkbox"]:checked').each(function(i, v) {
+				//获取标识
+				var identification = $(this).parents("tr").find("input.identification").val();
+				if(i == 0) {
+					identifications = identification;
+				} else {
+					identifications += "," + identification
+				}
+			})
+			bankBillListInfo.addNotReconciliations(projectCode, identifications, bankStatementDetailsIds, JSON.stringify(paymentListDelete), JSON.stringify(paymentListAdd), "")
+			//			try {
+			//				var bool = false;
+			//				$(".company-tbody,.person-tbody").find('input[type="checkbox"]').each(function() {
+			//					if($(this).hasClass("statement-check")) {
+			//						bool = true;
+			//					}
+			//				})
+			//			} catch(e) {
+			//				//TODO handle the exception
+			//			} finally {
+			//				if(bool) {
+			//					var identifications = $(".identifications-div").text();
+			//					bankBillListInfo.addNotReconciliations(projectCode, identifications, bankStatementDetailsIds, JSON.stringify(paymentListDelete), JSON.stringify(paymentListAdd), "")
+			//				} else {
+			//					bankBillListInfo.addNotReconciliations(projectCode, "", bankStatementDetailsIds, JSON.stringify(paymentListDelete), JSON.stringify(paymentListAdd), "")
+			//				}
+			//			}
+
+		});
+		//获取剩余未对帐金额
+		bankBillListInfo.getNotReconciliations(identifications);
+		//其他班级弹窗样式设置
+		$(".alert-table-div").show();
+		$(".alert-div-input").show();
+		$("#confiscate-amount").hide();
+		$("#user-name").css({
+			float: "left",
+			'margin': "0px 0px 0px 20px"
+		});
+		$("#last-amount").css({
+			float: "left",
+			'margin': "0px 0px 0px 100px"
+		});
+		$("#form-class").css({
+			float: "left",
+			'margin': "0px 0px 0px 70px"
+		});
+		//初始化
+		$(".select-teacher-div").width("1100px");
+		$(".yt-edit-alert-main").height("736px");
+		//显示选择所属项目弹出框
+		$(".select-teacher-div").show();
+		//查询选择所属项目列表
+		//计算弹出框位置
+		$yt_alert_Model.setFiexBoxHeight($(".select-teacher-div .yt-edit-alert-main"));
+		$yt_alert_Model.getDivPosition($(".select-teacher-div"));
+		$yt_model_drag.modelDragEvent($(".select-teacher-div .yt-edit-alert-title"));
+		$("select").niceSelect();
+		//取消按钮
+		$('.select-teacher-canel-btn').click(function() {
+			$(".yt-edit-alert,#heard-nav-bak").hide();
+			$("#pop-modle-alert").hide();
+		});
+	},
+	//提交表单
+	addNotReconciliations: function(projectCode, identifications, bankStatementDetailsIds, paymentListDelete, paymentListAdd, uncollectedTotal) {
+		$.ajax({
+			url: $yt_option.base_path + "finance/projectStatement/addNotReconciliations", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			data: {
+				projectCode: projectCode,
+				bankStatementDetailsIds: bankStatementDetailsIds,
+				identifications: identifications,
+				paymentListDelete: paymentListDelete,
+				paymentListAdd: paymentListAdd,
+				uncollectedTotal: uncollectedTotal
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称 
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("关联成功");
+						$('.person-page').pageInfo("refresh");
+						$('.page1').pageInfo("refresh");
+					});
+					$(".identifications-div").text(data.data);
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("关联失败");
+					});
+				}
+			}
+		})
+	},
+	//手动入账-选择所属项目之后获取数据
+	getProjectStatementByProjectCode: function(projectCode, identifications) {
+		$.ajax({
+			url: $yt_option.base_path + "finance/projectStatement/getProjectStatementByProjectCode", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode,
+				identifications: identifications
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称 
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					$.each(data.data, function(i, v) {
+						$(".company-tbody,.person-tbody").find('input[type="checkbox"]').each(function(j, n) {
+							if($(this).parents("tr").find("td").length < 6) {
+								if($(this).val() == v.paymentValue && v.paymentType == "1") {
+									$(this).setCheckBoxState("check");
+									$(this).addClass("statement-check")
+								}
+							} else {
+								if($(this).val() == v.paymentValue && v.paymentType == "2") {
+									$(this).setCheckBoxState("check");
+									$(this).addClass("statement-check")
+								}
+							}
+						})
+					});
+				} else {
+					$yt_alert_Model.alertOne("查询失败");
+				}
+				$yt_baseElement.hideLoading();
+			}
+		})
+	},
+	//对账单详情
+	getBankStatementDetails: function() {
+		var pkId = $yt_common.GetQueryString("pkId");
+		$.ajax({
+			url: $yt_option.base_path + "finance/bankStatement/getBankStatementDetails", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				pkId: pkId
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称 
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					$(".bill-info-table").setDatas(data.data);
+					/*无效流水单*/
+					var htmlTr = "";
+					var htmlTbody = $(".invalid-tbody");
+					var noEffectiveList = JSON.parse(data.data.noEffectiveList);
+					htmlTbody.empty();
+					$.each(noEffectiveList, function(i, v) {
+						htmlTr = '<tr>' +
+							'<td>' + (i + 1) + '</td>' +
+							'<td>' + v.exchangeHour + '</td>' +
+							'<td class="invalid-hide" style="text-align:right;display:none">' + v.draw + '</td>' +
+							'<td style="text-align:right;">' + v.income + '</td>' +
+							'<td class="invalid-hide" style="text-align:right;display:none"">' + v.balance + '</td>' +
+							'<td class="invalid-hide" style="display:none">' + v.currency + '</td>' +
+							'<td>' + v.otherPartyName + '</td>' +
+							'<td>' + v.otherPartyAccounts + '</td>' +
+							'<td>' + v.otherPartyGroup + '</td>' +
+							'<td class="invalid-hide" style="display:none">' + v.accountDate + '</td>' +
+							'<td class="invalid-hide" style="display:none">' + v.bankTradeNumber + '</td>' +
+							'<td class="invalid-hide" style="display:none">' + v.enterpriseTradeNumber + '</td>' +
+							'<td class="invalid-hide" style="display:none">' + v.voucherType + '</td>' +
+							'<td class="invalid-hide" style="display:none">' + v.voucherNo + '</td>' +
+							'<td class="invalid-hide" style="display:none">' + v.associatedAccount + '</td>' +
+							'<td class="invalid-hide" style="display:none">' + v.alias + '</td>' +
+							'<td>' + v.abstractData + '</td>' +
+							'<td>' + v.remarks + '</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+					});
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+			}
+		})
+	},
+	/**
+	 * 对账单信息列表
+	 */
+	getBillListInfo: function(isAdmission) {
+		$yt_baseElement.showLoading();
+		var keyword = $('#keyword').val();
+		var pkId = $yt_common.GetQueryString("pkId");
+		$('.page1').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/bankStatement/getBankStatementDetailsList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword,
+				pkId: pkId,
+				isAdmission: isAdmission,
+				isClaimUser: "2"
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+					if(data.data != null) {
+						var num = 0;
+						$.each(data.data.rows, function(i, v) {
+							num++;
+							if(data.data.paymentList.length != 0) {
+								$.each(data.data.paymentList, function(j, n) {
+									var bool = true;
+									if(v.identification == n.identification) {
+										htmlTr = '<tr class="' + i + '">' +
+											'<td style="text-align: center;" class="merge">' +
+											'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="pkId" value="' + v.pkId + '"/></label>' + '</td>' +
+											'<td class="merge">' + (i + 1) + '</td>' +
+											'<td class="merge">' + v.exchangeHour + '</td>' +
+											'<td class="bank-th-hide merge" style="text-align:right;display:none">' + v.draw + '</td>' +
+											'<td class="merge" style="text-align:right">' + v.income + '</td>' +
+											'<td class="bank-th-hide merge" style="text-align:right;display:none">' + v.balance + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.currency + '</td>' +
+											'<td class="otherPartyName merge">' + v.otherPartyName + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + '<input class="identification" style="display:none;" value="' + v.identification + '">' + v.otherPartyAccounts + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.otherPartyGroup + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.accountDate + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.abstractData + '</td>' +
+											'<td class="merge">' + v.remarks + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.enterpriseTradeNumber + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.voucherType + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.voucherNo + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.associatedAccount + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.alias + '</td>' +
+											'<td class="merge">' + v.bankTradeNumber + '</td>' +
+											'<td class="payment-list merge-last" style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></td>' +
+											'<td class="project-th-hide payment-list merge-last" style="display: none;">' + '<input class="identification-last" style="display:none;" value="' + n.identification + '">' + +n.projectSell + '</td>' +
+											'<td class="project-th-hide payment-list merge-last" style="display: none;">' + n.claimDate + '</td>' +
+											'<td class="payment-list merge-last">' + n.projectName + '</td>' +
+											'<td class="payment-list merge-last">' + n.projectDate + '</td>' +
+											'<td class="payment-list merge-last">' + n.traineeOrGroupName + '</td>' +
+											'<td class="project-th-hide payment-list merge-last" style="display: none;">' + n.orgName + '</td>' +
+											'<td class="payment-list merge-last" style="text-align:right;">' + n.uncollectedTotal + '</td>' +
+											'<td class="payment-list merge-last" style="text-align:right;">' + n.uncollectedTotal + '</td>' +
+											'<td class="payment-list merge-last" style="text-align:right;">' + n.admissiontotal + '</td>' +
+											'<td class="payment-list merge-last" style="text-align:right;">' + n.differencetotal + '</td>' +
+											'<td class="payment-list merge-last">' + (bankBillListInfo.confirmFunc(n.reconciliationState)) + '</td>' +
+											'<td class="payment-list merge-last">' + n.admissionConfirmUser + '</td>' +
+											'</tr>';
+										htmlTbody.append(htmlTr);
+										bool = false;
+									} else if(bool) {
+										htmlTr = '<tr class="' + i + '">' +
+											'<td style="text-align: center;" class="merge">' +
+											'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="pkId" value="' + v.pkId + '"/></label>' + '</td>' +
+											'<td class="merge">' + (i + 1) + '</td>' +
+											'<td class="merge">' + v.exchangeHour + '</td>' +
+											'<td class="bank-th-hide merge" style="text-align:right;display:none">' + v.draw + '</td>' +
+											'<td class="merge" style="text-align:right">' + v.income + '</td>' +
+											'<td class="bank-th-hide merge" style="text-align:right;display:none">' + v.balance + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.currency + '</td>' +
+											'<td class="otherPartyName merge">' + v.otherPartyName + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + '<input class="identification" style="display:none;" value="' + v.identification + '">' + v.otherPartyAccounts + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.otherPartyGroup + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.accountDate + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.abstractData + '</td>' +
+											'<td class="merge">' + v.remarks + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.enterpriseTradeNumber + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.voucherType + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.voucherNo + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.associatedAccount + '</td>' +
+											'<td class="bank-th-hide merge" style="display:none">' + v.alias + '</td>' +
+											'<td class="merge">' + v.bankTradeNumber + '</td>' +
+											'<td class="payment-list merge-last" style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></td>' +
+											'<td class="project-th-hide payment-list merge-last" style="display: none;">' + '<input class="identification-last" style="display:none;" value=""></td>' +
+											'<td class="project-th-hide payment-list merge-last" style="display: none;"></td>' +
+											'<td class="payment-list merge-last"></td>' +
+											'<td class="payment-list merge-last"></td>' +
+											'<td class="payment-list merge-last"></td>' +
+											'<td class="project-th-hide payment-list merge-last" style="display: none;"></td>' +
+											'<td class="payment-list merge-last" style="text-align:right;"></td>' +
+											'<td class="payment-list merge-last" style="text-align:right;"></td>' +
+											'<td class="payment-list merge-last" style="text-align:right;"></td>' +
+											'<td class="payment-list merge-last" style="text-align:right;"></td>' +
+											'<td class="payment-list merge-last"></td>' +
+											'<td class="payment-list merge-last"></td>' +
+											'</tr>';
+										htmlTbody.append(htmlTr);
+									}
+								});
+								if($(".payment-list").hasClass("hide")) {
+									$(".payment-list").removeClass("hide");
+									$(".payment-list-show").show();
+								}
+							} else {
+								htmlTr = '<tr>' +
+									'<td style="text-align: center;">' +
+									'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="pkId" value="' + v.pkId + '"/></label>' + '</td>' +
+									'<td>' + (i + 1) + '</td>' +
+									'<td>' + v.exchangeHour + '</td>' +
+									'<td class="bank-th-hide" style="text-align:right;display:none">' + v.draw + '</td>' +
+									'<td style="text-align:right">' + v.income + '</td>' +
+									'<td class="bank-th-hide" style="text-align:right;display:none">' + v.balance + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + v.currency + '</td>' +
+									'<td class="otherPartyName">' + v.otherPartyName + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + '<input class="identification" style="display:none;" value="' + v.identification + '">' + v.otherPartyAccounts + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + v.otherPartyGroup + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + v.accountDate + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + v.abstractData + '</td>' +
+									'<td>' + v.remarks + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + v.enterpriseTradeNumber + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + v.voucherType + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + v.voucherNo + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + v.associatedAccount + '</td>' +
+									'<td class="bank-th-hide" style="display:none">' + v.alias + '</td>' +
+									'<td>' + v.bankTradeNumber + '</td>' +
+									'<td class="payment-list" style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></td>' +
+									'<td class="project-th-hide payment-list" style="display: none;"></td>' +
+									'<td class="project-th-hide payment-list" style="display: none;"></td>' +
+									'<td class="payment-list"></td>' +
+									'<td class="payment-list"></td>' +
+									'<td class="payment-list"></td>' +
+									'<td class="project-th-hide payment-list" style="display: none;"></td>' +
+									'<td class="payment-list" style="text-align:right;"></td>' +
+									'<td class="payment-list" style="text-align:right;"></td>' +
+									'<td class="payment-list" style="text-align:right;"></td>' +
+									'<td class="payment-list" style="text-align:right;"></td>' +
+									'<td class="payment-list"></td>' +
+									'<td class="payment-list"></td>' +
+									'</tr>';
+								htmlTbody.append(htmlTr);
+								$(".payment-list").addClass("hide");
+								$(".payment-list").hide()
+								$(".bank-list-table").css("width", "100%");
+							}
+						});
+					}else{
+						$yt_baseElement.showLoading();
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="18" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						$(".project-tbody").html(htmlTr);
+						$yt_baseElement.hideLoading();
+					}
+					//合并功能
+					bankBillListInfo.mergeFunc();
+					var num = $(".project-tbody").find('label input[type="checkbox"]').length;
+					$(".num").text(num);
+
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+				$("project-tbody")
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//获取所属项目下拉列表
+	getProjectInfo: function() {
+		$yt_baseElement.showLoading();
+		var selectParam = "";
+		$.ajax({
+			async: true,
+			url: $yt_option.base_path + "finance/projectStatement/getProjects", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					if(data.data && data.data && data.data.length > 0) {
+						//遍历给下拉框添加数据
+						$.each(data.data, function(i, v) {
+							$("select.project-name-select").append($('<option value="' + v.projectCode + '">' + v.projectName + '</option>'));
+						});
+						$('select.project-name-select').niceSelect();
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+						$yt_baseElement.hideLoading();
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+		});
+	},
+	/**
+	 * 弹窗单位信息列表
+	 */
+	getNoDetailedList: function(projectCode) {
+		$.ajax({
+			url: $yt_option.base_path + "finance/settlement/getNoDetailedList", //ajax访问路径  
+			async: false,
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.company-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+					if(data.data.length > 0) {
+						$.each(data.data, function(i, v) {
+							htmlTr = '<tr>' +
+								'<td style="text-align: center;">' +
+								'<label class="check-label yt-checkbox unit-checkbox"><input type="checkbox" name="test" class="groupId" value="' +
+								v.groupId + '"/></label>' + '</td>' +
+								'<td style="text-align:left">' + v.groupName + '</td>' +
+								'<td style="text-align:right">' + v.amountReceivable + '</td>' +
+								'<td style="text-align:right">' + v.netReceipts + '</td>' +
+								'<td style="text-align:right">' + v.uncollected + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					} else {
+						htmlTbody.html("");
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="5" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 弹窗个人信息列表
+	 */
+	getDetailedPersonalList: function(projectCode, keyword) {
+
+		$(".person-page").pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			async: false,
+			url: $yt_option.base_path + "finance/settlement/getDetailedPersonalList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode,
+				selectParam: keyword,
+				trainingExpenseStart: "",
+				trainingExpenseEnd: "",
+				traineeNegotiatedPriceStart: "",
+				traineeNegotiatedPriceEnd: "",
+				quarterageStart: "",
+				quarterageEnd: "",
+				mealFeeStart: "",
+				mealFeeEnd: "",
+				otherChargesStart: "",
+				otherChargesEnd: "",
+				uncollectedStart: "",
+				uncollectedEnd: "",
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.person-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							htmlTr = '<tr>' +
+								'<td style="text-align: center;">' +
+								'<label class="check-label yt-checkbox personal-checkbox"><input type="checkbox" value="' +
+								v.traineeId + '"/></label>' + '</td>' +
+								'<td>' + v.groupNum + '</td>' +
+								'<td>' + v.realName + '</td>' +
+								'<td>' + v.gender + '</td>' +
+								'<td style="text-align:left">' + v.groupName + '</td>' +
+								'<td style="text-align:left">' + v.groupOrgName + '</td>' +
+								'<td style="text-align:right">' + v.smallPlan + '</td>' +
+								'<td style="text-align:right">' + v.moneyTotal + '</td>' +
+								'<td style="text-align:right">' + v.uncollected + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					} else {
+						htmlTbody.html("");
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//获取剩余未对帐金额
+	getNotReconciliations: function(identifications) {
+		$.ajax({
+			url: $yt_option.base_path + "finance/projectStatement/getNotReconciliations", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				identifications: identifications
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称 
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					$(".not-reconciliations").text(data.data.notReconciliations);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+			}
+		})
+	},
+	//确认入账&取消入账
+	accountEntryInfo: function(isAdmission) {
+		var pkIds = "";
+		$(".project-tbody").find('label input[type="checkbox"]:checked').each(function(i, v) {
+			//获取选中状态行的数据
+
+			var pkId = $(this).val();
+			if(i == 0) {
+				pkIds = pkId;
+			} else {
+				pkIds += "," + pkId
+			}
+			//存储数据到外部数组
+		});
+		if(pkIds == "") {
+			$yt_alert_Model.prompt("请选中对账单进行操作");
+		} else {
+			$.ajax({
+				type: "post",
+				url: $yt_option.base_path + "finance/bankStatement/updateAdmission",
+				data: {
+					pkIds: pkIds,
+					isAdmission: isAdmission
+				},
+				success: function(data) {
+					if(data.flag == 0) {
+						$yt_baseElement.hideLoading(function() {
+							if(isAdmission == 1) {
+								$yt_alert_Model.prompt("确认入账成功");
+							} else {
+								$yt_alert_Model.prompt("取消入账成功");
+							}
+						});
+						$('.page-info').pageInfo("refresh");
+					} else {
+						$yt_baseElement.hideLoading(function() {
+							if(isAdmission == 1) {
+								$yt_alert_Model.prompt("确认入账失败");
+							} else {
+								$yt_alert_Model.prompt("取消入账失败");
+							}
+						});
+					}
+					$(".bank-list-table").find(".check-all").setCheckBoxState("uncheck");
+				}
+			});
+		}
+
+	},
+	//标记有效&标记无效
+	updateEffectiveInfo: function(isEffective) {
+		var pkIds = "";
+		$(".project-tbody").find('label input[type="checkbox"]:checked').each(function(i, v) {
+			//获取选中状态行的数据
+			var pkId = $(this).val();
+			if(i == 0) {
+				pkIds = pkId;
+			} else {
+				pkIds += "," + pkId
+			}
+			//存储数据到外部数组
+		});
+		if(pkIds == "") {
+			$yt_alert_Model.prompt("请选中对账单进行操作");
+		} else {
+			$.ajax({
+				type: "post",
+				url: $yt_option.base_path + "finance/bankStatement/updateEffective",
+				data: {
+					pkIds: pkIds,
+					isEffective: isEffective
+				},
+				success: function(data) {
+					if(data.flag == 0) {
+						$yt_baseElement.hideLoading(function() {
+							if(isEffective == 1) {
+								$yt_alert_Model.prompt("标记有效成功");
+							} else {
+								$yt_alert_Model.prompt("标记无效成功");
+							}
+						});
+						$('.page-info').pageInfo("refresh");
+					} else {
+						$yt_baseElement.hideLoading(function() {
+							if(isEffective == 1) {
+								$yt_alert_Model.prompt("标记有效失败");
+							} else {
+								$yt_alert_Model.prompt("标记无效失败");
+							}
+						});
+					}
+					$(".bank-list-table").find(".check-all").setCheckBoxState("uncheck");
+				}
+			});
+		}
+
+	},
+	//公布认领
+	updateAdmission: function(isPublish) {
+		var pkIds = "";
+		$(".project-tbody").find('label input[type="checkbox"]:checked').each(function(i, v) {
+			//获取选中状态行的数据
+
+			var pkId = $(this).val();
+			if(i == 0) {
+				pkIds = pkId;
+			} else {
+				pkIds += "," + pkId
+			}
+			//存储数据到外部数组
+		});
+		if(pkIds == "") {
+			$yt_alert_Model.prompt("请选中对账单进行操作");
+		} else {
+			$.ajax({
+				type: "post",
+				url: $yt_option.base_path + "finance/bankStatement/updateAdmission",
+				data: {
+					pkIds: pkIds,
+					isPublish: isPublish
+				},
+				success: function(data) {
+					if(data.flag == 0) {
+						$yt_baseElement.hideLoading(function() {
+							$yt_alert_Model.prompt("认领成功");
+						});
+						$('.page-info').pageInfo("refresh");
+					} else {
+						$yt_baseElement.hideLoading(function() {
+							$yt_alert_Model.prompt("认领失败");
+						});
+					}
+					$(".bank-list-table").find(".check-all").setCheckBoxState("uncheck");
+				}
+
+			});
+		}
+
+	},
+	//合并功能
+	mergeFunc: function() {
+		var trClass = "";
+		//		var identificationLast = "";
+		var num = 1;
+		//		var num2 = 1;
+		$(".project-tbody").children().each(function() {
+			try {
+				if(trClass == $(this).attr("class")) {
+					$(this).find("td.merge").remove();
+					num++;
+				}
+				//				if(identificationLast == $(this).find("input.identification-last").val()){
+				//					$(this).find("td.merge-last").remove();
+				//					num2++;
+				//				}
+			} catch(e) {
+				//TODO handle the exception
+			} finally {
+				trClass = $(this).attr("class")
+				//				identificationLast = $(this).find("input.identification-last").val();
+				$("tr." + trClass).find("td.merge").attr("rowspan", num);
+				//				if($("input.identification-last").val() == identificationLast){
+				//					
+				//				}
+			}
+		});
+	},
+	//入账确认
+	confirmFunc: function(confirm) {
+		if(confirm == 1) {
+			return "已入账";
+		} else if(confirm == 0) {
+			return "未入账";
+		}
+	},
+}
+$(function() {
+	//初始化方法
+	bankBillListInfo.init();
+});

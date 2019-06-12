@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/newRuleTable.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/jquery-easyui-1.5.1/themes/default/easyui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/jquery-easyui-1.5.1/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/budget/module/expenditure/budgetStatistics.min.css?YTVERSIONCODE=2018052501"/>
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style type="text/css">
+			.tab-td-num tr td{
+				text-align: center;
+				color: #FFFFFF;
+				background: #0000FF;
+			}
+			.td-num-sty{
+				background: #417095;
+				color: #FFFFFF;
+				height: 25px !important;
+				line-height: 25px;
+			}
+			.config-thead tr th.config-btn,.config-table tr td.config-btn{
+				background: #417095;
+				font-size: 12px;
+			}
+			.config-table tr th,.config-thead tr th div{
+				text-align: center;
+				font-size: 12px;
+			}
+			.config-table tr td{
+				font-size: 12px;
+			}
+			.yt-tbody tr{
+				border: none;
+			}
+			.yt-tbody td{
+				border: 1px solid #DFE6F3;
+			}
+			table td .yt-input{
+				width: 100%;
+			}
+			 /*滚动条样式*/
+	        ::-webkit-scrollbar {/*滚动条整体样式*/
+	            width:6px;     /*高宽分别对应横竖滚动条的尺寸*/
+	            height:6px;
+	        }
+	        ::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+	            background: #97C7ED;
+	        }
+	        ::-webkit-scrollbar-track {/*滚动条里面轨道*/
+	            background: #c8c8c8;
+	        }
+			.no-select-table{
+			    text-align: center;
+			    position: absolute;
+			    top: 44%;
+			    left: 0;
+			    right: 0;
+			}
+			.btn-group-model{
+				display: none;
+				padding: 10px 0px;
+			    position: absolute;
+			    width: 100%;
+			    background: #fff;
+			}
+			.config-table tbody tr td{
+				height: 16px;
+			}
+			.tr-title td{
+       			font-weight: bold;
+       		}
+       		
+       		.yt-tbody .td-pad1{
+       			text-align: left;
+       		}
+       		.yt-tbody .td-pad2{
+       			text-align: left;
+       			padding-left: 20px ;
+       		}
+       		.yt-tbody .td-pad3{
+       			text-align: left;
+       			padding-left: 40px;
+       		}
+       		.yt-tbody .td-pad4{
+       			text-align: left;
+       			padding-left: 60px;
+       		}
+       		.yt-tbody .td-pad5{
+       			text-align: left;
+       			padding-left: 80px;
+       		}
+       		.tr-title3{
+       			font-weight: bold;
+       		}
+       		.td-r{
+       			text-align: right !important;
+       		}
+       		.rule-table-div{
+       			max-height: none;
+       			overflow: inherit;
+       		}
+       		.btn-group-model{
+       			position: relative;
+       		}
+		</style>
+	</head>
+	<body>
+		<!--预算列表显示区域START-->
+		<!--<div class="easyui-layout" style="">
+				<div data-options="region:'north',split:true" style="height: 260px;">
+				 	<div style="margin-top: 10px;">
+				 	    <div  class="tab-content" style="display: block;">
+				 	    	<table class="yt-table" id="table-list" style="width: 100%;">
+						 	    <thead class="yt-thead">
+						 	    	<tr>
+						 	    		<th width="100px" align="center">预算表编号</th>
+						 	    		<th width="100px" align="center">预算表类别</th>
+						 	    		<th align="center">预算表名称</th>
+						 	    		<th width="90px" align="center">上次修改人</th>
+						 	    		<th width="160px" align="center">上次修改时间</th>
+						 	    	</tr>
+						 	    </thead>
+						 	    <tbody class="yt-tbody"></tbody>
+						 	</table>
+				 	    </div>
+			 	   </div>
+				</div>
+			<div data-options="region:'center'" class="table-config">
+			</div>
+		</div>-->
+		<!--操作按钮区域START-->
+		<div class="btn-group-model">
+			<div style="text-align: center;padding-bottom: 20px;">
+				<label class="tab-name" style="margin-top: 10px;display: inline-block;"></label>
+				<button class="yt-option-btn yt-reset-btn page-retun-btn" style="float: right;display: inline;margin-right: 10px;">返回</button>
+			</div>
+			<div class="tab-heard-model">
+				<button class="yt-option-btn yt-common-btn edit-btn">编辑</button>
+				<button class="yt-option-btn yt-common-btn init-save-btn">保存</button>
+				<button class="yt-option-btn yt-common-btn init-calculate-btn">计算</button>
+				<button class="yt-option-btn yt-cancel-btn init-cancel-btn">取消</button>
+				<span id="tableDescribe" style="float: right;">单位：万元</span>
+			</div>
+		</div>
+		<!--操作按钮区域END-->
+		<!--表预览显示区域START-->
+		<div id="" style="">
+			<div id="createConfigTableDiv" style=""></div>
+			<!--<div class="no-select-table">尚未选择预算表，请在上方选择预算表</div>-->
+			<div class="no-select-table">数据正在加载，请稍候...</div>
+		</div>
+		<!--预览区域END-->
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-valid.min.js" ></script>
+	<script src="../../../../../resources-sasac/js/common/newTable.min.js" type="text/javascript" charset="utf-8"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<!--引用JS文件END-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/budget/module/expenditure/budgetStatistics.min.js?YTVERSIONCODE=2018052501"></script>
+</html>

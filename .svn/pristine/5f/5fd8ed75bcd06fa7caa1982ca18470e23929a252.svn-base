@@ -1,0 +1,332 @@
+var costInfo = {
+	//初始化方法
+	init: function() {
+		debugger
+		var num = $yt_common.GetQueryString("num");
+		if(num == 1 || num == 3) {
+			costInfo.getcostInfo();
+		} else {
+			//加载项目列表projectName
+			costInfo.getProjectInfo();
+			//下拉列表刷新
+			$("select").niceSelect();
+		};
+		//点击返回
+		$('.page-return-btn').on('click', function() {
+			if(num == "3") {
+				window.location.href = "applyQueryList.html";
+			} else {
+				window.location.href = "borrowList.html";
+			}
+
+		});
+	},
+	//申请记录跳转页面获取一条信息
+	getcostInfo: function() {
+		var pkId = $yt_common.GetQueryString("pkId");
+		//显示整体框架loading的方法
+		$yt_baseElement.showLoading();
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/reduction/getBeanById",
+			async: true,
+			data: {
+				pkId: pkId
+			},
+			objName: 'data',
+			success: function(data) {
+				//hide
+				$yt_baseElement.hideLoading();
+				if(data.flag == 0) {
+					var v = data.data;
+					$('.create-user').text(v.createUser);
+					$('.dept-name').text(v.deptName);
+					$('.create-time-string').text(v.createTimeString);
+					$('.post-remission-money').text(v.postRemissionMoney);
+					$('.remission-cause').text(v.remissionCause);
+					$('.project-code').text(v.projectCode);
+					$('.project-name').text(v.projectName);
+					$('.project-type').text((costInfo.projectTypeInfo(v.projectType)));
+					$('.project-head').text(v.projectHead);
+					$('.class-teacher').text(v.classTeacher);
+					$('.start-date').text(v.startDate);
+					$('.end-date').text(v.endDate);
+					$('.work-flaw-state').text(v.workFlawState);
+					var reductionDetailsJSON = $.parseJSON(v.reductionDetails)
+					var htmlTr = "";
+					var htmlTbody = $(".project-tbody");
+					htmlTbody.html("");
+					//遍历所属项目
+					$.each(reductionDetailsJSON, function(i, v) {
+						htmlTr += '<tr>' +
+							'<td class="types" style="text-align: center;">' + costInfo.costTypeInfo(v.types) + '</td>' +
+							'<td style="text-align: center;">' + v.reductionExemption + '</td>' +
+							'<td style="text-align: center;">' + v.preReliefStandard + '</td>' +
+							'<td style="text-align: center;">' + v.postRemissionStandard + '</td>' +
+							'<td style="text-align: center;">' + v.postRemissionMoney + '</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+					});
+					//遍历审批流程信息
+					//流程
+					var flowLog = JSON.parse(v.flowLog);
+					var middleStepHtml;
+					var length = flowLog.length;
+					var deleteReasons = "";
+					var tastName;
+					$.each(flowLog, function(i, v) {
+						if(v.deleteReason == "completed") {
+							deleteReasons = "同意";
+						};
+						if(v.deleteReason == "returnedSubmit") {
+							deleteReasons = "退回到审批人";
+						};
+						if(v.deleteReason == "refusedToApproval") {
+							deleteReasons = "拒绝";
+						}
+						if(v.deleteReason == "submited") {
+							deleteReasons = "提交";
+						}
+						tastName = v.taskName + deleteReasons;
+
+						if(i > 0) {
+							$('.middle-step-box-div').css("border-left", "8px solid #B5C2D4");
+						}
+						var order = length - i;
+						middleStepHtml = '<div>' +
+							'<div>' +
+							'<div class="number-name-box">' +
+							'<span class="number-box-span middle-step-order middle-a-index" >' + order + '</span>' +
+							'<span class="name-box-span middle-step-userName middle-a-index" >' + v.userName + '</span>' +
+							'<img src="../../resources/images/open/openFlow.png" class="order-img" />' +
+							'</div>' +
+							'</div>' +
+							'<div class="middle-step-box-div" style="border: none;">' +
+							'<ul class="middle-step-box-ul">' +
+							'<li style="height: 30px;">' +
+							'<span  class="middle-step-taskName view-taskName-span operation-state"  style="float: left;">' + tastName + '</span>' +
+							'</li>' +
+							'<li class="view-time-li middle-step-commentTime"style="width: auto;white-space:nowrap;"  >' + v.commentTime + '</li>' +
+							'<li class="operate-view-box-li">' +
+							'<div class="operate-view-title-li">操作意见：</div>' +
+							'<div class="operate-view-text-li middle-step-comment">' + v.comment + '</div>' +
+							'</li>' +
+							'</ul>' +
+							'</div>' +
+							'</div>';
+						$('.first-step').before(middleStepHtml);
+					});
+					$yt_baseElement.hideLoading();
+
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+				var operationState = $('.operation-state').text();
+				if(operationState == "") {
+					$('.operationState').text("操作状态");
+				};
+				var remissionCause = $('.remission-cause').text();
+				if(remissionCause == "") {
+					$('.remission-cause-div').css("float", "none");
+				};
+			}
+		});
+	},
+	//审批记录跳转页面获取一条信息
+	getcostInfoEditable: function() {
+		var pkId = $yt_common.GetQueryString("pkId");
+		//显示整体框架loading的方法
+		$yt_baseElement.showLoading();
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/reduction/getBeanById",
+			async: true,
+			data: {
+				pkId: pkId
+			},
+			objName: 'data',
+			success: function(data) {
+				//hide
+				$yt_baseElement.hideLoading();
+				if(data.flag == 0) {
+					var v = data.data;
+					var projectName = v.projectName;
+					$('.create-user').text(v.createUser);
+					$('.dept-name').text(v.deptName);
+					$('.create-time-string').text(v.createTimeString);
+					$('.project-code').text(v.projectCode);
+					$('.remission-cause').text(v.remissionCause);
+					$('.project-type').text((costInfo.projectTypeInfo(v.projectType)));
+					$('.project-head').text(v.projectHead);
+					$('.class-teacher').text(v.classTeacher);
+					$('.start-date').text(v.startDate);
+					$('.end-date').text(v.endDate);
+					$('.work-flaw-state').text(v.workFlawState);
+					var reductionDetailsJSON = $.parseJSON(v.reductionDetails)
+					var htmlTr = "";
+					var htmlTbody = $(".project-tbody");
+					htmlTbody.html("");
+					//遍历所属项目
+					$.each(reductionDetailsJSON, function(i, n) {
+						htmlTr += '<tr>' +
+							'<td class="types" style="text-align: center;">' + costInfo.costTypeInfo(n.types) + '</td>' +
+							'<td style="text-align: center;">' + n.reductionExemption + '</td>' +
+							'<td style="text-align: center;">' + n.preReliefStandard + '</td>' +
+							'<td style="text-align: center;">' + n.postRemissionStandard + '</td>' +
+							'<td style="text-align: center;">' + n.postRemissionMoney + '</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+					});
+					//给下拉框赋值
+					$("select.project-name-select").setSelectVal(v.projectCode);
+					$("select").niceSelect();
+					//遍历审批流程信息
+					if(v.flowlog != undefined) {
+						//流程
+						var flowLog = JSON.parse(v.flowLog);
+						var middleStepHtml;
+						var length = flowLog.length;
+						var deleteReasons = "";
+						var tastName;
+						$.each(flowLog, function(i, v) {
+							if(v.deleteReason == "completed") {
+								deleteReasons = "同意";
+							};
+							if(v.deleteReason == "returnedSubmit") {
+								deleteReasons = "退回到审批人";
+							};
+							if(v.deleteReason == "refusedToApproval") {
+								deleteReasons = "拒绝";
+							}
+							if(v.deleteReason == "submited") {
+								deleteReasons = "提交";
+							}
+							tastName = v.taskName + deleteReasons;
+							if(i > 0) {
+								$('.middle-step-box-div').css("border-left", "8px solid #B5C2D4");
+							}
+							var order = length - i;
+							middleStepHtml = '<div>' +
+								'<div>' +
+								'<div class="number-name-box">' +
+								'<span class="number-box-span middle-step-order middle-a-index" >' + order + '</span>' +
+								'<span class="name-box-span middle-step-userName middle-a-index" >' + v.userName + '</span>' +
+								'<img src="../../resources/images/open/openFlow.png" class="order-img" />' +
+								'</div>' +
+								'</div>' +
+								'<div class="middle-step-box-div" style="border: none;">' +
+								'<ul class="middle-step-box-ul">' +
+								'<li style="height: 30px;">' +
+								'<span  class="middle-step-taskName view-taskName-span operation-state"  style="float: left;">' + tastName + '</span>' +
+								'</li>' +
+								'<li class="view-time-li middle-step-commentTime"style="width: auto;white-space:nowrap;"  >' + v.commentTime + '</li>' +
+								'<li class="operate-view-box-li">' +
+								'<div class="operate-view-title-li">操作意见：</div>' +
+								'<div class="operate-view-text-li middle-step-comment">' + v.comment + '</div>' +
+								'</li>' +
+								'</ul>' +
+								'</div>' +
+								'</div>';
+							$('.first-step').before(middleStepHtml);
+						});
+					}
+					$yt_baseElement.hideLoading();
+
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+				var operationState = $('.operation-state').text();
+				if(operationState == "") {
+					$('.operationState').text("操作状态");
+				};
+				var remissionCause = $('.remission-cause').text();
+				if(remissionCause == "") {
+					$('.remission-cause-div').css("float", "none");
+				};
+			}
+		});
+	},
+	//获取项目下拉列表
+	getProjectInfo: function() {
+		var selectParam = "";
+		$.ajax({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/reduction/lookForAllProject", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					if(data.data && data.data && data.data.length > 0) {
+						//遍历给下拉框添加数据
+						$.each(data.data, function(i, v) {
+							$("select.project-name-select").append($('<option class="project-name-option" value="' + v.projectCode + '">' + v.projectName + '</option>').data("costData", v));
+						});
+						$('select.project-name-select').niceSelect();
+						costInfo.getcostInfoEditable();
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+		});
+
+	},
+	//项目类型设置
+	projectTypeInfo: function(code) {
+		if(code == 1) {
+			return "计划";
+		} else if(code == 2) {
+			return "委托";
+		} else if(code == 3) {
+			return "选学";
+		} else if(code == 4) {
+			return "调训";
+		} else {
+			return '';
+		};
+	},
+	//费用类型设置
+	costTypeInfo: function(code) {
+		if(code == 1) {
+			return "培训费";
+		} else if(code == 2) {
+			return "课程费";
+		} else if(code == 3) {
+			return "住宿费";
+		} else if(code == 4) {
+			return "餐费";
+		} else if(code == 5) {
+			return "杂费";
+		} else if(code == 6) {
+			return "场地使用费";
+		} else if(code == 7) {
+			return "会务费";
+		} else if(code == 8) {
+			return "其他";
+		} else {
+			return '';
+		};
+	},
+}
+$(function() {
+	//初始化方法
+	costInfo.init();
+
+});

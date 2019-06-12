@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--提示信息控件-->
+        <link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" />  	
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/finalApply/fianlApproveList.min.css?YTVERSIONCODE=111" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style type="text/css">
+			.tl{
+				text-align: left !important;
+			}
+			.center-line {
+			    margin: 0 10px;
+			    color: #417095;
+			}
+			
+			.flow-win-bottom{
+			    border: none !important; 
+			}
+			.imgBox{
+				padding-top: 20px;
+				height: 360px;
+			}
+			.flowWindow .yt-eidt-model-bottom {
+				width: 100%;
+				position: absolute;
+				bottom:4%;
+			}
+			#reimApproList{
+				min-width: 1030px;
+			}
+			.yt-table{
+				table-layout: auto;
+			}
+			.clearImg{
+				left: 330px;
+			}
+			.tab-header .print-btn{
+				position: relative;
+			    margin-left: 10px;
+			    right: 10px;
+			    top: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="reimApproList">
+			<!--顶部条件查询START-->
+			<div class="head-div">
+				<span class="sel-text">关键字：</span>
+				<input type="text" class="yt-input search" id="keywordInput" style="width: 250px;" placeholder="请输入关键字" />
+				<img class="clearImg" src="../../../../../resources-sasac/images/system/expensesReim/common/sc_ret.png" />
+				<button class="yt-option-btn yt-search-btn" onselectstart="return false" id="heardSearchBtn" style="margin-left: 12px;">查询 </button>
+				<button class="yt-option-btn yt-reset-btn" id="resetBtn" >重置</button>
+			</div>
+			<!--顶部条件查询END-->
+			<!--数据展示区域START-->
+			<div class="tab-div">
+				<!--tab标签START-->
+				<div class="tab-header">
+					<ul>
+						<li class="tab-li active-li" style="border-left: none;"><input type="hidden" value="WF_SUSPENDING_QUERY_SQL_PARAMS" />待处理</li>
+						<li class="tab-li"><input type="hidden" value="WF_SOLVED_QUERY_SQL_PARAMS" />已处理</li>
+						<li class="tab-li"><input type="hidden" value="WF_COMPLETED_QUERY_SQL_PARAMS" />已完结</li>
+					</ul>
+					<div style="float: right;display: inline;">
+						<button class="yt-option-btn yt-search-btn print-btn" id="printBeforBtn" value="printBills">打印事前申请单</button>
+					</div>
+				</div>
+				<!--tab标签END-->
+				<!--第一页  待处理-->
+				<div class="tab-content check">
+					<table class="yt-table wait-table"  style="width: 100%;">
+						<thead class="yt-thead">
+							<tr>
+								<th style="width: 160px;">单据编号</th>
+								<th>申请事由</th>
+								<th style="width: 160px;">支出总金额（元）</th>
+								<th style="width: 160px;">收入总金额（元）</th>
+								<th style="width: 80px;">申请人</th>
+								<th style="width: 80px;">申请部门</th>
+								<th style="width: 100px;">停滞时间</th>
+								<!--<th style="width: 60px;">状态</th>-->
+								<th style="width: 100px;">操作</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<!--<tr>
+								<td><a class="yt-link to-detail" fun="showTrainFun">AD2018418001</a></td>
+								<td style="text-align: left;">招待人工智能科学宣讲团教授</td>
+								<td style="text-align: right;">1,000.00</td>
+								<td>魏业科</td>
+								<td>业务处</td>
+								<td>2018-05-16</td>
+								
+								<td><a class="yt-link apprv-btn" fun="showTrainFun">审批</a><span style="padding: 0 6px;color: #417095;" class="dis">|</span><a class="yt-link log-mod" data-hasqtip="0">日志</a></td>
+							</tr>
+							<tr>
+								<td><a class="yt-link to-detail" fun="showMettingFun">AD2018418005</a></td>
+								<td style="text-align: left;"></td>
+								<td style="text-align: right;">12,200,000.00</td>
+								<td>魏业科</td>
+								<td>业务处</td>
+								<td>2018-05-14</td>
+								
+								<td><a class="yt-link apprv-btn" fun="showMettingFun">审批</a><span style="padding: 0 6px;color: #417095;" class="dis">|</span><a class="yt-link log-mod" data-hasqtip="0">日志</a></td>
+							</tr>-->
+						</tbody>
+					</table>
+					<div class="page-info table-page page1" onselectstart="return false"></div>
+				</div>
+				<!--第二页  已处理,已完结-->
+				<div class="tab-content" style="display: none;">
+					  <table class="yt-table end-table" style="width: 100%;">
+						<thead class="yt-thead">
+							<tr>
+								<th style="width: 160px;">单据编号</th>
+								<th>申请事由</th>
+								<th style="width: 160px;">支出总金额（元）</th>
+								<th style="width: 160px;">收入总金额（元）</th>
+								<th style="width: 80px;">申请人</th>
+								<th style="width: 80px;">申请部门</th>
+								<th style="width: 100px;" class="process-state-th">当前状态</th>
+								<th style="width: 100px;" class="applicant-time-th">最新修改日期</th>
+								<th style="width: 100px;" class="app-state-td">状态</th>
+								<th style="width: 100px;">操作</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<!--<tr>
+								<td><a class="yt-link to-detail">AD2018418001</a></td>
+								<td style="text-align: left;">招待人工智能科学宣讲团教授</td>
+								<td style="text-align: right;">1,000.00</td>
+								<td>魏业科</td>
+								<td>业务处</td>
+								<td>2018-05-16</td>
+								<td class="app-state-td">已修改</td>
+								<td><a class="yt-link log-mod" data-hasqtip="5">日志</a></td>
+							</tr>
+							<tr>
+								<td><a class="yt-link to-detail">AD2018418005</a></td>
+								<td style="text-align: left;">举办中美高科技设备培训</td>
+								<td style="text-align: right;">1,200,000.00</td>
+								<td>魏业科</td>
+								<td>业务处</td>
+								<td>2018-05-14</td>
+								<td class="app-state-td">未修改</td>
+								<td><a class="yt-link log-mod" data-hasqtip="5">日志</a></td>
+							</tr>-->
+						</tbody>
+					</table>
+					<div class="page-info table-page page2" onselectstart="return false"></div>
+				</div>
+				<!--第三页  已完结-->
+				<div class="tab-content" style="display: none;"></div>
+				<!--第四页  草稿箱-->
+				<div class="tab-content" style="display: none;"></div>
+			</div>
+			<!--数据展示区域END-->
+			<!--流程弹窗-->
+			<div class="yt-pop-model yt-edit-alert flowWindow" style=" left: 61px; top: 82px;">
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-icon"><img src="../../../../../resources-sasac/images/common/loop.png"></span>
+					<span class="yt-edit-alert-title-msg">当前环节</span>
+				</div>
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<!--<div class="imgBox"><img src="http://192.168.1.61:3365/activiti-design/restful/workFlow/findPngByProcessInstanceId?processInstanceId=287676"></div>-->
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom flow-win-bottom">
+						<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="关闭">
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--流程弹窗END-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script> 
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/finalApply/finalApproveList.min.js?YTVERSIONCODE=2018070901"></script><!--?YTVERSIONCODE=20180422-->
+	<!--引用JS文件END-->
+</html>

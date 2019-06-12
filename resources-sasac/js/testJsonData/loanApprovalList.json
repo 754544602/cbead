@@ -1,0 +1,20 @@
+{
+	"flag": 0,
+	"data": {
+		"total": 100,
+		"rows": [
+			{
+				"formNum": "BXH20180310",
+				"loanReason": "出差",
+				"formPeo": "魏业科",
+				"depart": "研发部",
+				"loanMon": "2000",
+				"payType": "现金",
+				"lifeOfLoan": "一个月",
+				"applyTime": "2018-03-10",
+				"nodeNowState": "待部门主管领导审批",
+				"operate": "审核"
+			}
+		]
+	}
+}

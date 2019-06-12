@@ -1,0 +1,375 @@
+var curriculumList = {
+	//初始化方法
+	init: function() {
+		//点击费用减免
+		$('.cost-btn').click(function() {
+			//初始化模糊查询输入框
+			$('#keyword').val("");
+			//显示减免列表
+			$('.reduce-list').show();
+			$(".list-title").text("费用减免列表")
+			//隐藏发票列表
+			$('.borrow-list').hide();
+			curriculumList.getPlanListInfo();
+		});
+		//点击发票借用
+		$('.borrow-btn').click(function() {
+			//初始化模糊查询输入框
+			$('#keyword').val("");
+			//显示发票列表
+			$('.reduce-list').hide();
+			//隐藏减免列表
+			$('.borrow-list').show();
+			$(".list-title").text("借用发票列表")
+			curriculumList.getBorrowListInfo();
+		});
+		//判断加载列表
+		var first = $yt_common.GetQueryString("first");
+		if(first == null) {
+			$('#operate-type').val("减免");
+			//显示减免列表
+			$('.reduce-list').show();
+			$(".list-title").text("费用减免列表")
+			//隐藏发票列表
+			$('.borrow-list').hide();
+			curriculumList.getPlanListInfo();
+		} else if(first == "cost") {
+			$(".cost-btn").addClass("active").siblings().removeClass("active");
+			$('#operate-type').val("减免");
+			//显示发票列表
+			$('.reduce-list').show();
+			$(".list-title").text("费用减免列表")
+			//隐藏减免列表
+			$('.borrow-list').hide();
+			curriculumList.getPlanListInfo();
+		} else if(first == "borrow") {
+			$(".borrow-btn").addClass("active").siblings().removeClass("active");
+			$('#operate-type').val("发票");
+			//隐藏减免列表
+			$('.reduce-list').hide();
+			//显示发票列表
+			$('.borrow-list').show();
+			$(".list-title").text("借用发票列表")
+			curriculumList.getBorrowListInfo();
+		};
+		var operate;
+		$(".tab-title-list button").click(function() {
+			$(this).addClass("active").siblings().removeClass("active");
+			operate = $(this).text();
+			//curriculumList.getPlanListInfo();
+			//operate为1查询免检列表，
+			if(operate == "• 费用减免") {
+				$('#operate-type').val("减免");
+				//显示减免列表
+				$('.reduce-list').show();
+				$(".list-title").text("费用减免列表")
+				//隐藏发票列表
+				$('.borrow-list').hide();
+				curriculumList.getPlanListInfo();
+			};
+			//operate为2查询发票列表，
+			if(operate == "• 借用发票") {
+				$('#operate-type').val("发票");
+				//隐藏减免列表
+				$('.reduce-list').hide();
+				//显示发票列表
+				$('.borrow-list').show();
+				$(".list-title").text("借用发票列表")
+				curriculumList.getBorrowListInfo();
+			};
+
+		});
+		//点击删除 班级  
+		$(".delete-couse-btn").on('click', function() {
+			if($(".yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择要删除的数据");
+				return false;
+			}
+			if($(".yt-table-active").find("td.workFlawState").text() == "审批中") {
+				$yt_alert_Model.prompt("该记录正在审批中，不可删除");
+				return false;
+			}
+			operate = $('#operate-type').val();
+			var path = "";
+			var pkId = $('.yt-table-active .pkId').text();
+			if(operate == "减免") {
+				path = "finance/reduction/removeBeanById";
+				curriculumList.delclassInfo(pkId, path);
+				//显示减免列表
+				$('.reduce-list').show();
+				$(".list-title").text("费用减免列表")
+				//隐藏发票列表
+				$('.borrow-list').hide();
+			}
+			if(operate == "发票") {
+				path = "finance/invoicing/removeBeanById";
+				curriculumList.delclassInfo(pkId, path);
+				$('.reduce-list').hide();
+				//显示发票列表
+				$('.borrow-list').show();
+				$(".list-title").text("借用发票列表")
+			}
+
+		});
+		//点击新增跳转
+		$('.add-couse-btn').on('click', function() {
+			operate = $('#operate-type').val();
+			//判断
+			if(operate == "减免") {
+				window.location.href = "addCostList.html?pkId=" + "";
+			} else if(operate == "发票") {
+				window.location.href = "addBorrowList.html?pkId=" + "";
+			}
+		});
+		//点击发票借用列表
+		$('.borrow-list').on("click", ".invoice-org-href", function() {
+			var pkId = $(this).parent().parent().find('td.pkId').text();
+			var workFlawState = $(this).parent().parent().find("td.workFlawState").text();
+			if(workFlawState == "草稿" || workFlawState == "未通过") {
+				var num = 2;
+				window.location.href = "borrowInfoEditable.html?pkId=" + pkId;
+			} else {
+				var num = 1;
+				window.location.href = "borrowInfo.html?pkId=" + pkId + "&" + "num=" + num;
+			}
+
+		})
+		//点击费用减免列表项目名
+		$('.reduce-list').on("click", ".project-code-href", function() {
+			var pkId = $(this).parent().parent().find('td.pkId').text();
+			var workFlawState = $(this).parent().parent().find("td.workFlawState").text();
+			if(workFlawState == "草稿" || workFlawState == "未通过") {
+				window.location.href = "costInfoEditable.html?pkId=" + pkId;
+			} else {
+				var num = 1;
+				window.location.href = "costInfo.html?pkId=" + pkId + "&" + "num=" + num;
+			}
+
+		})
+		//点击修改
+		$(".update-couse-btn").click(function() {
+			if($(".yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择要修改的数据");
+				return false;
+			}
+			if($(".yt-table-active").find("td.workFlawState").text() == "审批中") {
+				$yt_alert_Model.prompt("该记录正在审批中，不可修改");
+				return false;
+			}
+			operate = $('#operate-type').val();
+			var pkId = $('.yt-table-active .pkId').text();
+			//判断
+			if(operate == "减免") {
+				window.location.href = "costInfoEditable.html?pkId=" + pkId;
+			} else if(operate == "发票") {
+				window.location.href = "borrowInfoEditable.html?pkId=" + pkId;
+			}
+		});
+		//点击查询按钮
+		$('.search-btn').click(function() {
+			var lableType = $('#operate-type').val();
+			if(lableType == "减免") {
+				curriculumList.getPlanListInfo();
+			} else {
+				curriculumList.getBorrowListInfo();
+			}
+		});
+	},
+
+	/**
+	 * 减免列表
+	 */
+	getPlanListInfo: function() {
+		var keyword = $('#keyword').val();
+		$('.curriculum-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/reduction/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				//showLoading方法
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.reduce-list .yt-tbody');
+					var htmlTr = '';
+					var num = 1;
+					var projectType ="";
+					if(data.data != null) {
+						$(htmlTbody).empty()
+						$.each(data.data.rows, function(i, v) {
+							i = i + 1;
+							if(v.projectType == 1) {
+								projectType = "计划";
+							};
+							if(v.projectType == 2) {
+								projectType = "委托";
+							};
+
+							if(v.projectType == 3) {
+								projectType = "选学";
+							};
+							if(v.projectType == 4) {
+								projectType = "调训";
+							};
+							
+							htmlTr = '<tr>' +
+								'<td style="display:none;" class="pkId">' + v.pkId + '</td>' +
+								'<td class="projectCode list-td">' + v.projectCode + '</td>' +
+								'<td style="text-align:left;" class="projectName"><a style="color: #3c4687;" class="project-code-href">' + v.projectName + '</a></td>' +
+								'<td class="projectType list-td">' + projectType + '</td>' +
+								'<td class="projectHead list-td" style="text-align:right">' + v.projectHead + '</td>' +
+								'<td class="startDate list-td">' + v.startDate + '</td>' +
+								'<td class="endDate list-td">' + v.endDate + '</td>' +
+								'<td class="createTimeString list-td">' + v.createTimeString + '</td>' +
+								'<td class="postRemissionMoney" style="text-align:right">' + v.postRemissionMoney + '</td>' +
+								'<td class="createUser list-td">' + v.createUser + '</td>' +
+								'<td class="workFlawState list-td">' + v.workFlawState + '</td>' +
+								'</tr>';
+							htmlTbody.append($(htmlTr).data("legalData", v));
+						});
+					} else {
+						htmlTbody.html("");
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="10" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 发票列表
+	 */
+	getBorrowListInfo: function() {
+
+		var keyword = $('#keyword').val();
+		$('.page-info').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/invoicing/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.borrow-list .borrow-list-tod');
+					var htmlTr = '';
+					var num = 1;
+					var invoiceType;
+					if(data.data.rows.length != 0) {
+						$(htmlTbody).empty()
+						$.each(data.data.rows, function(i, v) {
+							i = i + 1;
+							if(v.invoiceType == 1) {
+								invoiceType = "普通发票";
+							};
+							if(v.invoiceType == 2) {
+								invoiceType = "增值税专用发票";
+							};
+							//var createTimeString = v.createTimeString.split(" ")[0];
+							htmlTr = '<tr>' +
+								'<td>' + i + '</td>' +
+								'<td style="display:none;" class="pkId">' + v.pkId + '</td>' +
+								'<td style="text-align:left;" class="invoiceOrg"><a style="color: #3c4687;" class="invoice-org-href">' + v.invoiceOrg + '</a></td>' +
+								'<td class="invoiceType">' + invoiceType + '</td>' +
+								'<td class="createTimeString">' + v.createTimeString + '</td>' +
+								'<td class="applicationInvoice" style="text-align:right">' + v.applicationInvoice + '</td>' +
+								'<td class="createUser">' + v.createUser + '</td>' +
+								'<td class="workFlawState">' + v.workFlawState + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					} else {
+						htmlTbody.html("");
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="7" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//删除班级功能
+	delclassInfo: function(pkId, path) {
+		$yt_alert_Model.alertOne({
+			haveCloseIcon: false, //是否带有关闭图标  
+			closeIconUrl: "", //关闭图标路径  
+			leftBtnName: "确定", //左侧按钮名称,默认确定  
+			rightBtnName: "取消", //右侧按钮名称,默认取消  
+			cancelFunction: "", //取消按钮操作方法*/  
+			alertMsg: "数据删除将无法恢复,确认删除吗?", //提示信息  
+			confirmFunction: function() { //点击确定按钮执行方法  
+				$.ajax({
+					type: "post",
+					url: $yt_option.base_path + path,
+					data: {
+						pkId: pkId
+					},
+					before: function() {
+						$yt_baseElement.showLoading();
+					},
+					success: function(data) {
+						if(data.flag == 0) {
+							$yt_baseElement.hideLoading();
+							$('.page-info').pageInfo("refresh");
+						} else {
+							$yt_baseElement.hideLoading(function() {
+								$yt_alert_Model.prompt("删除失败");
+							});
+						}
+
+					}
+
+				});
+
+			}
+		});
+
+	}
+
+};
+
+$(function() {
+	//初始化方法
+	curriculumList.init();
+
+});

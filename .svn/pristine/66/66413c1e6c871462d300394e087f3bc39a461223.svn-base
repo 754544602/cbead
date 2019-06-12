@@ -1,0 +1,265 @@
+var classInfo = {
+	
+	//初始化方法
+	init: function() {
+		//初始化列表
+		classInfo.getPlanListInfo();
+//		//分配
+		$(".add-class").click(function() {
+			//改变弹窗标题
+			$('.ticket-class-title-span').text("结业证编号分配");
+			//初始化弹窗
+			classInfo.clearAlert();
+			var projectName = $('.yt-table-active .states').text();
+			if(projectName=="待分配"){
+				classInfo.distribution()
+				classInfo.addShowAlert();
+			}else{
+				if(projectName == "已分配"){
+					$yt_alert_Model.prompt("请选择未分配选项");
+				}else{
+					$yt_alert_Model.prompt("请选择待分配选项");
+				}
+			}
+		});
+		//修改
+		$(".winding-up").click(function() {
+			$('.ticket-class-title-span').text("修改");
+			
+			var projectName = $('.yt-table-active .states').text();
+			if(projectName==""){
+				$yt_alert_Model.prompt("请选择要修改项");
+			}else{
+				//调用弹窗
+				classInfo.addShowAlert();
+				var serialNumber = $('.yt-table-active .serialNumber').text();
+				$('#serialNumber').val(serialNumber);
+				classInfo.distribution();
+			}
+			
+		});
+		//点击查询
+		$('.key-word').off().on('click', '.search-btn', function() {
+			//调用获取列表数据方法查询
+			classInfo.getPlanListInfo();
+		});
+		//点击确定
+		$('.select-btn-div').off().on('click', '.yt-model-sure-btn', function() {
+			//调用获取列表数据方法查询
+			if($("#serialNumber").val() == ""){
+				$yt_alert_Model.prompt('结业证编号不能为空!');
+			}else{
+				classInfo.addOrUpdateSerialNumber();
+			}
+		});
+
+	},
+	
+	//初始化弹窗
+	clearAlert:function(){
+		$('#projectCode').text("");
+		$('#projectName').text("");
+		$('#projectType').text("");
+		$('#projectHead').text("");
+		$('#checkInCount').text("");
+		$('#distributionUser').text("");
+		$('#distributionDate').text("");
+		$('#serialNumber').val("");
+	},
+	
+	//分配弹窗
+	distribution:function(){
+		//初始化弹窗
+		classInfo.clearAlert();
+		var projectCode = $('.yt-table-active .projectCode').text();
+		var projectName = $('.yt-table-active .projectName').text();
+		var projectType = $('.yt-table-active .projectType').text();
+		var projectHead = $('.yt-table-active .projectHead').text();
+		var checkInCount = $('.yt-table-active .checkInCount').text();
+		var distributionUser = $('.yt-table-active .distributionUser').text();
+		var distributionDate = $('.yt-table-active .distributionDate').text();
+		var serialNumber = $('.yt-table-active .serialNumber').text();
+		
+		$('#projectCode').text(projectCode);
+		$('#projectName').text(projectName);
+		$('#projectType').text(projectType);
+		$('#projectHead').text(projectHead);
+		$('#checkInCount').text(checkInCount);
+		$('#distributionUser').text(distributionUser);
+		$('#distributionDate').text(distributionDate);
+		$('#serialNumber').val(serialNumber);
+
+	},
+	//结业证新增修改，结业证编号分配
+	addOrUpdateSerialNumber:function(){
+		var projectCode = $('#projectCode').text();
+		var serialNumber = $('#serialNumber').val();
+		if(serialNumber!=""){
+			$.ajax({
+				type: "post",
+				url: $yt_option.base_path + "class/addOrUpdateSerialNumber",
+				data: {
+					projectCode: projectCode,
+					serialNumber:serialNumber
+				},
+				async: true,
+				success: function(data) {
+					if(data.flag==0){
+						$yt_alert_Model.prompt('分配成功');
+						classInfo.getPlanListInfo();
+						$(".add-shuttle-box").hide();
+					}else{
+						$yt_alert_Model.prompt('分配失败');
+					}
+				}
+			});
+		}else{
+			$yt_alert_Model.prompt("请填写编号组");
+		}
+		
+	},
+	/**
+	 * 结业证信息列表
+	 */
+	getPlanListInfo: function() {
+	
+		var keyword = $('#keyword').val();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "class/lookForAllByDistribution", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			async:true,
+			before:function(){
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.list-table .yt-tbody');
+					var htmlTr = '';
+					var num = 1;
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						$('.page-info').show();
+						var projectType;
+						var states;
+						var projectStates;
+						$.each(data.data.rows, function(i, v) {
+							if (v.projectType==1) {
+								projectType="计划";
+							};
+							if (v.projectType==2) {
+								projectType="委托";
+							};
+							if (v.projectType==3) {
+								projectType="选学";
+							};
+							if (v.projectType==4) {
+								projectType="中组部调训";
+							};
+							if (v.projectType==5) {
+								projectType="国资委调训";
+							};
+							if (v.states==1) {
+								states="已分配";
+							};
+							if (v.states==2) {
+								states="待分配";
+							};
+							
+							
+							if (v.projectStates==1) {
+								projectStates="未开始";
+							};
+							if (v.projectStates==2) {
+								projectStates="培训中";
+							};
+							if (v.projectStates==3) {
+								projectStates="已结束";
+							};
+							i = i + 1;
+							
+							htmlTr = '<tr>' +
+											'<td class="projectCode" style="display:none;">' + v.projectCode + '</td>' +
+											'<td style="text-align:center;">' + i + '</td>' +
+											'<td class="projectName">' + v.projectName + '</td>' +
+											'<td style="text-align:center;" class="projectType">' + projectType + '</td>' +
+											'<td class="projectHead">' + v.projectHead + '</td>' +
+											'<td style="text-align:center;" class="projectStates">' + projectStates + '</td>' +
+											'<td style="text-align:center;" class="distributionDate">' + v.distributionDate + '</td>' +
+											'<td class="distributionUser">' + v.distributionUser + '</td>' +
+											'<td style="text-align:right;" class="checkInCount">' + v.checkInCount + '</td>' +
+											'<td style="text-align:center;" class="states">' + states + '</td>' +
+											'<td style="text-align:right;" class="serialNumber">' + v.serialNumber + '</td>' +
+									'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					}else{
+						$('.page-info').hide();
+						htmlTr='<tr>'+
+							'<td colspan="10" align="center" style="border:0px;">'+
+								'<div class="no-data" style="width: 280px;margin: 0 auto;">'+
+									'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">'+
+								'</div>'+
+							'</td>'+
+						'</tr>';
+						htmlTbody.append(htmlTr);
+					}
+					
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	
+
+	//分配弹窗
+	addShowAlert: function() {
+		/** 
+		 * 显示编辑弹出框和显示顶部隐藏蒙层 
+		 */
+		$(".add-shuttle-box").show();
+		/** 
+		 * 调用算取div显示位置方法 
+		 */
+		$yt_alert_Model.getDivPosition($(".add-shuttle-box"));
+		/* 
+		 * 调用支持拖拽的方法 
+		 */
+		$yt_model_drag.modelDragEvent($(".add-shuttle-box .yt-edit-alert-title"));
+		/** 
+		 * 点击取消方法
+		 */
+		$('.add-shuttle-box .yt-eidt-model-bottom .yt-model-canel-btn').off().on("click", function() {
+			//隐藏页面中自定义的表单内容  
+			$(".yt-edit-alert,#heard-nav-bak").hide();
+			//隐藏蒙层  
+			$("#pop-modle-alert").hide();
+		});
+		/** 
+		 * 点击确定
+		 */
+		$('.add-shuttle-box .yt-eidt-model-bottom .yt-model-sure-btn').off().on("click", function() {
+			//隐藏页面中自定义的表单内容  
+			//$(".yt-edit-alert,#heard-nav-bak").hide();
+			//隐藏蒙层  
+			//$("#pop-modle-alert").hide();
+		});
+	},
+
+}
+$(function() {
+	//初始化方法
+	classInfo.init();
+});

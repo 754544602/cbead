@@ -1,0 +1,28 @@
+.btn-all{
+    float: left;
+    position: relative;
+    left: 10px;
+    top: 0px;
+    width: 600px;
+}
+.project-application{
+	width: 100px !important;
+}
+.project-application-alert table{
+	margin: 0 auto;
+}
+.project-application-alert{
+	margin-top: 20px;
+}
+.project-application-alert .remarks{
+	width: 278px; 
+	height:118px;
+	border-radius: 2px;
+	resize: none;
+}
+.project-application-alert .yt-model-canel-btn{
+	margin-left: 20px; 
+}
+.project-application-alert .dealing-with-people{
+	width: 284px; 
+}

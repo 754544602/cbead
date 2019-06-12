@@ -1,0 +1,198 @@
+<div class="mod-div business-div" code="BH_APPLY" style="display: block;">
+	<!-- 接待对象信息 Start -->
+	<div class="label-title item">
+		<div class="title-model-sty">
+			<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+			<span class="title-text">支出事项信息</span>
+		</div>
+		<div class="title-line">
+			<div></div>
+		</div>
+	</div>
+	<div class="button-box min-but" style="text-align: left;">
+		<div class="secondary-back" style=""></div>
+		<div class="secondary-title" style="">
+			<span class="secondary-text" style="font-size: 16px; font-weight: bold;">接待对象信息</span>
+			<!--<div class="secondary-line"></div>-->
+		</div>
+		<button class="yt-option-btn yt-common-btn advance-relevance" id="exportMst" style="margin-right: 20px;">从事前申请单导入</button><button class="yt-option-btn yt-common-btn add-msg" id="" style="">新增</button>
+	</div>
+	<table class="yt-table msg-list" id="" style="margin-top: 20px;margin-bottom: 20px;">
+		<thead class="yt-thead">
+			<tr>
+				<th style="width: 50px;">序号</th>
+				<th style="width: 100px;">姓名</th>
+				<th style="width: 100px;">职务</th>
+				<th>单位</th>
+				<th style="width: 80px;">操作</th>
+			</tr>
+		</thead>
+		<tbody class="yt-tbody">
+
+		</tbody>
+	</table>
+
+	<!-- 接待对象信息 End -->
+	<!-- 费用明细 Start -->
+	<!--<div class="secondary-title" style="">
+							<span class="secondary-text">费用明细</span>
+							<div class="secondary-line"></div>
+						</div>-->
+	<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+
+	<div class="button-box min-but" style="text-align: left;padding-top: 20px;">
+		<div class="label-title cost" style="padding-bottom: 20px;">
+			<div class="title-model-sty">
+				<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+				<span class="title-text">支出费用信息</span>
+			</div>
+			<div class="title-line">
+				<div></div>
+			</div>
+		</div>
+		<div class="secondary-back" style=""></div>
+		<div class="secondary-title" style="">
+			<span class="secondary-text" style="font-size: 16px; font-weight: bold;">费用明细</span>
+			<!--<div class="secondary-line"></div>-->
+		</div>
+		<button class="yt-option-btn yt-common-btn advance-relevance" id="exportPayment" style="margin-right: 20px;">从事前申请单导入</button><button class="yt-option-btn yt-common-btn" id="addProcuList" style="">新增</button>
+	</div>
+	<table class="yt-table" id="paymentList" style="width: 100%;table-layout: initial;margin-top: 20px;">
+		<thead class="yt-thead">
+			<tr>
+				<th>公务活动项目</th>
+				<th style="width: 100px;">日期</th>
+				<th>场所</th>
+				<th>费用明细</th>
+				<!-- <th>标准（元）</th>-->
+				<th>金额（元）</th>
+				<th style="width: 80px;">陪同人数</th>
+				<th style="width: 80px;">操作</th>
+			</tr>
+		</thead>
+		<tbody class="yt-tbody">
+			<!-- <tr>
+						       	<td>调研</td>
+						       	<td>2018-4-8</td>
+						       	<td>单位机关</td>
+						       	<td>用餐费</td>
+						       	<td style="text-align: right;">200.00</td>
+						       	<td style="text-align: right;">180.00</td>
+						       	<td>1</td>
+						       	<td><span class="operate-update"><img src="../../../../../resources-sasac/images/common/edit-icon.png"></span><span class="operate-del"><img src="../../../../../resources-sasac/images/common/del-icon.png"></span></td>
+						       </tr>-->
+			<tr class="last">
+				<td>合计</td>
+				<td></td>
+				<td></td>
+				<!--	<td></td>-->
+				<td></td>
+				<td style="text-align: right;">
+					<div class="total-money">0.00</div>
+				</td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+<!--	<div style="text-align: right;padding: 20px 20px 10px 20px;display: none;" class="checkbox-div">
+		<label class="check-label yt-checkbox"><input id="" type="checkbox" name="" value="OFFICIALCARD">公务卡结算</label><img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img">
+	</div>-->
+	<!-- 费用明细 End -->
+	<!-- 接待对象信息填写弹出窗口 Start-->
+	<div class="alert-div msg-alert">
+		<div class="model-title">
+			<img src="../../../../../resources-sasac/images/common/title-edit.png"><span>接待对象信息</span>
+		</div>
+		<div class="model-content">
+			<table border="0" cellspacing="0" cellpadding="0" class="from-table">
+				<tr>
+					<td>
+						<label><span class="letter-two">姓</span>名：</label><input class="yt-input" style="" id="nameVal" placeholder="请输入" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label><span class="letter-two">职</span>务：</label><input type="text" id="dutyVal" value="" class="yt-input" placeholder="请输入" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label><span class="letter-two">单</span>位：</label><input class="yt-input" style="" id="deptVal" placeholder="请输入" />
+					</td>
+				</tr>
+			</table>
+			<div class="button-box min-but">
+				<button class="yt-option-btn yt-common-btn msg-common" id="">保存</button>
+				<button class="yt-option-btn yt-cancel-btn msg-cancel" style="margin-left: 20px;" id="">关闭</button>
+			</div>
+		</div>
+	</div>
+	<!-- 接待对象信息填写弹出窗口 End-->
+	<!-- 付款明细填写弹出窗口 Start -->
+	<div id="createDetali" class="create-detali">
+		<div class="model-title">
+			<img src="../../../../../resources-sasac/images/common/title-edit.png"><span>费用明细信息</span>
+		</div>
+		<div class="model-content">
+			<table border="0" cellspacing="0" cellpadding="0" class="from-table">
+				<tr>
+					<td>
+						<label>公务活动项目：</label>
+						<select name="" class="" id="budgetProject">
+							<option value="会议">会议</option>
+							<option selected="" value="调研">调研</option>
+							<option value="检查">检查</option>
+							<option value="讲座">讲座</option>
+							<option value="学习">学习</option>
+							<option value="其他工作">其他工作</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label><span class="letter-two">日</span>期：</label><input class="calendar-input" style="width: 190px;" id="applyDate" placeholder="请选择日期" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label><span class="letter-two">场</span>所：</label><input class="yt-input" style="" id="siteVal" placeholder="请输入" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label><span class="letter-four">费用明</span>细：</label>
+						<select name="" class="" id="costBreakdown">
+							<option value="在接待地发生的交通费">在接待地发生的交通费</option>
+							<option selected="" value="用餐费">用餐费</option>
+							<option value="住宿费">住宿费</option>
+						</select>
+					</td>
+				</tr>
+				<!--<tr>
+						<td>
+							<label><span class="letter-two">标</span>准：</label><input id="standardMoney" type="text" class="yt-input money-input" placeholder="请输入"><span>元</span>
+						</td>
+					</tr>-->
+				<tr>
+					<td>
+						<label><span class="letter-two">金</span>额：</label><input id="budgetMoney" type="text" class="yt-input money-input" placeholder="请输入"><span>元</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label><span class="letter-four">陪同人</span>数：</label><input class="yt-input" style="" id="accompanyNum" placeholder="请输入" onkeyup="value=value.replace(/[^\d.]/g,'')" />
+					</td>
+				</tr>
+			</table>
+			<div class="button-box">
+				<button class="yt-option-btn yt-common-btn" id="paymentAddBtn">保存</button>
+				<button class="yt-option-btn yt-cancel-btn" style="margin-left: 20px;" id="paymentCanelBtn">关闭</button>
+			</div>
+		</div>
+	</div>
+	<!-- 付款明细填写弹出窗口 End -->
+
+</div>
+
+<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/reimApply/hospitalitySpending.js?YTVERSIONCODE=2018051604"></script>

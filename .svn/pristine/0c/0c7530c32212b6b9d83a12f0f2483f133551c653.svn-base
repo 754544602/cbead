@@ -1,0 +1,92 @@
+body {
+	background: #f3f3f3;
+	color: #333;
+	font-size: 14px;
+	font-family: Microsoft YaHei, Verdana, Arial, Helvetica, sans-serif;
+}
+
+#budgetTableManager {
+	margin: 5px;
+	min-width: 1140px;
+	border: 1px solid #DFE6F3;
+	background-color: #FFFFFF;
+	min-height: 825px;
+}
+
+.budget-start {
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.nice-select {
+	display: inline-block;
+	float: none;
+	width: 200px;
+	vertical-align: middle;
+}
+
+.yt-table {
+	table-layout: auto;
+}
+
+.page-info {
+	position: relative;
+}
+
+.plan-list {
+	padding: 20px;
+	background: #FFFFFF;
+}
+
+.plan-list .plan-list-item {
+	width: 285px;
+	height: 250px;
+	padding: 10px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+	display: inline-block;
+	float: left;
+	overflow: auto;
+	/*cursor: pointer;*/
+	border: 2px solid #384495;
+	border-radius: 4px;
+}
+
+.plan-list-title {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.title-line div {
+	height: 1px;
+	border-bottom: 1px solid #de595a;
+	width: 285px;
+	margin-left: -10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.plan-list-table td {
+	padding-top: 10px;
+}
+
+.button-box {
+	margin-top: 30px;
+}
+
+.budgetYearInputCalendar {
+	z-index: 1000;
+}
+
+.yt-edit-alert {
+	width: 550px;
+}
+
+#budgetAlert .nice-select {
+	width: 380px;
+}
+
+.span-font-bold{
+	font-weight: bold;
+	color: #384495;
+}

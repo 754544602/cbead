@@ -1,0 +1,119 @@
+var noSetProjectList = {
+	//初始化方法
+	init: function() {
+		
+		//初始化时间控件
+		$(".chose-year").calendar({
+		    speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+		    complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+		    readonly: true, // 目标对象是否设为只读，默认：true     
+		    lowerLimit:"NaN", // 日期下限，默认：NaN(不限制)     
+		    nowData:true,//默认选中当前时间,默认true  
+		    dateFmt:"yyyy-MM-dd",  
+		    callback: function() { // 点击选择日期后的回调函数  
+		        noSetProjectList.getNoProjectApprovalList();
+		    }  
+		});  
+		//调用获取列表数据方法
+		noSetProjectList.getNoProjectApprovalList();
+		
+		//搜索关键字
+		$('.search-btn').click(function() {
+			//调用获取列表数据方法查询
+			noSetProjectList.getNoProjectApprovalList();
+		});
+		//点击项目名称
+		$(".noSetProject-tbody").on('click',".file-name",function(){
+			var pkId = $('.yt-table-active .pkId').val();
+			var projectCode =$('.yt-table-active .project-code-list').val();
+			window.location.href="/cbead/website/view/project/projectDetails.html?pkId=" + pkId +"&"+"tp="+1+"&"+"projectCode="+projectCode;
+		});
+		
+	},
+		
+	/**
+	 * 获取列表数据
+	 */
+	getNoProjectApprovalList: function() {
+		
+		$yt_baseElement.showLoading();
+		var selectParam = $(".select-param").val();             
+		var years = $(".chose-year").val();             
+		
+		$('.noSetProject-page').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "project/lookForAllByProjectNoPass", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam:selectParam,
+				years:years
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				$yt_baseElement.showLoading();
+				if(data.flag == 0) {
+					var htmlTbody = $('.noSetProject-tbody');
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							if(v.projectType==1){
+								v.projectType="计划"
+							}else if(v.projectType==2){
+								v.projectType="委托"
+							}else if(v.projectType==3){
+								v.projectType="选学"
+							}else if(v.projectType==4){
+								v.projectType="调训"
+							}
+							if(v.projectStates==1){
+								v.projectStates="未立项"
+							}else if(v.projectStates==2){
+								v.projectStates="审批中"
+							}else if(v.projectStates==3){
+								v.projectStates="未通过"
+							}else if(v.projectStates==4){
+								v.projectStates="已取消"
+							}
+							htmlTr += '<tr>' +
+								'<td style="width:50px;word-wrap:break-word;"><input type="hidden" value="' + v.pkId + '" class="pkId">' + (i+1) + '</td>' +
+								'<td style="text-align:left"><a class="file-name"><input type="hidden" value="' + v.projectCode + '" class="project-code-list">' + v.projectName + '</a></td>' +
+								'<td>' + v.projectType + '</td>' +
+								'<td>' + v.startDate + '</td>' +
+								'<td style="text-align:right">' + v.trainDateCount + '</td>' +
+								'<td style="text-align:left">' + v.projectSell + '</td>' +
+								'<td style="text-align:right">' + v.traineeCount + '</td>' +
+								'<td>' + v.projectStates + '</td>' +
+								'</tr>';
+								$(".noSetProject-page").show();
+						});
+					} else {
+						$(".noSetProject-page").hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	
+}
+$(function() {
+	//初始化方法
+	noSetProjectList.init();
+	
+});

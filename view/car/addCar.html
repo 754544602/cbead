@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/open/updateApplyList.css" />
+		<title>新增车辆信息</title>
+		<style>
+			.add-car-back-btn {
+				height: 40px;
+				background-color: #FFF;
+				margin-left: 5px;
+			}
+			
+			.add-car-content-box {
+				padding-bottom: 36px;
+				margin: 10px 0px 0px 5px;
+			}
+			
+			.tab-content {
+				height: 650px;
+				text-align: right;
+				background-color: #FFF;
+			}
+			
+			.input-style {
+				width: 271px;
+				float: left;
+			}
+			
+			.input-valid {
+				position: relative;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="" style="padding-right: 5px;">
+			<!--顶部条件查询START-->
+			<div style="height: 40px; background-color: #FFF;margin-left: 5px;">
+				<div class="btn-back btn-div-nav">
+					反回
+				</div>
+			</div>
+			<!--顶部条件查询END-->
+
+			<!--数据展示区域START-->
+			<div class="tab-div">
+				<div class="tab-content" style="height: 372px;">
+					<div style="height: 36px;position: relative;">
+						<span class="blue-square-span"></span>
+						<div class="add-box-btn">
+							<span class="black-square-span"></span>
+							<p class="title-p" style="width: 110px;">
+								新增车辆信息
+						</div>
+					</div>
+					<table id="add-car-tab" cellspacing="1px" cellpadding="1px" style="height: 325px;margin: 10px 0px 0px 114px;">
+						<tr>
+							<td>车牌号：</td>
+							<td class="input-valid">
+								<input class="yt-input input-style" id="carNum" value="" placeholder="请输入" type="text" validform="{isNull:true,size:20,msg:'请输入车牌号,不要超过20个字'}" />
+								<span class="valid-font"></span>
+							</td>
+							<td style="width: 140px;">车辆类型：</td>
+							<td>
+								<select class="yt-select" id="carType" style="width: 275px;"></select>
+							</td>
+						</tr>
+						<tr>
+							<td>车辆品牌：</td>
+							<td class="input-valid">
+								<input class="yt-input input-style" id="carBrand" value="" placeholder="请输入" type="text" validform="{isNull:true,size:20,msg:'请输入车辆品牌,不要超过20个字'}" />
+								<span class="valid-font"></span>
+							</td>
+							<td>车辆型号：</td>
+							<td class="input-valid">
+								<input class="yt-input input-style" id="carModel" value="" placeholder="请输入" type="text" validform="{isNull:true,size:20,msg:'请输入车辆型号,不要超过20个字'}" />
+								<span class="valid-font"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>车辆颜色：</td>
+							<td class="input-valid">
+								<input class="yt-input input-style" id="carColor" value="" placeholder="请输入" type="text" validform="{isNull:true,size:20,msg:'请输入车辆颜色,不要超过20个字'}" />
+								<span class="valid-font"></span>
+							</td>
+							<td>车辆来源：</td>
+							<td class="input-valid">
+								<input class="yt-input input-style" id="carSource" value="" placeholder="请输入" type="text" validform="{isNull:true,size:20,msg:'请输入车辆来源,不要超过20个字'}" />
+								<span class="valid-font"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>发动机号：</td>
+							<td class="input-valid">
+								<input class="yt-input input-style" id="engineNumber" value="" placeholder="请输入" type="text" validform="{isNull:true,size:40,msg:'请输入发动机号,不要超过40个字'}" />
+								<span class="valid-font"></span>
+							</td>
+							<td>购车日期：</td>
+							<td>
+								<input class="calendar-input input-style" id="carBuyString" value="" placeholder="请选择日期" type="text" />
+							</td>
+						</tr>
+						<tr>
+							<td style="vertical-align: text-top;">备注：</td>
+							<td colspan="3" style="position: relative;">
+								<textarea id="remarks" rows="5" style="resize: none;width: 697px;" validform="{isNull:true,size:200,msg:'请输入内容,不要超过200个字'}"></textarea>
+								<span class="valid-font" style="top: 105px;"></span>
+							</td>
+						</tr>
+					</table>
+					<div class="yt-eidt-model-bottom" style="width: 974px;border: none;position: relative;">
+						<input class="yt-model-bot-btn yt-model-sure-btn" id="save" type="button" value="保存" style="width: 70px;margin-left: 361px;margin-top:16px; float: left;" />
+						<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" style="width: 70px; background-color: #FFF;position: absolute;top: 16px;left: 503px;" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/tabEdit/yt-tab-edit.js"></script>
+
+	<script type="text/javascript" src="../../resources/js/sortable/yt-sortable.js"></script>
+
+	<script type="text/javascript" src="../../resources/js/modules/car/addCar.js"></script>
+
+</html>

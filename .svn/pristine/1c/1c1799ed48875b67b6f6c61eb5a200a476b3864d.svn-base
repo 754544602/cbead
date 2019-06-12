@@ -1,0 +1,41 @@
+.btn-all{
+	float: left;
+    position: relative;
+    left: 10px;
+    top: 0px;
+    width: 550px;
+}
+.search-box{
+	width: 360px;
+}
+.search-table input{
+	width: 230px;
+}
+.add-teacher-table-alert input{
+	width: 280px;
+	height: 30px;
+}
+.research-area-list{
+	border: 1px solid #DFE6F3;
+	width: 200px;
+    position: absolute;
+    z-index: 1;
+    background: #fff;
+    display:none;
+    cursor: pointer;
+}
+.researchArea{
+	cursor: pointer;
+}
+.research-area-list li.active{
+	background: #d9e8f5 !important;
+}
+.alert-add-teacher table td{
+	height: 50px;
+}
+.set-principal-alert td{
+	height: 50px;
+}
+.search-more{
+	margin-right: 20px;
+}

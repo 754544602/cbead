@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--提示信息控件-->
+        <link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" />  	
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/query/loadApplicationFormQuery.min.css?YTVERSIONCODE=2018052301" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style type="text/css">
+			.suspension{
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="loadApp heard-query-model">
+			<!--顶部查询区域START-->
+			<div class="heard-query">
+				<div>
+					<label class="mf20"><span style="letter-spacing:15px;">关键</span>字：</label>
+					<div style="display: inline-block;">
+						<input style="width: 300px;" type="text" class="yt-input keyword-input" placeholder="请输入申请人/借款事由" />
+					</div>
+					<div style="display: inline-block;">
+								<span>申请日期：</span><input class="calendar-input top-date" style="width: 195px;" id="startDate" type="text" placeholder="请选择日期" /><label class="separator">-</label>
+								<input class="calendar-input bottom-date" style="width: 195px;" id="endDate" type="text" placeholder="请选择日期" />
+								<button class="yt-option-btn yt-search-btn" onselectstart="return false " style="margin-left: 10px;" id="heardSearchBtn">查询 </button>
+								<button class="yt-option-btn yt-reset-btn" style="margin-left: 10px;margin-right: 10px;" id="resetBtn">重置</button>
+							</div>
+				</div>
+
+			</div>
+			<!--顶部查询区域END-->
+		
+			<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+			<!-- 排序方式START -->
+			<div class="sort-btn-list" style="padding-top: 15px;padding-left: 25px;">
+						<span style="font-size: 16px;">排序方式：</span>
+						<button class="yt-option-btn yt-search-btn applymoney-sort-btn" value="IFNULL(LOAN_AMOUNT,0.00)" style="margin-left: 10px;color: #fff;" id="">申请总金额倒序排列</button>
+						<button class="yt-option-btn yt-search-btn applymoney-sort-btn" value="IFNULL(UNREFUNDAMOUNT,0.00)" style="margin-left: 10px;color: #fff;" id="">欠款金额倒序排列</button>
+						<button class="yt-option-btn yt-search-btn date-sort-btn" id="" value="IFNULL(DATE_FORMAT(m.APPLICANT_TIME,'%Y-%m-%d'),'')" style="color: #fff;">申请日期倒序排列 </button>
+						
+					</div>		
+			<!-- 排序方式END -->			
+			<!--金额合计区域START-->
+			<div class="total-div">
+				<span>当前借款金额合计：</span><span class="loan-all-amount">--</span> 元
+			</div>
+			<!--金额合计区域END-->
+			
+			<!--列表显示区域START-->
+			<div class="plan-list-model">
+				<table class="yt-table" width="100%" id="loanApplyTable" style="table-layout: auto;">
+					<thead class="yt-thead">
+						<tr>
+							<th>申请编号</th>
+							<th>借款事由</th>
+							<th>申请总金额(元)</th>
+							<th>已还金额(元)</th>
+							<th>欠款金额(元)</th>
+							<th>申请人</th>
+							<th>申请部门</th>
+							<th>申请日期</th>
+						</tr>
+
+					</thead>
+					<tbody class="yt-tbody">
+						
+					</tbody>
+				</table>
+				<div class="page-info table-page" onselectstart="return false"></div>
+			<!--列表显示区域END-->
+		</div>
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script> 
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/query/loadApplicationFormQuery.js?YTVERSIONCODE=20190402"></script>
+	<!--引用JS文件END-->
+
+</html>

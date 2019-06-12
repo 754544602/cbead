@@ -1,0 +1,67 @@
+#endDateTime.calendar {
+	margin-left: -100px;
+	height: 260px !important;
+}
+
+.yt-edit-alert-main.cont-edit-test {
+	height: auto;
+}
+
+.endDate-shuttle-box .cont-edit-test {
+	height: 445px !important;
+}
+
+.tree-file {
+	background: none;
+}
+
+.sendNotice-all {
+	display: inline-block;
+	padding-top: 20px;
+}
+
+.sendNotice-left,
+.sendNotice-right,
+.sendNotice-center {
+	float: left;
+	height: 400px;
+}
+
+.sendNotice-left>h1,
+.sendNotice-right>h1 {
+	text-align: left;
+	height: 30px;
+	line-height: 30px;
+}
+
+.sendNotice-left>div,
+.sendNotice-right>div {
+	border: 1px solid #E6E6E6;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px #EEEEEE;
+	padding: 10px;
+}
+
+.sendNotice-center {
+	width: 80px;
+	position: relative;
+}
+.sendNotice-center>div{
+	cursor: pointer;
+	position: absolute;
+	top: 40%;
+}
+.sendNotice-center>div>img{
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+.sendNotice-right ul {
+	height: 280px;
+}
+
+.tree-nod{
+	height: 18px;
+	white-space: nowrap;
+	cursor: pointer;
+}

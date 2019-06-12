@@ -1,0 +1,375 @@
+/*头部*/
+body{
+	margin: 0;
+	padding: 0;
+}
+.index-top {
+	width: 100%;
+	min-width: 1130px;
+	background-color: #363845;
+	box-shadow: inset 0px -1px 0px 0px #5c607a;
+	padding: 15px 0px;
+}
+
+.index-top-middle {
+	text-align: center;
+}
+
+.index-top-model {
+	width: 32%;
+	min-width: 360px;
+	height: 124px;
+	background-color: #ffffff;
+	box-shadow: 0px 3px 7px 0px rgba(147, 152, 187, 0.35);
+	border-radius: 2px;
+	border: solid 1px #f5f5f5;
+	display: inline-block;
+}
+
+.index-top-model img {
+	width: 74px;
+	margin: 25px 0 0 16px;
+}
+
+.index-top-model div {
+	width: 55%;
+	float: right;
+	text-align: right;
+	padding-right: 24px;
+}
+
+.index-top-model div {
+	margin-top: 33px;
+}
+
+.index-top-model h5 {
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #777777;
+}
+
+.index-top-model span {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 24px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.index-top-model label {
+	font: "微软雅黑" 18px;
+	color: #777777;
+}
+
+.index-top-model:not(:first-child) {
+	margin-left: 12px;
+}
+
+
+/*表格*/
+
+.yt-tbody td {
+	padding: 0;
+}
+
+.index-two {
+	border: 5px solid #edebec;
+	min-width: 1120px;
+	background-color: #FFFFFF
+}
+
+
+/*对账未完成表*/
+
+.reconciliation-table {
+	width: 50%;
+	padding: 0 8px 8px 8px;
+	background-color: #FFFFFF;
+	border-right: 5px solid #EDEBEC;
+	border-bottom: 5px solid #EDEBEC;
+	float: left;
+	box-sizing: border-box;
+}
+
+.index-two-reconciliation {
+	width: 100%;
+	background-color: #FFFFFF;
+}
+
+.index-two-reconciliation caption {
+	height: 45px;
+	line-height: 60px;
+	text-align: left;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+	background-color: #FFFFFF;
+}
+
+.index-two-reconciliation tr {
+	height: 42px;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+}
+
+.index-two-reconciliation th {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+}
+
+.index-two-reconciliation td {
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.index-two-reconciliation td:nth-child(2),
+.index-two-reconciliation td:nth-child(3),
+.index-two-reconciliation td:nth-child(4),
+.index-two-reconciliation th:nth-child(2),
+.index-two-reconciliation th:nth-child(3),
+.index-two-reconciliation th:nth-child(4) {
+	text-align: center;
+}
+
+.index-two-reconciliation td:nth-child(4) span {
+	color: #7b73c7;
+}
+
+.index-two-reconciliation th:nth-child(1),
+.index-two-reconciliation td:nth-child(1) {
+	text-align: left;
+	padding-left: 7px;
+}
+
+.index-two-reconciliation td:nth-child(5),
+.index-two-reconciliation th:nth-child(5) {
+	text-align: right;
+}
+
+.index-two-reconciliation td:nth-child(5) {
+	color: #384495;
+}
+
+
+/*未处理流水*/
+
+.waste-table {
+	width: 50%;
+	min-width: 544px;
+	float: right;
+	padding: 8px;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+}
+
+.index-two-waste {
+	width: 100%;
+}
+
+.index-two-waste h4,
+.index-two-waste h3 {
+	display: inline-block;
+}
+
+.index-two-waste caption {
+	text-align: left;
+	height: 75px;
+	position: relative;
+}
+
+.index-two-waste caption h3 {
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+	margin-top: 10px;
+}
+
+.index-two-waste caption h4 {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+	margin: 15px 0 0 5px;
+}
+
+.index-two-waste caption h4 span {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #e90000;
+}
+
+.index-two-waste caption .waste-table-caption {
+	width: 50%;
+	text-align: right;
+	position: absolute;
+	right: 0;
+	top: 10px;
+}
+
+.index-two-waste caption .waste-table-caption>span {
+	font-family: MicrosoftYaHei;
+	font-size: 16px;
+	letter-spacing: 0px;
+	color: #7b74c7;
+	margin-left: 35px;
+	cursor: pointer;
+}
+
+.index-two-waste caption .waste-table-caption div {
+	display: inline-block;
+	width: 49px;
+	height: 21px;
+	background-color: #7b74c7;
+	border-radius: 3px;
+	padding: 0px 12px;
+	box-sizing: border-box;
+	vertical-align: middle;
+	margin-top: 15px;
+	cursor: pointer;
+}
+
+.index-two-waste caption .waste-table-caption div>span {
+	color: white;
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	line-height: 12px;
+	letter-spacing: 0px;
+	color: #ffffff;
+}
+
+.index-two-waste tr {
+	height: 40px;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}
+
+.index-two-waste th {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+}
+
+.index-two-waste td {
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.index-two-waste td:nth-child(1),
+.index-two-waste td:nth-child(2),
+.index-two-waste td:nth-child(3),
+.index-two-waste td:nth-child(5),
+.index-two-waste td:nth-child(6) {
+	text-align: center;
+}
+
+.index-two-waste td:nth-child(4),
+.index-two-waste th:nth-child(4) {
+	text-align: right;
+}
+
+.index-two-waste td:nth-child(4) {
+	color: #3c4687;
+}
+
+
+/*报销*/
+
+.index-rates {
+	width: 100%;
+	min-width: 1130px;
+	border: 5px solid #EDEBEC;
+	padding: 8px;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+	border-top: none;
+}
+
+.rates-table {
+	width: 100%;
+}
+
+.rates-table caption {
+	height: 45px;
+	text-align: left;
+	padding-left: 10px;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+}
+
+.rates-table tr {
+	height: 42px;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}
+
+.rates-table th {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+}
+
+.rates-table td {
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.rates-table td:nth-child(1),
+.rates-table td:nth-child(7) {
+	color: #384495;
+}
+
+.rates-table td:nth-child(1),
+.rates-table td:nth-child(3),
+.rates-table th:nth-child(1),
+.rates-table th:nth-child(3) {
+	text-align: left;
+}
+
+.rates-table td:nth-child(2),
+.rates-table td:nth-child(4),
+.rates-table td:nth-child(5),
+.rates-table td:nth-child(6),
+.rates-table td:nth-child(8) {
+	text-align: center;
+}
+
+.rates-table td:nth-child(7),
+.rates-table th:nth-child(7) {
+	text-align: right;
+}
+.loadingrates{
+	color: #ffa91c !important;
+}
+#echartsone,#echartstwo{
+	width: 100%;
+	height: 383px;
+	border: 5px solid #EDEDED;
+	border-top: none;
+	box-sizing: border-box;
+	padding-top:20px ;
+	background-color: #FFFFFF
+}
+.calendar{
+	    margin: 53px 0px 0px 120px;
+}

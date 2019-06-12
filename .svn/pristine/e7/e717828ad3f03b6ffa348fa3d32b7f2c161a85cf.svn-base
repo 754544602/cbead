@@ -1,0 +1,90 @@
+.index-plan {
+	padding-bottom: 30px;
+	height: auto;
+}
+
+.index-plan caption li:nth-child(1) label {
+	background-color: #f3c986;
+}
+
+.index-plan caption li:nth-child(2) label {
+	background-color: #64c5b1;
+}
+
+.index-plan caption li:nth-child(3) label {
+	background-color: #45bbe0;
+}
+
+.index-plan caption li:nth-child(4) label {
+	background-color: #ee4b82;
+}
+
+.state-day.all-use:after,
+.state-day.sub-use:after,
+.state-day.no-use:after,
+.state-day.alr-use:after {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	top: auto;
+	margin: auto;
+	margin-top: -5px;
+	width: 100%;
+	height: 10px;
+	padding: 0 1px;
+	
+}
+.state-day{
+}
+.state-day.sub-use:after{
+	background-color: #f3c986;
+}
+.state-day.all-use:after {
+	background-color: #64c5b1;
+}
+
+.state-day.no-use:after {
+	background-color: #45bbe0;
+}
+
+.state-day.alr-use:after {
+	background-color: #ee4b82;
+}
+
+.state-day.all-use.start-state:after,
+.state-day.sub-use.start-state:after,
+.state-day.no-use.start-state:after,
+.state-day.alr-use.start-state:after {
+	-webkit-border-radius: 5px 0 0 5px;
+	-moz-border-radius: 5px 0 0 5px;
+	border-radius: 5px 0 0 5px;
+}
+
+.state-day.all-use.end-state:after,
+.state-day.sub-use.end-state:after,
+.state-day.no-use.end-state:after,
+.state-day.alr-use.end-state:after {
+	-webkit-border-radius: 0 5px 5px 0;
+	-moz-border-radius: 0 5px 5px 0;
+	border-radius: 0 5px 5px 0;
+}
+
+.state-day.all-use.end-state.start-state:after,
+.state-day.sub-use.end-state.start-state:after,
+.state-day.no-use.end-state.start-state:after,
+.state-day.alr-use.end-state.start-state:after {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.index-plan caption ul {
+	width: 320px;
+}
+
+.index-plan td {
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #333333;
+}

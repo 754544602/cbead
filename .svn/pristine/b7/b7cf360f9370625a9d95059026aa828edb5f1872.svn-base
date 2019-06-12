@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<link rel="stylesheet" href="../../resources/css/modules/project/addProjectList.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>班级管理</title>
+		<style type="text/css">
+			.calendar {
+				z-index: 10000 !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1300px;">
+			<div class="head-div" style="height: 20px;">
+				<div class="chose-date">
+					<input class="calendar-input chose-year" style="width: 212px;" type="text" />
+				</div>
+			</div>
+			<div class="list-btn">
+				<div class="search-btn-slect">
+					<div class="training-head-btn" style="padding-left: 13px;">
+						<button class="yt-option-btn addList">
+			  				<img src="../../resources/images/icons/add-icons.png" alt="" />
+			  				新增
+			  			</button>
+						<button class="yt-option-btn updateList">
+							<img src="../../resources/images/button/update-icon.png" alt="" />
+							修改
+						</button>
+						<button class="yt-option-btn delList">
+							<img src="../../resources/images/icons/delete.png" alt="" />
+							删除
+						</button>
+						<button class="yt-option-btn set-principal-btn">
+							<img src="../../resources/images/icons/channel.png" alt="" />
+							导入学员
+						</button>
+						<button class="yt-option-btn export-student-btn">
+							<img src="../../resources/images/icons/export.png" alt="" />
+							导出
+						</button>
+						<button class="yt-option-btn btn-invalid">
+							<img src="../../resources/images/icons/btn-invalid.png" alt="" />
+							无效
+						</button>
+						<button class="yt-option-btn btn-effective">
+							<img src="../../resources/images/icons/btn-effective.png" alt="" />
+							有效
+						</button>
+						<div class="key-word">
+							<input class="yt-input selectParam" placeholder="请输入关键字" type="text" />
+							<button class="yt-option-btn search-btn">
+								<img class="search-img" src="../../resources/images/icons/class-search.png" />
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="list-box">
+				<table class="yt-table list-table">
+					<thead class="list-thead">
+						<tr>
+							<th class="check-box-th" width="20px">
+								<label class="check-label yt-checkbox">  
+            						<input class="check-box check-all"  type="checkbox"/>
+  								</label>
+							</th>
+							<th width="40px">序号</th>
+							<th width="80px">班次代码</th>
+							<th >集团</th>
+							<th width="70px">姓名</th>
+							<th width="40px">性别</th>
+							<th >单位</th>
+							<th width="80px">单位类型</th>
+							<th width="100px">部门/职务</th>
+							<th width="40px">备注</th>
+							<th width="80px">联系人</th>
+							<th width="70px">联系人手机</th>
+							<th width="60px">报道状态</th>
+							<th width="60px">项目状态</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody elementary-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="14" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info elementary-page" onselectstart="return false"></div>
+			</div>
+			<!--新增选学学员弹出框-->
+			<div class="yt-pop-model yt-edit-alert add-elementary-student" style="width: 820px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">新增学员</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test valid-tab">
+					<form style=" overflow: auto;" class="alert-form">
+						<table style="margin: 0 auto;">
+							<tr>
+								<td align="right" style="width: 84px;">班次代码：</td>
+								<td>
+									<select class="yt-select project-code" validform="{isNull:true,blurFlag:true,msg:'请选择班次代码'}" data-val="projectCode" style="width:200px">
+										<option value="">请选择</option>
+									</select>
+									<span class="valid-font"></span>
+								</td>
+								<td width="165px" align="right">班级名称：</td>
+								<td>
+									<span class="class-name" data-text="projectName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">姓名：</td>
+								<td>
+									<input class="yt-input real-name" data-val="realName" validform="{isNull:true,blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+								<td width="135px" align="right">性别：</td>
+								<td>
+									<label class="check-label yt-radio check" style="margin-right: 10px;"> 
+									   	 男  
+								    	<input id="radio1" type="radio" name="test" value="1" class="gender man"/> 
+									</label>
+									<label class="check-label yt-radio"> 
+									  	  女   
+										<input id="radio2" type="radio" name="test" value="2" class="gender woman"/> 
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">民族：</td>
+								<td>
+									<select class="yt-select nation-id" data-val="nationId" style="width:200px">
+										<option value="">请选择</option>
+									</select>
+								</td>
+								<td align="right">手机号：</td>
+								<td>
+									<input class="yt-input phone" data-val="phone" validform="{blurFlag:true,type:'phone',size:11,msg:'请填写正确的手机号'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">证件类型：</td>
+								<td>
+									<select id="project-states" class="yt-select id-type" data-val="idType" style="width: 201px;">
+										<option value="">请选择</option>
+										<option value="1">身份证</option>
+										<option value="2">护照</option>
+										<option value="3">军官证</option>
+										<option value="4">其他</option>
+									</select>
+								</td>
+								<td align="right">证件号码：</td>
+								<td>
+									<input class="yt-input id-number" data-val="idNumber" type="text" placeholder="请输入" />
+								</td>
+							</tr>
+							<tr>
+								<td align="right">出生年月：</td>
+								<td>
+									<input class="calendar-input date-birth" data-val="dateBirth" placeholder="请选择" type="text" style="width: 190px;" />
+								</td>
+								<td align="right">集团：</td>
+								<td>
+									<select id="" class="yt-select group-id-elementary" validform="{isNull:true,blurFlag:true,msg:'请选择集团'}" data-val="groupId" style="width: 201px;">
+										<option value="">请选择</option>
+									</select>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">单位：</td>
+								<td>
+									<select id="" class="yt-select org-id" validform="{isNull:true,blurFlag:true,msg:'请选择单位'}" data-val="orgId" style="width: 201px;">
+										<option value="">请选择</option>
+									</select>
+									<span class="valid-font"></span>
+								</td>
+								<td align="right">单位类型：</td>
+								<td>
+									<select id="orgType" class="yt-select org-type" data-val="orgType" style="width: 201px;">
+										<option value="">请选择</option>
+										<option value="1">央企集团本部</option>
+										<option value="2">央企二级公司</option>
+										<option value="3">央企三级公司</option>
+										<option value="4">省属企业</option>
+										<option value="5">市属企业</option>
+										<option value="6">其他</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">部门/职位：</td>
+								<td>
+									<input class="yt-input dept-name" data-val="deptName" validform="{blurFlag:true,size:30,msg:'所填内容不可超过30个字'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+								<td align="right">通信地址：</td>
+								<td>
+									<input class="yt-input mailing-address" data-val="mailingAddress" validform="{blurFlag:true,size:30,msg:'所填内容不可超过30个字'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">邮政编码：</td>
+								<td>
+									<input class="yt-input postal-code" data-val="postalCode" validform="{blurFlag:true,type:/^\d{6}$/,msg:'请输入正确的邮政编码'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+								<td align="right">电话：</td>
+								<td>
+									<input class="yt-input telephone-project" data-val="telephone" type="text" placeholder="请输入" />
+								</td>
+							</tr>
+							<tr>
+								<td align="right">传真：</td>
+								<td>
+									<input class="yt-input fax" data-val="fax" type="text" placeholder="请输入" />
+								</td>
+								<td align="right">电子邮箱：</td>
+								<td>
+									<input class="yt-input email" data-val="email" validform="{blurFlag:true,type:'email',size:30,msg:'请填写正确的邮箱'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">入党时间：</td>
+								<td>
+									<input class="calendar-input party-date" data-val="partyDate" placeholder="请选择" type="text" style="width: 190px;" />
+								</td>
+								<td align="right">参加工作时间：</td>
+								<td>
+									<input class="calendar-input work-time" data-val="workTime" placeholder="请选择" type="text" style="width: 190px;" />
+								</td>
+							</tr>
+							<tr>
+								<td align="right">全职教育：</td>
+								<td>
+									<input class="yt-input education-time" data-val="educationTime" validform="{blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+								<td align="right">毕业院校及专业：</td>
+								<td>
+									<input class="yt-input education-time-class" data-val="educationTimeClass" validform="{blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">在职教育：</td>
+								<td>
+									<input class="yt-input service-time" data-val="serviceTime" type="text" validform="{blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+								<td align="right">毕业院校及专业：</td>
+								<td>
+									<input class="yt-input service-time-class" data-val="serviceTimeClass" validform="{blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+						</table>
+						<p style="border-bottom: 1px dashed #d9d9d9;"></p>
+						<div class="class-info-div">
+							联系人信息
+						</div>
+						<table class="" style="margin: 0 auto;">
+							<tr>
+								<td align="right">联系人姓名：</td>
+								<td>
+									<input class="yt-input linkman" data-val="linkman" validform="{isNull:true,blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+								<td width="165px" align="right">手机号：</td>
+								<td>
+									<input class="yt-input linkman-phone" data-val="linkmanPhone" validform="{isNull:true,blurFlag:true,type:'phone',size:11,msg:'请填写正确的手机号'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">电话：</td>
+								<td>
+									<input class="yt-input linkman-telephone" data-val="linkmanTelephone" validform="{blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+								<td align="right">传真：</td>
+								<td>
+									<input class="yt-input linkman-fax" data-val="linkmanFax" type="text" placeholder="请输入" />
+								</td>
+							</tr>
+							<tr>
+								<td align="right">邮箱：</td>
+								<td>
+									<input class="yt-input linkman-email" data-val="linkmanEmail" validform="{blurFlag:true,type:'email',size:30,msg:'请填写正确的邮箱'}" type="text" placeholder="请输入" />
+									<span class="valid-font"></span>
+								</td>
+								<td align="right">单位地址(邮编)：</td>
+								<td>
+									<input class="yt-input linkman-address-email" data-val="linkmanAddressEmail" type="text" placeholder="请输入" />
+								</td>
+							</tr>
+						</table>
+					</form>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom">
+						<button class="yt-model-bot-btn yt-model-sure-btn">确定</button>
+						<button class="yt-model-bot-btn yt-model-canel-btn">取消</button>
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--选学学员查看详情-->
+			<div class="yt-pop-model yt-edit-alert elementary-student-details" style="width: 820px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">学员详情</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test valid-tab">
+					<form style=" overflow: auto;" class="alert-form">
+						<table style="margin: 0 auto;">
+							<tr>
+								<td align="right" style="width: 100px;">班次代码：</td>
+								<td style="width: 200px;">
+									<span class="project-code" style="width: 200px;" data-text="projectCode"></span>
+								</td>
+								<td width="135px" align="right">班级名称：</td>
+								<td style="width: 200px;">
+									<span class="class-name" data-text="projectName" style="150px"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">姓名：</td>
+								<td>
+									<span class="real-name" data-text="realName"></span>
+								</td>
+								<td width="135px" align="right">性别：</td>
+								<td>
+									<span class="gender" data-text="gender" /></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">民族：</td>
+								<td>
+									<span class="nation-id" style="width: 200px;" data-text="nationId"></span>
+								</td>
+								<td align="right">手机号：</td>
+								<td>
+									<span class="phone" data-text="phone"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">证件类型：</td>
+								<td>
+									<span class="id-type" data-text="idType" </span>
+								</td>
+								<td align="right">证件号码：</td>
+								<td>
+									<span class="id-number" data-text="idNumber"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">出生年月：</td>
+								<td>
+									<span class="date-birth" data-text="dateBirth"></span>
+								</td>
+								<td align="right">集团：</td>
+								<td>
+									<span class="group-id-elementary" style="width: 200px;" data-text="groupName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">单位：</td>
+								<td>
+									<span class="org-id" style="width: 200px;" data-text="groupOrgName"></span>
+								</td>
+								<td align="right">单位类型：</td>
+								<td>
+									<span class="org-type" data-text="orgType"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">部门/职位：</td>
+								<td>
+									<span class="dept-name" data-text="deptName"></span>
+								</td>
+								<td align="right">通信地址：</td>
+								<td>
+									<span class="mailing-address" data-text="mailingAddress"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">邮政编码：</td>
+								<td>
+									<span class="postal-code" data-text="postalCode"></span>
+								</td>
+								<td align="right">电话：</td>
+								<td>
+									<span class="telephone-project" data-text="telephoneProject"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">传真：</td>
+								<td>
+									<span class="fax" data-text="fax"></span>
+								</td>
+								<td align="right">电子邮箱：</td>
+								<td>
+									<span class="email" data-text="email"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">入党时间：</td>
+								<td>
+									<span class="party-date" data-text="partyDate"></span>
+								</td>
+								<td align="right">参加工作时间：</td>
+								<td>
+									<span class="work-time" data-text="workTime"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">全职教育：</td>
+								<td>
+									<span class="education-time" data-text="educationTime"></span>
+								</td>
+								<td align="right">毕业院校及专业：</td>
+								<td>
+									<span class="education-time-class" data-text="educationTimeClass"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">在职教育：</td>
+								<td>
+									<span class="service-time" data-text="serviceTime"></span>
+								</td>
+								<td align="right">毕业院校及专业：</td>
+								<td>
+									<span class="service-time-class" data-text="serviceTimeClass"></span>
+								</td>
+							</tr>
+						</table>
+						<div class="tab-content class-info get-project-inf" style="border: none;">
+							<div class="" style="border: 1px solid #F6F6F6;margin: 0px 17px 0px 17px;">
+								<span class="ticket-open-msg">联系人信息</span>
+								<table class="" style="margin: 0 auto;">
+									<tr>
+										<td align="right" style="width: 100px;">联系人姓名：</td>
+										<td style="width: 200px;">
+											<span class="linkman" data-text="linkman"></span>
+										</td>
+										<td width="135px" align="right">手机号：</td>
+										<td style="width: 200px;">
+											<span class="linkman-phone" data-text="linkmanPhone"></span>
+										</td>
+									</tr>
+									<tr>
+										<td align="right">电话：</td>
+										<td>
+											<span class="linkman-telephone" data-text="linkmanTelephone"></span>
+										</td>
+										<td align="right">传真：</td>
+										<td>
+											<span class="linkman-fax" data-text="linkmanFax"></span>
+										</td>
+									</tr>
+									<tr>
+										<td align="right">邮箱：</td>
+										<td>
+											<span class="linkman-email" data-text="linkmanEmail"></span>
+										</td>
+										<td align="right">单位地址(邮编)：</td>
+										<td>
+											<span class="linkman-address-email" data-text="linkmanAddressEmail"></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div style="width: -webkit-fit-content;margin: 13px auto 0px;">
+							<div class="student-details-msgges" style="width: 182px;">
+								<span class="ticket-open-msg">报到情况</span>
+								<p><span>报到状态：</span><span data-text="checkInState"></span></p>
+								<p><span>报到时间：</span><span data-text="checkInDate"></span></p>
+							</div>
+							<div class="student-details-msgges" style="width: 182px;">
+								<span class="ticket-open-msg">缴费情况</span>
+								<p><span>缴费状态：</span><span data-text="paymentState"></span></p>
+								<p><span>缴费时间：</span><span data-text="paymentDate"></span></p>
+							</div>
+							<div class="student-details-msgges" style="width: 182px;">
+								<span class="ticket-open-msg">住宿情况</span>
+								<p><span>住宿房间：</span><span data-text="roomNumber"></span></p>
+								<p><span>入住时间：</span><span data-text="roomNumberDate"></span></p>
+							</div>
+							<div class="student-details-msgges" style="width: 182px;">
+								<span class="ticket-open-msg">开票情况</span>
+								<p><span>开票状态：</span><span data-text="isOrderNum"></span></p>
+								<p><span>发票号：</span><span data-text="orderNum"></span></p>
+							</div>
+						</div>
+						<div class="student-details-tecket" style="margin-top: 13px;width: 780px;">
+							<span class="ticket-open-msg">培训记录</span>
+							<table class="student-details-train-record" style="width: 755px;">
+								<thead>
+									<tr>
+										<th style="text-align:center">班级编号</th>
+										<th style="text-align:center">班级名称</th>
+										<th style="text-align:center" width="80px">开班日期</th>
+										<th style="text-align:center">项目主任</th>
+										<th style="text-align:center">结业证书编号</th>
+									</tr>
+								</thead>
+								<tbody class="train-list-tbody">
+
+								</tbody>
+							</table>
+						</div>
+					</form>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom">
+						<input class="yt-model-bot-btn yt-model-canel-btn shut-down" style="margin: 0;" type="button" value="关闭" />
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/elementaryStudent/elementaryStudentList.js"></script>
+
+</html>

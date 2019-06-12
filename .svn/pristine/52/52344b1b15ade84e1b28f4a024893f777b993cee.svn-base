@@ -1,0 +1,769 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--窗口小图标-->
+		<link rel="icon" href="/cbead/website/resources/images/icons/ICO.png" type="image/x-icon">
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/reimApply/serveFundsF.min.css" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style>
+			.qtip-default {
+				display: none;
+			}
+			
+			.file-box {
+				width: 350px;
+			}
+			
+			.del-file {
+				color: red;
+				float: right;
+				font-size: 16px;
+				cursor: pointer;
+			}
+			
+			.button-box {
+				padding: 10px 0;
+			}
+			
+			.tally-alert {
+				width: 400px;
+			}
+			
+			.amount-table td {
+				padding: 7px 5px;
+			}
+			/*.cost-detail-info-model{
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 110;
+			}*/
+			
+			.cost-detail-info-model {
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 10001;
+				width: 840px;
+				display: none;
+			}
+			
+			.cost-detail-info-model button {
+				font-size: 16px;
+				margin-right: 30px;
+			}
+			
+			.cost-detail-info-model .model-bottom-btn {
+				text-align: center;
+			}
+			
+			.cost-detail-info-model .tab-check {
+				border-bottom: 1px solid #FFFFFF !important;
+				background: #FFFFFF;
+				color: #417095 !important;
+			}
+			
+			.cost-detail-info-model .wholeAlert {
+				background: #FFFFFF;
+				padding-bottom: 20px;
+			}
+			
+			.cost-detail-info-model .tab-check {
+				border-bottom: 1px solid #FFFFFF !important;
+				background: #FFFFFF;
+				color: #417095 !important;
+			}
+			
+			.print-bills,
+			.print-expend {
+				display: none;
+			}
+			
+			#lectureFeeTable .costTotal {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="" class="ordinary-div">
+			<div id="" class="">
+				<!--基础信息区域START-->
+				<div class="base-info-model">
+					<!--标题区域START-->
+					<div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+						<span class="title-text">基本信息</span>
+						<div class="form-num-model">
+							<label><span style="letter-spacing: 4px;">单据编</span>号：</label><span id="formNum" class="form-num">提交后自动生成</span>
+							<label style="margin-left: 20px;"><span style="letter-spacing: 4px;">申请日</span>期：</label><span id="applicantTime">--</span>
+							<input type="hidden" id="costType" />
+							<input type="hidden" id="applicantUser" placeholder="申请人code" />
+							<input type="hidden" id="specialCode" />
+						</div>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+					<!--标题区域END-->
+				</div>
+				<!--基础信息区域START-->
+				<div class="base-info-form-modle" style="padding:0 20px 10px;">
+					<table class="from-table" style="width: 100%;">
+						<tr class="essen-info">
+							<td style="width: 25%;"><label class="label-blod"><span style="letter-spacing: 15px;">申请</span>人：</label><span id="busiUsers"></span></td>
+							<td style="width: 25%;"><label class="label-blod dept-label"><span style="letter-spacing: 40px;">部</span>门：</label><span id="deptName"></span></td>
+							<td><label class="label-blod job-label"><span style="letter-spacing: 40px;">职</span>务：</label><span id="jobName"></span></td>
+							<td><label class="label-blod tel-label"><span style="letter-spacing: 40px;">电</span>话：</label><span id="telPhone"></span></td>
+						</tr>
+						<tr>
+							<td class="tl" colspan="4">
+								<label class="label-blod"><span class="letter-four">决算事</span>由：</label><span id="finalAppReason">-</span>
+							</td>
+						</tr>
+						<!--<tr>
+							<td style="width: 25%;">
+								<label class="label-blod"><span class="letter-four">费用类</span>型：</label><span id="costTypeName">业务招待费</span>
+							</td>
+							<td colspan="2" style="width: 50%;">
+								<label class="label-blod">事前申请单：</label><span id="advanceAppNum" data-text="advanceAppNum">--</span>
+							</td>
+							<td class="advance-relevance" style="display: none;">
+								<label class="label-blod">事前申请单可用余额：</label><span id="advanceAppBalance">--</span>
+							</td>
+						</tr>-->
+						<tr>
+							<td colspan="2">
+								<label class="label-blod">所属预算项目：</label><span id="specialName">--</span>
+							</td>
+							<td>
+								<label class="label-blod">部门可用预算余额：</label><span id="deptBudgetBalanceAmount">0.00</span><span><img class="risk-img" title="可用预算余额=预算批复数-预算执行数" src="../../../../../resources-sasac/images/system/expensesReim/common/help.png" /></span>
+							</td>
+							<td>
+								<label class="label-blod">中心预算余额：</label><span id="budgetBalanceAmount">--</span>
+								<!--<span><img class="risk-img" title="" src="../../../../../resources-sasac/images/system/expensesReim/common/help.png" /></span>-->
+							</td>
+						</tr>
+						<tr class="prj-name-tr" style="display: none;">
+							<td colspan="2">
+								<label class="label-blod"><span class="letter-four">项目名</span>称：</label><span id="prjName"></span>
+							</td>
+							<td colspan="2">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<label class="label-blod"><span class="letter-four">单据样</span>式：</label><span id="costTypeName">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<label class="label-blod">项目预算表：</label><span id="advanceAppNum" data-text="advanceAppNum"  style="color: #417095;cursor: pointer;">--</span>
+								<input type="hidden" id="advanceAppNumHiddenInput" />
+							</td>
+							<td class="advance-relevance" style="display: none;">
+								<label class="label-blod">事前申请单可用余额：</label><span id="advanceAppBalance">--</span>
+							</td>
+							<td colspan="2">
+								<label class="label-blod">支出申请单：</label>
+								<div id="expenditureAppNum" style="display: inline-block;">
+									
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--基础信息区域END-->
+				<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				<!--付款明细Start -->
+				<div class="payment-detail" style="padding: 0;">
+
+					<!-- 业务招待费区域 Start -->
+
+					<!-- 业务招待费区域 End -->
+
+					<!-- 页面加载区域 Start -->
+					<div class="index-main-div" id="indexMainDiv">
+
+					</div>
+					<!-- 页面加载区域 End -->
+					
+					<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin-top:10px;margin-bottom: 20px;"></div>
+					<!--税费信息START-->
+					<div class="meg-style" style="padding-top: 0;">
+						<div class="label-title">
+							<div class="title-model-sty">
+								<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png"> 
+								<span class="title-text">税费信息</span>
+							</div>
+							<div class="title-line">
+								<div></div>
+							</div>
+						</div>
+						<!--BODY START-->
+						<div class="traffic-cost-model taxation">
+							<table class="yt-table " width="100%">
+								<thead class="yt-thead">
+									<tr>
+										<th width="200px">费用名称</th>
+										<th width="200px">费用金额(元)</th>
+										<th width="200px">特殊说明</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody">
+									<tr>
+										<td>课酬费税金</td>
+										<td class="tax-amount">--</td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>增值税销项税</td>
+										<td class="added-value">--</td>
+										<td>收入合计*3%</td>
+									</tr>
+									<tr>
+										<td>应缴附加费</td>
+										<td class="surtax">--</td>
+										<td>销项税*12%</td>
+									</tr>
+									<tr>
+										<td>合计</td>
+										<td class="total">--</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!--BODY END-->
+					</div>
+					<!--税费信息END-->
+					<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin-top:10px;margin-bottom: 20px;"></div>
+					<!--总计信息START-->
+					<div class="meg-style" style="padding-top: 0;">
+						<div class="label-title" style="margin-bottom: 10px;">
+							<div class="title-model-sty">
+								<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png"> 
+								<span class="title-text">总计信息</span>
+							</div>
+							<div class="title-line">
+								<div></div>
+							</div>
+						</div>
+						<!--BODY START-->
+						<div class="dottom-div">
+							<div class="count-div">
+								<div class="division-div" style="position: relative;">
+									<div class="secondary-back" style="margin-top: 8px;margin-left: -20px;"></div>
+									<div class="secondary-title" style="">
+									<span class="secondary-text" style="font-size: 16px; font-weight: bold;">实际收入总金额</span>
+									<!--<div class="secondary-line"></div>-->
+									</div>
+								</div>
+								<div class="count-box" style="margin-top: 10px;">
+									<div class="form-label">
+										<label class="count-title">实际收入总金额(税前)：</label><span id="preTaxAllMoney">--</span><span>元</span>
+									</div>
+									<div class="form-label">
+										<label class="count-title">实际收入总金额(税后)：</label><span id="afterTaxAllMoney">--</span><span>元</span>
+									</div>
+								</div>
+								
+								<!--支出总金额START-->
+								<div class="division-div" style="position: relative;">
+									<div class="secondary-back" style="margin-top: 8px;margin-left: -20px;"></div>
+									<div class="secondary-title" style="">
+									<span class="secondary-text" style="font-size: 16px; font-weight: bold;">实际支出总金额</span>
+									<!--<div class="secondary-line"></div>-->
+									</div>
+								</div>
+								<div class="count-box" style="margin-top: 10px;">
+									<div class="form-label">
+										<label class="count-title">实际支出总金额：</label><span class="count-val count-val-num" id="totalAmount">--</span><span>元</span>
+									</div>
+									<div class="form-label">
+										<label class="count-title">人民币大写:</label><span style="padding-left: 5px;" id="totalMoneyUpper">--</span>
+									</div>
+								</div>
+								<div class="count-box">
+									<div style="display: inline-block;width: 33%;">
+										<label class="count-title">课酬费税金：</label><span id="taxAmount">--</span><span>元</span>
+									</div>
+									<div style="display: inline-block;width: 33%;">
+										<label class="count-title" >应缴附加费金额:</label><span style="padding-left: 5px;" id="vatSalesTax">--</span><span>元</span>
+									</div>
+									<div style="display: inline-block;width: 33%;">
+										<label class="count-title">增值税销项税税金</label><span style="padding-left: 5px;" id="surtax">--</span><span>元</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin: 10px 0;"></div>
+
+					<div class="count-div">
+						<div class="label-title" style="padding: 10px;">
+							<div class="title-model-sty">
+								<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+								<span class="title-text">相关附件</span>
+							</div>
+							<div class="title-line">
+								<div></div>
+							</div>
+						</div>
+						<div class="secondary-back" style="top: 1px;"></div>
+						<div class="secondary-title">项目决算相关附件<span style="color:#417095;padding-left: 5px;font-size: 14px;font-weight: 500;">此处申请人应上传课程表（日程表）</span></div>
+						<div style="padding:10px 0px;margin:10px 20px;border: 1px dashed #e6e6e6;">
+							<table style="width: 100%;">
+								<tr>
+									<td valign="top" align="right" width="130px" style="font-weight: bold;">项目决算相关附件：</td>
+									<td valign="top">
+										<div id="attIdStr" class="file-box" style="width: 100%;">
+											<!--<p>
+												<a href="" class="yt-link">派出单位公函.pdf</a>
+											</p>
+											<p>
+												<a href="" class="yt-link">发票.pdf</a>
+											</p>-->
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="">
+							<div class="secondary-back" style="top: 1px;"></div>
+							<div class="secondary-title">项目预算相关附件</div>
+							<div style="padding:10px 0px;margin:10px 20px;border: 1px dashed #e6e6e6;">
+								<table style="width: 100%;">
+									<tr>
+										<td valign="top" align="right" width="150px" style="font-weight: bold;">项目预算相关附件：</td>
+										<td valign="top">
+											<div id="advanceIdStr" class="file-box" style="width: 100%;">暂无附件</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--付款明细End -->
+
+				<!--记账凭证 Start -->
+				<!--<div class="">
+					<div class="label-title">
+						<div class="title-model-sty">
+							<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png"><span class="title-text">记账凭证</span>
+						</div>
+						<div class="title-line">
+							<div></div>
+						</div>
+					</div>
+				
+					<div class="button-box min-but" style="text-align: left;">
+						<button class="yt-option-btn yt-common-btn add-tally" id="" style="">新增</button>
+					</div>
+					<table border="0" cellspacing="0" cellpadding="0" class="yt-table tally-list">
+						<thead class="yt-thead">
+							<tr>
+								<th rowspan="2">摘要</th>
+								<th colspan="2">会计科目</th>
+								<th rowspan="2">借方科目</th>
+								<th rowspan="2">贷方科目</th>
+								<th rowspan="2"style="width: 80px;">操作</th>
+							</tr>
+							<tr>
+								<th>总账科目</th>
+								<th>明细科目</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+						</tbody>
+					</table>
+				</div>-->
+				<!--记账凭证 End -->
+				<!--<div style="margin-top:20px;height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>-->
+
+				<!-- 收款方信息 Start -->
+				<!--<div class="payee-info" style="padding-top: 20px;">-->
+					<!--标题区域START-->
+					<!--<div class="label-title" style="padding-bottom: 10px;">
+						<div class="title-model-sty">
+							<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+							<span class="title-text">付款信息</span>
+						</div>
+						<div class="title-line">
+							<div></div>
+						</div>
+					</div>-->
+					<!--标题区域END-->
+					<!--<div class="" style="padding-top: 10px;position: relative;">
+						<div class="secondary-back" style="display: inline-block;margin: 3px 0 0 20px;"></div><span class="secondary-text" style="font-size: 16px; font-weight: bold;position: relative;left: 20px;">收款方信息</span>
+					</div>
+					<div class="payee-info-isshow">-->
+						<!--收款方为单位表格区域START-->
+						<!--<div class="payee-unit-model">
+							<div class="division-div" style="margin-top: 5px;">
+								收款方为单位
+							</div>
+							<table class="yt-table payee-unit" style="width: 100%;table-layout: initial;">
+								<thead class="yt-thead">
+									<tr>
+										<th width="150px">单位全称</th>
+										<th>冲销方式</th>
+										<th width="150px">金额（元）</th>
+										<th width="150px">开户银行</th>
+										<th width="150px">账号</th>
+										<th width="150px">有无合同协议</th>
+										<th width="150px">特殊说明</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody">
+									<tr class="payee-unit-total">
+										<td>合计</td>
+										<td></td>
+										<td style="text-align: right;" class="payee-unit-money">0.00</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>-->
+
+						<!--收款方为单位表格区域END-->
+
+						<!--收款方为个人表格区域START-->
+						<!--<div class="payee-personal-model">
+							<div class="division-div">
+								收款方为个人
+							</div>
+							<table class="yt-table payee-personal" style="width: 100%;table-layout: initial;">
+								<thead class="yt-thead">
+									<tr>
+										<th style="width: 100px;">收款人姓名</th>
+										<th>个人应收款总金额（元）</th>
+										<th>冲销方式</th>
+										<th>冲销借款金额（元）</th>
+										<th>个人冲销后补领金额（元）</th>
+										<th>收款方式：现金（元）</th>
+										<th>收款方式：公务卡（元）</th>
+										<th>收款方式：转账（元）</th>
+										<th>账户信息</th>
+										<th>有无合同协议</th>
+										<th width="150px">特殊说明</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody">
+									<tr class="payee-personal-total">
+										<td>合计</td>
+										<td style="text-align: right;" class="payee-personal-money">0.00</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>-->
+
+						<!--收款方为个人表格区域END-->
+						<!--收款方为其他表格区域STRAT-->
+						<!--<div class="payee-other-model">
+							<div class="division-div">
+								收款方为其他
+							</div>
+							<table class="yt-table payee-other" style="width: 100%;table-layout: initial;">
+								<thead class="yt-thead">
+									<tr>
+										<th width="150px">其他付款</th>
+										<th>冲销方式</th>
+										<th width="150px">金额（元）</th>
+										<th width="150px">有无合同协议</th>
+										<th width="150px">特殊说明</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody">
+									<tr class="payee-other-total">
+										<td>合计</td>
+										<td></td>
+										<td style="text-align: right;" class="payee-other-total-money">0.00</td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>-->
+
+						<!--收款方为其他表格区域END-->
+					<!--</div>-->
+				<!--</div>-->
+				<!-- 收款方信息 End -->
+				
+</div>
+<!--纳税信息 Start -->
+				<!--<div id="payTaxesDiv" style="display:none;">
+				<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				<div class="rece-msg" style="">
+				<div class="label-title">
+						<div class="title-model-sty">
+							<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+							<span class="title-text">纳税信息</span>
+						</div>
+						<div class="title-line">
+							<div></div>
+						</div>
+					</div>
+					<table class="yt-table payee-unit" style="width: 100%;table-layout: initial;" >
+						<thead class="yt-thead">
+							<tr>
+								<th width="150px">名称</th>
+								<th>税额(元)</th>
+								<th>特殊说明</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr class="payee-unit-total">
+								<td>课酬费税金</td>
+								<td style="text-align: right;" class="payee-unit-money" id="payTeacherAll">0.00</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>-->
+				<!--纳税信息 end -->
+				<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				<!-- 流程审批 Start -->
+				<div class="ordinar-div approve-div" style="padding-top: 20px;" id="flowApproveDiv">
+					<div class="label-title">
+						<div class="title-model-sty">
+							<img src="../../../../../resources-sasac/images/icons/flow-title-icon.png">
+							<span class="title-text">流程审批</span>
+						</div>
+						<div class="title-line">
+							<div></div>
+						</div>
+					</div>
+					<div class="operation">
+						<div class="count-box" style="padding-left: 10px;">
+							<div class="form-label">
+								<label><span class="not-null">*</span>选择操作流程：</label>
+								<select name="" id="operate-flow" class="oper-select" validform="{isNull:true,msg:'请选择操作流程'}">
+									<option value="">请选择</option>
+									<option value="">提交到业务部门负责人审批</option>
+								</select>
+								<div class="valid-font" style="left: 105px;"></div>
+							</div>
+							<div class="form-label">
+								<label><span class="not-null">*</span>选择审批人：</label>
+								<select name="" id="approve-users" class="oper-select" validform="{isNull:true,msg:'请选择审批人'}">
+									<option value="">请选择</option>
+									<option value="">业务部门负责人-樊业处</option>
+								</select>
+								<div class="valid-font" style="left: 92px;"></div>
+							</div>
+						</div>
+						<div class="count-box" style="padding-left: 10px;">
+							<div class="left">
+								<span class="letter-four">操作意</span>见：
+							</div>
+							<div class="right">
+								<textarea id="opintion" class="yt-textarea" placeholder="请输入" style="resize: none;width: 98%;"></textarea>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			<!-- 流程审批 End -->
+			<div class="button-box">
+        <button class="yt-option-btn yt-search-btn print-btn" value="printExpend" id="printExpend" style="margin-right:35px;min-width: 100px;height: 40px;line-height: 38px;font-size: 18px;" acl-code="printExpend">打印项目决算单</button>
+        <button class="yt-option-btn yt-common-btn" style="" id="submitPayment">提交并打印支出凭单</button>
+        <button class="yt-option-btn yt-cancel-btn" style="margin-left: 35px;" id="clearBtn">取消</button>
+      </div>
+
+			</div>
+		</div>
+
+		<!--描述：收款方弹框 Start-->
+		<div class="cost-detail-info-model personal-payment" id="personalPayment" style="position: fixed;left: 0;top: 0;z-index: 999;">
+			<div class="model-title">
+				<img src="../../../../../resources-sasac/images/common/list.png"><span>收款方信息</span>
+			</div>
+			<div class="wholeAlert">
+				<div class="cost-type-tab">
+					<ul>
+						<li class="personal-tab tab-check" code="personal">对个人</li>
+					</ul>
+					<div class="tab-top" style="display: none;"></div>
+				</div>
+
+				<!--对个人START-->
+				<div class="personal-form tab-info" style="background: #fff;">
+					<div class="model-content personal" code="personal" style="padding-right: 0;height: 400px;overflow: auto;">
+						<table border="0" cellspacing="0" cellpadding="0" class="from-table" id="addPersonal">
+							<tbody>
+								<tr>
+									<td style="padding-left: 7px;width: 50%;">
+										<label>收款人姓名：</label><span id="perPayeeName"></span>
+									</td>
+									<td style="padding-left: 7px; width: 380px;">
+										<label>个人应收款总金额：</label><span id="perPersonalTotal"></span>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 7px">
+										<label style=""><span class="letter-five">身份证号</span>码：</label><span id="perIdCarkno"></span>
+									</td>
+									<td style="padding-left: 7px">
+										<label style=""><span class="letter-four">移动电</span>话：</label><span id="perPhoneNum"></span>
+									</td>
+
+								</tr>
+
+								<tr>
+									<td style="padding-left: 7px;">
+										<label><span class="letter-four">冲销方</span>式：</label><span id="perWiteOffPersonal"></span>
+									</td>
+									<td style="padding-left: 7px" class="display-loan">
+										<label style="">选择借款单：</label><span id="perChoiceLoan"></span>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 7px;" class="display-loan">
+										<label>借款单欠款金额：</label><span class="per-arrears-money">0.00</span><span style="margin-left: 5px;">元</span>
+									</td>
+									<td style="padding-left: 7px" class="display-loan">
+										<label style="">本次冲销金额：</label><span class="per-reverse-money">0.00</span><span style="margin-left: 5px;">元</span>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 7px;" colspan="2">
+										<label>个人冲销后补领总金额：</label><span class="per-writeoff-money">0.00</span><span style="margin-left: 5px;">元</span>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div class="secondary-back" style="margin-top: 9px;margin-left: 10px;"></div>
+										<div class="secondary-title" style="">
+											<span class="secondary-text" style=";font-size: 16px;">收款方式</span>
+											<!--<div class="secondary-line"></div>-->
+										</div>
+										<div class="secondary-dotted"></div>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 7px" colspan="2">
+										<div style="display: inline-block;">
+											<label>现金：</label><span id="perCash"></span><span>元</span>
+										</div>
+										<div style="display: inline-block;">
+											<label style="margin-left: 50px;">公务卡：</label><span id="perOfficialCard"></span><span>元</span>
+										</div>
+										<div style="display: inline-block;">
+											<label style="margin-left: 50px;">转账：</label><span id="perTransferAccounts"></span><span>元</span>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div class="secondary-back" style="margin-top: 9px;margin-left: 10px;"></div>
+										<div class="secondary-title" style="">
+											<span class="secondary-text" style="font-size: 16px;">账户信息(非公务卡账户)</span>
+											<!--<div class="secondary-line"></div>-->
+										</div>
+										<div class="secondary-dotted"></div>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 7px">
+										<label style="margin-left: 10px;"><span class="">开户银行名</span>称：</label><span id="perBankName"></span>
+									</td>
+									<td style="padding-left: 7px">
+										<label style="margin-left: 10px;"><span class="letter-four">银行卡</span>号：</label><span id="perPayeeBank"></span>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div class="secondary-back" style="margin-top:9px;margin-left: 10px;"></div>
+										<div class="secondary-title" style="">
+											<span class="secondary-text" style="font-size: 16px;">账户信息(公务卡账户)</span>
+											<!--<div class="secondary-line"></div>-->
+										</div>
+										<div class="secondary-dotted"></div>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 7px">
+										<label style="margin-left: 10px;"><span class="">开户银行名</span>称：</label><span id="perOffOpenBank"></span>
+									</td>
+									<td style="padding-left: 7px">
+										<label style="margin-left: 10px;"><span class="letter-four">银行卡</span>号：</label><span id="perOffAccounts"></span>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="padding-left: 7px" class="perCheck" colspan="2">
+										<label style="margin-left: 10px;">有无合同协议：</label><span id="payeeRadio"></span>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 10px;" colspan="2">
+										<label><span class="letter-four" style="margin-left: 10px;">特殊说明:</span></label>
+										<span id="perSpecial"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="model-bottom-btn" style="text-align: center;padding: 10px;">
+						<button class="yt-option-btn yt-cancel-btn" id="model-canel-btn" style="margin-right: 0;">关闭</button>
+					</div>
+				</div>
+				<!--对个人End-->
+			</div>
+		</div>
+		<!--描述：收款方弹框 End-->
+
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--上传-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/ajaxfile/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/projectManagement/expensesReim/module/reimApply/finalExamine.min.js?YTVERSIONCODE=2018011602"></script>
+	<!--引用JS文件END-->
+
+</html>

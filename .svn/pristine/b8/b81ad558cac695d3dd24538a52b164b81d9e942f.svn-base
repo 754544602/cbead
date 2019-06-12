@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/administrator/administrator.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>项目质量管理列表</title>
+		<style type="text/css">
+			.td-text-rigth {
+				text-align: right;
+			}
+			.tr-height {
+				height: 50px;
+			}
+			.list-tbody tr td{
+				text-align: center;
+			}
+			.head-div {
+			    margin-bottom: 8px;
+			    position: relative;
+			    padding: 7px 10px 17px;
+			    background: #363845;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="project-main" style="min-width: 1050px;">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="height: 22px;">
+				<div class="search-btn-slect" style="width: 100%;">
+					<div class="btn-all" style="position: relative;width: 70%;">
+						<button class="yt-option-btn exportList">
+							<img src="../../resources/images/icons/export.png" alt="">
+								导出
+						</button>
+						<button class="yt-option-btn sendNotice" style="width: 100px;">
+							发送通知
+						</button>
+						<label style="color: white;">开始日期：</label>  
+						<input id="start-time" class="calendar-input" style="width: 150px;height: 30px;" value="" placeholder="开始日期" type="text" />  
+						<span style="color: white;">--</span>
+						<label style="color: white;">结束日期：</label>  
+						<input id="end-time" class="calendar-input" style="width: 150px;height: 30px;" value="" placeholder="结束日期" type="text" /> 
+					</div>
+					<div class="key-word" style="margin-right: 0px;">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn search-button">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+				</div>
+				<!--数据展示区域START-->
+				<div class="list-box" style="border: none;">
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th style="width: 70px;">编号</th>
+								<th style="text-align: left;">班级名称</th>
+								<th style="width: 50px;">类型</th>
+								<th style="width: 150px;">项目主任</th>
+								<th style="width: 80px;">结束日期</th>
+								<th style="width: 60px;">报道学员</th>
+								<th style="width: 60px;">评分人数</th>
+								<th style="width: 60px;">评分状态</th>
+								<th style="width: 70px;">总体评分</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody class-tbody list-tbody">
+							<tr class="class-tr">
+								<td colspan="8" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info list-page page1" onselectstart="return false"></div>
+				</div>
+				<!--数据展示区域END-->
+				<!--导出弹窗-->
+				<div class="yt-pop-model yt-edit-alert add-shuttle-box" style="width: 480px;">
+					<div class="yt-edit-alert-title ">
+						<span class="ticket-class-title-span">导出</span>
+					</div>
+					<div class="yt-edit-alert-main cont-edit-test">
+						<form>
+							<table class="repair-tab" cellspacing="1px" cellpadding="1px" style="">
+								<tr class="tr-height">
+									<td class="classroomName" style="width: 170px;text-align: right;">导出班级评分</td>
+								</tr>
+								<tr class="tr-height">
+									<td class="typeName" style="width: 170px;text-align: right;">导出师资评分</td>
+								</tr>
+								<tr class="tr-height">
+									<td class="buildingNo" style="width: 170px;text-align: right;">导出教学活动评分</td>
+								</tr>
+							</table>
+						</form>
+						<div class="yt-eidt-model-bottom select-teacher-btn-div">
+							<input class="yt-model-bot-btn yt-model-canel-btn select-ticket-canel-btn" type="button" value="取消" />
+						</div>
+					</div>
+				</div>
+				<!--发送通知弹窗-->
+				<div class="yt-pop-model yt-edit-alert class-room-tye-shuttle-box" style="width: 480px;">
+					<div class="yt-edit-alert-title ">
+						<span class="ticket-teacher-title-span">发送通知</span>
+					</div>
+					<div class="yt-edit-alert-main cont-edit-test">
+						<form>
+							<div style="max-height: 220px; overflow-y: auto;">
+								<table class="add-one-line-tab" style="width: 430px; margin: 5px auto;">
+									<thead>
+										<tr>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody class="add-one-line-tbody">
+										
+									</tbody>
+								</table>
+							</div>
+						</form>
+						<div class="yt-eidt-model-bottom class-btn-div">
+							<input class="yt-model-bot-btn yt-model-sure-btn class-room-btn" type="button" value="推送" />
+							<input class="yt-model-bot-btn yt-model-canel-btn select-ticket-canel-btn" type="button" value="取消" />
+						</div>
+					</div>
+				</div>
+
+			
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--树形文件引用-->
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!-- 获取数据的js -->
+	<script type="text/javascript" src="../../resources/js/modules/projectQuality/projectQualityList.js"></script>
+
+</html>

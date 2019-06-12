@@ -1,0 +1,179 @@
+var index={
+	init:function(){
+		var me = this ;
+		me.indexData();
+	},
+	indexData:function(){
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "index/getIndexDataByFinance",
+			beforeSend:function(){
+				$yt_baseElement.showLoading();
+			},
+			async:true,
+			data:{},
+			success:function(data){
+				if(data.flag==0){
+					//总体情况
+					$('.index-top-middle').setDatas(data.data.overallSituation);
+					//项目未对账
+					if(data.data.reconciliationNot.length>0){
+						var reconciliationBody = $('.reconciliationNot-tbody').empty();
+						var htmlTr='';
+						$.each(data.data.reconciliationNot, function(i,n) {
+							if(i<3){
+							if(n.projectType==1){
+								n.projectTypeVel = '计划'
+							}
+							else if(n.projectType==2){
+								n.projectTypeVel = '委托'
+							}
+							else if(n.projectType==3){
+								n.projectTypeVel = '选学'
+							}
+							else if(n.projectType==4){
+								n.projectTypeVel = '调训'
+							}
+							htmlTr = '<tr>'+
+							'<td>'+n.projectName+'</td>'+
+							'<td width="50px">'+n.projectTypeVel+'</td>'+
+							'<td width="100px">'+n.endDate+'</td>'+
+							'<td width="100px">'+n.reconciliationNotTrainee+'</td>'+
+							'<td width="150px">'+n.reconciliationNotMoney+'</td>'+
+							'</tr>'
+							reconciliationBody.append(htmlTr);
+							}
+						});
+					}
+					$yt_baseElement.hideLoading();
+				}else{
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+			},
+			error:function(data){
+				$yt_baseElement.hideLoading(function (){
+					$yt_alert_Model.prompt("网络出现问题,请稍后重试");
+				});
+			}
+		});
+	}
+}
+$(document).ready(function(){
+	index.init();
+})
+	$("#txtDate1").calendar({  
+    speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+    complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+    readonly: true, // 目标对象是否设为只读，默认：true     
+    lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+    nowData:true,//默认选中当前时间,默认true  
+    dateFmt:"yyyy-MM",  
+    callback: function() { // 点击选择日期后的回调函数  
+//        alert("您选择的日期是：" + $("#txtDate").val());  
+		
+    }  
+}); 
+var myChart1 = echarts.init(document.getElementById('echartsone'));
+var myChart2 = echarts.init(document.getElementById('echartstwo'));
+option1 = {
+	title: {
+		text: '收入统计',
+		left:11,
+	},
+	backgroundColor: '#ffffff',
+	tooltip: {
+		trigger: 'axis',
+		axisPointer: { // 坐标轴指示器，坐标轴触发有效
+			type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+		}
+	},
+
+	legend: {
+		data: ['实际收入', '预计收入'],
+		right: '78px',
+		itemWidth: 10,
+		itemHeight: 10,
+		borderRadius: 5,
+
+	},
+	grid: {
+		left: '3%',
+		right: '4%',
+		bottom: '3%',
+		containLabel: true,
+	},
+	xAxis: {
+		type: 'value',
+		nameTextStyle: {
+			color: '#888888',
+		},
+	},
+	yAxis: {
+		type: 'category',
+		nameTextStyle: {
+			color: '#888888'
+		},
+		splitLine: {
+			show: false
+		},
+		data: ['学习十九大精神培训班', '预算绩效管理培训班', '预算绩效管理培训班', '预算绩效管理培训班', '党代会精神培训班', '党代会精神培训班', '企业管理培训班']
+	},
+	series: [{
+			name: '实际收入',
+			type: 'bar',
+			itemStyle: {
+				color: '#847ccf',
+				barBorderRadius: [0, 5, 5, 0],
+
+			},
+			barWidth: 16,
+			z: 10,
+			barGap: '-100%',
+			data: [50, 50, 70, 50, 60, 70, 50]
+		},
+		{
+			name: '预计收入',
+			type: 'bar',
+			itemStyle: {
+				color: '#df94e0',
+				barBorderRadius: [0, 5, 5, 0],
+			},
+			z: 1,
+			barWidth: 16,
+			data: [57, 67, 120, 65, 110, 90, 60]
+		}
+	]
+};
+
+option2 = {
+	title: {
+		text: '近一年报销统计',
+		left:11,
+	},
+	backgroundColor: '#ffffff',
+	xAxis: {
+		type: 'category',
+		data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+	},
+	yAxis: {
+		type: 'value',
+		nameTextStyle:{
+			
+		}
+	},
+	series: [{
+		data: [180, 135, 85, 100, 130, 145, 135, 110, 150, 165, 160, 120, , 90],
+		type: 'line',
+		itemStyle:{
+			borderColor:'#7b74c7'
+		},
+		lineStyle: {
+			color: '#7b74c7'
+		}
+	}]
+};
+
+myChart1.setOption(option1, true);
+myChart2.setOption(option2, true);

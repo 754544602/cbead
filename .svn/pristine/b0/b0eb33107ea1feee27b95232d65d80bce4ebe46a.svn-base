@@ -1,0 +1,408 @@
+.btn-style {
+	width: 72px;
+	height: 30px;
+	background-color: #6495BC;
+	border: 1px solid #6495BC;
+	box-shadow: 0px 1px 2px #6495BC
+}
+
+.add-btn {
+	margin-right: 10px;
+}
+
+.examine-btn {
+	width: 65px;
+	height: 25px;
+	padding: 0px;
+	color: #6495BC;
+	background-color: #FFF;
+	float: left;
+}
+
+.news-Backlog {
+	margin-right: 10px;
+	color: #6495BC;
+	border-bottom: 3px solid #6495BC;
+}
+
+.news-ByApprove {
+	color: black;
+}
+
+.head-div {
+	height: 22px;
+}
+
+.list-tbody tr td {
+	text-align: left;
+}
+
+.btn-back {
+	width: 72px;
+	height: 30px;
+	border-radius: 2px;
+	box-shadow: 0px 1px 4px #F3C986;
+	float: right;
+	text-align: center;
+	line-height: 30px;
+	font-size: 16px;
+	color: #fff;
+	background-color: #F3C986;
+	border: 1px solid #F3C986;
+	margin: 8px 37px 0px 0px;
+	cursor: pointer;
+}
+
+.add-box-btn {
+	height: 36px;
+	margin-top: 0px;
+	margin-left: 31px;
+	border-bottom: 1px solid #6495BC;
+}
+
+.blue-square-span {
+	width: 24px;
+	height: 24px;
+	background-color: #6495BC;
+	position: absolute;
+	top: 4px;
+	left: 13px;
+}
+
+.black-square-span {
+	width: 24px;
+	height: 24px;
+	background-color: #475C6D;
+	position: absolute;
+	top: 13px;
+	left: 31px;
+}
+
+.title-p {
+	float: left;
+	width: 100px;
+	color: #6495BC;
+	font-size: 18px;
+	margin-left: 30px;
+	margin-top: 13px;
+}
+
+.issueDayeString {
+	width: 212px;
+	background-position: 196px -25px;
+}
+
+.details-box {
+	width: 838px;
+	border: 1px solid #ECECEC;
+	box-shadow: 0px 5px 9px #ECECEC;
+	border-radius: 4px;
+	margin: 0px auto;
+	position: relative;
+}
+
+.details-title {
+	width: 82px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	background-color: #5B66AB;
+	color: #FFF;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.details-textarea {
+	width: 836px;
+	height: 325px;
+	resize: none;
+	border: none;
+	position: relative;
+}
+.number-box-span {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	top: 8px;
+	left: 15px;
+	font-size: 26px;
+	font-family: arial;
+	font-weight: bold;
+	color: #343434;
+}
+
+.name-box-span {
+	position: absolute;
+	top: 31px;
+	left: 57px;
+	width: 100px;
+	text-align: center;
+	font-size: 16px;
+	font-family: arial;
+	font-weight: bold;
+	color: #343434;
+}
+
+.view-box-div {
+	padding-top: 1px;
+	margin-left: 77px;
+	border-left: 8px solid #B5C2D4;
+	position: relative;
+}
+
+.view-box-ul {
+	height: 90px;
+	margin: 5px 0px 0px 10px;
+	list-style-type: none;
+	position: relative;
+}
+
+.first-step-ul {
+	margin: 10px 0px 0px 97px;
+	position: relative;
+}
+
+.view-taskName-span {
+	height: 30px;
+	padding: 0px 10px;
+	background-color: #686F99;
+	line-height: 30px;
+	font-size: 16px;
+	color: #FFF;
+	border-radius: 2px;
+}
+
+.view-time-li {
+	width: 340px;
+	position: absolute;
+	top: 5px;
+	left: 440px;
+	color: #686F99;
+}
+
+.operate-view-box-li {
+	background-color: #EDEBEC;
+	height: 50px;
+	width: 848px;
+	border: 1px solid #DFE6F3;
+}
+
+.operate-view-title-li {
+	color: #686F99;
+	width: 87px;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	margin-left: 10px;
+}
+
+.operate-view-text-li {
+	text-align: left;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+}
+
+.btn-box-div {
+	height: 30px;
+	text-align: right;
+	margin-top: 30px;
+	background-color: #F3F3F3;
+}
+
+.bootom-btn {
+	width: 70px;
+	height: 30px;
+	border-radius: 2px;
+	cursor: pointer;
+	text-align: center;
+	line-height: 30px;
+}
+
+.sure-btn {
+	float: right;
+	margin-right: 20px;
+	color: #FFF;
+	background-color: #6495BC;
+	box-shadow: 0px 1px 6px #6495BC;
+}
+
+.cancel-btn {
+	float: left;
+	margin-left: 20px;
+	color: black;
+	background-color: #FFF;
+	box-shadow: 0px 1px 6px #DDD;
+}
+
+.number-name-box {
+	width: 158px;
+	height: 62px;
+	margin-left: 50px;
+	position: relative;
+	top: 2px;
+}
+
+.last-step-commentTime-span {
+	width: 400px !important;
+	float: right;
+	text-align: right;
+	margin-right: 110px;
+	color: red;
+}
+
+/*.last-step-commentTime {
+	width: 175px;
+	left: 622px;
+	text-align: left;
+}*/
+
+.middle-step-box-div {
+	height: 90px;
+	border: 8px;
+	border-left: 8px solid rgb(104, 111, 153);
+	margin-left: 77px;
+	padding-top: 1px;
+}
+
+.order-img {
+	width: 158px;
+	height: 62px;
+}
+
+.middle-step-box-ul {
+	margin: 5px 0px 0px 10px;
+	position: relative;
+}
+
+.middle-a-index {
+	z-index: 23;
+}
+
+.details-approve {
+	text-align: left;
+}
+
+.procedure-box {
+	text-align: right;
+	margin-top: 7px;
+	background-color: #FFF;
+}
+
+.back-box {
+	height: 40px;
+	background-color: #FFF;
+	margin-left: 5px;
+}
+
+.tab-div {
+	padding-bottom: 36px;
+	margin-left: 5px;
+	margin-top: 10px;
+}
+
+. tab-content-div {
+	height: 650px;
+	text-align: right;
+	background-color: #FFF;
+}
+
+.add-tab {
+	height: 130px;
+	margin-left: 114px;
+}
+
+.projectCode-td {
+	width: 300px;
+	text-align: left;
+}
+
+.left-td {
+	text-align: left;
+}
+
+.procedure-head-title {
+	height: 36px;
+	position: relative;
+}
+
+.last-box {
+	position: relative;
+	margin-top: 16px;
+}
+
+.last-step-div {
+	height: 300;
+}
+
+.last-step-box {
+	height: 152;
+}
+
+.operate-state-title-td {
+	text-align: right;
+	width: 145px;
+}
+
+.last-step-operationState {
+	text-align: left;
+	position: relative;
+}
+
+.add-new-tab {
+	height: 170px;
+	width: 100%;
+}
+
+.radio {
+	margin-right: 13px;
+}
+
+.pad-pos {
+	padding-top: 1px;
+	position: relative;
+}
+
+.operate-produce-div {
+	height: 89px;
+}
+
+.z-style {
+	z-index: 10;
+}
+
+.list-title {
+	background: #FFF;
+	height: 35px;
+	padding-left: 10px;
+	font-size: 16px;
+	line-height: 35px;
+}
+
+.td-right {
+	width: 100px;
+	text-align: right;
+}
+
+.th-center {
+	text-align: center !important;
+}
+
+.td-left {
+	text-align: left;
+}
+
+.tr-height {
+	height: 50px;
+}
+
+.td-text-rigth {
+	text-align: right;
+}
+.td-rights{
+	text-align: right !important;
+}
+
+

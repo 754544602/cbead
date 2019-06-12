@@ -1,0 +1,437 @@
+/**
+ * 费用支付反馈列表查询
+ */
+var projectList = {
+	//初始化方法
+	init: function() {
+		//初始化下拉控件
+		$(".yt-select").niceSelect();
+		//初始化日期控件
+		$(".end-time-start").calendar({
+			controlId: "startDate",
+			dateFmt:"yyyy-MM-dd HH:mm",
+			nowData: false, //默认选中当前时间,默认true  
+			upperLimit: $(".end-time-end") //开始日期最大为结束日期  
+		});
+		$(".end-time-end").calendar({
+			controlId: "endDate",
+			dateFmt:"yyyy-MM-dd HH:mm",
+			nowData: false, //默认选中当前时间,默认true  
+			lowerLimit: $(".end-time-start") //结束日期最小为开始日期  
+		});
+		//调用获取列表数据方法
+		projectList.getPlanListInfo();
+		//点击流水账号跳转页面
+		$('.list-table').on("click", ".class-name", function() {
+			var pkId = $(this).parents("tr").find('.pkId').text(); //获取班级编号
+			var expenseType = $(this).parents("tr").find('.expenseType').text(); //获取班级编号
+			var workFlawState =  $(this).parents("tr").find('.workFlawState').text();
+			//expenseType 1:教师课酬报销 2:教师差旅报销
+			if(expenseType == 1) {
+				if(workFlawState=='已开票'){
+					window.location.href = "reimbursementLook.html?pkId=" + pkId;
+				}else{
+					window.location.href = "reimburDetailPayment.html?pkId=" + pkId;
+				}
+			}
+			if(expenseType == 2) {
+				if(workFlawState=='已开票'){
+					window.location.href = "reimburseTravelDetailsLook.html?pkId=" + pkId;
+				}else{
+					window.location.href = "reimburseTravelDetailsPayment.html?pkId=" + pkId;
+				}
+				
+			}
+		});
+		$('.back-btn').click(function(){
+			window.history.back();
+		})
+		//点击搜索按钮
+		$('.search-btn').click(function() {
+			projectList.getPlanListInfo();
+		});
+		//班级可搜索下拉
+		projectList.getBlongClass();
+		//教师可搜索下拉
+		projectList.getTeacher();
+		//高级搜索
+		var clickTime=0;
+		$("button.senior-search-btn").click(function(){
+			if(clickTime%2==0){
+				$(".search-box").show();
+				$(".search-put").addClass('flipy');
+			}else{
+				$(".search-box").hide();
+				$(".search-put").removeClass('flipy');
+			}
+			clickTime++;
+		});
+		//金额输入框失去焦点
+		$(".expense-tr input").blur(function(){
+			$(this).val($(this).val().replace(/[^\d.]/g,""));
+			$(this).val(Number($(this).val()));
+		});
+		//页签切换
+		$(".tab-title-box button").click(function(){
+			$(this).addClass('active').siblings().removeClass('active');
+			var thisIndex=$(this).index();
+			$(".content-div").eq(thisIndex).show().siblings('.content-div').hide();
+			if(thisIndex==0){
+				$(".page-main").css('min-width','1100px');
+				projectList.getPlanListInfo();
+			}else{
+				$(".page-main").css('min-width','2000px');
+			}
+		});
+		//加载树形图
+		projectList.treeList();
+		//点击申请人输入框
+		var time=0;
+		var time1=0;
+		var time2=0;
+		$("div.apply-man").click(function(){
+			if(time%2==0){
+				$("#treeDiv").show();
+				$("#treeDiv1").hide();
+				$("#treeDiv2").hide();
+				 time1=0;
+				 time2=0;
+			}else{
+				$("#treeDiv").hide();
+			}
+			time++;
+		});
+		//点击项目主任
+		$("div.project-dir").click(function(){
+			if(time1%2==0){
+				$("#treeDiv1").show();
+				$("#treeDiv2").hide();
+				$("#treeDiv").hide();
+				 time=0;
+				 time2=0;
+			}else{
+				$("#treeDiv1").hide();
+			}
+			time1++;
+		});
+		//点击班主任
+		$("div.project-class-dir").click(function(){
+			if(time2%2==0){
+				$("#treeDiv2").show();
+				$("#treeDiv").hide();
+				$("#treeDiv1").hide();
+				time=0;
+		 		time1=0;
+			}else{
+				$("#treeDiv2").hide();
+			}
+			time2++;
+		});
+		$("button.senior-query-btn").click(function(){
+			var ty=$("div.search-form table label input[name='test']:checked").val();
+			console.log('ty',ty);
+			if(ty==1){
+				$("div.travel-div").show();
+				$("div.class-rem-div").hide();
+			}else{
+				$("div.class-rem-div").show();
+				$("div.travel-div").hide();
+			}
+		});
+	},
+	/** 
+	 * 获取列表数据
+	 */
+	getPlanListInfo: function() {
+		var queryParams = $('#keyword').val();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/teacherExpense/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: queryParams,
+				createTimeStart: "",
+				createTimeEnd: "",
+				teacherCountStart: "",
+				teacherCountEnd: "",
+				expenseMoneyStart: "",
+				expenseMoneyEnd: "",
+				expenseType: "",
+				workFlawState: "已完成"
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before:function(){
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.open-class-tbody').empty();
+					var htmlTr = '';
+					var num = 0;
+					if(data.data.rows.length > 0) {
+
+						$.each(data.data.rows, function(i, v) {
+								num += 1;
+								var expenseType = Number(v.expenseType);
+								//1:教师课酬报销 2:教师差旅报销
+								if(expenseType == 1) {
+									expenseType = '教师课酬报销';
+								}
+								if(expenseType == 2) {
+									expenseType = '教师差旅报销';
+								}
+								v.workFlawState=='已完成'?v.workFlawState='已通过':v.workFlawState=v.workFlawState;
+								htmlTr = '<tr class="td-list">' +
+									'<td class="pkId" style="display:none;">' + v.pkId + '</td>' +
+									'<td class="paymentState" style="display:none;">' + v.paymentState + '</td>' +
+									'<td><a class="class-name"style="color: #3c4687;">' + v.flowNumber + '</a></td>' +
+									'<td class="expenseType" style="display:none;">' + v.expenseType + '</td>' +
+									'<td>' + expenseType + '</td>' +
+									'<td>' + v.projectCode + '</td>' +
+									'<td>' + v.projectName + '</td>' +
+									'<td>' + v.projectHead + '</td>' +
+									'<td>' + v.createTime + '</td>' +
+									'<td>' + v.teacherCount + '</td>' +
+									'<td>' + $yt_baseElement.fmMoney(v.expenseMoney,2)  + '</td>' +
+									'<td class="workFlawState">' + v.workFlawState + '</td>' +
+									'</tr>';
+									htmlTbody.append(htmlTr);
+						});
+					}
+					if(num == 0) {
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							htmlTbody.append(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 获取教师差旅列表
+	 */
+	getTeacherTrval:function(){
+		
+	},
+	/**
+	 * 获取教师课酬列表
+	 */
+	getTeacherClass:function(){
+		
+	},
+	/**
+	 * 获取所属班级数据
+	 */
+	getBlongClass:function(){
+		var classList;
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "finance/reduction/lookForAllProject",
+			data:{
+				selectParam:"",
+				projectCode:""
+			},
+			async:true,
+			success:function(data){
+				if(data.flag==0){
+					classList=data.data;
+				}
+			}
+		});
+		$("select.belong-class-select").niceSelect({
+			 search: true,  
+	         backFunction: function(text) { 
+	            //回调方法,可以执行模糊查询,也可自行添加操作  
+	            $("select.belong-class-select").empty();  
+	            if(text == "") {  
+	                $("select.belong-class-select").append('<option value="">请选择</option>');  
+	            }  
+	            //遍历存储的全局用户名遍历,匹配数据,进行模糊查询操作  
+	            $.each(classList, function(i, n) {  
+	                if(n.projectName.indexOf(text) != -1) {  
+	                    $("select.belong-class-select").append('<option value="' + n.projectCode + '">' + n.projectName + '</option>');  
+	                }  
+	            });  
+	         }  
+		});
+	},
+	/**
+	 * 获取教师数据
+	 */
+	getTeacher:function(){
+		var teacherList;
+			$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "class/course/getTeacherAll",
+			data:{
+				teacherName:""
+			},
+			async:true,
+			success:function(data){
+				if(data.flag==0){
+					teacherList=data.data;
+
+				}
+			}
+		});
+		$("select.class-teacher-name").niceSelect({
+			 search: true,  
+	         backFunction: function(text) { 
+	            //回调方法,可以执行模糊查询,也可自行添加操作  
+	            $("select.class-teacher-name").empty();  
+	            if(text == "") {  
+	                $("select.class-teacher-name").append('<option value="">请选择</option>');  
+	            }  
+	            //遍历存储的全局用户名遍历,匹配数据,进行模糊查询操作  
+	            $.each(teacherList, function(i, n) {  
+	                if(n.teacherName.indexOf(text) != -1) {  
+	                    $("select.class-teacher-name").append('<option value="' + n.teacherId + '">' + n.teacherName + '</option>');  
+	                }  
+	            });  
+	         }  
+		});
+	},
+	/**
+	 * 获取人员列表
+	 */
+	getUsers:function(){
+		var usersList;
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "uniform/user/getUsers",
+			data:{
+				compId:"",
+				userName:""
+			},
+			async:false,
+			success:function(data){
+				if(data.flag==0){
+					usersList=data.data;
+				}
+			}
+		});
+		return usersList;
+	},
+	/*
+	 json转换树形式
+	 * 
+	 * */
+	getTreeData: function(data, parentId) {
+		var me = this;
+		var result = [],
+			temp;
+		for(var i in data) {
+			if(data[i].parentId == parentId) {
+				result.push(data[i]);
+				temp = projectList.getTreeData(data, data[i].id);
+				if(temp.length > 0) {
+					data[i].children = temp;
+				}
+			}
+		}
+		return result;
+	},
+	/**
+	 * 树形图添加
+	 */
+	treeList:function(){
+		var usersList=projectList.getUsers();
+		$('#tt').tree({
+			data:projectList.getTreeData(usersList,"0"),
+			checkbox:true,
+			animate:true,
+			onCheck:function(node,checked){
+				console.log(projectList.treeGetData());
+				var check='';
+				var nodes=projectList.treeGetData().nodes;
+				$.each(nodes, function(i,n) {
+					if(n.type==3){
+						if(check==''){
+							check+=n.text;
+						}else{
+							check+=","+n.text;
+						}
+					}
+				});
+				//$("div.apply-man").attr('title',check);
+				$("div.apply-man").text(check);
+				
+			}
+		});
+		$('#aa').tree({
+			data:projectList.getTreeData(usersList,"0"),
+			checkbox:true,
+			animate:true,
+			onCheck:function(node,checked){
+				console.log(projectList.treeGetData());
+				var check='';
+				var node1=projectList.treeGetData().node1;
+				$.each(node1, function(i,n) {
+					if(n.type==3){
+						if(check==''){
+							check+=n.text;
+						}else{
+							check+=","+n.text;
+						}
+					}
+				});
+				//$("div.project-dir").attr('title',check);
+				$("div.project-dir").text(check);
+				
+			}
+		});
+			$('#cc').tree({
+			data:projectList.getTreeData(usersList,"0"),
+			checkbox:true,
+			animate:true,
+			onCheck:function(node,checked){
+				console.log(projectList.treeGetData());
+				var check='';
+				var node2=projectList.treeGetData().node2;
+				$.each(node2, function(i,n) {
+					if(n.type==3){
+						if(check==''){
+							check+=n.text;
+						}else{
+							check+=","+n.text;
+						}
+					}
+				});
+				//$("div.project-class-dir").attr('title',check);
+				$("div.project-class-dir").text(check);
+				
+			}
+		});
+},
+/**
+ * 树形图获取数据
+ */
+	treeGetData:function(){
+		var nodes = $('#tt').tree('getChecked');
+		var node1=$('#aa').tree('getChecked');
+		var node2=$('#cc').tree('getChecked');
+		return {
+			nodes:nodes,
+			node1:node1,
+			node2:node2
+		};
+	}
+};
+$(function() {
+	//初始化方法
+	projectList.init();
+});

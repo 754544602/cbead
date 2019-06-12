@@ -1,0 +1,16 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 1,
+		"rows": [
+			{
+				"prjId":"1",
+				"prjNum": "001",
+				"prjName": "日常公用经费",
+				"budgetPrice":"110.5",
+				"availablePrice":"4565",
+				"deptSource":"财务处"
+			}
+		]
+	}
+}

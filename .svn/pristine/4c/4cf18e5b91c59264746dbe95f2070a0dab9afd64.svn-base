@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge	" />
+		<title>班次计划</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-frame-base.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/index/educationindex.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/index/classplan.css" />
+	</head>
+
+	<body>
+		<div class="index-plan">
+			<table class="plan-table">
+				<caption>本月班次计划
+					<input id="txtDate" class="calendar-input" style="width: 109px;" value="" placeholder="请选择日期" type="text" />
+					<ul>
+						<li>
+							<label style="background-color: #DBDBDB ;"></label>
+							<span>初定意向</span>
+						</li>
+						<li>
+							<label style="background-color: #847CCF;"></label>
+							<span>意向</span>
+						</li>
+						<li>
+							<label style="background-color: #DF94E0;"></label>
+							<span>已运行</span>
+						</li>
+						<li>
+							<label style="background-color: #F6E7CD;"></label>
+							<span>已结项</span>
+						</li>
+					</ul>
+					<div class="right">
+						<span style="color: #7b74c7;">前一月</span>
+						<span style="color: #7b74c7;">本月</span>
+						<span style="color: #7b74c7;">后一月</span>
+					</div>
+				</caption>
+				<thead class="occupy-list">
+					<tr>
+						
+					</tr>
+				</thead>
+				<tbody class="yt-tbody">
+					<td colspan="30" align="center" style="border:0px;">
+						<div class="no-data" style="width: 280px;margin: 0 auto;">
+							<img src="../../resources/images/common/no-data.png" alt="" style="width:200px;padding: 35px 0 20px;">
+						</div>
+					</td>
+				</tbody>
+			</table>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script src="../../resources/js/calendar/yt-calendar.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/index/classplan.min.js"></script>
+
+</html>

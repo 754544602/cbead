@@ -1,0 +1,526 @@
+var projectList = {
+	//初始化方法
+	init: function() {
+		//获取一条详细信息
+		projectList.getOneListInfo();
+		
+		/**
+		 * 初始化日期控件
+		 */
+		$(".star-date-input").calendar({
+			speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+			complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+			readonly: true, // 目标对象是否设为只读，默认：true     
+			lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+			nowData: true, //默认选中当前时间,默认true  
+			dateFmt: "yyyy-MM-dd HH:mm",
+			callback: function() {} // 点击选择日期后的回调函数  
+		});
+		//班级列表下拉框
+		var classList = projectList.getClassLis();
+		if(classList != null) {
+			$.each(classList.data, function(i, n) {
+				$(".projectName").append($('<option value="' + n.classId + '">' + n.className + '</option>').data("classData", n));
+			});
+		};
+		//初始化班级下拉列表
+		$(".projectName").niceSelect();
+		
+		//点击新增开班式会序----新增一行
+		$('.content-div-box').on('click','.add-one-line',function(){
+			var bol=$yt_valid.validForm($(".valid-tab"));//输入框为空时反回为false，不为空时反回true
+			if(bol==true){
+				projectList.addLineInfo();
+			}
+		});
+		//调用拖拽排序函数
+		projectList.reorder();
+		//调用开班式会序删除函数
+		projectList.addAlineDelTabRwo();
+		//删除讲稿文件
+		projectList.delFileTr();
+		//上传文件
+		$(".up-btn-div-box").undelegate().delegate("input","change",function (){
+			$(".up-fileIds").next().text("");
+		    var addFile =  $(this).attr("id");
+		    //切割文件路径获取文件名
+		    var fileName=$(this).val().split('\\');
+		    //获取到上传的文件名
+		    var fm=fileName[fileName.length-1];
+		   
+		   	var url = $yt_option.acl_path + "api/tAscPortraitInfo/addFile?modelCode=caFile";
+		    $.ajaxFileUpload({
+				url: url,
+				type: "post",
+				dataType: 'json',
+				fileElementId:addFile,
+				success: function(data, textStatus) {
+				    var resultData = $.parseJSON(data);
+				    var fileId = resultData.obj.pkId;
+				    if(resultData.success == 0){
+					 	$yt_alert_Model.prompt("附件上传成功");
+					 	fileList=[fm,fileId]
+					 	//调用新增一行函数
+					 	projectList.addLineLecture(fm,fileId);
+				    }else{
+					 	$yt_alert_Model.prompt("附件上传失败");
+				    }
+				},
+				error: function(data, status, e){ //服务器响应失败处理函数  
+				    $yt_alert_Model.prompt("附件上传失败!!!!");
+				}
+			});
+		});
+		
+		//下载演讲稿
+		$('.add-lecture-tb tbody').on('click',".down-file",function(){
+			var filePkId =$(this).parent().parent().find('.file-span-id').val();
+			var fileURL =$(this).parent().parent().find('.fileURL').val();
+			$.ajaxDownloadFile({
+				url:fileURL
+			});
+		});
+		
+		//点击下载模板
+		$('.up-btn-div-box').on('click','.down-modle-file',function(){
+			//调用下载模板函数
+			projectList.downloadOrder();
+		});
+		//确定按钮
+		$("#submit").click(function(){
+			projectList.addClassInfo();
+		});
+		//取消按钮
+		$('#last-cancel').click(function(){
+			window.location.href = "waitOpenHonorsList.html";
+		});
+		//返回按钮
+		$('.back-btn').click(function(){
+			window.location.href = "waitOpenHonorsList.html";
+		});
+		
+	},
+
+	
+	//修改审批页面
+	addClassInfo:function(){
+		$yt_baseElement.showLoading();
+			var pkId = $yt_common.GetQueryString("pkId");
+			var operateType = $yt_common.GetQueryString("types");
+			//流程定义key
+			var businessCode=$('#businessCode').val();
+			var processInstanceId = $('#processInstanceId').val()
+			//班级编号
+			var projectCode=$('#projectCode').val();
+			//开结业式时间
+			var startTime = $('.startTime').val();
+			
+			//会序
+			var orderListArr=[];
+			//会序内容
+			var details="";
+			//会序时长
+			var dateLength="";
+			//会序调序
+			var orderBy="";
+			//遍历会序表格获取每一行会序参数
+			$(".add-order-tb tbody tr").each(function (i,n){
+				//会序序号
+				orderBy=i+1;
+				details=$(n).find('.details').val();
+				dateLength=$(n).find('.dateLength').val();
+				var orderList={
+					details:details,
+					dateLength:dateLength,
+					orderBy:orderBy
+				}
+				orderListArr.push(orderList);
+			});
+			var orderListJson = JSON.stringify(orderListArr);
+			//开班式讲稿
+			var fileListArr=[];
+			//附件id
+			var fileId ="";
+			//附件名
+			var fileName="";
+			//附件类型，1  图片，2  其他附件
+			var types="";
+			var fileListArr=[];
+			//获取所有上传的讲稿
+			$(".add-lecture-tb tbody tr").each(function (i,n){
+				fileId = $(n).find('.file-span-id').val();
+				fileName = $(n).find('.fileName').text();
+				var fileList={
+					fileId:fileId,
+					fileName:fileName,
+					types:2
+				}
+				fileListArr.push(fileList);
+			});
+			var fileListJson = JSON.stringify(fileListArr);
+			
+			var opintion="";
+			//获取下一步操作人
+			var dealingWithPeople=$('#nextPeople').val();
+			//提交
+			var nextCode="submited";
+			$.ajax({
+				type: "post",
+				url: $yt_option.base_path + "class/openHonors/addOrUpdateBean",
+				data: {
+					pkId:pkId,
+					types: operateType,
+					projectCode:projectCode,
+					startTime:startTime,
+					orderList: orderListJson,
+					fileList: fileListJson,
+					//保存或提交
+					dataStates:dataStates,
+					//开班式或结业式
+					businessCode:businessCode,
+					//流程定义id
+					processInstanceId:processInstanceId,
+					//审批意见  可为空
+					opintion:opintion,
+					//下一步操作人  
+					dealingWithPeople:dealingWithPeople,
+					//操作流程代码   不能为空
+					nextCode:nextCode
+				},
+				success: function(data) {
+					if(data.flag == 0) {
+						$yt_baseElement.hideLoading();
+					} else {
+						
+						$yt_baseElement.hideLoading(function (){
+							$yt_alert_Model.prompt("添加失败");
+							
+						});
+					}
+					projectList.init();
+				}
+			});
+		
+	},
+	
+	
+	
+	//下载模版
+	downloadOrder:function(){
+		//文件名
+		var typeName=  $('.dd-open-span').text();
+		var fileName= "";
+		//模板类型
+		var type;
+		if(typeName=="新增开班式"){
+			type=1;
+			fileName="开班式模板";
+		};
+		if(typeName=="结业"){
+			type=2;
+			fileName="结业式模板";
+		}
+		$.ajaxDownloadFile({
+			url:$yt_option.base_path+"class/openHonors/downloadOrder",
+			types:type,
+			fileName:fileName
+		});
+	},
+	
+	//开班讲稿式删除一行
+	delFileTr:function(){
+		//删除一行数据
+		$(".add-lecture-tb").on('click',".entry-del-icon",function() {
+			var tr = $(this).parent();
+			$yt_alert_Model.alertOne({
+				haveAlertIcon: false, //是否带有提示图标
+				closeIconUrl: "", //关闭图标路径 
+				leftBtnName: "确定", //左侧按钮名称,默认确定 
+				rightBtnName: "取消", //右侧按钮名称,默认取消 
+				cancelFunction: "", //取消按钮操作方法*/ 
+				alertMsg: "数据删除将无法恢复,确认删除吗?", //提示信息 
+				confirmFunction: function() {
+					tr.remove();
+				}
+			});
+		});
+	},
+	
+	//上传一一个文件新增一行
+	addLineLecture:function(fileName,fileId){
+		 var num=$(".lecture tbody tr").length+1;
+		var lineTrHtml='<tr class="file-tr-border-style">'+
+							'<input type="hidden" class="fileURL" value="http://10.2.1.249:7216/acl/api/tAscPortraitInfo/download?isDownload=true&pkId='+fileId+'">'+
+							'<td class="lecture-tds">【<span class="fileLineNum">'+num+'</span>】</td>'+
+							'<td class="fileName"><input type="hidden" class="file-span-id" value="'+fileId+'" >'+fileName+'</td>'+
+							'<td style="display:none;" class="lecture-tds"><img class="ioc-img" src="../../resources/images/open/yulan.png" /></td>'+
+							'<td style="width: 40px; display:none;">预览</td>'+
+							'<td class="lecture-tds" style="text-align:center;width:70px"><span class="down-file"><img class="ioc-img" src="../../resources/images/open/xiazai2.png" />下载</span></td>'+
+							'<td class="lecture-tds" style="text-align:center;width:170px"><span class="entry-del-icon"><img class="ioc-img" src="../../resources/images/open/delete.png" />删除</span></td>'+
+							
+						'</tr>';
+		$(".lecture").append(lineTrHtml);
+		
+	},
+	
+	
+	
+	///导出开结业式会序
+	getOutOpenHonors:function(){
+		//当前一条详细信息的pkId
+		var pkId = $('#pkId').val();
+		//当前详细信息是开班式还是结业式
+		var types=$('#types').val();
+		$.ajaxDownloadFile({
+			url:$yt_option.base_path+"class/openHonors/exportOrder",
+			pkId:pkId,
+			types:types
+		});
+	},
+	//开班式会序删除一行
+	addAlineDelTabRwo:function(){
+		//删除一行数据
+		$(".add-order-tb").on('click',".entry-del-icon",function() {
+			var tr = $(this).parent().parent();
+			$yt_alert_Model.alertOne({
+				haveAlertIcon: false, //是否带有提示图标
+				closeIconUrl: "", //关闭图标路径 
+				leftBtnName: "确定", //左侧按钮名称,默认确定 
+				rightBtnName: "取消", //右侧按钮名称,默认取消 
+				cancelFunction: "", //取消按钮操作方法*/ 
+				alertMsg: "数据删除将无法恢复,确认删除吗?", //提示信息 
+				confirmFunction: function() {
+					tr.remove();
+				}
+			});
+		});
+	},
+	//拖拽排序
+	reorder:function(){
+		$('.add-order-tb').tableDnD({  
+            onDragClass: "ondragclass",  //在拖动的持续时间中添加该类，然后在该行被删除时移除  
+            onDrop: function(table, row) {  //传递一个函数，当该行被拖拽结束时将被调用。该函数需要2个参数：结束拖动的表和行  
+                var rows = table.tBodies[0].rows; //获取tbody 的行数  
+                var debugStr = "拖拽结束后的行：" + row.id;  
+                for(var i = 0; i < rows.length; i++) {  
+                    debugStr += rows[i].id + " ";  
+                }  
+                console.log(debugStr);  
+            },  
+            onDragStart: function(table, row) { //开始拖动时调用的函数。该函数需要2个参数：开始拖动的表和行  
+                console.log("当前拖拽的表格行：" + row.id);  
+            }  
+        });  
+		
+	},
+	//会序列表新增一行
+	addLineInfo:function(){
+		var num=$(".add-order-tb tbody tr").length+1;
+		var lineTrHtml = '<tr class="add-textList tr-border-style">'+
+							'<td class="order-by">'+num+'</td>'+
+							'<td class="td-input">'+
+								'<input style="width: 600px; float: left;" type="text" class="yt-input details" validform="{isNull:true,size:20,msg:\'请输入内容,不要超过20个字\'}"/>'+
+								'<span class="valid-font z-style"></span>'+
+							'</td>'+
+							'<td  style="position: relative;">'+
+								'<input type="text" class="yt-input dateLength td-input-time" validform="{isNull:true,size:10,msg:\'请输入会序时长\'}"/> '+
+								'<span class="valid-font z-style"></span>'+
+								'<p class="time-txt" style="float: left;margin: 4px;">'+'分钟'+'</p>'+
+							'</td>'+
+							'<td class="td-img">'+
+								'<img class="orderBy-dele-img img-size" src="../../resources/images/open/tiaoxu.png"/>'+
+							'</td>'+
+							'<td class="handle-td td-img">'+
+								'<span class="entry-del-icon" onclick="">'+
+									'<img class="orderBy-dele-img img-size" src="../../resources/images/open/delete.png"/>'+
+								'</span>'+
+							'</td>'+
+						'</tr>';
+						
+						$(".add-order-tb tbody").append(lineTrHtml);
+						//点击新增一行后从初始化排序函数
+						projectList.reorder();
+	},
+	/**
+	 * 获取所有班级
+	 */
+	getClassLis: function() {
+		var list = [];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "uniform/getClasslist",
+			data: {
+				types: '4'
+			},
+			async: false,
+			success: function(data) {
+				list = data || [];
+			}
+		});
+		return list;
+	},
+//----------------------------------------审批部分流程--------------------------------------------------------	
+	//审批获取审批详细信息
+	getOneListInfo: function() {
+		$yt_baseElement.showLoading();
+		var pkId = $yt_common.GetQueryString("pkId");
+		var types = $yt_common.GetQueryString("types");
+		
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "class/openHonors/getBeanById",
+			async: false,
+			data: {
+				pkId: pkId,
+				types:types
+			},
+			objName: 'data',
+			success: function(data) {
+				if(data.flag == 0) {
+				//隐藏数据		
+					//流程实例id
+					$('#processInstanceId').val(data.data.processInstanceId);
+					//班级名
+					$('#projectCode').text(data.data.projectName);
+					//项目主任
+					$('#projectUserName').text(data.data.projectUserName);
+					//召开时间
+					$('#startTime').text(data.data.startTime);
+					//学员数量
+					$('#traineeCount').text(data.data.traineeCount);
+					//提交时间
+					$('#createTimeString').text(data.data.createTimeString);
+					//提交人
+					$('#createUser').text(data.data.createUserName);
+					//班级类型
+					$('#types').val(data.data.types);
+					//班级类型
+					$('#pkId').val(data.data.pkId);
+					
+					
+					//会序
+					var orderList=data.data.orderList;
+					var orderListObj=$.parseJSON(orderList);
+					$.each(orderListObj, function(i,v) {
+						
+						var num = $(".add-order-tb tbody tr").length + 1;
+						var lineTrHtml = '<tr class="add-textList">' +
+											'<td class="order-by"> <input type="hidden" class="orderBy" value="'+v.orderBy+'"/>' + num + '</td>' +
+											'<td class="td-input details">'+v.details+'</td>' +
+											'<td class="dateLength">'+v.dateLength+'</td>' +
+											'<td style="text-align:left;padding-left:10px;">'+"分钟"+'</td>' +
+										'</tr>';
+
+
+							$(".add-order-tb tbody").append(lineTrHtml);
+						
+					});
+					//讲稿
+					var fileList=data.data.fileList;
+					var fileListObj=$.parseJSON(fileList)
+					$.each(fileListObj, function(i,v) {
+						var num = $(".lecture tbody tr").length + 1;
+						var lineTrHtml='<tr class="file-tr-border-style">'+
+											'<input type="hidden" class="fileURL" value="http://10.2.1.249:7216/acl/api/tAscPortraitInfo/download?isDownload=true&pkId='+v.fileId+'">'+
+											'<td class="lecture-tds">【<span class="fileLineNum">'+num+'</span>】</td>'+
+											'<td class="fileName"><input type="hidden" class="file-span-id" value="' + v.fileId + '" >' + v.fileName + '</td>' +
+											'<td style="display:none;" class="lecture-tds"><img class="ioc-img" src="../../resources/images/open/yulan.png" /></td>'+
+											'<td style="width: 40px; display:none;">预览</td>'+
+											'<td class="lecture-tds" style="text-align:center;width:70px"><span style="cursor: pointer;" class="down-file"><img class="ioc-img" src="../../resources/images/open/xiazai2.png" />下载</span></td>'+
+											'<td class="lecture-tds" style="text-align:center;width:170px"><span style="cursor: pointer;" class="entry-del-icon"><img class="ioc-img" src="../../resources/images/open/delete.png" />删除</span></td>'+
+							
+										'</tr>';
+						$(".lecture").append(lineTrHtml);
+					});
+					
+					//流程
+					var flowLog = data.data.flowLog;
+					var middleStepHtml;
+					var length=flowLog.length;
+					var deleteReasons = "";
+					var tastName;
+					$.each(flowLog, function(i,v) {
+						if(v.deleteReason == "completed") {
+							deleteReasons = "同意";
+						};
+						
+						if(v.deleteReason == "returnedSubmit") {
+							deleteReasons = "退回到申请人";
+						};
+						if(v.deleteReason == "refusedToApproval") {
+							deleteReasons = "拒绝";
+						}
+						tastName=v.taskName+deleteReasons;
+						//如果i等于0是最后一步流程
+						if(i==0){
+							if(v.deleteReason == "returnedSubmit"){
+								tastName = "待申请人再次提交申请"
+							}
+							//流程编号
+							$('.last-step-order').text(length);
+							//操作人名
+							$('.last-step-operate-person-userName').text(v.userName);
+							//操作状态
+							$('.last-step-operationState').text(tastName);
+							//停滞时间							
+							$('.last-step-commentTime').text(v.commentTime);
+						};
+						//如果i等于length-1是流程的第一步
+						if(i==length-1){
+							tastName ="申请提交"
+							//流程编号
+							$('.first-step-order').text(1);
+							//操作人名
+							$('.first-step-operate-person-userName').text(v.userName);
+							//当前审批节点名字
+							$('.first-step-taskName').text(tastName);
+							//时间
+							$('.first-step-commentTime').text(v.commentTime);
+							//审批意见
+							$('.first-step-comment').text(v.comment);
+							
+						};
+						
+						//如果i不等于且不等于length-1，是流程的中间步骤
+						if(i!=0 && i!= length-1){
+							//流程序号
+							var order=length-i;
+							middleStepHtml='<div>'+	
+												'<div style="height: 150; ">'+
+													'<div class="number-name-box">'+
+														'<span class="number-box-span middle-step-order middle-a-index" >'+order+'</span>'+
+														'<span class="name-box-span middle-step-userName middle-a-index" >'+v.userName+'</span>'+
+														'<img src="../../resources/images/open/openFlow.png" class="order-img" />'+
+													'</div>'+
+												'</div>'+
+												'<div class="middle-step-box-div">'+
+													'<ul class="middle-step-box-ul">'+
+														'<li style="height: 30px;">'+
+															'<span  class="middle-step-taskName view-taskName-span"  style="float: left;">'+tastName+'</span>'+
+														'</li>'+
+														'<li class="view-time-li middle-step-commentTime" >'+v.commentTime+'</li>'+
+														'<li class="operate-view-box-li">'+
+															'<div class="operate-view-title-li">操作意见：</div>'+
+															'<div class="operate-view-text-li middle-step-comment">'+v.comment+'</div>'+
+														'</li>'+
+													'</ul>'+
+												'</div>'+
+											'</div>';
+							$('.last-step').append(middleStepHtml);	
+						};
+					});
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+			}
+		});
+	}
+
+};
+$(function() {
+	//初始化方法
+	projectList.init();
+});

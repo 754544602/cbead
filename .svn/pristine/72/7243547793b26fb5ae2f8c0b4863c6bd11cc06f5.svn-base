@@ -1,0 +1,243 @@
+.qtip-default {
+	display: none;
+}
+
+.apply-type {
+	width: 260px;
+}
+
+.busi-appr-td {
+	width: 280px;
+}
+
+.letter-four{
+	letter-spacing: 5px;
+}
+
+#trip-file,
+#modelFile {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	height: 30px;
+	width: 70px;
+	font-size: 19px;
+	overflow: hidden;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+.training-type {
+	width: 200px;
+}
+
+.date-border {
+	display: inline-block;
+	width: 15px;
+	height: 1px;
+	/* margin-top: -47px; */
+	border-top: 1px solid #999999;
+	position: absolute;
+	top: 24px;
+}
+
+.end-date {
+	margin-left: 20px;
+}
+
+.time-input {
+	width: 138px;
+	background-position: 97px -25px;
+}
+
+.fell-standard td {
+	border: 1px solid black;
+	padding: 0 !important;
+	text-align: center;
+	height: 30px;
+}
+
+.line-div {
+	height: 28px;
+	line-height: 28px;
+}
+
+.nice-select{
+	display: inline-block;
+	float: none;
+	width: 200px;
+	vertical-align: middle;
+}
+.project-select {
+	width: 200px;
+}
+
+.contract-num {
+	cursor: pointer;
+}
+
+#busiTripTab {
+	width: 100%;
+}
+
+.file-list img {
+	width: 12px;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+.traffic-form .yt-select {
+	width: 543px;
+}
+
+.title-select,.training-type-s{
+	width: 202px !important;
+}
+.traffic-form .time-input{
+	width: 104px;
+}
+.traffic-form .yt-select.traffic-tool {
+	width: 300px;
+}
+
+.busi-appr-td{
+	width:380px;
+}
+#trip-file, #modelFile {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+    height: 30px;
+    width: 70px;
+    font-size: 19px;
+    overflow: hidden;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.date-border{
+    display: inline-block;
+    width: 15px;
+    height: 1px;
+    /* margin-top: -47px; */
+    border-top: 1px solid #999999;
+    position: absolute;
+    top: 20px;
+}
+.end-date{
+	margin-left: 20px;
+}
+.time-input{
+	width: 108px;	
+	background-position: 97px -25px;
+}
+.fell-standard td{
+	border:1px solid black;
+	padding: 0 !important;
+	text-align: center;
+	height: 30px;
+}
+.loan-bill-select{
+	width: 204px;
+}
+.apply-cost-total-model td{
+	padding: 10px 0px;
+}
+.amount-table td{
+	border: 1px solid #DFE6F3;
+    vertical-align: middle;
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+    padding: 0;
+}
+  .amount-table{
+  	width: 100%;
+  }
+  .amount-table td input{
+  	width: 94%;
+  	margin: 1px;
+  }
+  .reim-type{
+  	width: 186px;
+  }
+.file-btn-div{
+    border: solid 1px #dfe6f3;
+    float: left;
+    border: solid 1px #dfe6f3;
+    width: 542px;
+    height: 29px;
+    overflow: hidden;
+}
+.tab-top{
+	display: block;
+    width: 100%;
+    height: 36px;
+    position: absolute;
+}
+.info-table td{
+	border:1px solid #DFE6F3;
+	text-align: center;
+	padding-bottom:0 !important;
+	height: 35px;
+}
+
+.file-name-list{
+	margin-left: 10px;
+    display: inline-block;
+    width: 60%;
+    vertical-align: text-top;
+    white-space: normal;
+    word-wrap: break-word;
+    color: #384495;
+}
+
+.file-name-list .file-name {
+    margin-left: 10px;
+    cursor: pointer;
+}
+.file-up-div {
+    display: inline-block;
+    vertical-align: middle;
+}
+.cont-file{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 30px;
+    width: 70px;
+    font-size: 19px;
+    overflow: hidden;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.dib{
+	display: inline-block !important;
+}
+
+.offcial-clearing{
+	padding: 10px 20px;
+	text-align: right;
+}
+
+.file-box{
+	display: block !important;
+	padding-left: 120px;
+	
+}
+.file-box .li-div{
+	position: relative;
+	padding:5px 10px;
+	color: #384495;
+}
+.file-box .del-file{
+	width: 15px;
+    height: 15px;
+	margin-left: 10px;
+	margin-bottom: 2px;
+	vertical-align: middle;
+	cursor: pointer;
+}

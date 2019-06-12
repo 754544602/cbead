@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classOccupy.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/ticketOpen/ticketOpenInfo.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>报销对账</title>
+		<style type="text/css">
+			.list-td {
+				text-align: center;
+			}
+			.yt-model-reset-btn{
+			    background: #de595a;
+			    color: #FFFFFF;
+			    cursor: pointer;
+			  	outline: none;
+			}
+			.search-box .yt-input,.search-box .calendar-input{
+				width: 130px;
+			}
+			.search-box input.yt-input{
+				width: 135px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main" style="min-width: 1100px;">
+			<div class="head-div" style="margin-bottom: 0px;height: 22px;"></div>
+			<div class="tab-title-list" style="overflow: hidden;margin-top: 0px;">
+				<div class="tab-title-box" style="width: 1440px;">
+					<button senior="0" class="yt-option-btn class-info-btn active cost-btn">• 机票</button>
+					<button senior="1" class="yt-option-btn teacher-info-btn borrow-btn">• 火车票</button>
+				</div>
+				<input type="hidden" id="operate-type" value="减免" />
+			</div>
+			<!--数据展示区域START-->
+			<div class="box-reconciliations-list" style="position: relative;">
+				<div class="content-box programme" style="border-bottom: 0px;height: 35px;padding-left: 10px;background: none;">
+					<button class="yt-option-btn reconciliations-import" style="margin: 0px 3px 0px 0px;">
+					导入
+					<img src="../../resources/images/classStudent/guanli-daoru.png">
+				</button>
+					<button class="yt-option-btn reconciliations-delete" style="margin: 0px 3px;">
+					 删除
+					<img src="../../resources/images/icons/export.png" alt="" />
+				</button>
+				</button>
+				<button class="yt-option-btn senior-search-btn" clickState="true" style="margin: 0px 3px;">
+					更多
+					<img class="search-put" src="../../resources/images/icons/class-put.png"/>
+				</button>
+				<!--弹出divSTART-->
+				<div class="search-box" style="display: none;width: 425px;left: 170px;top: 30px;">
+					<table class="search-table">
+						<tbody>
+							<tr>
+								<td style="text-align: right;">导入人：</td>
+								<td>
+									<input class="yt-input create-user" style="width: 296px;" type="text" placeholder="请输入">
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">出票开始日期：</td>
+								<td>
+									<input class="calendar-input start-time-start" placeholder="请选择" type="text" readonly="readonly">
+									<span class="date-line">—</span>
+									<input class="calendar-input start-time-end"  placeholder="请选择" type="text" readonly="readonly">
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">出票结束日期：</td>
+								<td>
+									<input class="calendar-input end-time-start" value="" placeholder="请选择" type="text" readonly="readonly">
+									<span class="date-line">—</span>
+									<input class="calendar-input end-time-end"  value="" placeholder="请选择" type="text" readonly="readonly">
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">有效条数：</td>
+								<td>
+									<input class="yt-input eff-num-start " value="" placeholder="请输入" type="number" >
+									<span class="date-line">—</span>
+									<input class="yt-input eff-num-end"value="" placeholder="请输入" type="number" >
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">有效金额：</td>
+								<td>
+									<input class="yt-input eff-money-start" value="" placeholder="请输入" type="number" >
+									<span class="date-line">—</span>
+									<input class="yt-input eff-money-end"  value="" placeholder="请输入" type="number" >
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">导入时间：</td>
+								<td>
+									<input class="calendar-input expot-time-start" placeholder="请选择" type="text" readonly="readonly">
+									<span class="date-line">—</span>
+									<input class="calendar-input expot-time-end"placeholder="请选择" type="text" readonly="readonly">
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">未对账：</td>
+								<td>
+									<input class="yt-input norec-start" placeholder="请输入" type="number">
+									<span class="date-line">—</span>
+									<input class="yt-input norec-end" placeholder="请输入" type="number">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--底部按钮START-->
+					<div class="search-bottom-btn">
+						<button class="yt-model-bot-btn yt-model-sure-btn">
+							<img class="search-btn-img" src="../../resources/images/icons/class-search.png">
+						</button>
+						<button class="yt-model-bot-btn yt-model-reset-btn">
+							<img class="search-btn-img" src="../../resources/images/icons/class-reset.png">
+						</button>
+					</div>
+				</div>
+				<!--弹出END-->
+				</div>
+				<div class="list-box content-box box-plane" style="margin: 0px 4px;border-top: none;">
+					<p style="margin-bottom: 10px;font-size: 16px;">报销对账</p>
+					<table class="yt-table list-table reduce-list">
+						<thead class="list-thead">
+							<tr>
+								<th>出票起止日期</th>
+								<th style="width: 110px;">有效数据(条)</th>
+								<th style="width: 110px; text-align: right;">有效金额(元)</th>
+								<th>导入时间</th>
+								<th>导入人</th>
+								<th>未对账数据</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody plane-open-tbody">
+							<tr>
+								<td colspan="6" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info plane-open-page" onselectstart="return false"></div>
+				</div>
+				<div class="list-box content-box box-train" style="margin: 0px 4px; display: none;">
+					<table class="yt-table list-table reduce-list">
+						<thead class="list-thead">
+							<tr>
+								<th>出票起止日期</th>
+								<th style="width: 110px;">有效数据(条)</th>
+								<th style="width: 110px; text-align: right;">有效金额(元)</th>
+								<th>导入时间</th>
+								<th>导入人</th>
+								<th>未对账数据</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody train-open-tbody">
+							<tr>
+								<td colspan="6" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info train-open-page" onselectstart="return false"></div>
+				</div>
+			</div>
+			<!--数据展示区域END-->
+			<!--导入机票/火车票差旅流水START-->
+			<div class="yt-pop-model yt-edit-alert reconciliations-import-form" style="width: 499px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">导入机票/火车票差旅流水</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<div style="margin: 20px 0px 15px 22px;position: relative;">
+						<span>文件：</span>
+						<span class="yt-option-btn batch-import-choose ">
+						<img src="../../resources/images/classStudent/chose-icon.png" /> 选择</span>
+						<input type="file" name="file" id="fileName" style="left: 43px;" />
+						<input class="yt-input import-file-name" style="height: 30px;" placeholder="请选择文件" disabled="disabled" />
+						<button class="yt-model-bot-btn yt-model-canel-btn download-template" style="color: black;margin-left: 10px;border: 1px solid #dfe6f3;height: 32px;">
+						<img src="../../resources/images/classStudent/dowload-ticket.png" />下载模板
+					</button>
+					</div>
+
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom" style="border: none;margin-top: 42px;">
+						<input class="yt-model-bot-btn yt-model-sure-btn upFile" type="button" value="导入" />
+						<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--导入机票/火车票差旅流水END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/finance/reconciliationsList.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+</html>

@@ -1,0 +1,466 @@
+@charset "utf-8";
+#loanApply {
+	padding-top: 20px;
+	margin: 5px;
+	border: 1px solid #DFE6F3;
+	background-color: #FFFFFF;
+	min-width: 1100px;
+}
+
+.form-num-model {
+	float: right;
+	display: inline;
+	padding-right: 35px;
+}
+
+#formNum {
+	font-size: 14px;
+	color: #999999;
+}
+
+table td {
+	position: relative;
+}
+
+.base-form-info {
+	padding-top: 10px;
+	/*padding: 15px 10px 0px 5px;*/
+}
+
+.base-form-info table tr td {
+	padding: 10px 0px;
+}
+
+#firstTr div {
+	float: left;
+	display: inline;
+}
+
+#firstTr label {
+	color: #384495 !important;
+	font-weight: bold;
+}
+
+#thingFormInput {
+	width: 154px;
+	cursor: pointer;
+}
+
+#loanMoney {
+	padding-right: 5px;
+	margin-right: 5px;
+	width: 149px;
+	text-align: right;
+}
+
+.dept-label {
+	padding-left: 168px;
+}
+
+.job-label {
+	padding-left: 162px;
+}
+
+#jobName{
+	margin-right: 134px;
+}
+#loanTerm {
+	width: 154px;
+}
+
+#loanReason {
+	width: 97%;
+}
+
+.pps-prj-sel {
+	width: 100%;
+}
+.retu-date{
+	padding-right: 138px;
+}
+.base-form-info label.yt-radio {
+	margin-right: 18px;
+}
+
+#returnDate {
+	width: 150px;
+}
+
+.radio-group {
+	padding-right: 27px;
+	float: right;
+	text-align: right;
+}
+
+.thing-td {
+	width: 260px;
+}
+
+.form-btn-group {
+	padding: 40px 0px 30px 0px;
+	text-align: center;
+}
+
+.form-btn-group button {
+	height: 40px;
+	line-height: 38px;
+	font-size: 18px;
+}
+
+#saveBtn,
+#canelBtn {
+	min-width: 100px;
+}
+
+#saveBtn,
+#createFromBtn {
+	margin-right: 55px;
+}
+
+#createFromBtn {
+	min-width: 154px;
+}
+
+
+/*
+ * 
+ * 审批流程
+ * 
+ */
+
+#flowApproveTab button {
+	min-width: 100px;
+	height: 40px;
+	line-height: 38px;
+	font-size: 18px;
+}
+
+#flowApproveTab tr td {
+	padding-top: 20px;
+}
+
+.flow-approve-model {
+	padding: 8px 10px 0px 10px;
+}
+
+.operate-flow-sel,
+.approve-users-sel {
+	width: 220px;
+}
+
+#operateMsg {
+	width: 96.2%;
+	height: 42px;
+}
+#ppsProject{
+	width: 300px;
+	cursor: pointer;
+}
+#approveSubBtn {
+	margin-right: 55px;
+}
+.flow-textare-risk {
+    position: absolute;
+    bottom: 5px;
+}
+@media screen and (min-width: 1366px) and (max-width:1440px) {
+	/*当屏幕尺寸大于1366,小于1440px时，应用下面的CSS样式*/
+	.dept-label {
+		padding-left: 180px;
+	}
+	.job-label {
+		padding-left: 248px;
+	}
+	.tel-label {
+		padding-left: 210px;
+	}
+	.prj-td{
+		padding-left: 150px !important;
+	}
+	.retu-date {
+	    padding-right: 283px;
+	}
+	
+	.thing-td {
+		width: 350px;
+	}
+}
+
+@media screen and (min-width: 1440px) and (max-width:1600px) {
+	/*当屏幕尺寸大于1440,小于1600px时，应用下面的CSS样式*/
+	.dept-label {
+		padding-left: 217px;
+	}
+	.job-label {
+		padding-left: 285px;
+	}
+	.tel-label {
+		padding-left: 247px;
+	}
+	.prj-td{
+		padding-left: 300px !important;
+	}
+	.retu-date {
+	    padding-right: 454px;
+	}
+	.thing-td {
+		width: 400px;
+	}
+}
+
+@media screen and (min-width: 1600px) and (max-width:1920px) {
+	/*当屏幕尺寸大于1600,小于1920px时，应用下面的CSS样式*/
+	.dept-label {
+		padding-left: 297px;
+	}
+	.job-label {
+		padding-left: 365px;
+	}
+	.tel-label {
+		padding-left: 327px;
+	}
+	.retu-date {
+	    padding-right: 435px;
+	}
+	.prj-td{
+		padding-left: 450px !important;
+	}
+	.retu-date {
+	    padding-right: 605px;
+	}
+	.thing-td {
+		width: 500px;
+	}
+}
+
+
+/**
+ * 
+ * 
+ * 2018.1.03
+ * 
+ * 
+ */
+
+.before-apply-form-model {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10001;
+	width: 572px;
+	display: none;
+}
+
+#beforeApplyFormModel .heard-search-model button {
+	margin-bottom: 2px;
+}
+
+#aproSearchBtn {
+	margin-right: 5px;
+}
+
+#keywordInpu {
+	width: 406px;
+	margin-right: 5px;
+}
+
+#beforeApplyFormModel .model-bottom-btn {
+	padding:25px 0px;
+	text-align: center;
+}
+
+#aproSureBtn {
+	margin-right: 35px;
+}
+
+#beforeApplyFormModel .heard-search-model {
+	padding-bottom: 18px;
+}
+
+#beforeApplyFormModel .model-content {
+	padding: 20px 20px 0px 20px;
+}
+
+#beforeApplyFormModel .table-page td>div {
+	padding: 0 4px !important;
+}
+
+
+/**
+ * 
+ * 
+ * 所属项目
+ * 
+ */
+
+#fromPrjModel {
+	width: 572px;
+	display: none;
+}
+
+#fromPrjModel .heard-search-model button {
+	margin-bottom: 2px;
+}
+
+#prjSearchBtn {
+	margin-right: 5px;
+}
+
+#prjKeyWord {
+	width: 407px;
+	margin-right: 5px;
+}
+
+.money-quality-sel {
+	width: 337px;
+}
+
+#fromPrjModel .model-bottom-btn {
+	padding-top: 25px;
+	text-align: center;
+}
+
+#prjSureBtn {
+	margin-right: 35px;
+}
+
+#fromPrjModel .heard-search-model{
+	padding-bottom: 18px;
+}
+
+#fromPrjModel .model-content{
+	padding: 20px 18px;
+}
+
+#fromPrjModel .table-page td>div {
+	padding: 0 4px !important;
+}
+#fromPrjModel .appro-list-model{
+	width: 535px;
+}
+
+.base-form-info tr td:first-child {
+	text-align: right;
+	padding-right: 2px;
+}
+
+.qtip-default{display: none;}	
+.base-form-info td{
+	text-align: left !important;
+	padding-left: 10px !important;
+	padding-top: 5px !important;
+}
+.life-of-loan-sel{
+	width: 180px;
+}
+.refund-tab-inp{
+	width: 95%;
+	padding-right: 5px;
+	text-align: right;
+}
+.yt-edit-alert{
+	width: 700px;
+}
+.yt-edit-alert-main{
+	padding: 10px;
+}
+.yt-eidt-model-bottom{
+	border:0 !important;
+}
+.moneyText{
+	margin-right: 5px;
+	text-align: right;
+}
+/**
+ * 收款方
+ */
+.label-title{
+	/*margin-bottom: 20px;*/
+	padding: 0 10px;
+}
+.secondary-title {
+	position: relative;
+	padding: 10px;
+	/* padding-left: 20px; */
+	margin: 10px 0;
+	display: inline;
+	height: 18px;
+	margin-right: 10px;
+}
+
+.secondary-back {
+	margin-top: 5px;
+	width: 6px;
+	background-color: #244972;
+	height: 18px;
+	float: left;
+	margin-left: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.secondary-text {
+	vertical-align: middle;
+	/*position: absolute;*/
+	top: 0;
+	left: 43px;
+	color: #384495;
+	font-size: 16px;
+	background: #fff;
+	font-weight: bold;
+}
+.title-model-sty {
+	position: relative;
+	height: 25px;
+	line-height: 25px;
+}
+
+.title-line div {
+	height: 1px;
+	border-bottom: 1px solid #de595a;
+}
+.division-div {
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    border-left: 0;
+    border-right: 0;
+    padding-left: 45px;
+    color: #111;
+    font-weight: bold;
+}
+.cost-type-tab{
+	height: 35px;
+    background: #EFF3F6;
+}
+.cost-type-tab ul li.tab-check {
+    border-bottom: 1px solid #FFFFFF !important;
+    background: #FFFFFF;
+    color: #384495 !important;
+}
+.model-content {
+    padding: 10px 20px;
+    background: #FFFFFF;
+    
+}
+.from-table tr td{
+	padding: 5px 0;
+}
+.cost-detail-info-model{
+	width: 700px;
+	left: 418.5px;
+}
+.cost-type-tab ul li {
+    float: left;
+    display: inline;
+    width: 160px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: 1px solid #DFE6F3;
+    color: #495295;
+    cursor: pointer;
+}

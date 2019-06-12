@@ -1,0 +1,20 @@
+{
+ "flag":0,
+ "data":{
+		"baseInfoList":
+			{
+				"formNum":"BXC20171222001",
+				"busiTripUsers": "赵欣",
+				"deptName":"财务处",
+				"jobName":"科员",
+				"telPhone":"010-68551115",
+				"reimReson":"差旅费",
+				"busiTripApprove":"CCSQ20171216",
+				"busiTripReson":"参加财政部举办的行政事业单位内部控制培训",
+				"usersNum":"3",
+				"receptionGive":"",
+				"project":"日常公用经费",
+				"dept":"财务处"
+			}
+	}
+}

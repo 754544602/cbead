@@ -1,0 +1,554 @@
+var teachingStaffList = {
+	//初始化方法
+	init: function() {
+		$('select.user-gender').niceSelect();
+		//全选  
+		$(".check-all").change(function() {
+			//判断自己是否被选中  
+			if($(this).parent().hasClass("check")) {
+				//设置反选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("uncheck");
+				$(".teaching-staff-tbody").find("tr").removeClass("yt-table-active");
+				$(".teaching-staff-tbody").find("td").removeClass("yt-table-active");
+			} else {
+				//调用设置选中方法,全选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("check");
+				$(".teaching-staff-tbody").find("tr").addClass("yt-table-active");
+				$(".teaching-staff-tbody").find("td").addClass("yt-table-active");
+			}
+
+		});
+
+		//修改全选按钮状态
+		$(".teaching-staf-table tbody,.teaching-staff-tbody").on("change", "input[type='checkbox']", function() {
+			if($(this).parents("table").find("tbody input[type='checkbox']").length != $(this).parents("table").find("tbody input[type='checkbox']:checked").length) {
+				$(this).parents("table").find(".check-all").setCheckBoxState("uncheck");
+			} else {
+				$(this).parents("table").find(".check-all").setCheckBoxState("check");
+			}
+		});
+		//点击行选中事件
+		$('.teaching-staff-tbody').off("click").on("click",'tr',function(){
+		    if($(this).find("input[type='checkbox']")[0].checked == true) {
+		    	$(this).find("input[type='checkbox']").setCheckBoxState("check");
+				$(this).addClass("yt-table-active");
+				$(this).find("td").addClass("yt-table-active");
+			} else {
+				$(this).find("input[type='checkbox']").setCheckBoxState("uncheck");
+				$(this).removeClass("yt-table-active");
+				$(this).find("td").removeClass("yt-table-active");
+			}
+		    if ($(".teaching-staff-tbody input:checkbox").not("input:checked").length > 0 ) {
+		    	$(".check-all").setCheckBoxState("uncheck");
+		    } else{
+		    	$(".check-all").setCheckBoxState("check");
+		    }
+		});
+		//点击新增
+		$(".teaching-staff-add-list").click(function() {
+			//显示选择所属项目弹出框
+			$(".teaching-staffList-div").show();
+			//查询选择所属项目列表
+			//计算弹出框位置
+			//$yt_alert_Model.setFiexBoxHeight($(".teaching-staffList-div .cont-edit-test"));
+			$yt_alert_Model.getDivPosition($(".teaching-staffList-div"));
+			$yt_model_drag.modelDragEvent($(".teaching-staffList-div .yt-edit-alert-title"));
+
+			//调用获取职位方法
+			teachingStaffList.getPosition();
+			//调用获取部门方法
+			teachingStaffList.getDepts();
+			//输入框初始化
+			$('input.user-name').val("");
+			$('select.user-gender').setSelectVal("3");
+			$('select.position-code').setSelectVal("0");
+			$(".tree-text-div").empty();
+			$("input.user-email").val("");
+			$("input.user-phone").val("");
+			$("span.valid-font").text("");
+			//取消按钮
+			$('.teaching-staffList-canel-btn').click(function() {
+				$(".yt-edit-alert,#heard-nav-bak").hide();
+				$("#pop-modle-alert").hide();
+			});
+			$('.teaching-staffList-sure-btn').off().on("click",function() {
+				teachingStaffList.verification("");
+			})
+		});
+		
+		$('select.user-gender').change(function(){
+			var gender = $('select.user-gender').val()
+			if (gender != "") {
+				$('div.user-gender').removeClass('valid-hint');
+				$('div.user-gender').parent().find('.valid-font').text('');
+			}
+		});
+		$('select.position-code').change(function(){
+			var positionCode = $('.position-code').val()
+			if (positionCode != "") {
+				$('div.position-code').removeClass('valid-hint');
+				$('div.position-code').next().text('');
+			}
+		});
+		  
+		//点击修改
+		$(".teaching-staff-update-list").click(function() {
+			var num = $('.teaching-staff-tbody').find('label input[type="checkbox"]:checked').length;
+			//判断选中checkbox的个数
+			if(num > 1 || num == 0) {
+				$yt_alert_Model.prompt("请选中一行数据进行操作");
+			} else {
+				//显示选择所属项目弹出框
+				$(".teaching-staffList-div").show();
+				//查询选择所属项目列表
+				//计算弹出框位置
+				//$yt_alert_Model.setFiexBoxHeight($(".teaching-staffList-div .cont-edit-test"));
+				$yt_alert_Model.getDivPosition($(".teaching-staffList-div"));
+				$yt_model_drag.modelDragEvent($(".teaching-staffList-div .yt-edit-alert-title"));
+
+				//调用获取职位方法
+				teachingStaffList.getPosition();
+				//调用获取部门方法
+				teachingStaffList.getDepts();
+				//获取数据
+				$('.teaching-staff-tbody').find('label input[type="checkbox"]:checked').parents("td").each(function() {
+					var userName = $(this).parents("tr").find('td.user-name').text();
+					var userGender = $(this).parents("tr").find('td.user-gender').text();
+					var positionCode = $(this).parents("tr").find('input.position-code').val();
+					var deptName = $(this).parents("tr").find('td.position-deptName').text();
+					var deptId = $(this).parents("tr").find('.dept-id').val();
+					var userEmail = $(this).parents("tr").find('td.user-email').text();
+					var userPhone = $(this).parents("tr").find('td.user-phone').text();
+					$('input.user-name').val(userName);
+					if(userGender == "男") {
+						$('select.user-gender').setSelectVal("1");
+					} else if(userGender == "女") {
+						$('select.user-gender').setSelectVal("0");
+					}
+					$('select.position-code').setSelectVal(positionCode);
+					$(".tree-text-div").empty();
+					$(".tree-text-div").append('<span types="'+deptId+'">' + deptName + '</span>');
+					$("input.user-email").val(userEmail);
+					$("input.user-phone").val(userPhone);
+				});
+				$('.teaching-staffList-sure-btn').off().on("click",function() {
+					var pkId = $('.teaching-staff-tbody').find('label input[type="checkbox"]:checked').val();
+					teachingStaffList.verification(pkId);
+				})
+			};
+			//取消按钮
+			$('.teaching-staffList-canel-btn').click(function() {
+				$(".yt-edit-alert,#heard-nav-bak").hide();
+				$("#pop-modle-alert").hide();
+			});
+		});
+		//点击删除
+		$(".teaching-staff-delete-list").click(function() {
+			var num = $('.teaching-staff-tbody').find('label input[type="checkbox"]:checked').length;
+			//判断选中checkbox的个数
+			if(num == 0) {
+				$yt_alert_Model.prompt("请选中数据进行操作");
+			} else {
+				var pkIds = "";
+				$('.teaching-staff-tbody').find('label input[type="checkbox"]:checked').each(function() {
+					if(pkIds == "") {
+						pkIds = $(this).val();
+					} else {
+						pkIds += "," + $(this).val();
+					}
+				});
+				teachingStaffList.deleteteachingStaff(pkIds);
+			};
+		});
+		$(".search-btn").click(function() {
+			teachingStaffList.getteachingStaffListInf();
+		});
+
+		//调用获取列表数据方法
+		teachingStaffList.getteachingStaffListInf();
+		//调用获取职位的方法
+		teachingStaffList.getDepts();
+		//获取所有科室
+		teachingStaffList.getAllDept();
+		//点击科室输入框，显示隐藏科室树形图
+		$(".tree-text-div").click(function() {
+			$(this).parent().find('.prepare-tt').show();
+		});
+		$(".prepare-tt").mouseleave(function() {
+			var len = $(".tree-text-div").children().length;
+			if (len != 0) {
+				$(".tree-text-div").removeClass("valid-hint");
+				$(".tree-text-div").parent().find(".valid-font").text("");
+			}else{
+				$(".tree-text-div").addClass("valid-hint");
+				$(".tree-text-div").parent().find(".valid-font").text("科室不能为空!");
+			}
+			$(this).hide();
+		});
+	},
+	
+	
+	//申请树状数据获取所有部门科室
+	getAllDept: function() {
+		var divText;
+		var dataObj = [];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "uniform/user/getUsers",
+			data: {
+				compId: ""
+			},
+			async: false,
+			success: function(data) {
+				if(data.flag == 0) {
+					$.each(data.data, function(i, v) {
+						//把人员过滤掉
+						if(v.type != 3) {
+							dataObj.push(v);
+						}
+					});
+				}
+			}
+		});
+		dataObj = this.getTreeData(dataObj, 0);
+//		$('#ttDept').tree({
+//			data: dataObj,
+//			checkbox: true,
+//			onCheck: function(node, checked) {
+//				if(checked) {
+//					divText = $('.all-dept').text();
+//					if(divText.length == 0) {
+//						$('.all-dept').append('<span deptId="' + node.id + '">' + node.text + '</span>');
+//					} else {
+//						$('.all-dept').append('<span deptId="' + node.id + '">' + ',' + node.text + '</span>');
+//					}
+//				} else {
+//					if(node.type == 2) {
+//						$('.all-dept').empty();
+//					} else {
+//						$('.all-dept span[deptId="' + node.id + '"]').remove();
+//					}
+//
+//				}
+//			}
+//		});
+		//单选
+		$('.prepare-tt').tree({
+			data: dataObj,
+            checkbox: true,
+            onlyLeafCheck: true,
+            lines: true,
+            fit: true,
+            onSelect: function (node) {
+            	// node 当前被点击的节点对象
+            	//node.target当前节点元素
+	           	if (node.type == 2 ) {//type为3是人员
+	           		$(node.target).parents(".prepare-tt").parent().parent().find(".tree-text-div").empty();
+	            	$(node.target).parents(".prepare-tt").parent().parent().find(".tree-text-div").append('<span types="'+node.id+'">' + node.text + '</span>');
+	           	}
+            },
+            onLoadSuccess: function (node, data) {
+                //取消checkbox的默认行为
+                /*$(this).find('span.tree-checkbox').unbind().click(function () {
+                    return false;
+                })*/
+	           	$("span.tree-checkbox").hide();
+            }
+		});
+		
+		
+		
+	},
+
+	//申请弹窗树状图
+	getTreeData: function(data, parentId) {
+		var me = this;
+		var result = [],
+			temp;
+		for(var i in data) {
+			if(data[i].parentId == parentId) {
+				result.push(data[i]);
+				temp = me.getTreeData(data, data[i].id);
+				if(temp.length > 0) {
+					data[i].children = temp;
+				}
+			}
+		}
+		return result;
+	},
+	/**
+	 * 获取列表数据
+	 */
+	getteachingStaffListInf: function() {
+		
+		var selectParam = $(".selectParam").val();
+		$('.teaching-staff-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "administrator/teachingStaff/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+				userGender: "",
+				positionCode: "",
+				deptId: "",
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			after:function(){
+				$("table.list-table tbody tr").unbind().bind("click", function() {
+					if($(this).find("input[type='checkbox']")[0].checked == true) {
+						$(this).find("input[type='checkbox']").setCheckBoxState("uncheck");
+						$(this).removeClass("yt-table-active");
+					} else {
+						$(this).find("input[type='checkbox']").setCheckBoxState("check");
+						$(this).addClass("yt-table-active");
+					}
+				});
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.teaching-staff-tbody');
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						$('.teaching-staff-page').show();
+						$.each(data.data.rows, function(i, v) {
+							if(v.positionName==null){
+								v.positionName="";
+							}
+							htmlTr += '<tr>' +
+								'<td>' + '<label class="check-label yt-checkbox teaching-staf-checkbox"><input type="checkbox" name="test" class="pkId" value="' + v.pkId + '"/></label>' + '</td>' +
+								'<td>' + (i + 1) + '</a></td>' +
+								'<td class="user-name">' + v.userName + '</td>' +
+								'<td class="user-gender">' + (teachingStaffList.getUserGender(v.userGender)) + '</a></td>' +
+								'<td class="position-name"><input type="hidden" value="' + v.positionCode + '" class="position-code">' + v.positionName + '</td>' +
+								'<td class="position-deptName"><input type="hidden" value="' + v.deptId + '" class="dept-id">' + v.deptName + '</td>' +
+								'<td style="text-align:left;" class="user-email">' + v.userEmail + '</td>' +
+								'<td class="user-phone">' + v.userPhone + '</td>' +
+								'</tr>';
+						});
+					} else {
+						$('.teaching-staff-page').hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="8" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//字段验证
+	verification: function(pkId) {
+		//科室不能为空验证
+		var len = $(".tree-text-div").children().length;
+		if (len == 0) {
+			$(".tree-text-div").addClass("valid-hint");
+			$(".tree-text-div").parent().find(".valid-font").text("科室不能为空!");
+		}
+		//字段验证
+		if($yt_valid.validForm($(".valid-tab"))) {
+			//调用添加方法
+			teachingStaffList.addteachingStaff(pkId);
+		}
+	},
+
+	//新增修改方法
+	addteachingStaff: function(pkId) {
+		var userName = $('input.user-name').val();
+		var userGender = $('select.user-gender').val();
+		var positionCode = $('select.position-code').val();
+		var deptId = $(".tree-text-div").children().attr('types');
+		var userEmail = $("input.user-email").val();
+		var userPhone = $("input.user-phone").val();
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "administrator/teachingStaff/addOrUpdateTeachingStaff", //ajax访问路径  
+			async: false,
+			data: {
+				pkId: pkId,
+				userName: userName,
+				userGender: userGender,
+				positionCode: positionCode,
+				deptId: deptId,
+				userEmail: userEmail,
+				userPhone: userPhone,
+			},
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					
+					$yt_baseElement.hideLoading(function() {
+						if(pkId == "") {
+							$yt_alert_Model.prompt("新增成功");
+						} else {
+							$yt_alert_Model.prompt("修改成功");
+						}
+						teachingStaffList.getteachingStaffListInf();
+						$(".yt-edit-alert,#heard-nav-bak").hide();
+						$("#pop-modle-alert").hide();
+					});
+					
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						if(pkId == "") {
+							$yt_alert_Model.prompt("新增失败");
+						} else {
+							$yt_alert_Model.prompt("修改失败");
+						}
+					});
+				}
+			} //回调函数 匿名函数返回查询结果  
+
+		})
+	},
+	//删除方法
+	deleteteachingStaff: function(pkIds) {
+		$yt_alert_Model.alertOne({
+			haveCloseIcon: false, //是否带有关闭图标  
+			closeIconUrl: "", //关闭图标路径  
+			leftBtnName: "确定", //左侧按钮名称,默认确定  
+			rightBtnName: "取消", //右侧按钮名称,默认取消  
+			cancelFunction: "", //取消按钮操作方法*/  
+			alertMsg: "数据删除将无法恢复,确认删除吗?", //提示信息  
+			confirmFunction: function() { //点击确定按钮执行方法  
+				$.ajax({
+					type: "post",
+					url: $yt_option.base_path + "administrator/teachingStaff/deleteTeachingStaff", //ajax访问路径  
+					async: false,
+					data: {
+						pkIds: pkIds
+					},
+					before: function() {
+						$yt_baseElement.showLoading();
+					},
+					success: function(data) {
+						
+						if(data.flag == 0) {
+							$yt_baseElement.hideLoading(function() {
+								$yt_alert_Model.prompt("删除成功");
+								teachingStaffList.getteachingStaffListInf();
+							});							
+						} else {
+							$yt_baseElement.hideLoading(function() {
+								$yt_alert_Model.prompt("删除失败");
+							});
+						}
+					} //回调函数 匿名函数返回查询结果  
+				})
+			}
+		});
+	},
+	//设置性别
+	getUserGender: function(userGender) {
+		if(userGender == 0) {
+			return "女";
+		} else if(userGender == 1) {
+			return "男";
+		}
+	},
+	//获取职位
+	getPosition: function() {
+		var posiName = "";
+		$.ajax({
+			async: false,
+			url: $yt_option.base_path + "administrator/teachingStaff/getPositionList",
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				posiName: posiName
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					if(data.data && data.data && data.data.length > 0) {
+						//遍历给下拉框添加数据
+						$.each(data.data, function(i, v) {
+							$("select.position-code").append('<option value="' + v.posiCode + '">' + v.posiName + '</option>');
+						});
+						$('select.position-code').niceSelect();
+					}
+					$("select.position-code").niceSelect({  
+				        search: true,  
+				        backFunction: function(text) {  
+				            //回调方法,可以执行模糊查询,也可自行添加操作  
+				            $("select.position-code option").remove();  
+				            if(text == "") {  
+				                $("select.position-code").append('<option value="">请选择</option>');  
+				            }  
+				            //遍历存储的全局用户名遍历,匹配数据,进行模糊查询操作  
+				            $.each(data.data, function(i, v) {  
+				                if(v.posiName.indexOf(text) != -1) {  
+				                   $("select.position-code").append('<option value="' + v.posiCode + '">' + v.posiName + '</option>');
+				                }  
+				            });  
+				        }  
+				    });  
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+		});
+		
+	},
+	//获取科室
+	getDepts: function() {
+		var compName = "";
+		$.ajax({
+			async: false,
+			url: $yt_option.base_path + "uniform/dept/getDepts",
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				compName: compName
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					if(data.data && data.data && data.data.length > 0) {
+						//遍历给下拉框添加数据
+						$.each(data.data, function(i, v) {
+							$("select.dept-id").append('<option value="' + v.id + '">' + v.text + '</option>');
+						});
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+		});
+	},
+}
+$(function() {
+	//初始化方法
+	teachingStaffList.init();
+
+});

@@ -1,0 +1,116 @@
+{
+	
+	"links": [
+		{
+			"name": "腾飞酒店",
+			"bank": "建设银行",
+			"numid": "123456789",
+			"money": "50000",
+			"contract": "有",
+			"special": "场地租赁"
+		}, {
+			"name": "腾讯酒店",
+			"bank": "中国银行",
+			"numid": "123546789",
+			"money": "50000",
+			"contract": "无",
+			"special": "无"
+		}
+	],
+	"traindata": [
+		{
+			"trainType": "三类培训",
+			"trainplace": "北京",
+			"trainStartdate": "2018-4-1",
+			"trainEnddate": "2018-4-8",
+			"trainDay": "6",
+			"trainPeonum": "120"
+		}
+	],
+	"lectordata": [
+		{
+			"lectorName": "李教授",
+			"lectorTitle": "副高级技术职称",
+			"lectorLevel": "处级及相当职务人员"
+		}
+	],
+	"trainMoneydata": [
+		{
+			"trainDay": "6",
+			"trainPeonum": "120",
+			"dayMoney": "167",
+			"trainMoney": "120240"
+		}
+	],
+	"lectureMoney": [
+		{
+			"lectorName": "李教授",
+			"lectorTitle": "副高级技术职称",
+			"lectorTime": "",
+			"curriculumName": "",
+			"curriculumMoneyPre": "30000",
+			"curriculumMoneyAfter": "",
+			"curriculumMoneyAfterhour": ""
+		},
+		{
+			"lectorName": "王教授",
+			"lectorTitle": "正高级技术职称",
+			"lectorTime": "",
+			"curriculumName": "",
+			"curriculumMoneyPre": "34000",
+			"curriculumMoneyAfter": "",
+			"curriculumMoneyAfterhour": ""
+		}
+	],
+	"trafficMoney": [
+		{
+			"trafficName": "李教授",
+			"trafficLevel": "处级及相当职务人员",
+			"trafficStartdata": "2010-01-16",
+			"trafficEnddata": "2010-01-16",
+			"trafficSetplace": "北京",
+			"trafficOutplace": "天津",
+			"trafficVehicle": "动车-二等座",
+			"trafficMoney": "54",
+			"trafficSpecial": "-"
+		},
+		{
+			"trafficName": "王教授",
+			"trafficLevel": "处级及相当职务人员",
+			"trafficStartdata": "2010-01-16",
+			"trafficEnddata": "2010-01-16",
+			"trafficSetplace": "天津",
+			"trafficOutplace": "北京",
+			"trafficVehicle": "动车-二等座",
+			"trafficMoney": "54",
+			"trafficSpecial": "-"
+		}
+	],
+	"accommodationMoney": [
+		{
+			"accommodationName": "李教授",
+			"accommodationStartdata": "2010-01-16",
+			"accommodationEnddata": "2010-01-16",
+			"accommodationDayMoney": "200",
+			"accommodationDayNum": "15",
+			"accommodationMoney": "3000",
+			"accommodationSpecial": "-"
+		}
+	],
+	"foodMoney": [
+		{
+			"foodName": "李教授",
+			"foodDayMoney": "130",
+			"foodDayNum": "15",
+			"foodMoney": "1950",
+			"foodSpecial": "-"
+		},
+		{
+			"foodName": "李教授",
+			"foodDayMoney": "60",
+			"foodDayNum": "15",
+			"foodMoney": "900",
+			"foodSpecial": "-"
+		}
+	]
+}

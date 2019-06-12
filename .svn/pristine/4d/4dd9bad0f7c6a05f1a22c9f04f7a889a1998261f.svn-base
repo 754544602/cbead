@@ -1,0 +1,203 @@
+<link rel="stylesheet" href="../../../../../resources-sasac/css/system/expensesReim/module/beforehand/trainingFeeApplyF.min.css?YTVERSIONCODE=2018051703" />
+<!--基础信息区域START-->
+<div class="train-approval" style="padding-top: 20px;">
+	<div class="label-title item" style="margin-bottom: 10px;">
+		<div class="title-model-sty">
+			<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+			<span class="title-text">项目预算事项信息</span>
+		</div>
+		<div class="title-line">
+			<div></div>
+		</div>
+	</div>
+
+	<!--事前申请详情区域START-->
+	<div class="cost-apply-model" style="display: block;">
+
+		<!--培训信息START-->
+		<div>
+			<!--标题区域START-->
+			<!--<div class="secondary-title" style="">
+							<span class="secondary-text">培训信息</span>
+							<div class="secondary-line"></div>
+						</div>-->
+			<div class="secondary-back"></div>
+			<div class="secondary-title">培训信息</div>
+
+			<!--标题区域END-->
+			<!--BODY START-->
+			<div class="expenditure-matter-basic-information" style="padding-bottom: 15px;margin-left: 26px;">
+				<table class="from-table" style="margin-left: 20px;">
+					<tbody>
+						<tr>
+							<td width="650px">
+								<span class="field-title"><span style="letter-spacing: 5px; padding-left: 7px;">培训名</span>称：</span>
+								<span id="regionDesignation"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span style="letter-spacing: 5px; padding-left: 7px;">项目类</span>型：
+								<input type="hidden" class="trainType" data-val="projectType"/>
+								<span data-text="projectTypeName">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px; padding-left: 7px;">
+								<span>开班日期：</span>
+								<span data-text="startDate" class="reportTime">--</span>
+							</td>
+							<td style="padding-top: 10px;">
+								<span>结束日期：</span>
+								<span data-text="endDate" class="endTime">--</span>
+							</td>
+							<td style="padding-top: 10px;">
+								<span>培训天数：</span><span style="color:#417095;" id="calculationSession" data-text="trainDate">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px; padding-left: 7px;">
+								<span>报到时间：
+								<span data-text="reportDate">--</span>
+							</td>
+							<td style="padding-top: 10px;" colspan="2">
+								<span>离院日期：</span>
+								<span data-text="outHospitalDate">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px; padding-left: 7px;">
+								<span>学员人数：
+								<span data-text="budgetTraineeSum" class="trainOfNum">--</span>
+							</td>
+							<td style="padding-top: 10px;">
+								<span>项目主任：</span>
+								<span data-text="projectHead">--</span>
+							</td>
+							<td style="padding-top: 10px;">
+								<span>班主任：</span>
+								<span data-text="classTeacher">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px; padding-left: 7px;">
+								<span>是否异地培训：
+								<span data-text="isOffSiteTrainingVal" class="">--</span>
+							</td>
+							<td style="padding-top: 10px;" colspan="2">
+								<span>适用成本标准：</span>
+								<span data-text="costStandardVal">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px; padding-left: 7px;display: flex;">
+								<span>异地培训特殊要求：</span>
+								<p data-text="offSiteTrainingRequirement" style="width: 500px;">--</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--BODY END-->
+		</div>
+		<!--培训信息END-->
+		<!--费用申请明细START-->
+		<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin-bottom: 20px;margin-top: 20px;"></div>
+		<div class="label-title cost" style="margin-bottom: 20px;">
+			<div class="title-model-sty">
+				<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+				<span class="title-text">项目预算费用信息</span>
+			</div>
+			<div class="title-line">
+				<div></div>
+			</div>
+		</div>
+		<div>
+			<!--标题区域START-->
+			<label class="cost-list-label" style="margin-left: 20px;font-size: 16px;font-weight: 700;">变更前</label>
+				<div style="margin-top: 10px;">
+					<!--标题区域START-->
+					<div class="secondary-back"></div>
+					<div class="secondary-title">教学相关费用</div>
+					<!--标题区域END-->
+					<!--BODY START-->
+					<div class="traffic-cost-model hide-div" id="costDetailDiv" style="padding-bottom: 0;margin-top: 10px;">
+						<div class="appDetails teacherFee" style="margin-top:0px;">
+							<table class="teachBeforeTable" id="teachBeforeTable" width="100%">
+								<thead class="yt-thead">
+									<tr>
+										<th width="150px">费用名称</th>
+										<th width="150px">金额（元）</th>
+										<th>依据说明</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody">
+								</tbody>
+							</table>
+							<div class="secondary-back"></div>
+							<div class="secondary-title">后勤相关费用</div>
+							<table class="trainingBeforeTable" id="trainingBeforeTable" width="100%" style="margin-top: 10px;">
+								<thead class="yt-thead">
+									<tr>
+										<th width="150px">费用名称</th>
+										<th width="150px">金额（元）</th>
+										<th>依据说明</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody">
+								</tbody>
+							</table>
+						</div>
+						<!--师资费金额区域END-->
+					</div>
+					<!--BODY END-->
+				</div>
+				<label class="cost-list-label" style="margin-left: 20px;font-size: 16px;font-weight: 700;">变更后</label>
+				<!--师资费金额区域START-->
+				<div class="appDetails teacherFee" style="margin-top: 10px;">
+					<!--标题START-->
+					<!--标题END-->
+					<div class="secondary-back"></div>
+					<div class="secondary-title">教学相关费用</div>
+					<table class="lectureFeeTable" id="lectureFeeTable" width="100%" style="margin-top: 10px;">
+						<thead class="yt-thead">
+							<tr>
+								<th width="150px">费用名称</th>
+								<th width="150px">金额（元）</th>
+								<th>依据说明</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+						</tbody>
+					</table>
+					<!--培训费金额区域START-->
+					<div class="appDetails">
+						<div class="secondary-back"></div>
+							<div class="secondary-title">后勤相关费用</div>
+						<table class="trainingFeeTable" id="trainingFeeTable" width="100%" style="margin-top: 20px;">
+							<thead class="yt-thead">
+								<tr>
+									<th width="150px">费用名称</th>
+									<th width="150px">金额（元）</th>
+									<th>依据说明</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody">
+							</tbody>
+						</table>
+						<!--<div style="padding-top: 10px;padding-left: 40px;">
+							<div style="float: left;"><span style="">培训费其他调整原</span>因：</div>
+							<div><textarea style="width: 80%;" placeholder="请输入" class="yt-textarea other-textarea"></textarea></div>
+						</div>-->
+					</div>
+					<!--培训费金额区域END-->
+				</div>
+				<!--师资费金额区域END-->
+			<!--BODY END-->
+		</div>
+		<!--费用申请明细END-->
+	</div>
+	<!--事前申请详情区域END-->
+</div>
+<!--引用JS文件END-->
+<!--<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/beforehand/trainingFeeApply.js?YTVERSIONCODE=20180420" ></script>-->

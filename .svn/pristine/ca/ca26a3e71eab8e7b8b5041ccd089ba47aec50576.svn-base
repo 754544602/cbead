@@ -1,0 +1,34 @@
+{
+	"sel": [{
+		"typeCode": "ADVANCE_APP",
+		"typeName": "事前申请"
+	}, {
+		"typeCode": "REIM_APP",
+		"typeName": "报销申请"
+	}, {
+		"typeCode": "PAYMENT_APP",
+		"typeName": "付款申请"
+	}, {
+		"typeCode": "LOAN_APP",
+		"typeName": "借款申请"
+	}],
+	"flag": 0,
+	"data": {
+		"total": 100,
+		"rows": [{
+			"formNum": "BXH20180310",
+			"loanReason": "出差",
+			"formPeo": "魏业科",
+			"depart": "研发部",
+			"loanMon": "2000",
+			"payType": "现金"
+		},{
+			"formNum": "BXH20180310",
+			"loanReason": "出差",
+			"formPeo": "魏业科",
+			"depart": "研发部",
+			"loanMon": "2000",
+			"payType": "现金"
+		}]
+	}
+}

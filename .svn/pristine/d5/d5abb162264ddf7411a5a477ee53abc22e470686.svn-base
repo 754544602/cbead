@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/ueditor/ueditor.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css" />
+		<title>新增教师差旅报销</title>
+		<style type="text/css">
+			.typeface-size {
+				padding-left: 20px;
+			}
+			
+			.typeface-weight {
+				font-size: 15px;
+				font-weight: bold;
+			}
+			
+			td input {
+				font: 14px "微软雅黑";
+				width: 100%;
+			}
+			
+			.class-info-table {
+				width: 100%;
+			}
+			
+			.details {
+				width: 90% !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<button class="page-return-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+					返回
+				</button>
+			</div>
+			<!--顶部条件查询END-->
+
+			<!--数据展示区域START-->
+
+			<!--班级STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style"></p>
+				<p class="title-text-p" id="reimbursementTitle">新增</p>
+			</div>
+			<div class="content-div-box" style="padding: 0px; margin: 5px;padding-bottom: 5px;">
+				<table class="open-tb-style valid-tab" cellspacing="1px" cellpadding="1px" style="height: 130px;margin: 0px auto;">
+					<tr>
+						<td class="td-text-style typeface-weight" style="width: 200px;">报销申请： </td>
+						<td class="reimbursement-type" style="width: 300px; text-align: left;">
+							<select class="yt-select type-select" id="types" style="width: 275px;">
+								<option selected value="1">教师课酬报销</option>
+								<option value="2">教师出差报销</option>
+							</select>
+						</td>
+						<td class="td-text-style typeface-weight" style="width: 200px;">班级： </td>
+						<td class="projectCode" style="width: 300px; text-align: left;">
+							<select class="yt-select user-name-sel" id="projectCode" style="width: 275px;">
+								<option>请选择班级</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="td-text-style typeface-weight" style="width: 200px;">项目主任： </td>
+						<td class="td-style typeface-size" id="projectUserName"></td>
+						<!--<td class="td-text-style typeface-weight" style="width: 200px;">项目主任联系电话： </td>
+						<td class="td-style typeface-size" id="projectUserphone"></td>-->
+					</tr>
+					<tr>
+
+						<td class="td-text-style typeface-weight" style="width: 200px;">申请人： </td>
+						<td class="td-style typeface-size" id="createUser"></td>
+					</tr>
+				</table>
+				<div class="list-box" style="border: none;">
+					<table class="list-table">
+						<thead class="list-thead">
+							<tr>
+								<th>序号</th>
+								<th>教师</th>
+								<th>证件类型</th>
+								<th>证件号</th>
+								<th>开户行</th>
+								<th>账号</th>
+								<th>授课日期</th>
+								<th>税后金额</th>
+								<th>代缴个税</th>
+								<th>报销金额</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody class-tbody list-tbody">
+							<tr class="class-tr">
+								<td colspan="11" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<table class="class-info-table">
+					<tr>
+						<td style="width: 100px;" align="right" valign="top">
+							<span class="typeface-weight" style="position: relative;top: 10px;">备注：</span>
+						</td>
+						<td colspan="3">
+							<textarea type="text" class="yt-textarea details" data-val="details" validform="{blurFlag:true,size:100,msg:'所填内容不可超过100个字'}" placeholder="请输入..."></textarea>
+							<span class="valid-font"></span>
+						</td>
+					</tr>
+				</table>
+				<table style=" margin:20px auto;">
+					<tr>
+						<td class="typeface-weight" style="text-align: right;">下一步审批人： </td>
+						<td>
+							<select class="yt-select" id="dealingWithPeople" style="width: 275px;"></select>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+			<!--班级END-->
+			<div class="yt-eidt-model-bottom" style="width: 974px;border: none;position: relative; margin: auto;text-align: center;">
+				<input class="yt-model-bot-btn yt-model-sure-btn" id="save" type="button" value="保存" style="width: 70px;margin-top:16px; display: inline-block;" />
+				<input class="yt-model-bot-btn yt-model-sure-btn" id="submit" type="button" value="提交" style="width: 70px;margin-left: 40px;margin-top:16px; display: inline-block;" />
+				<input class="yt-model-bot-btn yt-model-canel-btn" id="cancel" type="button" value="取消" style="width: 70px;margin-left: 40px;margin-top:16px; background-color: #FFF; display: inline-block;" />
+				<div class="clear-both">
+
+				</div>
+			</div>
+			<!---->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/tabEdit/yt-tab-edit.js"></script>
+	<!-- 配置文件 -->
+	<script type="text/javascript" src="../../resources/js/ueditor/ueditor.config.js"></script>
+	<!-- 获取数据的js -->
+	<script type="text/javascript" src="../../resources/js/modules/finance/reimbursementAdd.js"></script>
+
+</html>

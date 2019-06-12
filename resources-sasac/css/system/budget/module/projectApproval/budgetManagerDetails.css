@@ -1,0 +1,437 @@
+@charset "utf-8";
+#newDemandApply {
+	padding-top: 20px;
+	margin: 5px;
+	border: 1px solid #DFE6F3;
+	background-color: #FFFFFF;
+	min-width: 1250px;
+}
+
+.form-num-model {
+	float: right;
+	display: inline;
+	padding-right: 35px;
+	color: #384495;
+	font-weight: bold;
+}
+
+#formNum,
+#applyDate {
+	font-size: 14px;
+	font-weight: normal;
+}
+
+table td {
+	position: relative;
+}
+
+.base-form-info {
+	padding-top: 10px;
+	/*padding: 15px 10px 0px 5px;*/
+}
+
+.base-form-info table tr td {
+	padding: 10px 0px;
+}
+
+.firstRow .firstRow td {
+	width: 300px;
+}
+
+.boldL {
+	color: #384495;
+	font-weight: bold;
+}
+
+.firstTr .selectBox {
+	float: left;
+}
+
+.firstTr .selectBox .yt-select {
+	width: 120px;
+	margin-right: 20px;
+}
+
+
+/*
+ * 采购信息样式
+ */
+
+.firstTr .selcetBox2 {
+	width: 150px;
+}
+
+#loanReason {
+	width: 97%;
+}
+
+#returnDate {
+	width: 150px;
+}
+
+.valid-font1 {
+	position: absolute;
+	top: 28px;
+	left: 100px;
+}
+
+.valid-font2 {
+	position: absolute;
+	top: 28px;
+	left: 100px;
+}
+
+.valid-font3 {
+	position: absolute;
+	top: 28px;
+	left: 140px;
+}
+
+.valid-font4 {
+	position: absolute;
+	top: 28px;
+	left: 65px;
+}
+
+.thing-td {
+	width: 260px;
+}
+
+.form-btn-group {
+	padding: 40px 0px 30px 0px;
+	text-align: center;
+}
+
+.form-btn-group button {
+	height: 40px;
+	line-height: 38px;
+	font-size: 18px;
+}
+
+
+/*
+ * 
+ * 审批流程
+ * 
+ */
+
+#flowApproveTab button {
+	min-width: 100px;
+	height: 40px;
+	line-height: 38px;
+	font-size: 18px;
+}
+
+#flowApproveTab tr td {
+	padding-top: 20px;
+}
+
+.flow-approve-model {
+	padding: 8px 10px 0px 10px;
+}
+
+.operate-flow-sel,
+.approve-users-sel {
+	width: 220px;
+}
+
+#operateMsg {
+	width: 96.2%;
+	height: 42px;
+}
+
+#ppsProject {
+	width: 300px;
+	cursor: pointer;
+}
+
+#approveSaveBtn {
+	margin-right: 55px;
+}
+
+#approveSubBtn {
+	margin-right: 55px;
+}
+
+.flow-textare-risk {
+	position: absolute;
+	bottom: 5px;
+}
+
+@media screen and (min-width: 1366px) and (max-width:1440px) {
+	/*当屏幕尺寸大于1366,小于1440px时，应用下面的CSS样式*/
+	.dept-label {
+		padding-left: 180px;
+	}
+	.job-label {
+		padding-left: 248px;
+	}
+	.tel-label {
+		padding-left: 210px;
+	}
+	.prj-td {
+		padding-left: 150px !important;
+	}
+	.retu-date {
+		padding-right: 283px;
+	}
+	.thing-td {
+		width: 350px;
+	}
+}
+
+
+/**
+ * 
+ * 
+ * 2018.1.03
+ * 
+ * 
+ */
+
+.before-apply-form-model {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10001;
+	width: 572px;
+	display: none;
+}
+
+#beforeApplyFormModel .heard-search-model button {
+	margin-bottom: 2px;
+}
+
+#aproSearchBtn {
+	margin-right: 5px;
+}
+
+#keywordInpu {
+	width: 406px;
+	margin-right: 5px;
+}
+
+#beforeApplyFormModel .model-bottom-btn {
+	padding: 25px 0px;
+	text-align: center;
+}
+
+#aproSureBtn {
+	margin-right: 35px;
+}
+
+#beforeApplyFormModel .heard-search-model {
+	padding-bottom: 18px;
+}
+
+#beforeApplyFormModel .model-content {
+	padding: 20px 20px 0px 20px;
+}
+
+#beforeApplyFormModel .table-page td>div {
+	padding: 0 4px !important;
+}
+
+
+/**
+ * 
+ * 
+ * 所属项目
+ * 
+ */
+
+#fromPrjModel {
+	width: 572px;
+	display: none;
+}
+
+#fromPrjModel .heard-search-model button {
+	margin-bottom: 2px;
+}
+
+#prjSearchBtn {
+	margin-right: 5px;
+}
+
+#prjKeyWord {
+	width: 407px;
+	margin-right: 5px;
+}
+
+.money-quality-sel {
+	width: 337px;
+}
+
+#fromPrjModel .model-bottom-btn {
+	padding-top: 25px;
+	text-align: center;
+}
+
+#prjSureBtn {
+	margin-right: 35px;
+}
+
+#fromPrjModel .heard-search-model {
+	padding-bottom: 18px;
+}
+
+#fromPrjModel .model-content {
+	padding: 20px 18px;
+}
+
+#fromPrjModel .table-page td>div {
+	padding: 0 4px !important;
+}
+
+#fromPrjModel .appro-list-model {
+	width: 535px;
+}
+
+.base-form-info tr td:first-child {
+	text-align: right;
+	padding-right: 2px;
+}
+
+.qtip-default {
+	display: none;
+}
+
+.base-form-info td {
+	text-align: left !important;
+	padding-left: 10px !important;
+	padding-top: 5px !important;
+}
+
+.life-of-loan-sel {
+	width: 180px;
+}
+
+.refund-tab-inp {
+	width: 95%;
+	padding-right: 5px;
+	text-align: right;
+}
+
+.yt-edit-alert {
+	width: 700px;
+}
+
+.yt-edit-alert-main {
+	padding: 10px;
+}
+
+.yt-eidt-model-bottom {
+	border: 0 !important;
+}
+
+.moneyText {
+	margin-right: 5px;
+	text-align: right;
+}
+
+.secondary-back {
+	position: relative;
+	width: 6px;
+	height: 18px;
+	margin-top: 8px;
+	background-color: #244972;
+	float: left;
+	margin-left: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.secondary-title {
+	font-size: 16px;
+	height: 35px;
+	line-height: 35px;
+	border-left: 0;
+	border-right: 0;
+	padding-left: 45px;
+	color: #384495;
+	font-weight: bold;
+}
+
+.file-box .li-div {
+	position: relative;
+	display: block !important;
+	color: #384495;
+}
+
+.file-name {
+	color: #333;
+}
+
+.file-box .li-div .file-dw {
+	position: relative;
+	background: url(../../../../../images/common/down-load-icon.png) no-repeat left;
+	padding-left: 20px;
+	cursor: pointer;
+	color: #4c4c4c;
+	float: right;
+	margin-right: 50px;
+	width: 30px;
+}
+
+.file-box .li-div .file-pv {
+	position: relative;
+	background: url(../../../../../images/common/preview-icon.png) no-repeat left;
+	padding-left: 20px;
+	margin-right: 50px;
+	color: #4c4c4c;
+	float: right;
+}
+
+.file-box .li-div .file-pv img {
+	position: absolute;
+	left: 0;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+
+.file-box .li-div .file-pvno {
+	position: relative;
+	background: url(../../../../../images/common/preview-icon.png) no-repeat left;
+	padding-left: 20px;
+	margin-right: 50px;
+	float: right;
+	color: #ccc;
+}
+
+.metaphase-table {
+	width: 100%;
+	table-layout: auto;
+	margin-bottom: 20px;
+}
+.metaphase-table td{
+	text-align: center;
+}
+.year-table {
+	width: 100%;
+	table-layout: auto;
+	margin-bottom: 20px;
+}
+.year-table td{
+	text-align: center;
+}
+.base-form-metaphase table tr td {
+    padding: 10px 0px;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+.button-box {
+    padding: 10px 0;
+    text-align: center;
+}
+.button-box button {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 30px;
+    font-size: 18px;
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+}

@@ -1,0 +1,329 @@
+var claimRecord = {
+
+	//初始化方法
+	init: function() {
+		claimRecord.getBillListInfo("2");
+		$(".bank-more-div").on("click", function() {
+			$yt_baseElement.showLoading();
+			if($(".bank-more-div").text() == "查看更多") {
+				if($(".payment-list").hasClass("hide")) {} else {
+					$("#project-main").css("width", width + 1500 + "px");
+				}
+				var width = parseInt($("#project-main").css("width"));
+				$("#project-main").css("width", width + 1500 + "px");
+				$(".bank-th-hide").show();
+				$(".bank-more-div").text("收起");
+				var colspan = $(".bank-tbody-td").attr("colspan");
+				$(".bank-tbody-td").attr("colspan", colspan + 11);
+			} else {
+				var width = parseInt($("#project-main").css("width"));
+				$("#project-main").css("width", width - 1500 + "px");
+				$(".bank-th-hide").hide();
+				$(".bank-more-div").text("查看更多");
+				var colspan = $(".bank-tbody-td").attr("colspan");
+				$(".bank-tbody-td").attr("colspan", colspan - 11);
+			}
+			$yt_baseElement.hideLoading();
+		});
+		//单击checkbox查询
+		$(".check-box-load").on("change", function() {
+			if($('.check-sure input[type="checkbox"]').is(':checked')) {
+				debugger
+				if($('.check-cancel input[type="checkbox"]').is(':checked')) {
+					claimRecord.getBillListInfo("2");
+				} else {
+					claimRecord.getBillListInfo("1");
+				}
+			} else {
+				if($('.check-cancel input[type="checkbox"]').is(':checked')) {
+					claimRecord.getBillListInfo("0");
+				} else {
+					$yt_baseElement.showLoading();
+					htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+						'<td colspan="18" align="center" style="border:0px;">' +
+						'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+						'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+						'</div>' +
+						'</td>' +
+						'</tr>';
+					$(".project-tbody").html(htmlTr);
+					$yt_baseElement.hideLoading();
+				}
+			}
+		})
+		//项目详情查看更多按钮
+		$(".project-more-div").on("click", function() {
+			$yt_baseElement.showLoading();
+			debugger
+			if($(".project-more-div").text() == "查看更多") {
+				var width = parseInt($("#project-main").css("width"));
+				$("#project-main").css("width", width + 385 + "px");
+				$(".project-th-hide").show();
+				$(".project-more-div").text("收起");
+				var colspan = $(".bank-tbody-td").attr("colspan");
+				$(".bank-tbody-td").attr("colspan", colspan + 3);
+			} else {
+				var width = parseInt($("#project-main").css("width"));
+				$("#project-main").css("width", width - 385 + "px");
+				$(".project-th-hide").show();
+				$(".project-more-div").text("查看更多");
+				var colspan = $(".bank-tbody-td").attr("colspan");
+				$(".bank-tbody-td").attr("colspan", colspan - 3);
+			}
+			$yt_baseElement.hideLoading();
+		});	
+		//确认和未确认复选框
+		//复选框
+		//全选  
+		$(".check-all").change(function() {
+			//判断自己是否被选中  
+			if($(this).parent().hasClass("check")) {
+				//设置反选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("uncheck");
+			} else {
+				//调用设置选中方法,全选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("check");
+			}
+		});
+		//修改全选按钮状态
+		$(".project-tbody,.person-tbody,.company-tbody").on("change", "input[type='checkbox']", function() {
+			if($(this).parents("table").find("tbody input[type='checkbox']").length != $(this).parents("table").find("tbody input[type='checkbox']:checked").length) {
+				$(this).parents("table").find(".check-all").setCheckBoxState("uncheck");
+			} else {
+				$(this).parents("table").find(".check-all").setCheckBoxState("check");
+			}
+		});
+	},
+	/**
+	 * 对账单信息列表
+	 */
+	getBillListInfo: function(isAdmission) {
+		debugger
+		var pkId = $yt_common.GetQueryString("pkId");
+		$yt_baseElement.showLoading();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/bankStatement/getBankStatementDetailsList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				pkId: pkId,
+				isAdmission: isAdmission,
+				isClaimUser: "1"
+
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+
+					if(data.data != null) {
+						if(data.data.rows.length > 0) {
+							var num = 0;
+							$.each(data.data.rows, function(i, v) {
+								num++;
+								if(data.data.paymentList.length != 0) {
+									$.each(data.data.paymentList, function(j, n) {
+										var bool = true;
+										if(v.identification == n.identification) {
+											htmlTr = '<tr class="' + i + '">' +
+												'<td style="text-align: center;" class="merge">' +
+												'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="pkId" value="' + v.pkId + '"/></label>' + '</td>' +
+												'<td class="merge">' + (i + 1) + '</td>' +
+												'<td class="merge">' + v.exchangeHour + '</td>' +
+												'<td class="bank-th-hide merge" style="text-align:right;display:none">' + v.draw + '</td>' +
+												'<td class="merge" style="text-align:right">' + v.income + '</td>' +
+												'<td class="bank-th-hide merge" style="text-align:right;display:none">' + v.balance + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.currency + '</td>' +
+												'<td class="otherPartyName merge">' + v.otherPartyName + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + '<input class="identification" style="display:none;" value="' + v.identification + '">' + v.otherPartyAccounts + '</td>' +
+
+												'<td class="bank-th-hide merge" style="display:none">' + v.otherPartyGroup + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.accountDate + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.abstractData + '</td>' +
+												'<td class="merge">' + v.remarks + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.enterpriseTradeNumber + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.voucherType + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.voucherNo + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.associatedAccount + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.alias + '</td>' +
+												'<td class="merge">' + v.bankTradeNumber + '</td>' +
+
+												'<td class="payment-list merge-last" style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></td>' +
+												'<td class="project-th-hide payment-list merge-last" style="display: none;">' + '<input class="identification-last" style="display:none;" value="' + n.identification + '">' + +n.projectSell + '</td>' +
+												'<td class="project-th-hide payment-list merge-last" style="display: none;">' + n.claimDate + '</td>' +
+												'<td class="payment-list merge-last">' + n.projectName + '</td>' +
+												'<td class="payment-list merge-last">' + n.projectDate + '</td>' +
+												'<td class="payment-list merge-last">' + n.traineeOrGroupName + '</td>' +
+												'<td class="project-th-hide payment-list merge-last" style="display: none;">' + n.orgName + '</td>' +
+												'<td class="payment-list merge-last" style="text-align:right;">' + n.uncollectedTotal + '</td>' +
+												'<td class="payment-list merge-last" style="text-align:right;">' + n.uncollectedTotal + '</td>' +
+												'<td class="payment-list merge-last" style="text-align:right;">' + n.admissiontotal + '</td>' +
+												'<td class="payment-list merge-last" style="text-align:right;">' + n.differencetotal + '</td>' +
+												'<td class="payment-list merge-last">' + (claimRecord.confirmFunc(n.reconciliationState)) + '</td>' +
+												'<td class="payment-list merge-last">' + n.admissionConfirmUser + '</td>' +
+												'</tr>';
+											htmlTbody.append(htmlTr);
+											bool = false;
+										} else if(bool) {
+											htmlTr = '<tr class="' + i + '">' +
+												'<td style="text-align: center;" class="merge">' +
+												'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="pkId" value="' + v.pkId + '"/></label>' + '</td>' +
+												'<td class="merge">' + (i + 1) + '</td>' +
+												'<td class="merge">' + v.exchangeHour + '</td>' +
+												'<td class="bank-th-hide merge" style="text-align:right;display:none">' + v.draw + '</td>' +
+												'<td class="merge" style="text-align:right">' + v.income + '</td>' +
+												'<td class="bank-th-hide merge" style="text-align:right;display:none">' + v.balance + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.currency + '</td>' +
+												'<td class="otherPartyName merge">' + v.otherPartyName + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + '<input class="identification" style="display:none;" value="' + v.identification + '">' + v.otherPartyAccounts + '</td>' +
+
+												'<td class="bank-th-hide merge" style="display:none">' + v.otherPartyGroup + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.accountDate + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.abstractData + '</td>' +
+												'<td class="merge">' + v.remarks + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.enterpriseTradeNumber + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.voucherType + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.voucherNo + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.associatedAccount + '</td>' +
+												'<td class="bank-th-hide merge" style="display:none">' + v.alias + '</td>' +
+												'<td class="merge">' + v.bankTradeNumber + '</td>' +
+
+												'<td class="payment-list merge-last" style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></td>' +
+												'<td class="project-th-hide payment-list merge-last" style="display: none;">' + '<input class="identification-last" style="display:none;" value=""></td>' +
+												'<td class="project-th-hide payment-list merge-last" style="display: none;"></td>' +
+												'<td class="payment-list merge-last"></td>' +
+												'<td class="payment-list merge-last"></td>' +
+												'<td class="payment-list merge-last"></td>' +
+												'<td class="project-th-hide payment-list merge-last" style="display: none;"></td>' +
+												'<td class="payment-list merge-last" style="text-align:right;"></td>' +
+												'<td class="payment-list merge-last" style="text-align:right;"></td>' +
+												'<td class="payment-list merge-last" style="text-align:right;"></td>' +
+												'<td class="payment-list merge-last" style="text-align:right;"></td>' +
+												'<td class="payment-list merge-last"></td>' +
+												'<td class="payment-list merge-last"></td>' +
+												'</tr>';
+											htmlTbody.append(htmlTr);
+										}
+									});
+									if($(".payment-list").hasClass("hide")) {
+										$(".payment-list").removeClass("hide");
+										$(".payment-list-show").show();
+									}
+								} else {
+									htmlTr = '<tr>' +
+										'<td style="text-align: center;">' +
+										'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="pkId" value="' + v.pkId + '"/></label>' + '</td>' +
+										'<td>' + (i + 1) + '</td>' +
+										'<td>' + v.exchangeHour + '</td>' +
+										'<td class="bank-th-hide" style="text-align:right;display:none">' + v.draw + '</td>' +
+										'<td style="text-align:right">' + v.income + '</td>' +
+										'<td class="bank-th-hide" style="text-align:right;display:none">' + v.balance + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + v.currency + '</td>' +
+										'<td class="otherPartyName">' + v.otherPartyName + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + '<input class="identification" style="display:none;" value="' + v.identification + '">' + v.otherPartyAccounts + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + v.otherPartyGroup + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + v.accountDate + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + v.abstractData + '</td>' +
+										'<td>' + v.remarks + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + v.enterpriseTradeNumber + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + v.voucherType + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + v.voucherNo + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + v.associatedAccount + '</td>' +
+										'<td class="bank-th-hide" style="display:none">' + v.alias + '</td>' +
+										'<td>' + v.bankTradeNumber + '</td>' +
+										'<td class="payment-list" style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></td>' +
+										'<td class="project-th-hide payment-list" style="display: none;"></td>' +
+										'<td class="project-th-hide payment-list" style="display: none;"></td>' +
+										'<td class="payment-list"></td>' +
+										'<td class="payment-list"></td>' +
+										'<td class="payment-list"></td>' +
+										'<td class="project-th-hide payment-list" style="display: none;"></td>' +
+										'<td class="payment-list" style="text-align:right;"></td>' +
+										'<td class="payment-list" style="text-align:right;"></td>' +
+										'<td class="payment-list" style="text-align:right;"></td>' +
+										'<td class="payment-list" style="text-align:right;"></td>' +
+										'<td class="payment-list"></td>' +
+										'<td class="payment-list"></td>' +
+										'</tr>';
+									htmlTbody.append(htmlTr);
+									$(".payment-list").addClass("hide");
+									$(".payment-list").hide()
+									$(".bank-list-table").css("width", "100%");
+								}
+
+							});
+						}else{
+							htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+								'<td colspan="18" align="center" style="border:0px;">' +
+								'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+								'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+								'</div>' +
+								'</td>' +
+								'</tr>';
+						$(".project-tbody").html(htmlTr);
+						}
+						//合并功能
+						claimRecord.mergeFunc();
+						var num = $(".project-tbody").find('label input[type="checkbox"]').length;
+						$(".num").text(num);
+						$yt_baseElement.hideLoading();
+					}
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//入账确认
+	confirmFunc: function(confirm) {
+		if(confirm == 1) {
+			return "已入账";
+		} else if(confirm == 0) {
+			return "未入账";
+		}
+	},
+	//合并功能
+	mergeFunc: function() {
+		var trClass = "";
+		var num = 1;
+		$(".project-tbody").children().each(function() {
+			try {
+				if(trClass == $(this).attr("class")) {
+					$(this).find("td.merge").remove();
+					num++;
+				}
+			} catch(e) {
+				//TODO handle the exception
+			} finally {
+				trClass = $(this).attr("class")
+				$("tr." + trClass).find("td.merge").attr("rowspan", num);
+			}
+		});
+	},
+	//项目类型设置
+	projectTypeInfo: function(code) {
+		if(code == 1) {
+			return "计划";
+		} else if(code == 2) {
+			return "委托";
+		} else if(code == 3) {
+			return "选学";
+		} else if(code == 4) {
+			return "调训";
+		} else {
+			return '';
+		};
+	},
+
+}
+$(function() {
+	//初始化方法
+	claimRecord.init();
+});

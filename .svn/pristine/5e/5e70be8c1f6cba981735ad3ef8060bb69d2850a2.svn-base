@@ -1,0 +1,30 @@
+.btn-all{
+    position: relative;
+    left: 10px;
+    top: 0px;
+    width: 550px;
+}
+.print-matter-tab{
+	width: 772px;
+	margin: 0 auto;
+	height: 106px;
+	margin-bottom: 35px;
+}
+.print-matter-tab td{
+	border-bottom: 1px solid #e6e6e6;
+	padding: 0px 20px 0px 20px;
+}
+.print-matter-tab th{
+	background: #c5daea;
+	border-radius: 2px;
+	padding-left: 20px;
+}
+.project-name{
+	width: 280px !important;
+}
+.printing-details .yt-input{
+	border: none;
+}
+.file-name{
+	word-break: break-all;
+}

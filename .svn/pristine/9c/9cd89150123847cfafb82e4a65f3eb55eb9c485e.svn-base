@@ -1,0 +1,905 @@
+@charset "utf-8";
+table td {
+	position: relative;
+}
+
+
+/*公共*/
+
+/*培训费相关*/
+#reimApply {
+	padding-top: 20px;
+	margin: 5px;
+	border: 1px solid #DFE6F3;
+	background-color: #FFFFFF;
+	min-width: 1093px;
+}
+
+.base-info-model {
+	/*padding: 0px 10px 0px 5px;*/
+	background-color: #FFFFFF;
+}
+
+#form-num {
+	font-size: 14px;
+	color: #999999;
+}
+
+.base-info-form-modle table tr td {
+	padding: 10px 0px;
+}
+
+.form-num-model {
+	float: right;
+	display: inline;
+	padding-right: 30px;
+}
+
+#firstTr div {
+	float: left;
+	display: inline;
+}
+
+
+.users-label{
+	width:285px;
+}
+.dept-label {
+	width:285px;
+}
+
+.job-label {
+	width:285px;
+}
+
+#busiApproForm {
+	width: 154px;
+	cursor: pointer;
+}
+
+.last-td div {
+	display: inline;
+}
+
+#reimReason {
+	width: 97%;
+}
+
+.war-msg {
+	color: #c01111;
+}
+
+.text-overflow-sty {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: left;
+}
+
+.middle-line {
+	color: #cfcfcf;
+	margin: 0px 10px;
+}
+
+.busi-appr-td {
+	width: 418px;
+}
+
+.by-pps-prj {
+	display: inline-block;
+	width: 413px;
+}
+
+
+/**
+ * 
+ * 费用申请样式
+ * 
+ */
+
+.cost-list-title {
+	padding-left: 45px;
+	font-size: 16px;
+	height: 35px;
+	line-height: 35px;
+	/*background: #EFF3F6;*/
+	/*border: 1px solid #D6E6F3;*/
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.operate-update {
+	margin-right: 23px;
+}
+
+.operate-update img,
+.operate-del img {
+	vertical-align: middle;
+}
+
+.cost-apply-model .title-model,
+.reim-detail-model {
+	padding: 30px 10px 0px 10px;
+}
+
+.tab-font-blod {
+	font-weight: bold;
+}
+
+.total-last-tr td {
+	height: 30px;
+}
+
+.font-right {
+	text-align: right !important;
+}
+
+.cost-apply-model,
+.flow-approve-model {
+	display: none;
+}
+
+.cost-list-model table {
+	margin-bottom: 15px;
+}
+
+.cost-total-rmb {
+	padding: 20px 20px 18px 45px;
+	font-size: 14px;
+	color: #384495;
+}
+
+.detail-last-tr td {
+	text-align: left !important;
+	border: 0px !important;
+	padding: 7px 0px 0px 18px !important;
+	background: #FFFFFF !important;
+}
+
+
+.cost-total-rmb div {
+	display: inline;
+}
+
+#replacementTab .com-input {
+	background: #FAFAFA;
+	padding: 0px 5px;
+	height: 32px;
+	line-height: 32px;
+	border: 1px solid #DFE6F3;
+	outline: none;
+	text-align: right;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+/*#officialCard {
+	width: 103px;
+}
+
+#cash {
+	width: 107px;
+}*/
+
+#check {
+	width: 111px;
+}
+
+#carryOver {
+	width: 102px;
+}
+
+.operate-btn-group-model {
+	text-align: center;
+	padding: 20px 0px 30px 0px;
+}
+
+.operate-btn-group-model button {
+	font-size: 18px;
+	height: 40px;
+	line-height: 38px;
+	margin-right: 55px;
+}
+
+#applySaveBtn,
+#applyCanelBtn {
+	min-width: 100px;
+}
+
+#lookReimBtn {
+	min-width: 154px;
+}
+
+#flow-approve-tab button {
+	height: 40px;
+	line-height: 38px;
+	font-size: 18px;
+}
+
+#apprCanelBtn {
+	min-width: 100px;
+}
+
+#subCreateFormBtn {
+	margin-right: 55px;
+	min-width: 205px;
+}
+
+#flow-approve-tab tr td {
+	padding-top: 20px;
+}
+
+.flow-approve-model {
+	padding: 0px 10px;
+}
+
+.operate-flow-sel,
+.approve-users-sel {
+	width: 220px;
+}
+
+#operate-msg {
+	width: 97.3%;
+	height: 42px;
+}
+
+.reim-total-lower-div {
+	margin-left: 165px;
+}
+
+#invoiceNum,
+#loanFrom {
+	width: 182px;
+	color: #333;
+}
+
+#loanFrom {
+	cursor: pointer;
+}
+
+.text-right-td {
+	text-align: right !important;
+}
+
+.loan-money-label {
+	padding-left: 115px;
+}
+
+.invoice-num-td {
+	width: 235px;
+}
+
+#model-sure-btn {
+	display: none;
+}
+
+
+/**
+ * 
+ * 
+ * 出差人
+ * 
+ */
+
+.busi-trip-user-td {
+	width: 800px;
+}
+
+
+/**
+ * 
+ * 
+ * 接待方承担费用
+ * 
+ * 
+ */
+
+.reception-money {
+	display: inline;
+	padding-left: 268px;
+}
+
+
+/**
+ * 
+ * 
+ * 操作人
+ * 
+ */
+
+.approvel-users {
+	width: 165px;
+}
+
+
+/**
+ * 
+ * 所属项目td
+ * 
+ */
+
+.from-prj-td {
+	width: 737px;
+}
+
+#importDataBtn {
+	margin-left: 35px;
+}
+
+.yt-checkbox {
+	padding-left: 20px !important;
+}
+
+
+/***
+ * 
+ * 
+ * 
+ * 费用明细弹出框
+ * 
+ * 
+ */
+
+.cost-detail-info-model {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10001;
+	width: 693px;
+	display: none;
+}
+
+.cost-detail-info-model .traffic-form,
+.cost-detail-info-model .hotel-form,
+.cost-detail-info-model .other-form {
+	padding: 20px 0px 0px 10px;
+	display: none;
+}
+
+.cost-detail-info-model .model-title img {
+	margin-bottom: 3px;
+}
+
+.cost-detail-info-model button {
+	font-size: 16px;
+	margin-right: 30px;
+}
+
+.cost-detail-info-model table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+
+.hotel-tab,
+.other-tab {
+	width: 100px;
+}
+
+.time-input {
+	width: 111px;
+}
+
+.model-busi-trip-user-sel {
+	width: 83px;
+}
+
+.address-input {
+	width: 77px;
+	cursor: pointer;
+}
+
+#addres-icon {
+	cursor: pointer;
+}
+
+.vehicle-sel,
+.vehicle-two-sel {
+	width: 83px;
+}
+
+#vehicleTwoDiv {
+	float: left;
+	display: inline;
+	padding-left: 38px;
+	display: none;
+}
+
+.city-cost-input {
+	padding-right: 5px;
+	margin-right: 5px;
+	width: 122px;
+	text-align: right;
+}
+
+.model-content textarea {
+	width: 550px;
+	height: 78px;
+}
+
+.traffic-form table tr td,
+.hotel-form table tr td,
+.other-form table tr td {
+	padding-bottom: 20px;
+}
+
+#addres-icon {
+	vertical-align: middle;
+	margin: 0px 8px 3px 8px;
+}
+
+.model-bottom-btn {
+	text-align: center;
+}
+
+#cost-apply-model .model-content {
+	padding-bottom: 20px;
+}
+
+.calendar {
+	z-index: 100000 !important;
+}
+
+.hotel-trip-user-sel {
+	width: 91px;
+}
+
+.yt-numberInput {
+	width: 54px;
+}
+
+.hotel-addres-sel {
+	width: 154px;
+}
+
+.hotel-money {
+	width: 109px;
+	margin-right: 5px;
+}
+
+.cost-detail-money {
+	padding-right: 5px;
+	margin-right: 5px;
+	text-align: right;
+}
+
+.yt-numberInput-box {
+	width: 80px;
+}
+
+.cost-type-sel {
+	width: 120px;
+}
+
+.other-money {
+	width: 109px;
+}
+
+#replacementTab th {
+	height: 35px;
+	line-height: 35px;
+	background: #475c6d;
+	color: #FFFFFF;
+}
+
+#replacementTab tr td {
+	height: 38px;
+	line-height: 37px;
+	padding: 2px 4px;
+	text-align: right;
+}
+
+#replacementTab tr td,
+#replacementTab th {
+	border: 1px solid #DFE6F3;
+}
+
+@media screen and (min-width: 1366px) and (max-width:1440px) {
+	/*当屏幕尺寸大于1366,小于1440px时，应用下面的CSS样式*/
+	.users-label{
+		width:380px;
+	}
+	.dept-label {
+		width:380px;
+	}
+	
+	.job-label {
+		width:379px;
+	}
+
+	/**
+	 * 出差审批单td
+	 */
+	.busi-appr-td {
+		width: 468px;
+	}
+	.by-pps-prj {
+		width: 439px;
+	}
+	/**
+	 * 人民币大写左间距
+	 */
+	.reim-total-lower-div {
+		margin-left: 185px;
+	}
+	.invoice-num-td {
+		width: 255px;
+	}
+	.loan-money-label {
+		padding-left: 180px;
+	}
+}
+
+@media screen and (min-width: 1440px) and (max-width:1600px) {
+	/*当屏幕尺寸大于1440,小于1600px时，应用下面的CSS样式*/
+	.users-label{
+		width:380px;
+	}
+	.dept-label {
+		width:380px;
+	}
+	
+	.job-label {
+		width:379px;
+	}
+	/**
+	 * 出差审批单td
+	 */
+	.busi-appr-td {
+		width: 575px;
+	}
+	.by-pps-prj {
+		width: 563px;
+	}
+	/**
+	 * 人民币大写左间距
+	 */
+	.reim-total-lower-div {
+		margin-left: 306px;
+	}
+	.invoice-num-td {
+		width: 375px;
+	}
+	.loan-money-label {
+		padding-left: 210px;
+	}
+}
+
+@media screen and (min-width: 1600px) and (max-width:1920px) {
+	/*当屏幕尺寸大于1600,小于1920px时，应用下面的CSS样式*/
+	.users-label{
+		width:380px;
+	}
+	.dept-label {
+		width:380px;
+	}
+	.job-label {
+		width:379px;
+	}
+	/**
+	 * 出差审批单td
+	 */
+	.busi-appr-td {
+		width: 740px;
+	}
+	.by-pps-prj {
+		width: 728px;
+	}
+	/**
+	 * 人民币大写左间距
+	 */
+	.reim-total-lower-div {
+		margin-left: 346px;
+	}
+	.invoice-num-td {
+		width: 415px;
+	}
+	.loan-money-label {
+		padding-left: 245px;
+	}
+}
+
+
+/**
+ * 
+ * 2018.1.03
+ * 
+ */
+
+.busi-trip-form-model,
+.loan-form-model {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10001;
+	width: 500px;
+	display: none;
+}
+
+#busiAproFormModel .heard-search-model button,
+#loanFormModel .heard-search-model button {
+	margin-bottom: 2px;
+}
+
+#aproSearchBtn,
+.model-search-btn {
+	margin-right: 5px;
+}
+
+.keyword-inpu {
+	width: 332px;
+	margin-right: 4px;
+}
+
+#busiAproFormModel .model-bottom-btn,
+#loanFormModel .model-bottom-btn {
+	padding-top: 25px;
+}
+
+#aproSureBtn,
+.model-sure-btn {
+	margin-right: 35px;
+}
+
+#busiAproFormModel .heard-search-model,
+#loanFormModel .heard-search-model {
+	padding-bottom: 18px;
+}
+
+
+#busiAproFormModel .table-page td>div,
+#loanFormModel .table-page td>div {
+	padding: 0 4px !important;
+}
+
+
+/**
+ * 
+ * 
+ * 20180105
+ * 
+ * 
+ */
+
+
+/**
+ * 
+ * 
+ * 风险图标样式
+ * 
+ */
+
+#reimApply .risk-img {
+	margin: 0px 0px 3px 5px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+#reimApply .card-risk-img {
+	width: 14px;
+	height: 14px;
+}
+
+
+/**
+ * 
+ * 
+ * 20180111
+ * 
+ * 
+ */
+
+.model-valid-sty {
+	left: 0;
+	top: 30px;
+}
+#lookReimBtn{
+	margin-right: 55px;
+}
+.text-r{
+	text-align: right;
+}
+.mine
+.mar-t{
+    position: absolute;
+    margin-top: 5px;
+}
+/**
+ * 
+ * 
+ * 20180205
+ * 
+ * 
+ */
+.hotel-address-div{
+	float: left;
+	display: inline;
+	margin-right: 45px;
+}
+.textare-risk{
+	position: absolute;
+	bottom: 25px;
+}
+.flow-textare-risk{
+	position: absolute;
+	bottom: 5px;
+}
+.db{
+	display: block;
+}
+.dn{
+	display: none;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.tl{
+	text-align: left;
+}
+.tr{
+	text-align: right;
+}
+.file-name-list{
+	margin-left: 10px;
+    display: inline-block;
+    width: 60%;
+    vertical-align: text-top;
+    white-space: normal;
+    word-wrap: break-word;
+    color: #384495;
+}
+
+.file-name-list .file-name {
+    margin-left: 10px;
+    cursor: pointer;
+}
+.file-up-div {
+    display: inline-block;
+    vertical-align: middle;
+}
+.cont-file{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 30px;
+    width: 70px;
+    font-size: 19px;
+    overflow: hidden;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.dib{
+	display: inline-block !important;
+}
+
+
+
+
+
+
+
+
+
+
+.training-type {
+	width: 228px;
+}
+
+#reimApply {
+	min-width: 1130px;
+}
+
+.del-file {
+	font-size: 16px;
+	color: red;
+	float: right;
+	cursor: pointer;
+}
+.appDetails{
+	margin-bottom: 10px;
+}
+.teacherFee table{
+	margin-bottom: 15px;
+}
+.yt-edit-alert{
+	width: 400px;
+}
+#costPopModel.yt-edit-alert{
+	width: 700px;
+}
+#trainingPopModel input,#trainingPopModel select{
+	width: 190px;
+}
+.cost-type-tab ul li{
+	width: auto;
+	padding:0 10px;
+}
+.traffic-tab{
+	padding:0 8px;
+}
+#trainingReportDate,#trainingEndingDate{
+	background-position: 180px -25px !important;
+}
+
+
+
+.secondary-text {
+    position: absolute;
+    top: 0;
+    left: 45px;
+    color: #384495 !important;
+    font-size: 16px;
+    background: #fff;
+}
+.secondary-line {
+	margin-left:10px ;
+    border-bottom: 1px dashed #384495;
+}
+
+.moneyInput{
+	text-align: right !important;
+	padding-right: 5px;
+}
+.train-district .yt-input{
+	padding-right: 5px;
+	width: 190px;
+}
+.moneyText{
+	text-align: right !important;
+	padding-right: 5px;
+}
+
+.traffic-form .yt-select{
+	width: 200px;
+}
+
+#carFeePopM .time-input{
+	width: 190px !important;
+}
+#carFeePopM  .vehicle1,#carFeePopM .vehicle2{
+	width: 200px;
+}
+#hotelFeePopM .time-input{
+	width: 190px !important;
+}
+#dietFeePopM .yt-input{
+	width: 190px !important;
+}
+.specialInstruct{
+	text-align: left !important;
+}
+.yt-edit-alert{
+	border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.vehicle2{
+	display: none;
+}
+.export-but{
+	margin-right: 10px;
+}
+.vehicle2 .list{
+	width: auto;
+}
+
+.traffic-cost-model{
+	padding-bottom: 10px;
+	margin-top: 20px;
+}
+.from-table {
+    width:90%;
+}
+.from-table tr td {
+    padding-left: 20px;
+    padding: 5px 0;
+}
+.train-approval .field-title {
+    color: #384495;
+    font-weight: bold;
+    vertical-align: auto;
+}

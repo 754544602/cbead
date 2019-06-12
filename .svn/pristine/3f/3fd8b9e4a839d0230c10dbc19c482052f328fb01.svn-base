@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge	" />
+		<title>教务首页</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-frame-base.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/index/allIndex.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="./resources/css/common/yt-common-ie.min.css"/><![endif]-->
+
+	</head>
+
+	<body>
+		<div class="educationIndex">
+		<div class="index-rates index-rates-approve">
+			<table class="rates-table">
+				<caption>
+					<span>待办事项</span>
+					<ul class="swich-title">
+						<li class="active">立项审批</li>
+						<li>报销审批</li>
+					</ul>
+				</caption>
+				<thead>
+					<tr>
+						<th>项目名称</th>
+						<th>委托单位</th>
+						<th>预计培训时间</th>
+						<th>项目销售</th>
+						<th>洽谈记录</th>
+						<th>学员数量</th>
+						<th>项目状态</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody index-rates-projectApprove index-rates-project">
+					<tr class="class-tr">
+							<td colspan="7" align="center" style="border:0px;">
+								<div class="no-data" style="width: 200px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="width:220px;padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+		</div>
+		<div class="educationIndex educationIndexshow">
+		<div class="index-top">
+			<div class="index-top-middle">
+				<div class="index-top-model">
+					<img src="../../resources/images/index/projectApprove.png" />
+					<div>
+						<h5>已立项</h5><br />
+						<span data-text="projectSetUp">0</span><label>个</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/talkRcord.png" />
+					<div>
+						<h5>洽谈中</h5><br />
+						<span data-text="projectFinished">0</span><label>个</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/making.png" />
+					<div>
+						<h5>进行中</h5><br />
+						<span data-text="projectConduct">0</span><label>个</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/success.png" />
+					<div>
+						<h5>已完成</h5><br />
+						<span data-text="projectNegotiation">0</span><label>个</label></div>
+				</div>
+			</div>
+		</div>
+		<!--表-->
+		<!--日程表-->
+		<div class="index-plan">
+			<table class="plan-table">
+				<caption>本月班次计划
+					<input id="txtDate" class="calendar-input" style="width: 109px;" value="" placeholder="请选择日期" type="text" />
+					<ul>
+						<li>
+							<label></label>
+							<span>未立项</span>
+						</li>
+						<li>
+							<label></label>
+							<span>已立项</span>
+						</li>
+						<li>
+							<label></label>
+							<span>已运行</span>
+						</li>
+						<li>
+							<label></label>
+							<span>已结项</span>
+						</li>
+					</ul>
+					<div class="right">
+						<span>前一月</span>
+						<span>本月</span>
+						<span>后一月</span>
+					</div>
+				</caption>
+				<thead class="occupy-list">
+					<tr>
+						
+					</tr>
+				</thead>
+				<tbody class="yt-tbody">
+					<tr>
+					<td colspan="8" align="center" style="border:0px;">
+						<div class="no-data" style="width: 280px;margin: 0 auto;">
+							<img src="../../resources/images/common/no-data.png" alt="" style="width:200px;padding: 35px 0 20px;">
+						</div>
+					</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="page-info table-page" onselectstart="return false"></div>
+		</div>
+		<div class="index-rates index-ready index-info">
+			<table class="rates-table">
+				<caption>本月班级信息
+					<span>查看更多</span>
+				</caption>
+				<thead>
+					<tr>
+						<th style="text-align: center;">序号</th>
+						<th style="text-align: left;">班级名称</th>
+						<th style="text-align: center;">类型</th>
+						<th style="text-align: center;">开班日期</th>
+						<th style="text-align: center;">结束日期</th>
+						<th style="text-align: left;">项目主任</th>
+						<th style="text-align: right;">学员数量</th>
+						<th style="text-align: right;">应收金额</th>
+						<th style="text-align: right;">未缴费</th>
+						<th style="text-align: center;">状态</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody index-rates-projectApprove">
+				<tr>
+					<td colspan="10" align="center" style="border:0px;">
+						<div class="no-data" style="width: 280px;margin: 0 auto;">
+							<img src="../../resources/images/common/no-data.png" alt="" style="width:200px;padding: 35px 0 20px;">
+						</div>
+					</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="index-rates index-ready">
+			<table class="rates-table index-scend">
+				<caption>本月班次决算
+					<span>查看更多</span>
+				</caption>
+				<thead>
+					<tr>
+						<th width="40px">序号</th>
+						<th style="text-align:left">班级名称</th>
+						<th width="90px">结束日期</th>
+						<th style="text-align:left">项目主任</th>
+						<th style="text-align:right" width="90px">学员数量</th>
+						<th style="text-align:right" width="115px">应收金额</th>
+						<th style="text-align:right" width="105px">实收金额</th>
+						<th style="text-align:right" width="100px">教师课酬</th>
+						<th style="text-align:right" width="90px">教师差旅</th>
+						<th style="text-align:right" width="90px">总支出</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody index-rates-projectApprove">
+					<tr>
+					<td colspan="10" align="center" style="border:0px;">
+						<div class="no-data" style="width: 280px;margin: 0 auto;">
+							<img src="../../resources/images/common/no-data.png" alt="" style="width:200px;padding: 35px 0 20px;">
+						</div>
+					</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</div>
+		<!--项目主任首页-->
+		<div class="projectIndex">
+		<div class="index-top">
+			<div class="index-top-middle">
+				<div class="index-top-model">
+					<img src="../../resources/images/index/projectApprove.png" />
+					<div>
+						<h5>已立项</h5><br />
+						<span data-text="projectSetUp">0</span><label>个</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/talkRcord.png" />
+					<div>
+						<h5>洽谈中</h5><br />
+						<span data-text="projectFinished">0</span><label>个</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/making.png" />
+					<div>
+						<h5>进行中</h5><br />
+						<span data-text="projectConduct">0</span><label>个</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/success.png" />
+					<div>
+						<h5>已完成</h5><br />
+						<span data-text="projectNegotiation">0</span><label>个</label></div>
+				</div>
+			</div>
+		</div>
+		<div class="index-rates title">
+				当前班级：
+			</div>
+		<div class="tab-title-list" style="overflow: hidden;margin-top: 0px;">
+				<div class="tab-title-box">
+					<button class="yt-option-btn class-info-btn active">• 班级信息</button>
+					<!--120排序-->
+				</div>
+				<div class="more-tab-btn-start"></div>
+				<div class="more-tab-btn-end"></div>
+			</div>
+			<div class="index-rates">
+				<table class="rates-table class-info" style="width: 50%;">
+					<tr>
+						<td width="90px">班级名称：</td><td data-text="projectName" style="text-align: left;"></td>
+						
+					</tr>
+					<tr>
+						<td width="90px">类型：</td><td data-text="projectTypeVel" style="text-align: left;"></td>
+						<td width="90px">结束日期：</td><td data-text="endDate" style="text-align: left;"></td>
+						<td width="90px">学员数量：</td><td data-text="traineeCount" style="text-align: left;"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="drawsclass">
+				
+			</div>
+		<div class="index-rates index-ready">
+			<table class="rates-table index-scend">
+				<caption>即将开班<span class="willclass">0</span>个
+					<span>催办</span>
+				</caption>
+				<thead>
+					<tr>
+						<th style="text-align: left;">班级名称</th>
+						<th style="text-align: center;">类型</th>
+						<th style="text-align: center;">开班日期</th>
+						<th style="text-align: right;">学员数量</th>
+						<th style="text-align: center;">教师安排</th>
+						<th style="text-align: center;">课程安排</th>
+						<th style="text-align: center;">学员分组</th>
+						<th style="text-align: center;">学员手册</th>
+						<th style="text-align: center;">开班式/结业式</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody index-rates-projectApprove">
+					<tr>
+					<td colspan="10" align="center" style="border:0px;">
+						<div class="no-data" style="width: 280px;margin: 0 auto;">
+							<img src="../../resources/images/common/no-data.png" alt="" style="width:200px;padding: 35px 0 20px;">
+						</div>
+					</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="index-rates index-ready">
+			<table class="rates-table index-nocome">
+				<caption>未完成班级
+					<span>催办</span>
+				</caption>
+				<thead>
+					<tr>
+						<th style="text-align: left;">班级名称</th>
+						<th style="text-align: center;">类型</th>
+						<th style="text-align: center;">结束日期</th>
+						<th style="text-align: center;">教师课酬报销</th>
+						<th style="text-align: center;">教师差旅报销</th>
+						<th style="text-align: center;">学员对账</th>
+						<th style="text-align: center;">学员开票</th>
+						<th style="text-align: center;">资料归档</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody index-rates-projectApprove">
+					<tr>
+					<td colspan="10" align="center" style="border:0px;">
+						<div class="no-data" style="width: 280px;margin: 0 auto;">
+							<img src="../../resources/images/common/no-data.png" alt="" style="width:200px;padding: 35px 0 20px;">
+						</div>
+					</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<input id="txtDate-yyyy" class="calendar-input" style="width: 150px;position: absolute;z-index: 100;margin: 20px 200px;" value="" placeholder="请选择日期" type="text" />
+		<div id="echartsthree">
+		</div>
+		</div>
+		<!--项目主任首页end-->
+		<!--财务首页-->
+		<div class="moneyIndex">
+			<div class="index-top">
+			<div class="index-top-middle">
+				<div class="index-top-model">
+					<img src="../../resources/images/index/dollar.png" />
+					<div>
+						<h5>本月收入</h5><br />
+						<span data-text="receivableMonth">258,000.00</span><label>元</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/income.png" />
+					<div>
+						<h5>本月实收</h5><br />
+						<span data-text="netReceiptsMonth">203,000.00</span><label>元</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/expend.png" />
+					<div>
+						<h5>本月支出</h5><br />
+						<span data-text="expenditureMonth">128,000.00</span><label>元</label></div>
+				</div>
+			</div>
+		</div>
+		<div class="index-two">
+			<div class="reconciliation-table">
+				<table class="index-two-reconciliation">
+					<caption>对账未完成</caption>
+					<thead>
+						<tr>
+							<th>班级名称</th>
+							<th>类型</th>
+							<th>结束日期</th>
+							<th>未对账学员</th>
+							<th>未对账金额</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody reconciliationNot-tbody">
+						<tr class="class-tr">
+							<td colspan="5" align="center" style="border:0px;">
+								<div class="no-data" style="width: 50px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="width:120px;padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="waste-table">
+				<table class="index-two-waste">
+					<caption>
+						<h3>未处理流水</h3>
+						<br />
+						<h4>本月导入银行流水<span data-text="bankStatementTotal">1280</span>条，未对账流水<span data-text="reconciliationNotTotal">79</span>条</h4>
+						<div class="waste-table-caption">
+						<input id="txtDate2" class="calendar-input" value="" placeholder="请选择日期" type="text" />
+							<span class="mouthbefore">前一月</span><span class="mouthnow">本月</span><span class="mouthafter">后一月</span><br />
+							<div><span>催办</span></div>
+						</div>
+					</caption>
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>交易日期</th>
+							<th>摘要</th>
+							<th>交易金额</th>
+							<th>对方账号</th>
+							<th>对方户名</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<tr class="class-tr">
+							<td colspan="6" align="center" style="border:0px;">
+								<div class="no-data" style="width: 200px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="width:220px;padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="reconciliation-table" style="border-bottom: none;">
+				<table class="index-two-reconciliation">
+					<caption>开票未完成</caption>
+					<thead>
+						<tr>
+							<th>班级名称</th>
+							<th>类型</th>
+							<th>结束日期</th>
+							<th>未开票人员</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody ticketBody">
+						<tr class="class-tr">
+							<td colspan="6" align="center" style="border:0px;">
+								<div class="no-data" style="width: 200px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="width:120px;padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="clear-both">
+			</div>
+		</div>
+		<div id="">
+			<input id="txtDate1" class="calendar-input" style="width: 150px;position: absolute;z-index: 10;margin: 25px 0 0 120px;" value="" placeholder="请选择日期" type="text" />
+		</div>
+		<div id="echartsone">
+		</div>
+		<div id="echartstwo"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script src="../../resources/js/calendar/yt-calendar.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/page/yt-page.min.js" ></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/index/allIndex.js"></script>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/approve/draftsList.min.css?YTVERSIONCODE=2018050301" />
+		<!--引用CSS文件END-->
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="body-div">
+			
+			<div class="search-div">
+				<table border="0" cellspacing="0" cellpadding="0" class="form-table">
+					<tbody>
+					<tr>
+						<td style="width: 580px">
+							<label>拟申请事由：</label>
+							<input style="width: 430px;" type="text" id="" value="" class="yt-input keyword-input apply-reason" placeholder="请输入关键字">
+						</td>
+						<!--<td style="width: 33%;">
+							<label>专项项目名称/编号：</label><input type="text" id="" value="" class="yt-input" />
+						</td>-->
+						<!--<td style=""></td>-->
+						<td class="proposer-td" style="padding-left: 40px;">
+							<label><span class="letter-four">申请类</span>别：</label>
+							<select class="yt-select user-name-sel apply-type" style="display: none;">  
+                          		<option value="">请选择</option>
+                        	</select>
+                       </td>
+					</tr>
+					</tbody>
+				</table>
+				<table border="0" cellspacing="0" cellpadding="0" class="form-table">
+					<tbody>
+					<tr>
+						<td colspan="4">
+							<label><span class="letter-four">保存日</span>期：</label>
+							<input class="calendar-input calendar-input-bg save-begin-date" id="startDate" type="text" placeholder="请选择日期" readonly="readonly" style="width: 185px;">
+							<span style="padding: 0 10px;">到</span>
+							<input class="calendar-input calendar-input-bg save-end-date" id="endDate" type="text" placeholder="请选择日期" readonly="readonly" style="width: 185px;">
+						</td>
+						
+					</tr>
+					<tr>
+						<td colspan="3"><span class="apply-span">拟申请金</span>额：
+							<input onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" class="yt-input top-money apply-begin-money" placeholder="请输入" style="text-align: right;">
+							<label class="separator">-</label>
+							<input onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" class="yt-input bottom-money apply-end-money" placeholder="请输入" style="text-align: right;">
+						</td>
+						<td></td>
+						<td style="width:260px;"></td>
+						<td>
+							<button class="yt-option-btn yt-search-btn drafts-search-btn" onselectstart="return false" id="heardSearchBtn">查询 </button>
+							<button style="margin-left: 10px;" class="yt-option-btn yt-reset-btn drafts-reset-btn" onselectstart="return false" id="">重置</button>
+						</td>
+					</tr>
+				</tbody></table>
+				</div>
+				<!--上方填写区域END-->
+				<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				<!--中间表格区域START-->
+				<div class="plan-list-model">
+					<table class="yt-table" width="100%">
+						<thead class="yt-thead">
+							<tr>
+								<th style="width: 150px;">保存日期</th>
+								<th>拟申请事由</th>
+								<th style="width: 130px;">申请类型</th>
+								<th style="width: 130px;">拟申请金额(元)</th>
+								<th style="width: 100px;">操作</th>
+							</tr>
+
+						</thead>
+						<tbody class="yt-tbody drafts-list"></tbody>
+					</table>
+					<div class="page-info table-page page1" onselectstart="return false"></div>
+				</div>
+				<!--中间表格区域END-->
+			</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/projectManagement/expensesReim/module/approve/draftsList.min.js?YTVERSIONCODE=20181203"></script>
+	<!--引用JS文件END-->
+</html>

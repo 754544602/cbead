@@ -1,0 +1,22 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 100,
+		"rows": [
+			{
+				   "advanceAppId":"1",
+			       "advanceAppNum":"RM20180117001",
+			       "advanceAppName":"按的发生的发生发送到",
+				   "advanceCostType":"code",
+				   "advanceCostTypeName":"业务招待费",
+			       "applicantUser":"sunchanglin",
+			       "applicantUserName":"孙长林",
+				   "applicantDept":"研发部",
+			       "applicantTime":"2018-01-01",
+				   "advanceAmount":"2014.00",
+			       "nodeNowState":"待部门领导审批",
+			       "processInstanceId":"1"
+			}
+		]
+	}
+}

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teachingStaff/teachingStaffList.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>项目对账详情（选学、委托）</title>
+		<style type="text/css">
+			.calendar {
+				z-index: 10000 !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1100px;">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="height: 20px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<div class="project-name" style="color: #ffffff;font-size: 18px;width: 260px;margin: 0px auto;">第二期国企深化改革专题培训班</div>
+						<div class="key-word">
+							<button class="page-return-btn" style="height: 30px;top: -25px;">
+								<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+								返回
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--顶部条件查询END-->
+			<!--数据展示区域START-->
+			<div class="class-info-div">
+				单位支付信息
+			</div>
+			<div class="list-box">
+				<table class="yt-table list-table" style="margin-top: 10px;">
+					<thead class="list-thead">
+						<tr>
+							<th>单位名称</th>
+							<th style="width: 150px;">应收培训费（元）</th>
+							<th style="width: 150px;">已收（元）</th>
+							<th style="width: 150px;">未收（元）</th>
+							<th style="width: 150px;">对账入账</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody project-company-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="5" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="class-info-div">
+				学员费用详情
+				<div class="">
+					<div class="key-word" style="line-height:0px;position:absolute;top: 12px;right: 0px;">
+						<input class="yt-input selectParam" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="list-box">
+				<div class="project-selection-more" style="cursor: pointer;font-size: 16px;color: #7b74c7;">查看更多</div>
+				<table class="yt-table list-table" style="margin-top: 10px;">
+					<thead class="list-thead">
+						<tr>
+							<th style="width: 40px" rowspan="2">分组</th>
+							<th style="width: 60px" rowspan="2">姓名</th>
+							<th rowspan="2">单位名称</th>
+							<th style="width: 50px" rowspan="2">房间号</th>
+							<th style="width: 423px;" colspan="6">应收（元）</th>
+							<th style="width: 280px;" colspan="4">已收（元）</th>
+							<th style="width: 80px;display: none; " class="student-hide" rowspan="2">挂账金额（元）</th>
+							<th style="width: 80px;display: none;" class="student-hide" rowspan="2">对账入账</th>
+						</tr>
+						<tr>
+							<th style="width: 70px;">培训费</th>
+							<th style="width: 70px;">课程费</th>
+							<th style="width: 70px;">住宿费</th>
+							<th style="width: 70px;">餐费</th>
+							<th style="width: 70px;">杂费</th>
+							<th style="width: 73px;">小计</th>
+							<th style="width: 70px;">现金</th>
+							<th style="width: 70px;">银联</th>
+							<th style="width: 70px;">电汇</th>
+							<th style="width: 70px;">小计</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody project-student-tbody list-tbody">
+						<tr class="class-tr">
+							<td class="project-student-td" colspan="14" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info project-student-page" onselectstart="return false"></div>
+			</div>
+			<!--数据展示区域END-->
+			<!--查询学员详情START-->
+			<div class="yt-pop-model yt-edit-alert student-details-form" style="width: 1020px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">学员详情</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+
+					<div style="height: 209px;position: relative;">
+						<table class="student-details-table">
+							<tr>
+								<td align="right">姓名：</td>
+								<td data-text="realName" style="width: 330px;"></td>
+								<td align="right">组号：</td>
+								<td data-text="groupNum"></td>
+							</tr>
+							<td align="right">性别：</td>
+							<td data-text="gender"></td>
+							<td align="right">电话：</td>
+							<td data-text="phone"></td>
+							</tr>
+							<td align="right">身份证号：</td>
+							<td data-text="idNumber"></td>
+							<td align="right">集团：</td>
+							<td data-text="groupName"></td>
+							</tr>
+							<td align="right">单位：</td>
+							<td data-text="groupOrgName"></td>
+							<td align="right">部门/职位：</td>
+							<td data-text="deptName"></td>
+							</tr>
+						</table>
+						<div style="display: inline-table; width: 102px;height: 136px;border:1px dashed #cdcdcd;position: absolute;top: 40px;">
+							<img class="student-details-img" src="../../resources/images/icons/loading123.gif" style="width: 32px;height:32px;margin: 50px 0px 0px 35px;" />
+						</div>
+					</div>
+					<div class="student-details-tecket">
+						<span class="ticket-open-msg">开票信息</span>
+						<table style="width: 960px;margin-top: 20px;">
+							<tr>
+								<td align="right" style="width: 85px;">发票类型：</td>
+								<td style="width: 200px;" data-text="invoiceType"></td>
+								<td align="right" style="width: 53px;">名称：</td>
+								<td data-text="orgName"></td>
+								<td align="right" style="width:60px">税号：</td>
+								<td data-text="taxNumber" style="width: 255px;"></td>
+							</tr>
+							<tr>
+								<td align="right" style="width: 43px;">电话：</td>
+								<td data-text="telephoneProject"></td>
+								<td align="right" width="43px">开户行：</td>
+								<td data-text="registeredBank" style="width: 255px;"></td>
+								<td align="right">账号：</td>
+								<td data-text="account" style="width: 200px;"></td>
+							</tr>
+						</table>
+					</div>
+					<div style="width: -webkit-fit-content;margin: 13px auto 0px;">
+						<div class="student-details-msgges">
+							<span class="ticket-open-msg">报到信息</span>
+							<p><span>报到状态：</span><span data-text="checkInState"></span></p>
+							<p><span>报到时间：</span><span data-text="checkInDate"></span></p>
+						</div>
+						<div class="student-details-msgges">
+							<span class="ticket-open-msg">缴费信息</span>
+							<p><span>缴费状态：</span><span data-text="paymentState"></span></p>
+							<p><span>缴费时间：</span><span data-text="paymentDate"></span></p>
+						</div>
+						<div class="student-details-msgges">
+							<span class="ticket-open-msg">住宿信息</span>
+							<p><span>住宿房间：</span><span data-text="roomNumber"></span></p>
+							<p><span>入住时间：</span><span data-text="roomNumberDate"></span></p>
+						</div>
+						<div class="student-details-msgges">
+							<span class="ticket-open-msg">开票信息</span>
+							<p><span>开票状态：</span><span data-text="isOrderNum"></span></p>
+							<p><span>发票号：</span><span data-text="orderNum"></span></p>
+						</div>
+					</div>
+					<div class="student-details-tecket" style="margin-top: 13px;">
+						<span class="ticket-open-msg">培训记录</span>
+						<table class="student-details-train-record">
+							<thead>
+								<tr>
+									<th>班级编号</th>
+									<th>班级名称</th>
+									<th>开班日期</th>
+									<th>项目主任</th>
+									<th>结业证书编号</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>
+
+			</div>
+
+				<!--底部按钮START-->
+				<div class="yt-eidt-model-bottom" style="border: none;">
+					<input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="关闭" />
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--查询学员详情END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/bank/projectSelection.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+
+</html>

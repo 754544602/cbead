@@ -1,0 +1,348 @@
+var proCostUsageQuery = {
+	//当前日期
+	thisDate: "",
+	//初始化页面
+	init: function() {
+		//给当前页面设置最小高度
+		$("#proCostUsageQuery").css("min-height", $(window).height() - 13);
+		//调用事件绑定方法
+		proCostUsageQuery.events();
+		/**
+		 * 初始化日期控件
+		 */
+		$("#startDate").calendar({
+			controlId: "startTime",
+			nowData: true, //默认选中当前时间,默认true  
+			upperLimit: $("#endDate"), //开始日期最大为结束日期  
+			speed: 0,
+			callback: function() {}
+		});
+		$("#endDate").calendar({
+			controlId: "endTime",
+			nowData: true, //默认选中当前时间,默认true  
+			lowerLimit: $("#startDate"), //结束日期最小为开始日期  
+			speed: 0,
+			callback: function() {}
+		});
+		//获取当前日
+		proCostUsageQuery.thisDate = $("#endDate").val();
+		$("#startDate").val(proCostUsageQuery.thisDate.substring(0, proCostUsageQuery.thisDate.length - 5) + "01-01");
+		//调用分页查询方法
+		proCostUsageQuery.tablePage();
+		//调用验证表格字段方法
+		proCostUsageQuery.verifyTable();
+	},
+	//事件绑定
+	events: function() {
+		//排序按钮事件绑定
+		//按照时间排序按钮
+		$(".sort-btn-list").on("click", ".yt-search-btn:not(.export-excel)", function() {
+			var thisBtn = $(this);
+			$(".sort-btn-list .yt-search-btn").removeClass("sort-btn-style");
+			thisBtn.addClass("sort-btn-style");
+			//调用分页查询方法
+			proCostUsageQuery.tablePage();
+		});
+		// 点击叉号 清空输入框并隐藏叉号
+		$('.clearImg').on('click', function() {
+			$('.query-text').val('');
+			$(".query-pid").val('');
+			$(this).hide();
+			//调用分页查询方法
+			proCostUsageQuery.tablePage();
+			//调用获取选中的Tab状态
+			//			beforeApproList.searchList();
+		});
+		//重置按钮事件
+		$("#resetBtn").click(function() {
+			//重置项目名称
+			$(".query-text").val('');
+			$(".query-pid").val('');
+			//重置日期
+			$("#startDate").val(proCostUsageQuery.thisDate.substring(0, proCostUsageQuery.thisDate.length - 5) + "01-01");
+			$("#endDate").val(proCostUsageQuery.thisDate);
+			//重置筛选条件单选按钮
+			//$(".radio-input-list input").parent("label").removeClass("check");
+			$('.clearImg').hide();
+			$(".sort-btn-list .yt-search-btn").removeClass("sort-btn-style");
+			//重置筛选条件单选按钮
+			$(".radio-input-list input").parent("label").removeClass("check");
+			$(".radio-input-list .yt-radio input:checked").val('');
+			//调用分页查询方法
+			proCostUsageQuery.tablePage();
+		});
+		//查询按钮事件
+		$("#heardSearchBtn").click(function() {
+			//调用查询方法
+			proCostUsageQuery.tablePage();
+		});
+		//单选按钮触发事件
+		$(".radio-input-list .yt-radio").change(function() {
+			//调用分页查询方法
+			proCostUsageQuery.tablePage();
+		});
+		//项目名称绑定弹出窗事件		query-text
+		$('.query-text').keyup(function() {
+			if($(this).val()) {
+				$('.clearImg').show();
+			} else {
+				$('.clearImg').hide();
+			}
+		});
+		//金额调整次数事件绑定
+		$(".pro-cost-table").on("click", ".money-adjustment-count", function() {
+			var thisTr=$(this).parents("tr");
+			var advanceAppId=thisTr.find(".app-id").val();
+			var appName=thisTr.find(".app-name").text();
+			//调用弹出窗方法
+			proCostUsageQuery.showAlert(advanceAppId,appName);
+		});
+		//跳转到项目查询页面事件绑定
+		$(".pro-cost-table").on("click", ".to-detail-query", function() {
+			var thisTr=$(this).parents("tr");
+			var advanceAppId=thisTr.find(".app-id").val();
+			var appName=thisTr.find(".app-name").text();
+			var appNum=thisTr.find(".app-num").val();
+			/*页面跳转打开新页面*/
+			//去详情页
+			var pageUrl = "view/system-sasac/expensesReim/module/query/proCostUsageQuery.html?advanceAppId=" + advanceAppId+"&appName="+appName+"&appNum="+appNum;//即将跳转的页面路径
+			//调用公用的打开新页面方法传输参数不需要左侧菜单
+			$yt_baseElement.openNewPage(2,pageUrl);
+		});
+		//跳转到事前详情页面事件绑定
+		$(".pro-cost-table").on("click", ".to-detail", function() {
+			var thisTr=$(this).parents("tr");
+			var advanceAppId=thisTr.find(".app-id").val();
+			/*页面跳转打开新页面*/
+			//去详情页
+			var pageUrl = "view/system-sasac/expensesReim/module/beforehand/beforeApplyDetail.html?advanceId=" + advanceAppId;//即将跳转的页面路径
+			//调用公用的打开新页面方法传输参数不需要左侧菜单
+			$yt_baseElement.openNewPage(2,pageUrl);
+		});
+		//跳转到变更详情页面事件绑定
+		$(".adjust-number-pop .content-table").on("click", ".to-detail", function() {
+			var thisTr=$(this).parents("tr");
+			var advanceAppId=thisTr.find(".app-id").val();
+			/*页面跳转打开新页面*/
+			var pageUrl = "view/system-sasac/expensesReim/module/busiTripApply/projectServeDetails.html?advanceAppId="+ advanceAppId;//即将跳转的页面路径
+			//调用公用的打开新页面方法传输参数不需要左侧菜单
+			$yt_baseElement.openNewPage(2,pageUrl);
+		});
+		//弹窗查询按钮事件
+		$(".yt-edit-alert").on("click", ".pop-search", function() {
+			
+		});
+		//弹窗重置按钮事件
+		$(".yt-edit-alert").on("click", ".pop-reset", function() {
+			//重置关键字
+			$(".pop-text").val("");
+			//调用分页查询方法
+			proCostUsageQuery.tablePage();
+		});
+		//弹窗确定按钮事件
+		$(".pop-sure-btn").click(function() {
+			var selTrLen = $(".pro-pop-table tbody tr.yt-table-active").length;
+			var thisTr = $(".pro-pop-table tbody tr.yt-table-active");
+			var thisBtn = $(this);
+			var Id = thisTr.find("input.tableId").val();
+			if(selTrLen == 0) {
+				$yt_alert_Model.prompt("请选择一行数据进行操作");
+			} else {
+				$(".query-text").val(thisTr.find("td").eq(0).text());
+				var pid = thisTr.attr("pid");
+				$(".query-pid").val(pid);
+				// 输入框输入文本后  显示出删除叉号
+				if($(".query-text").val() != '') {
+					$('.clearImg').show();
+				}
+				//隐藏页面中自定义的表单内容  
+				$(".yt-edit-alert,#heard-nav-bak").hide();
+				//隐藏蒙层  
+				$("#pop-modle-alert").hide();
+				//调用分页查询方法
+				proCostUsageQuery.tablePage();
+			}
+		});
+		
+		//导出列表数据
+		$('.export-excel').on('click',function(){
+			var queryParams = $(".query-text").val();
+			queryParams = encodeURI(encodeURI(queryParams));
+			//获取单选按钮数据
+			var inputCheck = $(".radio-input-list input:checked").val() || '';
+			//获取查询数据
+			var startDate = $("#startDate").val();
+			var endDate = $("#endDate").val();
+			var property = $(".sort-btn-list .sort-btn-style").attr("btn-val") || '';
+			var direction='DESC';
+			var urlStr = $yt_option.base_path + 'sz/advanceAppUpdate/exportTotalAdvanceAppQueryByParams?queryStateParams='+ inputCheck +'&queryParams='+ queryParams +'&startDate='+ startDate +'&endDate='+ endDate +'&property='+ property +'&direction=' + direction;
+			if(typeof(downloadIframe) == "undefined") {
+				var iframe = document.createElement("iframe");
+				downloadIframe = iframe;
+				document.body.appendChild(downloadIframe);
+			}
+			downloadIframe.src = urlStr;
+			downloadIframe.style.display = "none";
+		});
+		
+	},
+	/*table分页*/
+	tablePage: function() {
+		var queryParams = $(".query-text").val();
+		//获取单选按钮数据
+		var inputCheck = $(".radio-input-list input:checked").val();
+		//获取查询数据
+		var startDate = $("#startDate").val();
+		var endDate = $("#endDate").val();
+		var property = $(".sort-btn-list .sort-btn-style").attr("btn-val");
+		var direction='DESC';
+		$('.payment-table-page').pageInfo({
+			pageIndex: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: 'sz/advanceAppUpdate/getTrainProjectByParams', //ajax访问路径  
+			data: {
+				queryStateParams: inputCheck, //条件筛选
+				queryParams: queryParams, //查询关键字   （申请事由）
+				startDate: startDate, //申请日期 开始
+				endDate: endDate, //申请日期结束
+				property: property, //排序字段
+				direction: direction, //降序
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称
+			/** 
+			 * ajax回调函数  
+			 * @param {Object} data 列表数据 
+			 */
+			success: function(data) {
+				var htmlTbody = $('.pro-cost-table .yt-tbody.tbody-content');
+				htmlTbody.empty();
+				if(data.flag==0){
+					$(".all-amount").text($yt_baseElement.fmMoney((data.data.allAmount || 0)));
+					var datas = data.data.rows;
+					if(datas.length != 0) {
+						var trStr='';
+						$.each(datas,function(i,n){
+							trStr += '<tr>'+
+									'<td><a class="yt-link to-detail"><input type="hidden" class="app-id" value="'+ n.appId +'"><input type="hidden" class="app-num" value="'+ n.appNum +'">'+ n.appNum +'</a></td>'+
+									'<td class="tl app-name">'+ n.appName +'</td>'+
+									'<td>'+ (n.adjustmentNum == 0 ? n.adjustmentNum : '<a class="yt-link money-adjustment-count">'+ n.adjustmentNum +'</a>') +'</td>'+
+									'<td class="tr">'+ $yt_baseElement.fmMoney((n.totalAmount || 0)) +'</td>'+
+									'<td class="tr">'+ $yt_baseElement.fmMoney((n.totalAmountNow || 0)) +'</td>'+
+									'<td class="tr le-td">'+ $yt_baseElement.fmMoney((n.adjustmentAmount || 0)) +'</td>'+
+									/*'<td class="tr gt-td">'+ (n.adjustmentRate * 100).toFixed(2) +'%</td>'+*/
+									'<td>'+ n.applicantUserName +'</td>'+
+									'<td>'+ n.applicantDept +'</td>'+
+									'<td>'+ n.applicateTime +'</td>'+
+									'<td><a class="yt-link to-detail-query">详情</a></td></tr>';
+						});
+						htmlTbody.html(trStr);
+						$('.payment-table-page').show();
+						//调用验证表格字段方法
+						proCostUsageQuery.verifyTable();
+					} else {
+						htmlTbody.html(sysCommon.noDataTrStr(11));
+						$('.payment-table-page').hide();
+					}
+				}else{
+					$yt_alert_Model.prompt(data.message);
+					htmlTbody.html(sysCommon.noDataTrStr(11));
+					$('.payment-table-page').hide();
+				}
+			},isSelPageNum:true
+		});
+	},
+	//验证表格字段
+	verifyTable: function() {
+		var leTdList = $(".le-td");
+		var gtTdList = $(".gt-td");
+
+		leTdList.each(function(index) {
+			if($yt_baseElement.rmoney(leTdList.eq(index).text()) > 0) {
+				leTdList.eq(index).addClass("red-color");
+			} else {
+				leTdList.eq(index).removeClass("red-color");
+			}
+		});
+		gtTdList.each(function(index) {
+			if(gtTdList.eq(index).text().substring(0, gtTdList.eq(index).text().length - 1) / 100 > 1) {
+				gtTdList.eq(index).addClass("red-color");
+			} else {
+				gtTdList.eq(index).removeClass("red-color");
+			}
+		});
+	},
+	/*弹出窗table分页方法*/
+	popTablePage: function(advanceAppId) {
+		$.ajax({
+			type: "post",
+			url:"sz/advanceAppUpdate/getAdjustmentAllAmountByAdvanceAppId",
+			async: false,
+			data:{
+				advanceAppId: advanceAppId,//事前变更申请Id
+			},
+			/** 
+			 * ajax回调函数  
+			 * @param {Object} data 列表数据 
+			 * @param {Object} pageObj 分页参数对象 
+			 */
+			success: function(data) {
+				var htmlTbody = $('.adjust-number-pop .content-table .yt-tbody');
+				htmlTbody.empty();
+				var trStr = "";
+				if(data.flag == 0) {
+					$(".adjust-number-pop .update-advance-amount").text($yt_baseElement.fmMoney((data.data.updateAdvanceAmount || 0)));
+					var datas = data.data.data;
+					if(datas.length > 0) {
+						$('.prior-page').show();
+						$.each(datas, function(i, n) {
+							trStr += '<tr>'+
+									'<td><a class="yt-link to-detail"><input type="hidden" class="app-id" value="'+ n.appId +'"/>'+ n.updateAdvanceNum +'</a></td>'+
+									'<td class="tr">'+ $yt_baseElement.fmMoney((n.updateAdvanceAmount || 0)) +'</td>'+
+									'<td>'+ n.updateApplicateTime +'</td>'+
+									'</tr>';
+						});
+						htmlTbody.html(trStr);
+					} else {
+						//拼接暂无数据效果
+						htmlTbody.html('<tr style="border:0px;background-color:#fff !important;"><td  colspan="6" align="center"style="border:0px;"><div class="no-data" style="width: 280px;margin: 0 auto;padding:10px">' +
+							'<img src="../../../../../resources-sasac/images/common/no-data.png" alt="" style="width: 180px;padding: 10px 0 20px;">' +
+							'</div></td></tr>');
+//						$('.prior-page').hide();
+					}
+				}else{
+					//拼接暂无数据效果
+					htmlTbody.html('<tr style="border:0px;background-color:#fff !important;"><td  colspan="6" align="center"style="border:0px;"><div class="no-data" style="width: 280px;margin: 0 auto;padding:10px">' +
+						'<img src="../../../../../resources-sasac/images/common/no-data.png" alt="" style="width: 180px;padding: 10px 0 20px;">' +
+						'</div></td></tr>');
+//					$('.prior-page').hide();
+					$yt_alert_Model.prompt(data.message);
+				}
+				//调用算取弹出框位置的方法
+				$yt_alert_Model.getDivPosition($(".adjust-number-pop"));
+			},
+			isSelPageNum: true //是否显示选择条数列表默认false,  
+		});
+	},
+	/*弹出框*/
+	//带有顶部标题栏的弹出框  
+	showAlert: function(advanceAppId,appName) {
+		/** 
+		 * 显示编辑弹出框和显示顶部隐藏蒙层 
+		 */
+		sysCommon.showModel($(".adjust-number-pop"));
+		$(".adjust-number-pop .app-name").text(appName);
+		proCostUsageQuery.popTablePage(advanceAppId);
+		/** 
+		 * 点击取消方法 
+		 */
+		$('.adjust-number-pop .yt-eidt-model-bottom .yt-model-canel-btn').on("click", function() {
+			sysCommon.closeModel($(".adjust-number-pop"));
+		});
+	}
+}
+
+$(function() {
+	//调用初始化页面方法
+	proCostUsageQuery.init();
+});

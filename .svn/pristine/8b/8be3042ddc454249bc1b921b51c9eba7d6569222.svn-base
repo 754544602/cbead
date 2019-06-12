@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>班级管理</title>
+		<style type="text/css">
+			.calendar{
+				z-index: 10000 !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1000px;">
+			<div class="head-div" style="height: 20px;">
+				<div class="chose-date" style="float: left;">
+					<input class="calendar-input chose-year" style="width: 110px;background-position: 100px 7px;" type="text" />
+				</div>
+				<div class="annual-target" style="float: right;">
+					<span style="color: #FFFFFF;">本年度班次目标:</span>
+					<span class="annual-target-span" data-val="trainCount" style="color: #e90000;font-size: 20px;"></span>
+					<input class="yt-input annual-target-inf" data-val="trainCount" style="width: 80px;font-size: 20px;display: none;" type="text"/>
+					<span style="color: #FFFFFF;">项</span>
+					<span class="save-annual-target" style="display: none;">
+						<img src="../../resources/images/icons/annual-target-save.png"/>
+					</span>
+					<span class="amend-annual-target">
+						<img src="../../resources/images/icons/annual-target-amend.png"/>
+					</span>
+				</div>
+			</div>
+			<div class="list-btn">
+				<div class="search-btn-slect">
+					<div class="training-head-btn" style="padding-left: 14px;">
+			  			<button class="yt-option-btn addList" style="margin-right: 3px;">
+			  				<img src="../../resources/images/icons/add-icons.png" alt="" />
+			  				新增
+			  			</button>
+						<button class="yt-option-btn updateList" style="margin：0px 3px;">
+							<img src="../../resources/images/button/update-icon.png" alt="" />
+							修改
+						</button>
+						<button class="yt-option-btn set-principal-btn" style="margin:0px 3px;">
+							<img src="../../resources/images/icons/set-head.png" alt="" />
+							设置负责人
+						</button>
+						<div class="key-word">
+							<input class="yt-input selectParam" name="selectParam" placeholder="请输入关键字" type="text"/>
+							<button class="yt-option-btn search-btn">
+								<img class="search-img" src="../../resources/images/icons/class-search.png" />
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="list-box" style="margin-top: 45px;padding-top: 0px;">
+				<div class="list-title">
+						<span style="display: block;padding: 12px 0px;">培训项目</span>
+					</div>
+				<table class="yt-table list-table" style="margin-top: 0px;">
+					<thead class="list-thead">
+						<tr>
+							<th width="60px">项目编号</th>
+							<th>项目名称</th>
+							<th width="60px">项目类型</th>
+							<th width="100px">培训日期</th>
+							<th width="60px">培训天数</th>
+							<th>项目销售</th>
+							<th>项目主任</th>
+							<th width="60px">学员人数</th>
+							<th width="60px">项目状态</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody train-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="9" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info train-page" onselectstart="return false"></div>
+			</div>
+			<!--设负责人弹出框-->
+			<div class="yt-pop-model yt-edit-alert set-principal-alert" >  
+		          <!--标题区域START-->  
+		          <div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">设置负责人</span>  
+		          </div>  
+		          <!--标题区域END-->  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main cont-edit-test">  
+		            <form style="" class="alert-form"> 
+						<div class="tab-content class-info get-project-inf" style="min-height: 385px;overflow-y: auto;">
+							<div class="class-info-centent">
+				                <table style="margin: 0 auto;">  
+				                    <tr>  
+				                        <td align="right" width="100px">项目名称：</td> 
+				                        <td>
+				                        	<span class="project-name"></span>
+				                        </td> 
+				                        <td></td>
+				                    </tr>
+				                    <tr>
+				                        <td align="right">类型：</td> 
+				                        <td>
+				                        	<span class="project-type"></span>
+				                        </td> 
+				                        <td></td>
+				                    </tr>  
+				                    <tr>  
+				                        <td align="right" class="project-head">项目主任：</td> 
+				                        <td>
+				                        	<div class="set-principal-alert-select">
+					                        	<select class="yt-select project-director project-director1 types" data-val="" style="width: 201px;" >
+													<option value="">请选择</option>
+												</select>
+											</div>
+				                        </td>
+				                        <td style="padding-left: 10px;color: lightskyblue;cursor: pointer;">
+				                        	<span class="add-project-director">新增</span>
+				                        </td>
+				                    </tr> 
+				                    <tr class="none-tr">
+				                    	<td style="height: 0px;"></td>
+				                    	<td style="height: 0px;"></td>
+				                    	<td style="height: 0px;"></td>
+				                    </tr>
+				                    <tr>  
+				                        <td align="right" class="projectHeadmaster">班主任：</td> 
+				                        <td>
+				                        	<div class="set-principal-alert-select">
+					                        	<select class="yt-select teacher-head teacher-head1 types" data-val="" style="width: 201px;" >
+													<option value="">请选择</option>
+												</select>
+											</div>
+				                        </td>
+				                        <td width="100px" style="padding-left: 10px;color: lightskyblue;cursor: pointer;">
+				                        	<span class="add-teacher-head">新增</span>
+				                        </td>
+				                    </tr> 
+				                    <tr class="projectAidTr">  
+				                        <td align="right" class="projectAid">项目助理：</td> 
+				                        <td>
+				                        	<div class="set-principal-alert-select">
+					                        	<select class="yt-select project-assistant types" data-val="" style="width: 201px;" >
+													<option value="">请选择</option>
+												</select>
+											</div>
+				                        </td>
+				                        <td></td>
+				                    </tr>
+				                </table> 
+				            </div>
+				        </div> 
+		            </form>  
+		          </div>  
+		          <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom">  
+		                <input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="确定" />  
+		                <input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />  
+		            </div> 
+		          <!--主体内容部分END-->  
+		    </div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/trainingPrograms/trainingProgramsList.js"></script>
+</html>

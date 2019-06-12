@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherInf.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/discussRecordList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<!--审批样式引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>班级管理</title>
+		<style type="text/css">
+			.work-table{
+				width: 1345px;
+			}
+			.work-div{
+				width: 1355px;
+			}
+			.work-div-parent{
+				width: 1360px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="project-main" style="min-width: 1100px;">
+			<div class="project-title-div" style="text-align: center;">
+				<span class="project-title-center" style="color: #FFFFFF;font-size: 18px;"></span>
+				<button class="yt-option-btn btn-return">
+					<img class="return-img" src="../../resources/images/icons/class-return.png"/>
+					返回
+				</button>
+				<!--隐藏数据流程实例id-->
+				<input type="hidden" class="hid-process-instance-id" />
+				<input type="hidden" class="hid-tast-key" />
+				
+				<!--隐藏数据登录人信息-->
+				<input type="hidden" class="hid-project-sell-name" value=""/>
+				<input type="hidden" class="hid-project-head-name" value=""/>
+				<input type="hidden" class="hid-user-real-name" value=""/>
+				<input type="hidden" class="hid-discuss-id" value=""/>
+				<!--值为1当前登录人不是项目销售，收费标准不能修改-->
+				<input type="hidden" class="shell-or-true" value=""/>
+				
+			</div>
+			<div class="tab-title-list" style="display: block;margin-top: 0px;">
+				<button class="yt-option-btn teacher-inf active">• 项目信息</button>
+				<button class="yt-option-btn discuss-records">• 洽谈记录</button>
+				<button class="yt-option-btn charge-standard">• 收费标准</button>
+				<button class="yt-option-btn student-admin">• 学员管理</button>
+				<button class="yt-option-btn work-peo-btn">• 工作人员</button>
+				<button class="yt-option-btn teaching-plan">• 教学方案</button>
+			</div>
+			<div class="box-list" style="min-width: 1000px;">
+			<!--班级信息-->
+			<div class="content-box class-div project-details">
+				<div class="class-info-div">
+					项目信息
+				</div>
+				<div class="tab-content class-info get-project-inf">
+					<div class="project-schedule" style="height: 160px;">
+						<span class="project-first-step" style="width: 155px;margin-right: 0px;">
+							<img class="first-step-blue" src="../../resources/images/projectinfo/first.png" alt="" />
+							<p style="font-size:16px;text-align: left;font-family: '微软雅黑';">2019-9-9</p>
+    						<span style="text-align: left;">&nbsp;</span>
+						</span>
+						<span class="project-second-step">
+							<img class="seconed-step-grey" style="" src="../../resources/images/projectinfo/twogrey.png" alt="" />
+							<img class="seconed-step-blue" style="display: none;" src="../../resources/images/projectinfo/twoblue.png" alt="" />
+							<p style="font-size:16px;">&nbsp;</p>
+    						<span>&nbsp;</span>
+						</span>
+						<span class="project-third-step">
+							<img class="third-step-grey" style="" src="../../resources/images/projectinfo/threegrey.png" alt="" />
+							<img class="third-step-blue" style="display: none;" src="../../resources/images/projectinfo/threeblue.png" alt="" />
+							<p style="font-size:16px;">&nbsp;</p>
+    						<span>&nbsp;</span>
+						</span>
+						<span class="project-fourth-step">
+							<img class="fourth-step-grey" style="" src="../../resources/images/projectinfo/fourgrey.png" alt="" />
+							<img class="fourth-step-blue" style="display: none;" src="../../resources/images/projectinfo/fourblue.png" alt="" />
+							<p style="font-size:16px;">&nbsp;</p>
+    						<span>&nbsp;</span>
+						</span>
+						<span class="project-fifth-step">
+							<img class="fifth-step-grey" style="" src="../../resources/images/projectinfo/fivegrey.png" alt="" />
+							<img class="fifth-step-blue" style="display: none;" src="../../resources/images/projectinfo/fiveblue.png" alt="" />
+							<p style="font-size:16px;">&nbsp;</p>
+    						<span>&nbsp;</span>
+						</span>
+						
+					</div>
+					<div class="class-info-centent" style="width: 900px;margin: 20px auto;background: #FFFFFF;">
+						<table class="class-info-table" style="margin: 0 auto;">
+							<tr>
+								<td align="right" style="width: 180px;">
+									<span>项目编号：</span>
+								</td>
+								<td style="text-align: left;">
+									<span class="project-code approve-over-project-code"></span>
+								</td>
+								<td align="right">
+									<span>项目名称：</span>
+								</td>
+								<td style="width: 270px;word-break: break-all;">
+									<span class="project-name" data-text="projectName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>类型：</span>
+								</td>
+								<td>
+									<span class="project-type" data-text=""></span>
+								</td>
+								<td align="right" width="156px">
+									<span>项目销售：</span>
+								</td>
+								<td colspan="3">
+									<span class="project-sell" data-text="projectSellName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>培训日期：</span>
+								</td>
+								<td>
+									<span class="start-date" data-text="startDate"></span>
+								</td>
+								<td align="right">
+									<span>结束日期：</span>
+								</td>
+								<td>
+									<span class="end-date" data-text="endDate"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>培训天数：</span>
+								</td>
+								<td>
+									<span class="train-date" data-text="trainDate"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right" valign="top">
+									<span style="display:inline-block;margin-top: 5px;">项目简介：</span>
+								</td>
+								<td colspan="3" valign="top">
+									<p class="details" data-text="details" style="margin-top: 5px;text-align:left;width:720px;height: auto;word-break: break-all;word-wrap: break-word"></p>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!--委托单位信息-->
+				<div class="applicant-info-hide">
+					<div class="class-info-div">
+						委托单位信息
+					</div>
+					<div class=" class-info get-project-inf"style="padding-bottom: 15px;">
+						<div class="class-info-centent">
+							<table class="class-info-table" style="margin: 0 auto;">
+								<tr>
+									<td align="right">
+										<span>单位名称：</span>
+									</td>
+									<td colspan="3">
+										<span class="group-id" data-text="groupName"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>负责部门：</span>
+									</td>
+									<td colspan="3">
+										<span class="customer-dept" data-text="customerDept"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>联系人：</span>
+									</td>
+									<td>
+										<span class="customer-linkman" data-text="customerLinkman"></span>
+									</td>
+									<td align="right" width="156px">
+										<span>职务：</span>
+									</td>
+									<td>
+										<span class="customer-linkman-position" data-text="customerLinkmanPosition"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>电话：</span>
+									</td>
+									<td>
+										<span class="customer-linkman-phone" data-text="customerLinkmanPhone"></span>
+									</td>
+									<td align="right" width="156px">
+										<span>手机：</span>
+									</td>
+									<td>
+										<span class="customer-linkman-cellphone" data-text="customerLinkmanCellphone"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>传真：</span>
+									</td>
+									<td>
+										<span class="customer-linkman-fax" data-text="customerLinkmanFax"></span>
+									</td>
+									<td align="right" width="156px">
+										<span>邮箱：</span>
+									</td>
+									<td>
+										<span class="customer-linkman-email" data-text="customerLinkmanEmail"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>学员职务：</span>
+									</td>
+									<td>
+										<span class="customer-trainee-position" data-text="customerTraineePosition"></span>
+									</td>
+									<td align="right">
+										<span>学员人数：</span>
+									</td>
+									<td>
+										<span class="customer-trainee-sum" data-text="customerTraineeSum"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>学员年龄结构：</span>
+									</td>
+									<td colspan="3">
+										<span class="customer-trainee-age" data-text="customerTraineeAgeStructure"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<span style="display:inline-block;margin-top: 5px;">培训目标及课程需求：</span>
+									</td>
+									<td colspan="3" valign="top">
+										<p class="customer-target-demand" data-text="customerTargetDemand" style="margin-top: 5px;text-align:left;width:720px;height: auto;word-break: break-all;word-wrap: break-word"></p>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!--项目负责人信息-->
+				<div class="class-info-div">
+					项目负责人信息
+				</div>
+				<div class="tab-content class-info get-project-inf" style="margin-bottom: 10px;">
+					<div class="class-info-centent">
+						<table class="class-info-table" style="margin: 0 auto;">
+							<tr>
+								<td align="right" style="width: 140px;">
+									<span>项目主任：</span>
+								</td>
+								<td colspan="3">
+									<span style="width: 720px;display: inline-block;" class="project-head-name" data-text="projectHeadName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>班主任：</span>
+								</td>
+								<td colspan="3">
+									<span style="width: 720px;display: inline-block;" class="project-headmaster-name" data-text="projectHeadmasterName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>项目助理：</span>
+								</td>
+								<td colspan="3">
+									<span style="width: 720px;display: inline-block;" class="project-aid-name" data-text="projectAidName"></span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!--项目审批流程STAR-->
+				<div class="class-info-div hid-title">
+					审批流程
+				</div>
+				<div class="content-div-box hid-approva-box">
+					<div class="procedure-box" style="width: 970px;margin: 0px auto;">
+						<!--审批流程最后一步STAR-->
+						<div class="last-step last-step-project-div">
+							<div class="number-name-box">
+								<span class="number-box-span last-step-order" >3</span>
+								<span class="name-box-span last-step-operate-person-userName" >王大勇</span>
+								<img src="../../resources/images/open/open-sp.png" width="100%" height="100%" />
+							</div>
+							<div class="view-box-div" style="height: 210px;">
+								<span class="last-step-commentTime-span last-step-commentTime" style="width: auto;">2018-07-01 12:00</span>
+								<form>
+									<table class="add-new-tab" cellspacing="1px" cellpadding="1px" style=" ">
+										<tr>
+											<td class="operate-state-title-td">操作状态：</td>
+											<td  class="sp-state last-step-operationState" style="">
+												待教务部主任审批
+											</td>
+										</tr>
+										<tr>
+											<td style="text-align: right; ">是否同意：</td>
+											<td style="text-align: left; ">
+												<label class="check-label yt-radio check project-radio">
+													<input class="agree-disagree radio" type="radio" name="radioType" value="completed"/>同意
+												</label>
+												<label class="check-label yt-radio project-radio" style="margin-left: 20px;">
+												 	<input class="agree-disagree radio" type="radio" name="radioType" value="returnedSubmit"/>拒绝
+												</label>
+											</td>
+										</tr>
+										<tr class="next-operate-person-tr hid-input">
+											<td style="text-align: right; ">下一步操作人：</td>
+											<td>
+												<select class="yt-select type-select type" id="nextPeople" style="width: 200px;float: left;">
+													<option value="no">请选择下一步操作人</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td style="text-align: right; ">操作人意见：</td>
+											<td>
+												<input id="opintion" class="yt-input" type="text" validform="{isNull:true,size:20,msg:'请输入内容,不要超过20个字'}" style="width: 719px;float: left;"/>  
+		    									<span class="valid-font"></span> 
+											</td>
+										</tr>
+									</table>
+								</form>
+							</div>
+						</div>
+						<!--审批流程最后一步END-->
+						<div class="last-step-add-project"></div>	
+						<!--审批第一步STAR-->	
+						<div class="first-step">
+							<div style="height: 150; ">
+								<div class="number-name-box">
+									<span class="number-box-span first-step-order"></span>
+									<span class="name-box-span first-step-operate-person-userName"></span>
+									<img src="../../resources/images/open/openFlow.png" width="100%" height="100%" />
+								</div>
+							</div>
+							<div class="pad-pos" style="height: 89px;">
+								<ul class="first-step-ul">
+									<li style="height: 30px;">
+										<span class="first-step-taskName view-taskName-span" style="float: left;"></span>
+									</li>
+									<li class="view-time-li first-step-commentTime">2018</li>
+									<li class="operate-view-box-li">
+										<div class="operate-view-title-li">操作意见：</div>
+										<div class="operate-view-text-li first-step-comment"></div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					<!--审批第一步END-->
+					</div>
+				</div>	
+				<!--审批流程END-->
+				<div class="yt-eidt-model-bottom project-appro-btn-box" style="text-align: center;margin: 10px 0px;">
+					<input class="yt-model-bot-btn yt-model-sure-btn appro-submit" type="button" value="确定" />
+					<input class="yt-model-bot-btn yt-model-canel-btn appro-cancel" type="button" value="取消" style="margin-left: 20px;" />
+				</div>
+			</div>
+			<!--项目审批设置负责人弹窗STAR-->
+			<div class="yt-pop-model yt-edit-alert set-principal-alert" >  
+		          <!--标题区域START-->  
+		          <div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">设置负责人</span>  
+		          </div>  
+		          <!--标题区域END-->  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main cont-edit-test">  
+		            <form style="" class="alert-form"> 
+						<div class="tab-content class-info get-project-inf">
+							<div class="class-info-centent">
+				                <table style="margin: 0 auto;">  
+				                    <tr>  
+				                        <td align="right">项目名称:</td> 
+				                        <td>
+				                        	<span class="project-name"></span>
+				                        </td> 
+				                    </tr>
+				                    <tr>
+				                        <td align="right">类型:</td> 
+				                        <td>
+				                        	<span class="project-type get-project-type"></span>
+				                        </td> 
+				                    </tr>  
+				                    <tr>  
+				                        <td align="right">项目主任:</td> 
+				                        <td>
+				                        	<div class="set-principal-alert-select">
+					                        	<select class="yt-select project-director types" data-val="" style="width: 201px;" >
+													<option value="">请选择</option>
+												</select>
+											</div>
+				                        </td>
+				                    </tr>  
+				                    <tr>  
+				                        <td align="right">班主任:</td> 
+				                        <td>
+				                        	<div class="set-principal-alert-select">
+					                        	<select class="yt-select teacher-head types" data-val="" style="width: 201px;" >
+													<option value="">请选择</option>
+												</select>
+											</div>
+				                        </td>
+				                    </tr> 
+				                    <tr>  
+				                        <td align="right">项目助理:</td> 
+				                        <td>
+				                        	<div class="set-principal-alert-select">
+					                        	<select class="yt-select project-assistant types" data-val="" style="width: 201px;" >
+													<option value="">请选择</option>
+												</select>
+											</div>
+				                        </td>
+				                    </tr>
+				                </table> 
+				            </div>
+				        </div> 
+		            </form>  
+		          </div>  
+		          <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom">  
+		                <input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="确定" />  
+		                <input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />  
+		            </div> 
+		          <!--主体内容部分END-->  
+		    </div>
+			<!--项目审批设置负责人弹窗END-->
+			<!--洽谈记录-->
+			<div class="content-box dn">
+				<div class=" class-info get-project-inf discuss-box"  style="margin-bottom: 5px;background: none;">
+					
+				</div>
+				<div class="btn-add">
+					<button class="yt-option-btn add-discuss">新增</button>
+				</div>
+				<div class="yt-pop-model yt-edit-alert lawyer-opinion-box add-discuss-alert" style="width: 720px;">
+					<div class="yt-edit-alert-title">
+						<span class="yt-edit-alert-title-msg edit-discuss-alert-title">新增</span>
+					</div>
+					<!--标题区域END-->
+					<div class="yt-edit-alert-main alert-add-discuss valid-tab">
+						<form style="margin-top: 15px;overflow: auto;">
+							<table class="discuss-info-table" style="margin:0px auto;">
+								<tr>
+									<td align="right">
+										<span>洽谈状态：</span>
+									</td>
+									<td width="250px">
+										<select class="yt-select discuss-states" data-val="discussStates" style="width: 200px;">
+											<option value="1">咨询</option>
+											<option value="2">在谈</option>
+											<option value="3">意向</option>
+											<option value="4">方案</option>
+											<option value="5">调整</option>
+											<option value="6">签约</option>
+											<option value="7">取消</option>
+										</select>
+									</td>
+									<td align="right">
+										<span>洽谈日期：</span>
+									</td>
+									<td>
+										<input class="calendar-input discuss-date" data-val="discussDate" placeholder="设置洽谈日期" type="text" style="width: 190px;"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>联系人：</span>
+									</td>
+									<td>
+										<input class="yt-input linkman" data-val="linkman" validform="{blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" placeholder="请输入">
+										<span class="valid-font"></span>
+									</td>
+									<td align="right">
+										<span>联系电话：</span>
+									</td>
+									<td>
+										<input class="yt-input phone" data-val="phone" validform="{blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" placeholder="请输入">
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top" height="156px">
+										<span>洽谈内容：</span>
+									</td>
+									<td colspan="3">
+										<textarea class="yt-textarea discussDetails" data-val="discussDetails" style="height: 200px; width: 515px;" validform="{blurFlag:true,size:1000,msg:'所填内容不可超过1000个字'}" placeholder="请输入洽谈内容"></textarea>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+							</table>
+							<!--新增洽谈记录弹窗报价情况-->
+							<div style="width: 655px;border: 1px solid #DDD;box-shadow: 0px 1px 1px #DDD;margin: 20px auto;">
+								<table class="discuss-info-table" style="width: 680px;margin: 0px;">
+									<tbody>
+										<tr>
+											<td style="height: 30px;" colspan="4">
+												<span style="width:82px;height:30px;display: inline-block; line-height:30px;text-align:center; background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;" class="offer-case">报价情况</span>
+											</td>
+										</tr>
+										<tr>
+											<td align="right">
+												<span>培训费：</span>
+											</td>
+											<td>
+												<input class="yt-input train-cost" data-val="trainCost" placeholder="请输入">
+												<!--<input class="yt-input train-cost" data-val="trainCost" validform="{blurFlag:true,type:/^[0-9]*$/,size:20,msg:'费用金额为数字'}" placeholder="请输入费用金额">-->
+												<span class="valid-font"></span>
+											</td>
+											<td align="right">
+												<span>课程费：</span>
+											</td>
+											<td>
+												<input class="yt-input course-cost" data-val="courseCost" placeholder="请输入">
+												<span class="valid-font"></span>
+											</td>
+										</tr>
+										<tr>
+											<td align="right">
+												<span>餐费：</span>
+											</td>
+											<td>
+												<input class="yt-input meal-cost" data-val="mealCost" placeholder="请输入">
+												<span class="valid-font"></span>
+											</td>
+											<td align="right">
+												<span>住宿费：</span>
+											</td>
+											<td>
+												<input class="yt-input stay-cost" data-val="stayCost" placeholder="请输入">
+												<span class="valid-font"></span>
+											</td>
+										</tr>
+										<tr>
+											<td align="right">
+												<span>其他费用：</span>
+											</td>
+											<td>
+												<input class="yt-input other-cost" data-val="otherCost" placeholder="请输入">
+												<span class="valid-font"></span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</form>
+						<div class="yt-eidt-model-bottom discuss-btn-sure">
+							<input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="保存" />
+							<input class="yt-model-bot-btn yt-model-canel-btn" style="margin-left: 20px;" type="button" value="取消" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--收费标准-->
+			<div class="content-box class-div project-charge charge-standard-index dn">
+				<div class="class-info-div" style="height: 39px;line-height: 39px;">
+					收费情况
+				</div>
+				<div class="list-box">
+					<!--单位标准-->
+					<p>
+						<span>单位标准</span>
+						<span style="float: right;">
+							<img src="../../resources/images/icons/open-suo-red.png" style="cursor: pointer;" class="enable-the-charge" alt="" />
+							<img src="../../resources/images/icons/close-suo-hui.png" style="cursor: pointer;" class="stop-charging" style="margin-left: 10px;" alt="" />
+						</span>
+					</p>
+					<table class="yt-table list-table" style="margin-bottom: 16px;">
+						<thead class="list-thead">
+							<tr>
+								<th rowspan="2" style="text-align: center;width: 30px;">序号</th>
+								<th rowspan="2" width="210px">单位名称</th>
+								<th colspan="4" style="text-align: center;">标准价(元)</th>
+								<th colspan="4" style="text-align: center;">协议价(元)</th>
+								<th rowspan="2" width="60px" style="text-align: center;">发票抬头</th>
+								<th rowspan="2"style="text-align: center; width: 30px;">操作</th>
+							</tr>
+							<tr>
+								<th>培训费</th>
+								<th>课程费</th>
+								<th>住宿费(/晚)</th>
+								<th>餐费(/天)</th>
+								<th>培训费</th>
+								<th>课程费</th>
+								<th>住宿费(/晚)</th>
+								<th>餐费(/天)</th>
+							</tr>
+						</thead>
+						<tbody class="charge-tbody charge-tbody1">
+							
+						</tbody>
+						<tfoot class="unit-tfoot">
+							<tr>
+								<td colspan="12" align="center" class="add-charge">
+									<span>+</span>
+									<span>新增</span>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="yt-pop-model yt-edit-alert billing-inf-alert" style="width: 820px;">  
+			          <!--标题区域START-->  
+			          <div class="yt-edit-alert-title">  
+			                <span class="yt-edit-alert-title-msg">开票信息</span>  
+			          </div>  
+			          <!--标题区域END-->  
+			          <!--主体内容部分START-->  
+			          <div class="yt-edit-alert-main cont-edit-test invoice-inf">  
+			            <form style=" overflow: auto;" class="alert-form">  
+			            	<div class="class-info-div">
+								开票信息
+							</div>
+							<input type="hidden" class="group-id-hid" value="" />
+							<div class="tab-content class-info get-project-inf">
+								<div class="class-info-centent">
+					                <table style="margin: 0 auto;">  
+					                	<tbody>
+						                    <tr>  
+						                        <td align="right">发票类型：</td> 
+						                        <td width="205px">
+						                        	<span class="inv-span tick-type" ></span>
+						                        	<select id="bill-project-states" class="yt-select invoiceType" style="width: 201px;" >
+														<option value="1">普通发票</option>
+														<option value="2">增值税专用发票</option>
+													</select>
+						                        </td>  
+						                         <td class="is-not-comp"  colspan="2" style="display: none;">
+							                       	<label class="check-label yt-radio check" style="margin-left:58px;">  
+													    <input id="radio1" type="radio" name="test" value="1" class="ticket-form-input">  
+													  	个人/事业单位  
+												    </label>  
+												    <label class="check-label yt-radio" style="margin-left: 55px;">  
+													    <input id="radio2" type="radio" name="test" value="2" class="ticket-form-input">  
+													   	 单位
+												    </label>  
+			                       				</td>
+						                    </tr>
+						                    <tr>
+						                    	 <td align="right"><span class="per-span" style="color: #F00000;"></span>名称：</td> 
+						                        <td>
+						                        	<span class="inv-span" data-text="orgName"></span>
+						                        	<input class="yt-input orgName" data-val="orgName" type="text"  placeholder="请输入" />
+						                        </td>
+						                        <td style="width: 105px;" align="right"><span class="comp-span" style="color: #F00000;"></span>税号：</td> 
+						                        <td style="width: 145px;">
+						                        	<span class="inv-span" data-text="taxNumber"></span>
+						                        	<input class="yt-input taxNumber" data-val="taxNumber" type="text"  placeholder="请输入" />
+						                        </td>  
+						                        
+						                    </tr>  
+						                    <tr>  
+						                    	<td align="right"><span class="comp-label-span" style="color: #F00000;"></span>地址：</td> 
+						                        <td>
+						                        	<span class="inv-span" data-text="address"></span>
+						                        	<input class="yt-input address" data-val="address" type="text"  placeholder="请输入" />
+						                        </td>
+						                        <td align="right"><span class="comp-label-span" style="color: #F00000;"></span>电话：</td> 
+						                        <td>
+						                        	<span class="inv-span" data-text="telephone"></span>
+						                        	<input class="yt-input telephone" data-val="telephone" type="text"  placeholder="请输入" />
+						                        </td>
+						                       
+						                    </tr>  
+						                    <tr>  
+						                    	 <td align="right"><span class="comp-label-span" style="color: #F00000;"></span>开户行：</td> 
+						                        <td>
+						                        	<span class="inv-span" data-text="registeredBank"></span>
+						                        	<input class="yt-input registeredBank" data-val="registeredBank" type="text"  placeholder="请输入" />
+						                        </td>
+						                        <td align="right"><span class="comp-label-span" style="color: #F00000;"></span>账号：</td> 
+						                        <td>
+						                        	<span class="inv-span" data-text="account"></span>
+						                        	<input class="yt-input account" data-val="account" type="text"  placeholder="请输入" />
+						                        </td>
+						                    </tr>
+					                    </tbody>
+					                </table> 
+					            </div>
+					        </div>    
+			            </form>  
+			            <!--底部按钮START-->  
+			            <div class="yt-eidt-model-bottom">  
+			                <input class="yt-model-bot-btn yt-model-sure-btn sub-invoice" type="button" value="确定" />  
+			                <input class="yt-model-bot-btn yt-model-canel-btn close-inp" type="button" value="取消" />  
+			            </div>  
+			          </div>  
+			          <!--主体内容部分END-->  
+			    </div>
+				</div>
+				<div class="list-box">
+					<!--个人标准-->
+					<p>
+						<span>个人标准</span>
+						<span style="float: right;">
+							<!--<img src="../../resources/images/icons/enable-the-charge.png" class="enable-the-charge" alt="" />
+							<img src="../../resources/images/icons/stop-charging.png" class="stop-charging" style="margin-left: 10px;" alt="" />-->
+							<img src="../../resources/images/icons/open-suo-red.png" style="cursor: pointer;" class="enable-the-charge" alt="" />
+							<img src="../../resources/images/icons/close-suo-hui.png" style="cursor: pointer;" class="stop-charging" style="margin-left: 10px;" alt="" />
+						</span>
+					</p>
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th colspan="4" style="text-align: center;">标准价(元)</th>
+								<th colspan="4" style="text-align: center;">协议价(元)</th>
+							</tr>
+							<tr>
+								<th>培训费</th>
+								<th>课程费</th>
+								<th>住宿费(/晚)</th>
+								<th>餐费(/天)</th>
+								<th>培训费</th>
+								<th>课程费</th>
+								<th>住宿费(/晚)</th>
+								<th>餐费(/天)</th>
+							</tr>
+						</thead>
+						<tbody class="personal-standard">
+							<tr>
+								<td>
+									<span data-text="trainingExpenseRackRate"></span>
+									<input class="yt-input training-expense-rack-rate" data-val="trainingExpenseRackRate" placeholder="请输入" type="text"/>
+								</td>
+								<td>
+									<span data-text="traineeRackRate"></span>
+									<input class="yt-input trainee-rack-rate" data-val="traineeRackRate" placeholder="请输入" type="text"/>
+								</td>
+								<td>
+									<span data-text="quarterageRackRate"></span>
+									<input class="yt-input quarterage-rack-rate" data-val="quarterageRackRate" placeholder="请输入" type="text"/>
+								</td>
+								<td>
+									<span data-text="mealFeeRackRate"></span>
+									<input class="yt-input meal-fee-rack-rate" data-val="mealFeeRackRate" placeholder="请输入" type="text"/>
+								</td>
+								<td>
+									<span data-text="trainingExpenseNegotiatedPrice"></span>
+									<input class="yt-input training-expense-negotiated-price" data-val="trainingExpenseNegotiatedPrice" placeholder="请输入" type="text"/>
+								</td>
+								<td>
+									<span data-text="traineeNegotiatedPrice"></span>
+									<input class="yt-input trainee-negotiated-price" data-val="traineeNegotiatedPrice" placeholder="请输入" type="text"/>
+								</td>
+								<td>
+									<span data-text="quarterageNegotiatedPrice"></span>
+									<input class="yt-input quarterage-negotiated-price" data-val="quarterageNegotiatedPrice" placeholder="请输入" type="text"/>
+								</td>
+								<td>
+									<span data-text="mealFeeNegotiatedPrice"></span>
+									<input class="yt-input meal-fee-negotiated-price" data-val="mealFeeNegotiatedPrice" placeholder="请输入" type="text"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="btn-charge btn-charge-person" style="margin: 0 auto;margin-top: 20px;">
+						<button class="yt-option-btn btn-sub-charge">确定</button>
+					</div>
+				</div>
+				
+				<!--学员费用详情-->
+				<div class="class-info-div" style="height: 39px; line-height: 39px;">
+					学员费用详情
+				</div>
+				<div class="list-box" style="padding-bottom: 20px;">
+					<table class="yt-table list-table  student-charfe-inf-table">
+						<thead class="list-thead">
+							<tr>
+								<th rowspan="2" width="30px" style="text-align: center;">序号</th>
+								<th rowspan="2" style="text-align: center;">姓名</th>
+								<th rowspan="2" style="text-align: center;">单位名称</th>
+								<th colspan="4" style="text-align: center;">标准价</th>
+								<th colspan="4" style="text-align: center;">协议价</th>
+							</tr>
+							<tr>
+								<th style="text-align: center;">培训费</th>
+								<th style="text-align: center;">课程费</th>
+								<th style="text-align: center;">住宿费(/晚)</th>
+								<th style="text-align: center;">餐费(/天)</th>
+								<th style="text-align: center;">培训费</th>
+								<th style="text-align: center;">课程费</th>
+								<th style="text-align: center;">住宿费(/晚)</th>
+								<th style="text-align: center;">餐费(/天)</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody student-cost-tbody list-tbody">
+							<tr class="class-tr">
+								<td colspan="8" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="btn-charge" style="margin: 0 auto;margin-top: 20px;">
+						<button class="yt-option-btn update-trainee-details">确定</button>
+					</div>
+				</div>
+				
+			</div>
+			<!--学员管理-->
+			<div class="content-box dn" style="min-width: 1000px;">
+				<div class="student-index">
+					<!--顶部按钮START-->
+					<div class="head-div" style="height: 20px;background:none;">
+						<div class="search-btn-slect">
+							<div class="teacher-info-btn-list">
+					  			<button class="yt-option-btn student-add" style="margin-right: 3px;">
+					  				<img src="../../resources/images/icons/add-icons.png" alt="" />
+					  				新增
+					  			</button>
+								<button class="yt-option-btn student-amend" style="margin: 0px 3px;">
+									<img src="../../resources/images/button/update-icon.png" alt="" />
+									修改
+								</button>
+								<button class="yt-option-btn student-del" style="margin: 0px 3px;">
+									<img src="../../resources/images/button/del-icon.png" alt="" />
+									删除
+								</button>
+								<button class="yt-option-btn student-lead" style="margin: 0px 3px;">
+									<img src="../../resources/images/icons/guide-into.png" alt="" />
+									导入学员
+								</button>
+								<button class="yt-option-btn export-student-list" style="margin: 0px 3px;">
+									<img src="../../resources/images/icons/export.png" alt="" />
+									导出
+								</button>
+								<button class="yt-option-btn exportList2" style="margin: 0px 3px;">
+									<img src="../../resources/images/icons/push-notification.png" alt="" />
+									推送通知
+								</button>
+								<button class="yt-option-btn log-list" style="margin: 0px 3px;">
+									<img src="../../resources/images/icons/journal.png" alt="" />
+									日志
+								</button>
+								<button class="yt-option-btn set-import-student" style="margin: 0px 3px;">
+									<!--<img src="../../resources/images/icons/journal.png" alt="" />-->
+									设为重要学员
+								</button>
+								<div class="key-word" style="margin-right: 0px;">
+									<input class="yt-input selectParam"  placeholder="请输入关键字" type="text"/>
+									<button class="yt-option-btn search-btn" style="margin-right: 0px;">
+										<img class="search-img" src="../../resources/images/icons/class-search.png" />
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--顶部按钮END-->
+					<!--数据展示区域START-->
+					<div class="list-box" style="padding-top: 0px;">
+						<span style="padding: 12px 0px;display: inline-block;">学员管理</span>
+						<table class="yt-table list-table">
+							<thead class="list-thead">
+								<tr>
+									<th class="check-box-th" width="30px">
+										<label class="check-label yt-checkbox" style="margin-left: 8px;">  
+                    						<input class="check-box check-all"  type="checkbox"/>
+          								</label>
+									</th>
+									<th width="40px">序号</th>
+									<th width="80px">姓名</th>
+									<th width="40px">性别</th>
+									<th width="40px">民族</th>
+									<th width="100px">手机号</th>
+									<th width="110px">集团</th>
+									<th width="110px">单位</th>
+									<th width="110px">部门/职务</th>
+									<th>发票信息</th>
+									<th width="70px">报到状态</th>
+									<th width="70px">对账状态</th>
+									<th width="70px">开票状态</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody student-admin-tbody list-tbody">
+								<tr class="class-tr">
+									<td colspan="13" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-info student-admin-page" onselectstart="return false"></div>
+					</div>
+					<!--数据展示区域END-->
+				</div>
+				<!--设为重要学员START-->
+				<div class="yt-pop-model yt-edit-alert set-inport-student-div" style="width: 820px;">
+						<!--标题区域START-->
+						<div class="yt-edit-alert-title">
+							<span class="yt-edit-alert-title-msg">设为重要学员</span>
+						</div>
+						<!--标题区域END-->
+						<!--主体内容部分START-->
+						<div class="yt-edit-alert-main cont-edit-test">
+							<div style="">
+								<table style="width: 800px;margin: 10px auto 0px;">
+									<thead>
+										<tr style="height: 31px;background: #F5F5F5;">
+											<th style="text-align: left;width: 65px;padding-left: 20px;">姓名</th>
+											<th style="text-align: center;width: 40px;">性别</th>
+											<th width="100px">手机号</th>
+											<th>单位</th>
+											<th width="80px">部门/职务</th>
+											<th>重要学员原因</th>
+											<th width="80px" class="opera-th">操作</th>
+										</tr>
+									</thead>
+									<tbody class=" list-tbody">
+										<tr class="class-tr">
+											<td colspan="7" align="center" style="border:0px;">
+												<div class="no-data" style="width: 280px;margin: 0 auto;">
+													<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+							<!--底部按钮START-->
+						<div class="yt-eidt-model-bottom" style="border: none;">
+							<input class="yt-model-bot-btn yt-model-sure-btn" repair-btn="true" type="button" value="修改" />
+							<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+						</div>
+						<!--主体内容部分END-->
+					</div>
+				<!--设为重要学员END-->
+				<!--新增学员弹出框-->
+				<div class="yt-pop-model yt-edit-alert add-student" style="width: 820px;">  
+		          <!--标题区域START-->  
+		          <div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">新增学员</span>  
+		          </div>  
+		          <!--标题区域END-->  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main cont-edit-test valid-tab">  
+		            <form style=" overflow: auto;" class="alert-form add-valid">  
+		                <table style="margin: 0 auto;" class="add-stu-info">  
+		                    <tr>  
+		                        <td align="right">姓名：<span style="color:red;font-weight:bold" data-qtip="Required">*</span></td> 
+		                        <td>
+		                        	<input class="yt-input real-name" data-val="realName" validform="{isNull:true,blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td>  
+		                        <td width="135px" align="right">性别：</td> 
+		                        <td>
+		                        	<label class="check-label yt-radio check">  
+									    <input type="radio" class="gender" name="rd" checked="checked" value="1"/>  
+									   	 男 
+								    </label>
+		                        	<label class="check-label yt-radio">  
+									    <input type="radio" class="gender" name="rd" value="2"/>  
+									 	 女 
+								    </label>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td align="right">民族：<span style="color:red;font-weight:bold" data-qtip="Required">*</span></td> 
+		                        <td>
+		                        	<select class="yt-select nation-id" data-val="nationId" style="width:200px">
+			  	    	      		</select>
+		                        </td>  
+		                        <td align="right">手机号：<span style="color:red;font-weight:bold" data-qtip="Required">*</span></td> 
+		                        <td>
+		                        	<input class="yt-input phone" data-val="phone" type="text" validform="{isNull:true,blurFlag:true,type:'phone',size:11,msg:'请填写正确的手机号'}"  placeholder="请输入" />
+		                       		<span class="valid-font"></span>
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">证件类型：</td> 
+		                        <td>
+		                        	<select id="project-states" class="yt-select id-type" data-val="idType" style="width: 201px;" >
+										<option value="">请选择</option>
+										<option value="1">身份证</option>
+										<option value="2">护照</option>
+										<option value="3">军官证</option>
+										<option value="4">其他</option>
+									</select>
+		                        </td>
+		                        <td align="right">证件号码：</td> 
+		                        <td>
+		                        	<input class="yt-input id-number" data-val="idNumber" type="text"  placeholder="请输入" />
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">出生年月：</td> 
+		                        <td>
+		                        	<input class="calendar-input date-birth" data-val="dateBirth" placeholder="请选择" type="text" style="width: 190px;"/>
+		                        </td>
+		                        <td align="right">集团：<span style="color:red;font-weight:bold" data-qtip="Required">*</span></td> 
+		                        <td>
+		                        	<select id="" class="yt-select group-id-elementary" data-val="groupId" style="width: 201px;" validform="{isNull:true,blurFlag:true,size:30,msg:'请选择集团'}">
+										<option value="">请选择</option>
+									</select>
+									<span class="valid-font"></span>
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">单位：<span style="color:red;font-weight:bold" data-qtip="Required">*</span></td> 
+		                        <td>
+		                        	<select id="" class="yt-select org-id" data-val="orgId" style="width: 201px;" validform="{isNull:true,blurFlag:true,msg:'请选择单位'}">
+										<option value="">请选择</option>
+									</select>
+									<span class="valid-font"></span>
+		                        </td> 
+		                        <td align="right">单位类型：</td> 
+		                        <td class="orgType" data-text="types">
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">部门：<span style="color:red;font-weight:bold" data-qtip="Required">*</span></td> 
+		                        <td>
+		                        	<input class="yt-input dept-name" data-val="deptName" validform="{isNull:true,blurFlag:true,size:30,msg:'所填内容不可超过30个字'}" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td> 
+		                        <td align="right">职务：<span style="color:red;font-weight:bold" data-qtip="Required">*</span></td> 
+		                        <td>
+		                        	<input class="yt-input position-name" data-val="positionName" validform="{isNull:true,blurFlag:true,size:30,msg:'所填内容不可超过30个字'}" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td> 
+		                    </tr>  
+		                    <tr>  
+		                    	<td align="right">通信地址：</td> 
+		                        <td>
+		                        	<input class="yt-input mailing-address" data-val="mailingAddress" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td>
+		                        <td align="right">邮政编码：</td> 
+		                        <td>
+		                        	<input class="yt-input postal-code" data-val="postalCode" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td> 
+		                    </tr>  
+		                    <tr>  
+		                    	 <td align="right">电话：</td> 
+		                        <td>
+		                        	<input class="yt-input telephone" data-val="telephone" type="text"  placeholder="请输入" />
+		                        </td>
+		                        <td align="right">传真：</td> 
+		                        <td>
+		                        	<input class="yt-input fax" data-val="fax" type="text"  placeholder="请输入" />
+		                        </td> 
+		                    </tr>  
+		                    <tr>  
+		                    	<td align="right">电子邮箱：</td> 
+		                        <td>
+		                        	<input class="yt-input email" data-val="email" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td>
+		                        <td align="right">参加工作时间：</td> 
+		                        <td>
+		                        	<input class="calendar-input work-time" data-val="workTime" placeholder="请选择" type="text" style="width: 190px;"/>
+		                        </td>
+		                    </tr>  
+		                    <tr>
+		                    	<td align="right">入党时间：</td> 
+		                        <td>
+		                        	<input class="calendar-input party-date" data-val="partyDate" placeholder="请选择" type="text" style="width: 190px;"/>
+		                        </td> 
+		                    </tr>
+		                    <tr>  
+		                        <td align="right">全职教育：</td> 
+		                        <td>
+		                        	<input class="yt-input education-time" data-val="educationTime" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td> 
+		                        <td align="right">毕业院校及专业：</td> 
+		                        <td>
+		                        	<input class="yt-input education-time-class" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">在职教育：</td> 
+		                        <td>
+		                        	<input class="yt-input service-time" data-val="serviceTime" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td> 
+		                        <td align="right">毕业院校及专业：</td> 
+		                        <td>
+		                        	<input class="yt-input service-time-class" data-val="serviceTimeClass" type="text"  placeholder="请输入" />
+		                        	<span class="valid-font"></span>
+		                        </td>
+		                    </tr>
+		                </table> 
+		                <p style="border-bottom: 1px dashed #d9d9d9;"></p>
+		                <div class="" style="color: #363845;height: 40px;line-height: 40px;">
+		                	<span style="height: 22px;width: 5px;float: left; background: #363845;border-radius: 2px;margin:0px 20px;margin-top:10px;float:left;"></span>
+							联系人信息
+						</div>
+						<div class="tab-content class-info get-project-inf" style="border: none;">
+							<div class="class-info-centent">
+								<table class="" style="margin: 0 auto;">
+									<tr>  
+				                        <td align="right">联系人姓名：<span style="color:red;font-weight:bold" data-qtip="Required">*</span></td> 
+				                        <td>
+				                        	<input class="yt-input linkman" data-val="linkman" validform="{isNull:true,blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" type="text"  placeholder="请输入" />
+				                        	<span class="valid-font"></span>
+				                        </td> 
+				                        <td width="135px" align="right">手机号：<span style="color:red;font-weight:bold" data-qtip="Required">*</span></td> 
+				                        <td>
+				                        	<input class="yt-input linkman-phone" data-val="linkmanPhone" validform="{isNull:true,blurFlag:true,type:'phone',size:11,msg:'请填写正确的手机号'}" type="text"  placeholder="请输入" />
+				                       		<span class="valid-font"></span>
+				                        </td>
+				                    </tr> 
+									<tr>  
+				                        <td align="right">电话：</td> 
+				                        <td>
+				                        	<input class="yt-input linkman-telephone" data-val="linkmanTelephone"  placeholder="请输入" />
+				                        	<span class="valid-font"></span>
+				                        </td> 
+				                        <td align="right">传真：</td> 
+				                        <td>
+				                        	<input class="yt-input linkman-fax" data-val="linkmanFax" type="text"  placeholder="请输入" />
+				                        </td>
+				                    </tr> 
+									<tr>  
+				                        <td align="right">邮箱：</td> 
+				                        <td>
+				                        	<input class="yt-input linkman-email" data-val="linkmanEmail" type="text"  placeholder="请输入" />
+				                        	<span class="valid-font"></span>
+				                        </td> 
+				                        <td align="right">单位地址(邮编)：</td> 
+				                        <td>
+				                        	<input class="yt-input linkman-address-email" data-val="" type="text"  placeholder="请输入" />
+				                        </td>
+				                    </tr> 
+								</table>
+							</div>
+						</div>
+		            </form>  
+		            <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom">  
+		                <input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="确定" />  
+		                <input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />  
+		            </div>  
+		          </div>  
+		          <!--主体内容部分END-->  
+		   		</div>
+		   		<!--学员管理查看详情-->
+		   		<div class="yt-pop-model yt-edit-alert elementary-student-details" style="width: 833px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">学员详情</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test valid-tab">
+					<form style=" overflow: auto;" class="alert-form">
+						<table style="margin: 0px auto;">
+							<!--<tr>
+								<td align="right" style="width: 100px;">班次代码：</td>
+								<td style="width: 200px;">
+									<span class="project-code" style="width: 200px;" data-text="projectCode"></span>
+								</td>
+								<td width="135px" align="right">班级名称：</td>
+								<td style="width: 200px;">
+									<span class="class-name" data-text="projectName" style="150px"></span>
+								</td>
+							</tr>-->
+							<tr>
+								<td align="right">姓名：</td>
+								<td>
+									<span class="real-name" data-text="realName"></span>
+								</td>
+								<td width="135px" align="right">性别：</td>
+								<td>
+									<span class="gender" data-text="gender"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">民族：</td>
+								<td>
+									<span class="nation-id" style="width: 200px;" data-text="nationName"></span>
+								</td>
+								<td align="right">手机号：</td>
+								<td>
+									<span class="phone" data-text="phone"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">证件类型：</td>
+								<td>
+									<span class="id-type" data-text="idType" ></span>
+								</td>
+								<td align="right">证件号码：</td>
+								<td>
+									<span class="id-number" data-text="idNumber"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">出生年月：</td>
+								<td>
+									<span data-text="dateBirth"></span>
+								</td>
+								<td align="right">集团：</td>
+								<td>
+									<span class="group-id-elementary" style="width: 200px;" data-text="groupName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">单位：</td>
+								<td>
+									<span class="org-id" style="width: 200px;" data-text="groupOrgName"></span>
+								</td>
+								<td align="right">单位类型：</td>
+								<td>
+									<span class="org-type" data-text="types"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">部门：</td>
+								<td>
+									<span class="dept-name" data-text="deptName"></span>
+								</td>
+								<td align="right">职务：</td>
+								<td>
+									<span class="position-name" data-text="positionName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">通信地址：</td>
+								<td>
+									<span class="mailing-address" data-text="mailingAddress"></span>
+								</td>
+								<td align="right">邮政编码：</td>
+								<td>
+									<span class="postal-code" data-text="postalCode"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">电话：</td>
+								<td>
+									<span class="telephone-project" data-text="telephoneProject"></span>
+								</td>
+								<td align="right">传真：</td>
+								<td>
+									<span class="fax" data-text="fax"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">电子邮箱：</td>
+								<td>
+									<span class="email" data-text="email"></span>
+								</td>
+								<td align="right">参加工作时间：</td>
+								<td>
+									<span class="work-time" data-text="workTime"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">入党时间：</td>
+								<td>
+									<span data-text="partyDate"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">全职教育：</td>
+								<td>
+									<span class="education-time" data-text="educationTime"></span>
+								</td>
+								<td align="right">毕业院校及专业：</td>
+								<td>
+									<span class="education-time-class" data-text="educationTimeClass"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">在职教育：</td>
+								<td>
+									<span class="service-time" data-text="serviceTime"></span>
+								</td>
+								<td align="right">毕业院校及专业：</td>
+								<td>
+									<span class="service-time-class" data-text="serviceTimeClass"></span>
+								</td>
+							</tr>
+						</table>
+						<div class="class-info get-project-inf" style="border: none;margin: 0px 20px;">
+							<div class="" style="border: 1px solid #F6F6F6;">
+								
+								<span class="ticket-open-msg" style="width:82px;height:30px;line-height:30px;text-align:center;background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;">联系人信息</span>
+								<table class="" style="margin: 0 auto;">
+									<tr>
+										<td align="right" style="width: 100px;">联系人姓名：</td>
+										<td style="width: 200px;">
+											<span class="linkman" data-text="linkman"></span>
+										</td>
+										<td width="135px" align="right">手机号：</td>
+										<td style="width: 200px;">
+											<span class="linkman-phone" data-text="linkmanPhone"></span>
+										</td>
+									</tr>
+									<tr>
+										<td align="right">电话：</td>
+										<td>
+											<span class="linkman-telephone" data-text="linkmanTelephone"></span>
+										</td>
+										<td align="right">传真：</td>
+										<td>
+											<span class="linkman-fax" data-text="linkmanFax"></span>
+										</td>
+									</tr>
+									<tr>
+										<td align="right">邮箱：</td>
+										<td>
+											<span class="linkman-email" data-text="linkmanEmail"></span>
+										</td>
+										<td align="right">单位地址(邮编)：</td>
+										<td>
+											<span class="linkman-address-email" data-text="linkmanAddressEmail"></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div style="width: -webkit-fit-content;margin: 13px 20px;">
+							<div class="student-details-msgges" style="width: 245px;margin: 0px;">
+								<span class="ticket-open-msg" style="width:82px;height:30px;line-height:30px;text-align:center;background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;">报到情况</span>
+								<p><span>报到状态：</span><span class="check-in-state"></span></p>
+								<p><span>报到时间：</span><span data-text="checkInDate"></span></p>
+							</div>
+							<div class="student-details-msgges" style="width: 245px;margin: 0px 15px;margin-right: 15px;">
+								<span class="ticket-open-msg" style="width:82px;height:30px;line-height:30px;text-align:center;background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;">对账情况</span>
+								<p><span>对账状态：</span><span class="payment-state"></span></p>
+								<p><span>对账时间：</span><span data-text="paymentDate"></span></p>
+							</div>
+							<div class="student-details-msgges" style="width: 245px;margin: 0px;">
+								<span class="ticket-open-msg" style="width:82px;height:30px;line-height:30px;text-align:center;background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;">住宿情况</span>
+								<p><span>住宿房间：</span><span data-text="roomNumber"></span></p>
+								<p><span>入住时间：</span><span data-text="roomNumberDate"></span></p>
+							</div>
+						</div>
+						<div class="student-details-tecket" style="width: 780px;height: auto;margin: 13px 20px;">
+							<span class="ticket-open-msg" style="width:82px;height:30px;line-height:30px;text-align:center;background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;">开票信息</span>
+							<table class="student-details-order-record" style="width: 100%">
+								<tbody class="order-list-tbody">
+								</tbody>
+							</table>
+						</div>
+						<div class="student-details-tecket" style="width: 780px;margin: 0px 20px;">
+							<span class="ticket-open-msg" style="width:82px;height:30px;line-height:30px;text-align:center;background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;">培训记录</span>
+							<table class="student-details-train-record" style="width: 755px;">
+								<thead>
+									<tr>
+										<th width="70px">班级编号</th>
+										<th>班级名称</th>
+										<th width="80px">开班日期</th>
+										<th width="100px">项目主任</th>
+										<th width="110px">结业证书编号</th>
+									</tr>
+								</thead>
+								<tbody class="train-list-tbody">
+
+								</tbody>
+							</table>
+						</div>
+					</form>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom">
+						<input class="yt-model-bot-btn yt-model-canel-btn shut-down" style="margin: 0;" type="button" value="关闭" />
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			    <!--管理学员日志弹出框-->
+			    <div class="yt-pop-model yt-edit-alert student-log" style="width: 800px;">  
+			          <!--标题区域START-->  
+			          <div class="yt-edit-alert-title">  
+			                <span class="yt-edit-alert-title-msg">学员管理日志</span>  
+			          </div>  
+			          <!--标题区域END-->  
+			          <!--主体内容部分START-->  
+			          <div class="yt-edit-alert-main cont-edit-test">
+			            <form class="alert-form" style=" overflow: auto;width: 800px;">  
+			            	<div class="key-word" style="float: right;margin: 10px;">
+								<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text"/>
+								<button class="yt-option-btn search-btn" style="margin-right: 0px;">
+									<img class="search-img" src="../../resources/images/icons/class-search.png" />
+								</button>
+							</div>
+			                <table class="yt-table list-table" style="margin: 0px 8px;width: 778px;">
+								<thead class="list-thead">
+									<tr>
+										<th>操作时间</th>
+										<th>操作人</th>
+										<th>操作记录</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody log-tbody list-tbody">
+									<tr class="class-tr">
+										<td colspan="3" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+			            </form>  
+			            <!--底部按钮START-->  
+			            <div class="yt-eidt-model-bottom">  
+			                <input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />  
+			            </div>  
+			          </div>  
+			          <!--主体内容部分END-->  
+			    </div>
+			    <!--批量导入学员-->
+			    <div class="yt-pop-model yt-edit-alert lead-student" style="width: 500px;">  
+			          <!--标题区域START-->  
+			          <div class="yt-edit-alert-title">  
+			                <span class="yt-edit-alert-title-msg">批量导入学员</span>  
+			          </div>  
+			          <!--标题区域END-->  
+			          <!--主体内容部分START-->  
+			          <div class="yt-edit-alert-main cont-edit-test">  
+			                <table style="margin: 0 auto;">  
+			                    <tr>  
+			                        <td align="right">文件：</td> 
+			                        <td style="position: relative;">
+			                        	<span class="yt-option-btn batch-import-choose" style="position: absolute;left: 10px;font-size: 16px;height: 29px;line-height: 29px;background-color: #363845;">
+											<img src="../../resources/images/classStudent/chose-icon.png" /> 选择</span>
+										<input type="file" name="file" id="fileName" style="left: 43px;font-size: 16px;top: 3px;margin-right: 23px;width: 60px;opacity: 0;" />
+										<input class="yt-input import-file-name" placeholder="请选择文件" disabled="disabled" style="margin-right: 20px;" />
+			                        </td> 
+			                        <td>
+			                        	<button class="yt-option-btn download-template" style="border: 1px solid #dfe6f3;background-color: #FFF;color: black;"><img src="../../resources/images/classStudent/dowload-ticket.png">下载模板</button>
+			                        </td>
+			                    </tr>
+			                </table> 
+			            <!--底部按钮START-->  
+			            <div class="yt-eidt-model-bottom">  
+			                <input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="确定" />  
+			                <input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />  
+			            </div>  
+			          </div>  
+			          <!--主体内容部分END-->  
+			    </div>
+			</div>
+			<!--工作人员START-->
+			<div class="content-box dn work-peo-div" >
+				<div class="list-box">
+					<!--单位标准-->
+					<p>
+						<span>委托方领导、驻班员收费标准</span>
+					</p>
+					<table class="yt-table list-table" style="margin-bottom: 16px;">
+						<thead class="list-thead">
+							<tr>
+								<th rowspan="2" style="width: 30px;">序号</th>
+								<th rowspan="2" width="100px">身份</th>
+								<th rowspan="2" width="90px">姓名</th>
+								<th rowspan="2" width="80px">房间号</th>
+								<th rowspan="2" width="170px">单位名称</th>
+								<th rowspan="2" width="90px">部门</th>
+								<th rowspan="2" width="90px">职务</th>
+								<th colspan="2" style="width: 155px;">标准价(元)</th>
+								<th colspan="2" style="width: 155px;">协议价</th>
+								<th rowspan="2" width="60px" >发票抬头</th>
+								<th rowspan="2" >备注</th>
+								<th rowspan="2" style="width: 30px;">操作</th>
+							</tr>
+							<tr>
+								<th>住宿费(/晚)</th>
+								<th>餐费(/天)</th>
+								<th>住宿费(/晚)</th>
+								<th>餐费(/天)</th>
+							</tr>
+						</thead>
+						<tbody class="work-peo-tbody charge-tbody">
+							<!--<tr>
+							<td style="text-align:center">1</td>
+							<td class="groupId">
+							<select class="yt-select work-shen-select" style="width:100px">
+							<option value="1">驻班员</option>
+							<option value="2">委托方领导</option>
+							</select>
+							</td>
+							<td><input class="yt-input work-name" type="text"/></td>
+							<td><input class="yt-input work-room" type="text"/></td>
+							<td>
+								<select class="yt-select comp-select" style="width:170px">
+								</select>
+							</td>
+							<td><input class="yt-input work-dept" type="text" /></td>
+							<td><input class="yt-input work-postion" type="text" /></td>
+							<td><input class="yt-input standard-live" type="text" /></td>
+							<td><input class="yt-input standard-meal" type="text" /></td>
+							<td><input class="yt-input agreement-live" type="text" /></td>
+							<td><input class="yt-input  agreement-meal" type="text" /></td>
+							<td class="form-cont"><a href="#" class="edit-a">编辑</a></td>
+							<td>
+								<textarea class='yt-textarea' placeholder='请输入' style='resize: none;width: 180px; height: 33px;margin-top: 4px;'></textarea>  
+							</td>
+							<td align="center">
+							<span style="">
+							<img src="../../resources/images/icons/cost-level.png" style="cursor: pointer;" class="del-work-peo" alt="" />
+							</span>
+							</td>
+							</tr>-->
+						</tbody>
+						<tfoot class="">
+							<tr>
+								<td colspan="14" align="center" class="work-peo-add" style="color: #7b74c7;cursor: pointer;border: 1px dashed #e6e6e6;height: 28px;">
+									<span>+</span>
+									<span>新增</span>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="yt-eidt-model-bottom table-bottom-div" style="text-align: center;">  
+		                <input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="确定">  
+		                <input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消">  
+		            </div>
+					<!--工作人员发票信息抬头START-->
+					<div class="yt-pop-model yt-edit-alert work-peo-invoice-form" style="width: 820px;">  
+			          <!--标题区域START-->  
+			          <div class="yt-edit-alert-title">  
+			                <span class="yt-edit-alert-title-msg">开票信息</span>  
+			          </div>  
+			          <!--标题区域END-->  
+			          <!--主体内容部分START-->  
+			          <div class="yt-edit-alert-main cont-edit-test invoice-inf">  
+			            <form style=" overflow: auto;" class="alert-form">  
+			            	<div class="class-info-div">
+								开票信息
+							</div>
+							<input type="hidden" class="group-id-hid" value="">
+							<div class="tab-content class-info get-project-inf">
+								<div class="class-info-centent">
+					                <table style="margin: 0 auto;">  
+					                    <tbody>
+					                    	<tr>
+					                    		<td>单位名称：</td>
+					                    		<td class="work-comp-name"></td>
+					                    	</tr>
+					                    	
+					                    	<tr> 
+					                        <td align="right">发票类型：</td> 
+					                        <td>
+					                        	<select class="yt-select work-invoice-type" style="width: 201px; display: none;">
+													<option value="1">普通发票</option>
+													<option value="2">增值税专用发票</option>
+												</select>
+					                        </td>  
+					                         <td class="is-not-radio" colspan="2">
+						                       	<label class="check-label yt-radio check" style="margin-left: 88px;">  
+												    <input id="radio1" type="radio" name="test" value="1" class="ticket-form-input">  
+												  	个人/事业单位  
+											    </label>  
+											    <label class="check-label yt-radio" style="margin-left: 65px;">  
+												    <input id="radio2" type="radio" name="test" value="2" class="ticket-form-input">  
+												   	 单位
+											    </label>  
+					                       </td>
+					                    </tr>
+					                    <tr>
+					                    	<td align="right"><span class="is-or-name" style="color: red;">*</span>名称：</td> 
+					                        <td>
+					                        	<input class="yt-input work-org-name" type="text" placeholder="请输入">
+					                        </td> 
+					                        <td width="135px" align="right"><span class="is-or-comp" style="color: red;"></span>税号：</td> 
+					                        <td>
+					                        	<input class="yt-input work-tax-number" type="text" placeholder="请输入">
+					                        </td>  
+					                       
+					                    </tr>  
+					                    <tr>  
+					                    	 <td align="right"><span class="is-or-all" style="color: red;"></span>地址：</td> 
+					                        <td>
+					                        	<input class="yt-input work-address" type="text" placeholder="请输入">
+					                        </td>
+					                        <td align="right"><span class="is-or-all" style="color: red;"></span>电话：</td> 
+					                        <td>
+					                        	<input class="yt-input work-telephone" type="text" placeholder="请输入">
+					                        </td>
+					                       
+					                    </tr>  
+					                    <tr>  
+					                    	 <td align="right"><span class="is-or-all" style="color: red;"></span>开户行：</td> 
+					                        <td>
+					                        	<input class="yt-input work-registered-bank" type="text" placeholder="请输入">
+					                        </td>
+					                        <td align="right"><span class="is-or-all" style="color: red;"></span>账号：</td> 
+					                        <td>
+					                        	<input class="yt-input work-account" type="text" placeholder="请输入">
+					                        </td>
+					                    </tr>
+					                </tbody>
+					                </table> 
+					            </div>
+					        </div>    
+			            </form>  
+			          </div>  
+			          <!--主体内容部分END-->  
+			           <!--底部按钮START-->  
+			            <div class="yt-eidt-model-bottom">  
+			                <input class="yt-model-bot-btn yt-model-sure-btn sub-invoice" type="button" value="确定">  
+			                <input class="yt-model-bot-btn yt-model-canel-btn close-inp" type="button" value="取消">  
+			            </div>  
+			    </div>
+			    <!--工作人员发票信息抬头END-->
+				</div>
+			</div>
+			<!--工作人员END-->
+			<!--教学方案-->
+			<div class="content-box dn">
+				<div class="class-info-div">
+					教学方案设计需求
+				</div>
+				<div class=" class-info get-teach-plan-inf">
+					<div class="class-info-centent" style="min-height: 260px;">
+						<table class="teach-plan-table" style="height: 230px;">
+							<tr>
+								<td align="right">
+									<span>学员层次：</span>
+									<input type="hidden" class="pk-id"/>
+								</td>
+								<td colspan="2">
+									<label class="check-label yt-checkbox trainee-level">
+										<input type="checkbox" name="test" value="1"/>
+										一级经理
+									</label>
+									<label class="check-label yt-checkbox trainee-level" style="margin: 0px 15px;">
+										<input type="checkbox" name="test" value="2"/>
+										二级经理
+									</label>
+									<label class="check-label yt-checkbox trainee-level">
+										<input type="checkbox" name="test" value="3"/>
+										三级经理
+									</label>
+									<label class="check-label yt-checkbox trainee-level" style="margin-left:15px ;">
+										<input type="checkbox" name="test" value="4"/>
+										其他
+									</label>
+								</td>
+								<td align="right" style="width: 200px;">
+									<span>预计成交价：</span>
+								</td>
+								<td colspan="4">
+									<select class="yt-select type-select estimated-transaction-price" data-val="estimatedTransactionPrice">
+										<option value="1">较高</option>
+				  	    	       	    <option value="2">一般</option>
+				  	    	       	    <option value="3">较低</option>
+			  	    	      		</select>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>收到时间：</span>
+								</td>
+								<td colspan="2">
+									<input style="width: 190px;background-position:175px 7px;" class="calendar-input time-receipt" data-val="timeReceipt" placeholder="请输入" type="text"/>
+								</td>
+								<td align="right">
+									<span>要求反馈时间：</span>
+								</td>
+								<td>
+									<input style="width: 190px;background-position:175px 7px;" class="calendar-input feedback-time" data-val="feedbackTime" placeholder="请输入" type="text"/>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>方案要求：</span>
+								</td>
+								<td colspan="4">
+									<label class="check-label yt-checkbox scheme-requirement">
+										<input type="checkbox" name="test" value="1"/>
+										方案设计思路
+									</label>
+									<label class="check-label yt-checkbox scheme-requirement" style="margin: 0px 15px;">
+										<input type="checkbox" name="test" value="2"/>
+										教学日程
+									</label>
+									<label class="check-label yt-checkbox scheme-requirement">
+										<input type="checkbox" name="test" value="3"/>
+										师资简介
+									</label>
+								</td>
+								
+							</tr>
+							<tr>
+								<td align="right">
+									<span>联系人：</span>
+								</td>
+								<td colspan="2">
+									<input type="text" class="yt-input linkman" data-val="linkman"/>
+								</td>
+								<td align="right">
+									<span>手机号：</span>
+								</td>
+								<td>
+									<input type="text" class="yt-input phone" data-val="phone"/>
+								</td>
+							</tr>
+							<tr>
+								<td align="right" valign="top" height="156px">
+									<span style="position: relative;top: 10px;">教务部意见：</span>
+								</td>
+								<td colspan="4">
+									<textarea type="text" style="margin-top: 9px;" class="yt-textarea ad-details" data-val="adDetails" placeholder="请输入教务部意见"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>方案审批级别：</span>
+								</td>
+								<td colspan="4">
+									<select class="yt-select type-select teachings-scheme-level" data-val="teachingsSchemeLevel">
+										<option value="teachingSchemeDept">部门级别</option>
+				  	    	       	    <option value="teachingSchemeExpert">专家组</option>
+				  	    	       	    <option value="teachingSchemeLeader">院领导</option>
+			  	    	      		</select>
+								</td>
+							</tr>
+						</table>
+						<div class="yt-eidt-model-bottom demand-btn" style="margin: 12px auto;text-align: center;">  
+			                <button class="yt-option-btn btn-teach-plan-submit" style="width: 70px;margin-right: 12px;">提交</button>
+			                <button class="yt-option-btn btn-teach-plan-save" style="width: 70px;margin-right: 12px;">保存</button>
+			                <button class="yt-option-btn btn-teach-plan-cancel" style="width: 70px;">取消</button> 
+			            </div>
+						<!--教学方案设计需求详情-->
+						<table class="teach-plan-table-info" style="display: none;width: 1078px;margin: 0 auto;" >
+								<tr>
+									<td align="right" style="width: 240px;height: 35px;">
+										<span>学员层次：</span>
+										<input type="hidden" class="pk-id" data-val="pkId" />
+									</td>
+									<td colspan="2" class="trainee-level-info"></td>
+									<td align="right" style="height: 35px;">预计成交价：</td>
+									<td colspan="4" class="estimated-transaction-price-info"></td>
+								</tr>
+								<tr>
+									<td align="right" style="height: 35px;">收到时间：</td>
+									<td colspan="2" class="time-receipt-info"></td>
+									<td align="right" style="width: 120px;">要求反馈时间：</td>
+									<td class="feedback-time-info" style="width: 360px;"></td>
+								</tr>
+								<tr>
+									<td align="right" style="height: 35px;">方案要求：</td>
+									<td colspan="4" class="scheme-requirement-info"></td>
+								</tr>
+								<tr>
+									<td align="right" style="height: 35px;">联系人：</td>
+									<td colspan="2" class="linkman-info"></td>
+									<td align="right">手机号：</td>
+									<td class="phone-info"></td>
+								</tr>
+								<tr>
+									<td align="right" style="vertical-align: middle;height: 35px;">教务部意见：</td>
+									<td colspan="4"class="ad-details-info"  style="vertical-align: middle;"></td>
+								</tr>
+								<tr>
+									<td align="right"  style="vertical-align: middle;height: 35px;">方案审批级别：</td>
+									<td colspan="4" class="teachings-scheme-level-info"  style="vertical-align: middle;"></td>
+								</tr>
+							</table>
+					</div>
+				</div>
+				<!--教学方案初稿-->
+				<div class="first-draft" style="display: none;">
+					<div class="class-info-div">
+						教学方案初稿
+						<!--教学方案初稿提交下一步操作人-->
+						<input type="hidden" class="star-dealingWithPeople" value="" />
+					</div>
+					<div class=" class-info get-project-inf">
+						<div class="class-info-centent first-draft-inf" style="width: 600px;">
+							<div class="first-draft-btn">
+								<span>教学方案附件</span>
+								<button class="yt-option-btn file-upload" style="background: #7b74c7;position: relative;">
+								<input type="file" class="fileIds" id="addFile" name="file"  value="" />
+									<img src="../../resources/images/button/upload-icon.png" alt="" />
+									上传
+								</button>
+								<button class="yt-option-btn down-load-template" style="background: #7b74c7;">
+									<img src="../../resources/images/icons/down-load.png" alt="" />
+									下载模版
+								</button>
+							</div>
+							<p>本项目教学方案要求提供：1、方案设计思路 2、教学日程 3、师资简介，请按需求反馈方案</p>
+							<div class="file-id">
+								
+							</div>
+							<div>
+								<span class="first-upload-time-title" style="display: none;">上传时间：</span>
+								<span class="first-upload-time"></span>
+							</div>
+						</div>
+						<!--初稿下一步操作人人下拉框-->
+						<div class="first-file-next-person-div" style="height: 30px;width: 330px;margin-left: 250px;display: none;">
+			            	<div style="float: left;"><span  id="">下一步操作人：</span></div>
+			            	<div style="float: left;">
+			            		<select style="width: 220px;" name="" class="yt-select first-file-next-person">
+								</select>
+			            	</div>
+						</div>
+						<div class="yt-eidt-model-bottom plan-btn-flirst" style="width: 150px;margin: 12px auto;"> 
+			                <button class="yt-option-btn btn-teach-plan-star-submit">提交</button> 
+			                <button class="yt-option-btn btn-teach-plan-star-cancel">取消</button>  
+			            </div>
+			            
+					</div>
+				</div>
+				<!--审批流程STAR-->
+				<div class="approval-process-module" style="display: none;">
+					<div class="title-div-box">
+						<p class="title-p-style" ></p>
+						<p class="title-text-p">审批流程</p>
+					</div>
+					<!--隐藏部分start-->
+						<input type="hidden"  class="tast-key-teach" />
+					<!--隐藏部分end-->
+					<!-------------------------------------------------------------------------------------------->
+					<div class="content-div-box">
+						<div class="procedure-box" style="width: 970px;margin: 0px auto;">
+							<!--审批流程最后一步STAR-->
+							<div class="last-step last-step-div-teach ">
+								<div class="number-name-box">
+									<span class="number-box-span last-step-order-teach" >3</span>
+									<span class="name-box-span last-step-operate-person-userName-teach" >王大勇</span>
+									<img src="../../resources/images/open/open-sp.png" width="100%" height="100%" />
+								</div>
+								<div class="view-box-div" style="height: 210px;">
+									<span class="last-step-commentTime-span last-step-commentTime-teach" style="width: auto;">2018-07-01 12:00</span>
+									<form>
+										<table class="add-new-tab" cellspacing="1px" cellpadding="1px" style=" ">
+											<tr>
+												<td class="operate-state-title-td">操作状态：</td>
+												<td  class="sp-state last-step-operationState-teach" style="text-align: left;">
+													待教务部主任审批
+												</td>
+											</tr>
+											<tr>
+												<td style="text-align: right; ">是否同意：</td>
+												<td style="text-align: left; ">
+													<label class="check-label yt-radio check">
+														<input class="agree-disagree radio" type="radio" name="radioType" value="completed"/>同意
+													</label>
+													<label class="check-label yt-radio" style="margin-left: 20px;">
+													 	<input class="agree-disagree radio" type="radio" name="radioType" value="returnedSubmit"/>拒绝
+													</label>
+												</td>
+											</tr>
+											<tr class="next-operate-person-teach-tr hid-input">
+												<td>下一步操作人：</td>
+												<td>
+													<select class="yt-select type-select type next-people-teach" style="width: 200px;float: left;">
+														<option value="no">请选择下一步操作人</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td style="text-align: right; ">操作人意见：</td>
+												<td>
+													<input class="yt-input opintion-teach" type="text" validform="{isNull:true,size:20,msg:'请输入内容,不要超过20个字'}" style="width: 719px;float: left;"/>  
+			    									<span class="valid-font"></span> 
+												</td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</div>
+							<!--审批流程最后一步END-->
+								<div class="last-step-add-teach">
+									
+								</div>
+							<!--审批第一步STAR-->	
+							<div class="first-step">
+								<div style="height: 150; ">
+									<div class="number-name-box">
+										<span class="number-box-span first-step-order-teach">1</span>
+										<span class="name-box-span first-step-operate-person-username-teach"></span>
+										<img src="../../resources/images/open/openFlow.png" width="100%" height="100%" />
+									</div>
+								</div>
+								<div class="pad-pos" style="height: 89px;">
+									<ul class="first-step-ul">
+										<li style="height: 30px;">
+											<span class="first-step-taskName-teach view-taskName-span" style="float: left;">sdasfd</span>
+										</li>
+										<li class="view-time-li first-step-commentTime-teach">2018-01-01 12:00</li>
+										<li class="operate-view-box-li">
+											<div class="operate-view-title-li">操作意见：</div>
+											<div class="operate-view-text-li first-step-comment"></div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						<!--审批第一步END-->
+						</div>
+					</div>	
+					<!--审批流程END-->
+					<div class="yt-eidt-model-bottom appro-btn-div" style="text-align: center;margin: 10px 0px;">
+						<input class="yt-model-bot-btn yt-model-sure-btn appro-submit-teach" type="button" value="确定" />
+						<input class="yt-model-bot-btn yt-model-canel-btn appro-cancel-teach" type="button" value="取消" style="margin-left: 20px;" />
+					</div>
+				</div>
+				<!--教学方案终稿-->
+				<div class="last-draft" style="display: none;">
+					<div class="class-info-div">
+						教学方案终稿
+						<!--教学方案初稿提交下一步操作人-->
+						<input type="hidden" class="star-dealingWithPeople" value="" />
+					</div>
+					<div class=" class-info get-project-inf">
+						<div class="class-info-centent last-draft-inf" style="width: 600px; margin: 30px auto;">
+							<div class="last-draft-btn">
+								<span>教学方案附件</span>
+								<button class="yt-option-btn last-file-upload" style="background: #7b74c7;position: relative;">
+								<input type="file" class="fileIds" id="lastFile" name="file"  value="" />
+									<img src="../../resources/images/button/upload-icon.png" alt="" />
+									上传
+								</button>
+								<button class="yt-option-btn down-load-template" style="background: #7b74c7;">
+									<img src="../../resources/images/icons/down-load.png" alt="" />
+									下载模版
+								</button>
+							</div>
+							<p>本项目教学方案要求提供：1、方案设计思路 2、教学日程 3、师资简介，请按需求反馈方案</p>
+							<div class="last-file-id">
+								
+							</div>
+							<div style="margin: 10px 0px;">
+								<span class="last-upload-time-title" style="display: none;">上传时间：</span>
+								<span class="last-upload-time"></span>
+							</div>
+						</div>
+						<div class="yt-eidt-model-bottom plan-btn-last" style="width: 350px;margin: 12px auto;"> 
+			                <button class="yt-option-btn btn-teach-plan-end-submit">提交</button> 
+			                <button class="yt-option-btn btn-teach-plan-end-cancel">取消</button>  
+			            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/project/projectDetails.js"></script>
+</html>

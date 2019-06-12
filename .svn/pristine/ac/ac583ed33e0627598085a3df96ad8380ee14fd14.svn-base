@@ -1,0 +1,138 @@
+.nice-select {
+	display: inline-block;
+	float: none;
+	width: 200px;
+	vertical-align: middle;
+}
+
+#projectDiv {
+	padding: 20px 0;
+	margin: 5px;
+	border: 1px solid #DFE6F3;
+	background-color: #FFFFFF;
+	min-width: 1093px;
+	min-height: 825px;
+}
+.base-info-model {
+    padding: 0 10px;
+}
+.title-model-sty {
+    position: relative;
+    height: 25px;
+    line-height: 25px;
+}
+.form-num-model {
+    float: right;
+    display: inline;
+    padding-right: 35px;
+}
+.form-num {
+    font-size: 14px;
+    color: #999999;
+}
+.base-info-form-modle {
+    padding-top: 18px;
+    padding-left: 10px;
+}
+.field-label {
+    display: inline-block;
+    width: 24%;
+}
+.field-label .field-title {
+    color: #384495;
+    font-weight: bold;
+}
+.field-cont {
+    width: 70%;
+}
+.field-cont, .field-title {
+    min-width: 80px;
+    vertical-align: middle;
+}
+.from-table {
+    width: 100%;
+    margin-left: 20px;
+}
+.from-table tr td {
+    position: relative;
+    padding: 10px 0;
+}
+.qtip-text-div {
+    color: #f00000;
+}
+.letter-four {
+	letter-spacing: 10px;
+}
+.letter-five{
+	letter-spacing: 3px;
+}
+.letter-two {
+	letter-spacing: 44px;
+}
+.operation {
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.count-box {
+    padding: 10px 20px;
+    margin-left: 20px;
+}
+.count-box .form-label {
+    width: 49%;
+}
+.oper-select {
+    width: 200px;
+}
+.button-box {
+    padding-top: 10px;
+    text-align: center;
+}
+.button-box button {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 30px;
+    font-size: 18px;
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+}
+.form-label {
+	position: relative;
+    display: inline-block;
+}
+.count-box .left {
+    width: 100px;
+    float: left;
+    margin-left: 10px;
+}
+.count-box .right {
+    overflow: hidden;
+}
+.label-title{
+	margin-left: 10px;
+}
+.alert-div {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 800px;
+    z-index: 101;
+    display: none;
+}
+.model-content {
+    padding: 10px 20px;
+}
+.alert-div .search-box {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.yt-table {
+    width: 100%;
+    table-layout: auto;
+}
+.min-but{
+	text-align: center;
+}
+.prior-approval{
+	cursor: pointer;
+}

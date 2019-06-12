@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+	<!--引用CSS文件START-->
+	<!--滚动条样式-->
+	<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+	<!--窗口小图标-->
+	<link rel="icon" href="/cbead/website/resources/images/icons/ICO.png" type="image/x-icon">
+	<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+	<!--引用系统页面公用样式-->
+	<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE=20180627" />
+	<!--引用CSS文件END-->
+	<style type="text/css">
+		body {
+			background-color: #fff;
+		}
+		
+		#InvoicePasting table td {
+			border: 1px solid #000;
+		}
+		
+		.yt-tbody tr,
+		.yt-tbody td {
+			border: 1px solid #000;
+		}
+		
+		#InvoicePasting {
+			width: 1050px;
+		}
+		
+		td.line-fa:before {
+			content: "";
+			position: absolute;
+			width: 103%;
+			height: 0;
+			/*这里需要自己调整，根据td的宽度和高度*/
+			top: 48%;
+			left: -2px;
+			border-top: 1px solid #000000;
+			display: block;
+			transform: rotate(12deg);
+			/*这里需要自己调整，根据线的位置*/
+			transform-origin: top;
+		}
+		
+		input.code-inpu {
+			position: absolute;
+			left: -1000px;
+		}
+		
+		.small-td td {
+			padding: 2px 5px!important;
+		}
+	</style>
+
+	<body>
+		<div id="InvoicePasting">
+			<input type="text" class="code-inpu" />
+			<div style="text-align: right;margin:10px 15px;">
+				<button class="yt-option-btn yt-search-btn" id="printBtn" style="margin-left: 5px;">打印 </button>
+				<!--<button class="yt-option-btn yt-reset-btn" id="closeBtn" style="margin-left: 15px;">关闭 </button>-->
+			</div>
+			<!--startInvoicePasting-->
+			<table width="1022px" style="margin: 10px 20px;" class="expenditure-receivables">
+				<tbody class="yt-tbody">
+					<tr style="border-right: 0px;">
+						<td colspan="8" style="padding-left:20px;text-align:left;border:1px solid #FFF;">
+							<!--表格头部-->
+							<div style="text-align: center;text-decoration:underline;font-size: 26px;">
+								<span style="letter-spacing:5px;width: 190px;margin-left:265px;">国资委培训中心项目经费预算表</span>
+							</div>
+						</td>
+						<td style="border:1px solid #FFF;text-align: right;padding: 0;">
+							<img src="" class="qr-code" style="width: 125px;" />
+						</td>
+					</tr>
+					<tr style="border-right: 0px;">
+						<td colspan="8" style="text-align: center;border:1px solid #FFF;border-bottom: 1px solid #000;padding-left:285px;">
+							<div style="display: inline-block; vertical-align: middle;">
+								<div style="float: left;width: 100px;"><span class="year"></span>年</div>
+								<div style="float: left;width: 100px;"><span class="month"></span>月</div>
+								<div style="float: left;width: 100px;"><span class="day"></span>日</div>
+							</div>
+						</td>
+						<td style="border:1px solid #FFF;border-bottom: 1px solid #000;text-align: right;">
+							<label style="display: inline;float: right;">编号：<span id="expenditureAppNum">AD2018061104</span></label>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="5" class="font-bold" width="20px">
+							申<br/>请<br/>基<br/>本<br/>信<br/>息
+						</td>
+						<td width="180" class="font-bold">预算申请事由</td>
+						<td colspan="4">
+							<div class="yt-table-br before-cause" style="text-align: center;"></div>
+						</td>
+						<td class="font-bold">费用类型</td>
+						<td colspan="2"><span class="cost-type"></span></td>
+					</tr>
+					<tr>
+						<td class="font-bold">申请人</td>
+						<td width=""><span class="apply-users"></span></td>
+						<td width="100" class="font-bold">职务</td>
+						<td width=""><span class="users-job"></span></td>
+						<td width="100" class="font-bold">部门</td>
+						<td width=""><span class="users-dept"></span></td>
+						<td width="" class="font-bold">电话</td>
+						<td width=""><span class="users-tel"></span></td>
+					</tr>
+					<tr>
+						<td class="font-bold">预计支出金额(元)</td>
+						<td colspan="2" class="font-bold">￥<span class="apply-money"></span></td>
+						<td class="font-bold">人民币(大写)</td>
+						<td colspan="4">
+							<div class="apply-money-upper"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!--培训费表格数据START-->
+			<div class="print-form-model  train-info-model">
+				<table width="1022px" style="margin: 20px 20px;" id="teachersCostListFrist">
+					<tbody class="yt-tbody">
+						<tr>
+							<td rowspan="5" class="font-bold" width="20px">
+								申<br/>请<br/>事<br/>项<br/>信<br/>息
+							</td>
+							<!-- <td width="180" class="font-bold">名称</td>
+							<td colspan="3">
+								<div class="yt-table-br train-name" style="text-align: center;"></div>
+							</td> -->
+						</tr>
+						<tr>
+							<td class="font-bold">地点</td>
+							<td colspan="3">
+								<div class="yt-table-br train-addres" style="text-align: center;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="font-bold">批准文号</td>
+							<td colspan="3"><div class="yt-table-br train-approva-num" style="text-align: center;"></div></td>
+						</tr>
+						<tr>
+							<td class="font-bold">执行时间</td>
+							<td width="300"><span class="train-start-time"></span>至<span class="train-end-time"></span></td>
+							<td width="180" class="font-bold">收费标准</td>
+							<td><span class="train-charge-standard"></span></td>
+						</tr>
+						<tr>
+							<td class="font-bold">预计学员人数</td>
+							<td><span class="train-per-num"></span></td>
+							<td class="font-bold">工作人员人数</td>
+							<td><span class="train-work-num"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<table width="1022px" style="margin: 20px 20px;" id="teachersCostList">
+					<tbody class="yt-tbody">
+						<tr>
+							<td rowspan="12" class="font-bold detail-tby" width="20px">
+								申<br/>请<br/>费<br/>用<br/>信<br/>息
+							</td>
+							<td width="180" class="font-bold">收入支出情况</td>
+							<td class="font-bold">标准(元)</td>
+							<td class="font-bold">人数</td>
+							<td class="font-bold">天数</td>
+							<td class="font-bold">小计(元)</td>
+							<td class="font-bold" width="370px;">备注</td>
+						</tr>
+						<tr class="predict-tr">
+						</tr>
+						<tr>
+							<td class="font-bold" colspan="6" style="text-align: center;">预计支出情况<!--<span class="advance-amount"></span>--></td>
+						</tr>
+						<tr>
+							<td class="font-bold">师资费支出小计</td>
+							<td colspan="3"></td>
+							<td class="font-bold" style="text-align: right;"><span class="teachers-amount"></span></td>
+							<td></td>
+						</tr>
+						<!--<tr class="small-td">
+							<td>讲课费</td>
+							<td></td><td></td><td></td>
+							<td style="text-align: right;"><span>18,000.00</span></td><td></td>
+						</tr>
+						<tr class="small-td">
+							<td>城市间交通费</td>
+							<td></td><td></td><td></td>
+							<td style="text-align: right;"><span>0.00</span></td><td></td>
+						</tr>
+						<tr class="small-td">
+							<td>住宿费</td>
+							<td></td><td></td><td></td>
+							<td style="text-align: right;"><span>0.00</span></td><td></td>
+						</tr>
+						<tr class="small-td">
+							<td>伙食费</td>
+							<td></td><td></td><td></td>
+							<td style="text-align: right;"><span>0.00</span></td><td></td>
+						</tr>-->
+						<tr class="train-other-tr">
+							<td class="font-bold">培训费其他支出小计</td>
+							<td colspan="3"></td>
+							<td class="font-bold" style="text-align: right;"><span class="train-other-amount"></span></td>
+							<td></td>
+						</tr>
+						<!--<tr  class="small-td">
+							<td>参训人员-住宿费</td>
+							<td style="text-align: right;"><span>582.00</span></td>
+							<td>40</td>
+							<td>5</td>
+							<td style="text-align: right;"><span>116,400.00</span></td><td></td>
+						</tr>
+						<tr  class="small-td">
+							<td class="font-bold">机动费</td>
+							<td></td><td></td><td></td>
+							<td></td><td></td>
+						</tr>-->
+						<tr class="train-sum-tr">
+							<td class="font-bold">支出合计</td>
+							<td colspan="3"></td>
+							<td class="font-bold" style="text-align: right;"><span class="train-sum-money">144,400.00</span></td>
+							<td></td>
+								
+						</tr>
+						<tr class="added-tax">
+							<td class="font-bold">增值税销项税</td>
+							<td colspan="3"></td>
+							<td class="font-bold" style="text-align: right;"><span class="added-tax-value">0.00</span></td>
+							<td style="text-align: left;"></td>
+						</tr>
+						<tr style="border: 0px;">
+							<td colspan="7" style="text-align: left;border: 0px;padding: 0px;"> <label class="font-bold">注:需附课程表(日程表)</label></td>
+						</tr>
+					</tbody>
+				</table>
+				<table width="1022px" style="margin: 20px 20px;" class="meet-detailed-table-one">
+					<tbody class="yt-tbody">
+						<tr>
+							<td rowspan="5" class="font-bold" width="20px">
+								申<br>请<br>事<br>项<br>信<br>息
+							</td>
+							<td width="100px" class="font-bold">会议名称</td>
+							<td colspan="5">
+								<div class="yt-table-br meet-name"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="font-bold">会议分类</td>
+							<td>
+								<div class="yt-table-br meet-addres"></div>
+							</td>
+							<td class="font-bold" width="100px">会议起止日期</td>
+							<td colspan="3">
+								<span class="meet-start-time"></span>至<span class="meet-end-time"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="font-bold">会议地点</td>
+							<td>
+								<div class="yt-table-br meet-place"></div>
+							</td>
+							<td class="font-bold">学员人数</td>
+							<td>
+								<div class="yt-table-br meet-people"></div>
+							</td>
+							<td class="font-bold" width="100px">工作人员人数</td>
+							<td>
+								<div class="yt-table-br job-num"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table width="1022px" style="margin:20px;" class="meet-detailed-table-two">
+					<tbody class="yt-tbody">
+						<tr>
+							<td colspan="4" style="border-left:1px solid transparent; border-right:1px solid transparent; border-top:1px solid transparent;text-align: left;">
+								<label style="font-weight: bold;">支出费用总金额：￥<span class="meeting-total-amount">20,000.00</span></label>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="3" class="font-bold" width="20px">
+								申<br>请<br>费<br>用<br>信<br>息
+							</td>
+							<td class="font-bold" width="300px">
+								住宿费（元）
+							</td>
+							<td class="font-bold">
+								伙食费（元）
+							</td>
+							<td class="font-bold">
+								其他费用（元）
+							</td>
+						</tr>
+						<tr>
+							<td class="meet-hotel" style="text-align: right;"></td>
+							<td class="meet-food" style="text-align: right;"></td>
+							<td class="meet-other" style="text-align: right;"></td>
+						</tr>
+						<tr>
+							<td>人均日均费用金额（元/人·天）</td>
+							<td style="text-align: right;" colspan="2" class="average-expense"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!--公务接待费-->
+				<table width="1022px" style="margin: 20px;" class="reception-table-two">
+					<tbody class="yt-tbody">
+						<tr>
+							<td rowspan="3" style="width: 20px;font-weight: bold;" class="expenditure-rowspan">
+								支出事项信息
+							</td>
+							<td colspan="4" style="font-weight: bold;text-align: left;">接待对象信息</td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold;">序号</td>
+							<td style="font-weight: bold;">姓名</td>
+							<td style="font-weight: bold;">职务</td>
+							<td style="font-weight: bold;">单位</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table width="1022px" style="margin: 20px;" class="reception-table">
+					<tbody class="yt-tbody">
+						<tr>
+							<td colspan="7" style="border-left:1px solid transparent; border-right:1px solid transparent; border-top:1px solid transparent;text-align: left;">
+								<label style="font-weight: bold;">支出费用总金额：￥<span class="reception-total-amount"></span></label>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="3" style="width: 20px;font-weight: bold;" class="expenditure-receivables-detailed">
+								支出费用信息
+							</td>
+							<td style="font-weight: bold;">公务活动项目</td>
+							<td style="font-weight: bold;">日期</td>
+							<td style="font-weight: bold;">场所</td>
+							<td style="font-weight: bold;">费用明细</td>
+							<td style="font-weight: bold;">金额（元）</td>
+							<td style="font-weight: bold;">陪同人数</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!--差旅-->
+				<table width="1022px" style="margin: 10px 20px;" class="travel-detailed-table">
+					<tbody class="yt-tbody">
+						<tr>
+							<td colspan="4" style="border-left:1px solid transparent; border-right:1px solid transparent; border-top:1px solid transparent;text-align: left;">
+								<label style="font-weight: bold;">支出费用总金额：￥<span class="travel-total-amount"></span></label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="font-weight: bold;width: 100px;" class="travel-detailed">
+								出差行程信息
+							</td>
+							<td style="text-align: left;" colspan="8" class="travel-detailed-td">
+								<!--<div><span class="startTime" style="margin-right: 15px;">2018-06-01</span>至<span style="margin-left: 15px;margin-right: 20px;" class="endTime">2018-06-02</span>出差地点：<span style="margin-right: 20px;" class="travelAddressName">运城市</span>出差人：<span class="travelPersonnelsName">吴一局、刘光国</span></div>
+								<div><span class="startTime" style="margin-right: 15px;">2018-06-14</span>至<span style="margin-left: 15px;margin-right: 20px;" class="endTime">2018-06-14</span>出差地点：<span style="margin-right: 20px;" class="travelAddressName">石家庄市</span>出差人：<span class="travelPersonnelsName">吴一局、刘光国</span></div>
+								<div><span class="startTime" style="margin-right: 15px;">2018-06-14</span>至<span style="margin-left: 15px;margin-right: 20px;" class="endTime">2018-06-14</span>出差地点：<span style="margin-right: 20px;" class="travelAddressName">石家庄市</span>出差人：<span class="travelPersonnelsName">吴一局、刘光国</span></div>-->
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="font-weight: bold;">
+								起止地点
+							</td>
+							<td rowspan="2" style="font-weight: bold;">
+								出差人数
+							</td>
+							<td rowspan="2" style="font-weight: bold;">
+								城市间交通费
+							</td>
+							<td rowspan="2" style="font-weight: bold;">
+								补助
+							</td>
+							<td colspan="2" style="font-weight: bold;">
+								其他费用
+							</td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold;">
+								起
+							</td>
+							<td style="font-weight: bold;">
+								止
+							</td>
+							<td style="font-weight: bold;">
+								项目
+							</td>
+							<td style="font-weight: bold;">
+								金额
+							</td>
+						</tr>
+						<tr class="travel-detailed-first-tr">
+							<td class="start-place"></td>
+							<td class="end-place"></td>
+							<td class="travel-num"></td>
+							<td style="text-align: right;" class="traffic-money"></td>
+							<td style="text-align: right;" class="subsidy-money"></td>
+							<td style="font-weight: bold;">住宿费</td>
+							<td id="hotelAmount" style="text-align: right;">0.00</td>
+						</tr>
+						<tr>
+							<td class="start-place"></td>
+							<td class="end-place"></td>
+							<td class="travel-num"></td>
+							<td style="text-align: right;" class="traffic-money"></td>
+							<td style="text-align: right;" class=""></td>
+							<td style="font-weight: bold;">市内车费</td>
+							<td id="cityFare" style="text-align: right;">0.00</td>
+						</tr>
+						<tr>
+							<td class="start-place"></td>
+							<td class="end-place"></td>
+							<td class="travel-num"></td>
+							<td style="text-align: right;" class="traffic-money"></td>
+							<td style="text-align: right;" class=""></td>
+							<td style="font-weight: bold;">邮电费</td>
+							<td id="postFee" style="text-align: right;">0.00</td>
+						</tr>
+						<tr>
+							<td class="start-place"></td>
+							<td class="end-place"></td>
+							<td class="travel-num"></td>
+							<td style="text-align: right;" class="traffic-money"></td>
+							<td style="text-align: right;" class=""></td>
+							<td style="font-weight: bold;">办公用品费</td>
+							<td id="officeSupplies" style="text-align: right;">0.00</td>
+						</tr>
+						<tr>
+							<td class="start-place"></td>
+							<td class="end-place"></td>
+							<td class="travel-num"></td>
+							<td style="text-align: right;" class="traffic-money"></td>
+							<td style="text-align: right;" class=""></td>
+							<td style="font-weight: bold;">不买卧铺的补贴</td>
+							<td id="unSleeperSubsidy" style="text-align: right;">0.00</td>
+						</tr>
+						<tr>
+							<td class="start-place"></td>
+							<td class="end-place"></td>
+							<td class="travel-num"></td>
+							<td style="text-align: right;" class="traffic-money"></td>
+							<td style="text-align: right;" class=""></td>
+							<td style="font-weight: bold;">其他</td>
+							<td id="other" style="text-align: right;">0.00</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--培训费表格数据END-->
+			<!--流程-->
+			<table width="1022px" style="margin: 20px 20px;" class="approval-record-table">
+				<tbody class="yt-tbody">
+					<tr>
+						<td rowspan="5" width="20px" class="approval-record" style="font-weight: bold;">
+							审<br />批<br />记<br />录
+						</td>
+						<td style="width: 30px;font-weight: bold;">序号</td>
+						<td style="font-weight: bold;">审批人</td>
+						<td style="font-weight: bold;">审批信息</td>
+					</tr>
+					<!--<tr>
+						<td>1</td>
+						<td style="text-align: left;"><span>【申请人】</span><br />——<span>宋半科</span></td>
+						<td style="text-align: left;padding-left: 15px;">
+							2018-06-11 提交申请，意见：无<br />
+							<label style="font-weight: bold;">2018-06-12 提交申请，意见：无</label>
+						</td>
+					</tr><tr>
+						<td>2</td>
+						<td style="text-align: left;">【部门负责人】<br />——董办处</td>
+						<td style="text-align: left;padding-left: 15px;">
+							2018-06-11 审批通过，意见：无<br />
+							<label style="font-weight: bold;">2018-06-12 审批通过，意见：无</label>
+						</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td style="text-align: left;">【财务】<br />——陈财科</td>
+						<td style="text-align: left;padding-left: 15px;">
+							2018-06-11 审批不通过，意见：收款方信息有误<br />
+							<label style="font-weight: bold;">2018-06-12 审批通过，意见：无</label>
+						</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td style="text-align: left;">【财务分管领导】<br />——俞副财办</td>
+						<td style="text-align: left;padding-left: 15px;">
+							<label style="font-weight: bold;">2018-06-13 审批通过，意见：无</label>
+						</td>
+					</tr>-->
+				</tbody>
+			</table>
+			<!--底部签字-->
+			<div class="bot-signature-model" style="padding-left: 20px;display: none;">
+				<!--<label class="font-bold" style="margin-right: 150px;">部门分管领导</label><label class="font-bold" style="margin-right: 150px;">财务分管领导</label>-->
+				<label class="font-bold">中心主任</label>
+			</div>
+			<!--底部签字-->
+			<div class="bot-travel-model" style="padding-left: 20px;display: none;">
+				<label class="font-bold">中心主任</label>
+			</div>
+			<!--endInvoicePasting-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<!--扫描二维码控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.barcode.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/projectManagement/expensesReim/module/print/beforeApplyDetailMain.min.js?YTVERSIONCODE=20190320"></script>
+	<!--引用JS文件END-->
+
+</html>

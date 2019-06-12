@@ -1,0 +1,444 @@
+var index={
+	init:function(){
+		var me = this ;
+			//echart 图
+		$("#txtDate1").calendar({
+		speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+		complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+		readonly: true, // 目标对象是否设为只读，默认：true     
+		lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+		nowData:true,//默认选中当前时间,默认true  
+		dateFmt:"yyyy-MM",  
+		callback: function() { // 点击选择日期后的回调函数  
+			me.incomeStatistics($('#txtDate1').val());
+		}  
+		});		
+		//为对账流水
+		$("#txtDate2").calendar({  
+		speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+		complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+		readonly: true, // 目标对象是否设为只读，默认：true     
+		lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+		nowData:true,//默认选中当前时间,默认true  
+		dateFmt:"yyyy-MM",  
+		callback: function() { // 点击选择日期后的回调函数  
+			me.waterNot($('#txtDate2').val());
+		}  
+		});	
+		me.indexData();
+		me.incomeStatistics($('#txtDate1').val());
+		me.waterNot($('#txtDate2').val());
+		var nowmouth = $('#txtDate2').val();
+		$('.mouthbefore').click(function(){
+			var mouthArr =  $('#txtDate2').val().split('-');
+			if(mouthArr[1]=='01'){
+				mouthArr[1] = '12';
+				mouthArr[0] = Number(mouthArr[0])-1;
+			}else{
+				mouthArr[1] = Number(mouthArr[1])-1;
+				if(mouthArr[1]<10){
+					mouthArr[1] = '0'+mouthArr[1];
+				}
+			}
+			mouthArr = mouthArr.join('-');
+			$('#txtDate2').val(mouthArr)
+			me.waterNot(mouthArr);
+		})
+		$('.mouthnow').click(function(){
+			$('#txtDate2').val(nowmouth)
+			me.waterNot(nowmouth);
+		})
+		$('.mouthafter').click(function(){
+			var mouthArr =  $('#txtDate2').val().split('-');
+			if(mouthArr[1]=='12'){
+				mouthArr[1] = '01';
+				mouthArr[0] = Number(mouthArr[0])+1;
+			}else{
+				mouthArr[1] = Number(mouthArr[1])+1;
+				if(mouthArr[1]<10){
+					mouthArr[1] = '0'+mouthArr[1];
+				}
+			}
+			mouthArr = mouthArr.join('-');
+			$('#txtDate2').val(mouthArr)
+			me.waterNot(mouthArr);
+		})
+	},
+	indexData:function(){
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "index/getIndexDataByFinance",
+			beforeSend:function(){
+				$yt_baseElement.showLoading();
+			},
+			async:true,
+			data:{},
+			success:function(data){
+				if(data.flag==0){
+					//总体情况
+					$('.index-top-middle').setDatas(data.data.overallSituation);
+					//项目未对账
+					if(data.data.reconciliationNot.length>0){
+						var reconciliationBody = $('.reconciliationNot-tbody').empty();
+						var htmlTr='';
+						$.each(data.data.reconciliationNot, function(i,n) {
+							if(i<4){
+							if(n.projectType==1){
+								n.projectTypeVel = '计划'
+							}
+							else if(n.projectType==2){
+								n.projectTypeVel = '委托'
+							}
+							else if(n.projectType==3){
+								n.projectTypeVel = '选学'
+							}
+							else if(n.projectType==4){
+								n.projectTypeVel = '调训'
+							}
+							htmlTr = '<tr>'+
+							'<td>'+n.projectName+'</td>'+
+							'<td width="50px">'+n.projectTypeVel+'</td>'+
+							'<td width="100px">'+n.endDate+'</td>'+
+							'<td width="100px">'+n.reconciliationNotTrainee+'</td>'+
+							'<td width="150px">'+n.reconciliationNotMoney+'</td>'+
+							'</tr>'
+							htmlTr = $(htmlTr).data('data',n);
+							reconciliationBody.append(htmlTr);
+							}
+						});
+					}else{
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 120px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="width: 120px;padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							reconciliationBody.append(htmlTr);
+					}
+					//开票未完成
+					if(data.data.ticketOpeningNot.length>0){
+					var ticketBody = $('.ticketBody').empty();
+						var ticketHtml='';
+						$.each(data.data.ticketOpeningNot, function(i,n) {
+							if(i<4){
+							if(n.projectType==1){
+								n.projectTypeVel = '计划'
+							}
+							else if(n.projectType==2){
+								n.projectTypeVel = '委托'
+							}
+							else if(n.projectType==3){
+								n.projectTypeVel = '选学'
+							}
+							else if(n.projectType==4){
+								n.projectTypeVel = '调训'
+							}
+							ticketHtml = '<tr>'+
+							'<td>'+n.projectName+'</td>'+
+							'<td width="50px">'+n.projectTypeVel+'</td>'+
+							'<td width="100px">'+n.endDate+'</td>'+
+							'<td width="100px">'+n.invoiceNot+'</td>'+
+							'</tr>';
+							ticketHtml = $(ticketHtml).data('data',n);
+							ticketBody.append(ticketHtml);
+							}
+						});
+					}else{
+						ticketHtml = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 120px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="width: 120px;padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							ticketBody.append(ticketHtml);
+					}
+					//报销
+					if(data.data.reimApproval.length>0){
+						var ratesBody = $('.rates-table tbody').empty();
+						var ratesHtml = '';
+						$.each(data.data.reimApproval, function(i,n) {
+							n.expenseType==1? n.expenseTypeVel = '教师课酬报销' : n.expenseTypeVel = '教师差旅报销';
+							ratesHtml = '<tr>'+
+							'<td>'+n.flowNumber+'</td>'+
+							'<td>'+n.expenseTypeVel+'</td>'+
+							'<td>'+n.projectName+'</td>'+
+							'<td>'+n.projectHead+'</td>'+
+							'<td>'+n.createTimeString+'</td>'+
+							'<td>'+n.teacherCount+'</td>'+
+							'<td>'+n.expenseMoney+'</td>'+
+							'<td>'+n.states+'</td>'+
+							'</tr>'
+							ratesBody.append(ratesHtml);
+						});
+					}else{
+						ticketHtml = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 220px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="width: 220px;padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							ratesBody.append(ratesHtml);
+					}
+					//近一年报销统计
+					var myChart2 = echarts.init(document.getElementById('echartstwo'));
+					var reimbursementAmountArr = [];
+					var monthDataArr = [];
+					$.each(data.data.reimApprovalStatistics,function(i,n){
+						monthDataArr.push(n.monthData+'月');
+						reimbursementAmountArr.push(n.reimbursementAmount);
+					})
+						option2 = {
+							title: {
+								text: '近一年报销统计',
+								left:11,
+							},
+							backgroundColor: '#ffffff',
+							xAxis: {
+								type: 'category',
+								data: monthDataArr
+							},
+							yAxis: {
+								type: 'value',
+								nameTextStyle:{
+									
+								}
+							},
+							series: [{
+								data:reimbursementAmountArr,
+								type: 'line',
+								itemStyle:{
+									borderColor:'#7b74c7'
+								},
+								lineStyle: {
+									color: '#7b74c7'
+								}
+							}]
+						};
+						
+						
+						myChart2.setOption(option2, true);
+					$yt_baseElement.hideLoading();
+				}else{
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+			},
+			error:function(data){
+				$yt_baseElement.hideLoading(function (){
+					$yt_alert_Model.prompt("网络出现问题,请稍后重试");
+				});
+			}
+		});
+	},
+	incomeStatistics:function(monthData){
+		var me = this;
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "index/getIndexDataByIncomeStatistics",
+			async:true,
+			beforeSend:function(){
+				$yt_baseElement.showLoading();
+			},
+			data:{
+				monthData:monthData
+			},
+			success:function(data){
+				//收入统计
+					var projectNameArr = [];
+					//实际收入
+					var realIncomeArr = [] ;
+					//预计收入
+					var expectedIncomeArr = [];
+					if(data.data.length>0){
+					$.each(data.data,function(i,n){
+						projectNameArr.push(n.projectName);
+						realIncomeArr.push(n.realIncome);
+						expectedIncomeArr.push(n.expectedIncome);
+					})}
+					var myChart1 ;
+					if(data.data.length>7){
+						$('#echartsone').replaceWith('<div id="echartsone"></div>');
+						$('#echartsone').css('height',383 + ((data.data.length-7)*50)+'px');
+						 myChart1 = echarts.init($('#echartsone')[0]);
+					}else{
+						$('#echartsone').replaceWith('<div id="echartsone"></div>');
+						$('#echartsone').css('height','383px');
+						 myChart1 = echarts.init($('#echartsone')[0]);
+					}
+					option1 = {
+							title: {
+								text: '收入统计',
+								left:11,
+							},
+							backgroundColor: '#ffffff',
+							tooltip: {
+								trigger: 'axis',
+								axisPointer: { // 坐标轴指示器，坐标轴触发有效
+									type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+								}
+							},
+						
+							legend: {
+								data: ['实际收入', '预计收入'],
+								right: '78px',
+								itemWidth: 10,
+								itemHeight: 10,
+								borderRadius: 5,
+						
+							},
+							grid: {
+								left: '3%',
+								right: '4%',
+								bottom: '3%',
+								containLabel: true,
+							},
+							xAxis: {
+								type: 'value',
+								nameTextStyle: {
+									color: '#888888',
+								},
+							},
+							yAxis: {
+								type: 'category',
+								nameTextStyle: {
+									color: '#888888'
+								},
+								splitLine: {
+									show: false
+								},
+								axisLabel:{},
+								data: projectNameArr
+							},
+							series: [{
+									name: '实际收入',
+									type: 'bar',
+									itemStyle: {
+										color: '#847ccf',
+										barBorderRadius: [0, 5, 5, 0],
+						
+									},
+									barWidth: 16,
+									z: 10,
+									barGap: '-100%',
+									data: realIncomeArr
+								},
+								{
+									name: '预计收入',
+									type: 'bar',
+									itemStyle: {
+										color: '#df94e0',
+										barBorderRadius: [0, 5, 5, 0],
+									},
+									z: 1,
+									barWidth: 16,
+									data: expectedIncomeArr
+								}
+							]
+						};
+						me.newline(option1,8,'yAxis');
+						myChart1.setOption(option1, true);
+				$yt_baseElement.hideLoading();
+			},
+			error:function(data){
+				$yt_baseElement.hideLoading(function (){
+					$yt_alert_Model.prompt("网络出现问题,请稍后重试");
+				});
+			}
+		});
+	},
+	waterNot:function(monthData){
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "index/getIndexDataByFlowingWaterNot",
+			async:true,
+			beforeSend:function(){
+				$yt_baseElement.showLoading();
+			},
+			data:{
+				monthData:monthData
+			},
+			success:function(data){
+				if(data.flag==0){
+				//未处理流水
+				if(data.data!=null){
+					$('.index-two-waste').setDatas(data.data);
+					var wasteBody = $('.index-two-waste tbody').empty();
+					var wasteHtml= '';
+					if(data.data.reconciliationNotDetails.length>0){
+					$.each(data.data.reconciliationNotDetails, function(i,n) {
+						if(i<10){
+						wasteHtml = '<tr>'+
+						'<td width="45px">'+(i+1)+'</td>'+
+						'<td width="90px">'+n.exchangeHour+'</td>'+
+						'<td>'+n.abstractData+'</td>'+
+						'<td width="100px">'+n.income+'</td>'+
+						'<td width="150px">'+n.otherPartyAccounts+'</td>'+
+						'<td width="80px">'+n.otherPartyName+'</td>'+
+						'</tr>'
+						}
+						wasteHtml =$(wasteHtml).data('data',n);
+						wasteBody.append(wasteHtml);
+					});	
+					}else{
+						wasteHtml = '<tr style="border:0px;background-color:#fff !important;" >' +
+						'<td colspan="9" align="center" style="border:0px;">' +
+						'<div class="no-data" style="width: 220px;margin: 0 auto;">' +
+						'<img src="../../resources/images/common/no-data.png" alt="" style="width: 220px;padding: 35px 0 20px;">' +
+						'</div>' +
+						'</td>' +
+						'</tr>';
+						wasteBody.append(wasteHtml);
+					}
+				}
+				$yt_baseElement.hideLoading();
+				}else{
+					$yt_baseElement.hideLoading(function(){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+			},
+			error:function(data){
+				
+			}
+		});
+	},
+	//* 参数一：是你的option
+	//* 参数二：是多少个字就换行
+	//* 参数三：是x轴还是y轴 可选项 'yAxis' OR 'xAxis'
+	newline:function (option, number, axis){
+    /* 此处注意你的json是数组还是对象 */
+    option[axis]['axisLabel']={
+        interval: 0,
+        formatter: function(params){
+            var newParamsName = "";
+            var paramsNameNumber = params.length;
+            var provideNumber = number;
+            var rowNumber = Math.ceil(paramsNameNumber / provideNumber);
+            if (paramsNameNumber > provideNumber) {
+                for (var p = 0; p < rowNumber; p++) {
+                    var tempStr = "";
+                    var start = p * provideNumber;
+                    var end = start + provideNumber;
+                    if (p == rowNumber - 1) {
+                        tempStr = params.substring(start, paramsNameNumber);
+                    } else {
+                        tempStr = params.substring(start, end) + "\n";
+                    }
+                    newParamsName += tempStr;
+                }
+            } else {
+                newParamsName = params;
+            }
+            return newParamsName
+        }
+    }
+    return option;
+}
+}
+$(document).ready(function(){
+	index.init();
+})

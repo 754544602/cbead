@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Tree Context Menu - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+</head>
+<body>
+	<div style="margin:20px 0;"></div>
+	<div class="easyui-panel" style="padding:5px">
+		<ul id="tt" class="easyui-tree" data-options="
+				url: 'tree_data1.json',
+				method: 'get',
+				animate: true,
+				onContextMenu: function(e,node){
+					e.preventDefault();
+					$(this).tree('select',node.target);
+					$('#mm').menu('show',{
+						left: e.pageX,
+						top: e.pageY
+					});
+				}
+			"></ul>
+	</div>
+	<div id="mm" class="easyui-menu" style="width:120px;">
+		<div onclick="nextAddNode()">下面添加节点</div>
+		<div onclick="append()" data-options="iconCls:'icon-add'">新增</div>
+		<div onclick="removeit()" data-options="iconCls:'icon-remove'">删除</div>
+		<div class="menu-sep"></div>
+		<div onclick="expand()">展开</div>
+		<div onclick="collapse()">关闭</div>
+		<div onclick="updateNode()">重命名</div>
+	</div>
+	<script type="text/javascript">
+		$("#tt").tree({
+			dnd:true,
+			onDblClick:function(node){
+				$('#tt').tree('toggle',node.target);
+			}
+		});
+		var num=0;
+		//新增
+		function append(){
+			var t = $('#tt');
+			//获取当前选中节点
+			var node = t.tree('getSelected');
+			if(node){
+				num+=1;
+				var nodes = [{
+					text: '新增节点'+num
+				}]
+				t.tree('append', {
+					parent: (node?node.target:null),
+					data:nodes
+				});
+			}
+			//获取当前父级新增的节点
+			var getNowNode = node.children[node.children.length-1];
+			//调用树形编辑方法
+			t.tree('beginEdit',"#"+getNowNode.domId);
+		}
+		//添加父节点
+		function nextAddNode(){
+			var t = $('#tt');
+			//获取当前选中节点
+			var node = t.tree('getSelected');
+			num+=1;
+			var parentNode =  t.tree('insert', {
+				after: (node?node.target:null),
+				data: {
+					text: '新增节点'+num
+				}
+			});
+			var newNodeId = $("#"+node.domId).parent().next().find("div").attr("id");
+			//调用树形编辑方法
+			t.tree('beginEdit',"#"+newNodeId);
+		}
+		//修改
+		function updateNode(){
+			var node = $('#tt').tree('getSelected');
+			$('#tt').tree('beginEdit',node.target);
+		}
+		//删除
+		function removeit(){
+			var node = $('#tt').tree('getSelected');
+			//获取当前节点的父级节点
+			var parentNode = $("#tt").tree('getParent',node.target);
+			//判断父级节点是否有值,为null则为根节点
+			if(parentNode == null){
+				alert("跟节点不能删除");
+			}else{
+				$('#tt').tree('remove', node.target);
+			}
+		}
+		//收起
+		function collapse(){
+			var node = $('#tt').tree('getSelected');
+			$('#tt').tree('collapse',node.target);
+		}
+		//展开
+		function expand(){
+			var node = $('#tt').tree('getSelected');
+			$('#tt').tree('expand',node.target);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript" src="resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="resources/js/common/yt-option.js"></script>
+	<script>
+		function GetQueryString(name){
+		     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		     var r = window.location.search.substr(1).match(reg);
+		     if(r!=null)return  unescape(r[2]); return null;
+		}
+		$.ajax({
+				type:"post",
+				url:$yt_option.logoutUrl,
+				data:{
+					yitianSSODynamicKey:GetQueryString("yitianSSODynamicKey")
+				},
+				async:true,
+				success:function(data){
+					$('html').html(data);
+				},
+				error:function(){
+				}
+		});
+	</script>
+</html>

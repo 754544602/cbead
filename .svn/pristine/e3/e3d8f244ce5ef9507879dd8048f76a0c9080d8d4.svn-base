@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/treeGroup/treeGroup.css" />
+		<!--树形图css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>集团单位管理</title>
+		<style type="text/css">
+			.calendar {
+				z-index: 10000 !important;
+			}
+			input[name='groupCheck']{
+				z-index: -1;
+			}
+			.yt-input {
+				width: 400px;
+			}
+			
+			.yt-select {
+				width: 406px;
+			}
+			
+			.yt-textarea {
+				width: 400px;
+			}
+			
+			.key-word {
+				margin-top: 10px;
+			}
+			.add-update-form table{
+				margin-top: 20px !important;
+			}
+			.add-update-form tr td,.merge-form tr td{
+				padding: 10px 0px !important;
+				position: relative;
+			}
+			.merge-table thead td,.merge-table tbody td{
+				text-align: center;
+				border: solid 1px #E6E6E6;
+			}
+			.merge-form .list-table thead tr{
+				    background: #F5F5F5;
+			}
+			.datagrid-header .datagrid-cell span{
+				font-size: 14px !important;
+			}
+			.datagrid-cell-c1-groupNum,.datagrid-cell-c1-province,.datagrid-cell-c1-types,.datagrid-cell-c1-groupType{
+				text-align: center !important;
+			}
+			.datagrid-cell-c2-groupNum,.datagrid-cell-c2-province,.datagrid-cell-c2-types,.datagrid-cell-c2-groupType{
+				text-align: center !important;
+			}
+			.valid-table td,.valid-table2 td{
+				position: relative;
+			}
+			.datagrid-header td, .datagrid-body td, .datagrid-footer td{
+				border-color: #e6e6e6 !important;
+			}
+			.yt-table-active{
+			    background: #EDEBEC !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width:800px ;">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="height: 20px;">
+				
+			</div>
+			<!--顶部条件查询END-->
+			<!--数据展示区域START-->
+			<div class="list-box">
+				<div class="search-btn-slect" style="position: relative;">
+					<div class="btn-all" style="top: -52px;left: 0px;width: 100%;">
+						<button class="yt-option-btn addList" style="margin:0px 3px">
+							<img src="../../resources/images/icons/add-icons.png"  />
+							新增
+						</button>
+						<button class="yt-option-btn updateList" style="margin: 0px 3px;">
+							<img src="../../resources/images/button/update-icon.png" />
+							修改
+						</button>
+						<button class="yt-option-btn merge-btn">
+							<img src="../../resources/images/classStudent/danwei-hebing.png" />
+							合并
+						</button>
+						<button class="yt-option-btn delete-btn">
+							<img src="../../resources/images/button/del-icon.png" />
+							删除
+						</button>
+						<div class="key-word" style="margin: 0px;">
+							<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+							<button class="yt-option-btn search-btn">
+								<img class="search-img" src="../../resources/images/icons/class-search.png" />
+							</button>
+						</div>
+					</div>
+					
+					<div class="danwei-title" style="position: absolute;top: 6px;font-size: 16px;">
+						集团单位管理
+					</div>
+				</div>
+				<table class="yt-table list-table" id="tt" style="width:100%">
+				</table>
+				<div class="page-info table-page" onselectstart="return false"></div>  
+				<!--新增修改START-->
+				<div class="yt-pop-model yt-edit-alert add-update-form" style="width: 800px;">
+					<!--标题区域START-->
+					<div class="yt-edit-alert-title">
+						<span class="yt-edit-alert-title-msg">新增集团</span>
+					</div>
+					<!--标题区域END-->
+					<!--主体内容部分START-->
+					<div class="yt-edit-alert-main cont-edit-test">
+						<table style="margin: 0 auto;" class="valid-table">
+							<tbody class="">
+								<tr>
+									<td align="right">
+										<span class="yt-red-star">*</span><span>分类：</span>
+									</td>
+									<td>
+										<select class="yt-select classify-select">
+											<option value="1">集团公司</option>
+											<option value="2">下属单位</option>
+										</select>
+									</td>
+								</tr>
+								<tr class="company-part belongs-group">
+									<td align="right"><span class="yt-red-star">*</span><span>所属集团：</span></td>
+									<td>
+										<select class="yt-select belong-group"  validform="{isNull:true,msg:'请选择集团',blurFlag:true}">
+											<option value="">请选择</option>
+										</select>
+										<span class="valid-font"></span> 
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span class="yt-red-star">*</span><span class="modifiable-name">集团名称：</span>
+									</td>
+									<td>
+										<input class="yt-input group-name" type="text" placeholder="请输入" validform="{isNull:true,msg:'请输入名称',blurFlag:true}"/>
+										<span class="valid-font"></span>  
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span class="yt-red-star">*</span><span>省份：</span>
+									</td>
+									<td>
+										<select class="yt-select province-select" validform="{isNull:true,msg:'请选择省份',blurFlag:true}">
+											<option value="">请选择</option>
+										</select>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr class="group-part">
+									<td align="right">
+										<span class="yt-red-star">*</span><span>集团性质：</span>
+									</td>
+									<td>
+										<select class="yt-select group-type-select" validform="{isNull:true,msg:'请选择集团性质',blurFlag:true}">
+											<option value="">请选择</option>
+											<option value="1">中央组织部</option>
+											<option value="2">国务院国资委</option>
+											<option value="3">其他部委</option>
+											<option value="4">中央企业</option>
+											<option value="5">中管金融企业</option>
+											<option value="6">地方组织部</option>
+											<option value="7">地方国资委</option>
+											<option value="8">地方企业</option>
+											<option value="9">其他</option>
+										</select>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr class="company-part">
+									<td align="right">
+										<span class="yt-red-star">*</span><span>单位类型：</span>
+									</td>
+									<td>
+										<select class="yt-select company-types-select" validform="{isNull:true,msg:'请选择单位类型',blurFlag:true}">
+											<option value="">请选择</option>
+											<option value="1">央企集团本部</option>
+											<option value="2">央企二级公司</option>
+											<option value="3">央企三级公司</option>
+											<option value="4">省属企业</option>
+											<option value="5">市属企业</option>
+											<option value="6">其他</option>
+										</select>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr class="company-part belong-org-tr">
+									<td align="right"><span class="yt-red-star">*</span><span>上级单位：</span></td>
+									<td>
+										<select class="yt-select belong-org"  validform="{isNull:true,msg:'请选择上级单位',blurFlag:true}">
+											<option value="">请选择</option>
+										</select>
+										<span class="valid-font"></span> 
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span class="yt-red-star">*</span><span>排序：</span></td>
+									<td><input class="yt-input group-num" placeholder="请输入" validform="{isNull:true,msg:'请输入排序',blurFlag:true}"/>
+									<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span>简介：</span></td>
+									<td>
+										<textarea class='yt-textarea remarks-textarea' placeholder='请输入' style='resize: none;'></textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!--底部按钮START-->
+						<div class="yt-eidt-model-bottom">
+							<input class="yt-model-bot-btn yt-model-sure-btn group-submit-btn" type="button" value="确定" />
+							<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+						</div>
+					</div>
+					<!--主体内容部分END-->
+				</div>
+				<!--新增修改END-->
+				<!--合并START-->
+				<div class="yt-pop-model yt-edit-alert merge-form" style="width: 570px;">
+					<!--标题区域START-->
+					<div class="yt-edit-alert-title">
+						<span class="yt-edit-alert-title-msg">合并</span>
+					</div>
+					<img class="merge-form-img" style="position: absolute;top: -89px;left: 280px;" src="../../resources/images/classStudent/merge-tip.png"/>
+					<!--标题区域END-->
+					<!--主体内容部分START-->
+					<div class="yt-edit-alert-main cont-edit-test " style="position: relative;">
+						<table class="merge-table" style="width: 475px;margin: 50px auto 0px;">
+							<thead class="">
+								<tr>
+									<td width="70px">序号</td>
+									<td>名称</td>
+								</tr>
+							</thead>
+							<tbody class="">
+								<tr></tr>
+							</tbody>
+						</table>
+						<table style="margin: 0 auto;" class="valid-table2">
+							<tr class="company-merge-part ">
+									<td align="right">
+										<span>所属集团</span>
+									</td>
+									<td>
+										<select class="yt-select belong-group-merge">
+											<option value="">请选择</option>
+										</select>
+									</td>
+								</tr>
+							<tr>
+								<td align="right"><span class="merge-name-text">合并后名称：</span>
+								</td>
+								<td>
+									<input class="yt-input merge-name" type="text" placeholder="请输入名称" validform="{isNull:true,msg:'请输入名称',blurFlag:true}"/>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>省份：</span>
+								</td>
+								<td>
+									<select class="yt-select merge-province-select" validform="{isNull:true,msg:'请选择省份',blurFlag:true}">
+										<option value="">请选择</option>
+									</select>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr class="group-merge-part">
+								<td align="right">
+									<span>集团性质：</span>
+								</td>
+								<td>
+									<select class="yt-select group-merge-type-select" validform="{isNull:true,msg:'请选择集团性质',blurFlag:true}">
+										<option value="">请选择</option>
+										<option value="1">国家行政企业</option>
+										<option value="2">公私合作企业</option>
+										<option value="3">中外合资企业</option>
+										<option value="4">社会组织机构</option>
+										<option value="5">国际组织机构</option>
+									</select>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr class="company-merge-part">
+								<td align="right">
+									<span>单位类型：</span>
+								</td>
+								<td>
+									<select class="yt-select company-merge-types-select" validform="{isNull:true,msg:'请选择单位类型',blurFlag:true}">
+										<option value="">请选择</option>
+										<option value="1">央企集团本部</option>
+										<option value="2">央企二级公司</option>
+										<option value="3">央企三级公司</option>
+										<option value="4">省属企业</option>
+										<option value="5">市属企业</option>
+										<option value="6">其他</option>
+									</select>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr class="company-part merge-org-tr" style="display: none;">
+									<td align="right"><span>上级单位：</span></td>
+									<td>
+										<select class="yt-select merge-org"  validform="{isNull:true,msg:'请选择上级单位',blurFlag:true}">
+											<option value="">请选择</option>
+										</select>
+										<span class="valid-font"></span> 
+									</td>
+							</tr>
+							<tr>
+								<td align="right"><span>排序：</span>
+								</td>
+								<td><input class="yt-input merge-group-num" type="text" placeholder="请输入"  validform="{isNull:true,msg:'请输入排序',blurFlag:true}"/>
+								<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right"><span>简介：</span>
+								</td>
+								<td><textarea class='yt-textarea merge-remarks' placeholder='请输入' style='resize: none;'></textarea></td>
+							</tr>
+						</table>
+					</div>
+						<!--底部按钮START-->
+						<div class="yt-eidt-model-bottom">
+							<input class="yt-model-bot-btn yt-model-sure-btn merge-submit-btn" type="button" value="确定" />
+							<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+						</div>
+					<!--主体内容部分END-->
+				</div>
+				<!--合并END-->
+			</div>
+			<!--数据展示区域END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--树形图-->
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/groupTube/groupTubeList.js"></script>
+
+</html>

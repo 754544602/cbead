@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge	" />
+		<title>财务首页</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-frame-base.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/index/educationindex.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="./resources/css/common/yt-common-ie.min.css"/><![endif]-->
+
+	</head>
+
+	<body>
+		<div class="index-top">
+			<div class="index-top-middle">
+				<div class="index-top-model">
+					<img src="../../resources/images/index/projectApprove.png" />
+					<div>
+						<h5>已立项</h5><br />
+						<span>120</span><label>个</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/talkRcord.png" />
+					<div>
+						<h5>洽谈中</h5><br />
+						<span>3</span><label>个</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/making.png" />
+					<div>
+						<h5>进行中</h5><br />
+						<span>5</span><label>个</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/success.png" />
+					<div>
+						<h5>已完成</h5><br />
+						<span>15</span><label>个</label></div>
+				</div>
+			</div>
+		</div>
+		<!--表-->
+		<div class="index-rates">
+			<table class="rates-table">
+				<caption>待办事项
+					<ul>
+						<li class="active">立项审批</li>
+						<li>报销审批</li>
+					</ul>
+				</caption>
+				<thead>
+					<tr>
+						<th>项目名称</th>
+						<th>委托单位</th>
+						<th>预计培训时间</th>
+						<th>项目销售</th>
+						<th>洽谈记录</th>
+						<th>学员数量</th>
+						<th>项目状态</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody index-rates-projectApprove">
+					<tr>
+						<td>国企深化改革专题培训班</td>
+						<td>中国农业银行吉林分行</td>
+						<td width="120px">2018-03-08</td>
+						<td width="90px">梁斌</td>
+						<td width="90px">2次</td>
+						<td width="80px">234</td>
+						<td width="85px">在谈</td>
+					</tr>
+					<tr>
+						<td>国企深化改革专题培训班</td>
+						<td>中国农业银行吉林分行</td>
+						<td>2018-03-08</td>
+						<td>梁斌</td>
+						<td>2次</td>
+						<td>234</td>
+						<td>在谈</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--日程表-->
+		<div class="index-plan">
+			<table class="plan-table">
+				<caption>本月班次计划
+					<input id="txtDate" class="calendar-input" style="width: 109px;" value="" placeholder="请选择日期" type="text" />
+					<ul>
+						<li>
+							<label></label>
+							<span>未签约</span>
+						</li>
+						<li>
+							<label></label>
+							<span>已签约</span>
+						</li>
+						<li>
+							<label></label>
+							<span>培训中</span>
+						</li>
+					</ul>
+					<div class="right">
+						<span>前一月</span>
+						<span>本月</span>
+						<span>后一月</span>
+					</div>
+				</caption>
+				<thead>
+					<tr>
+						<th>培训主题</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody">
+					<td colspan="8" align="center" style="border:0px;">
+						<div class="no-data" style="width: 280px;margin: 0 auto;">
+							<img src="../../resources/images/common/no-data.png" alt="" style="width:200px;padding: 35px 0 20px;">
+						</div>
+					</td>
+				</tbody>
+			</table>
+			<div class="page-info table-page" onselectstart="return false"></div>
+		</div>
+		<div class="index-rates index-ready">
+			<table class="rates-table">
+				<caption>本月班级信息
+					<span>查看更多</span>
+				</caption>
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>班级名称</th>
+						<th>类型</th>
+						<th>开班日期</th>
+						<th>结束日期</th>
+						<th>项目主任</th>
+						<th>学员数量</th>
+						<th>收费标准</th>
+						<th>单价</th>
+						<th>应收金额</th>
+						<th>未缴费</th>
+						<th>状态</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody index-rates-projectApprove">
+					<tr>
+						<td width="40px">1</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td width="60px">委托</td>
+						<td width="90px">2018-03-08</td>
+						<td width="90px">2018-03-15</td>
+						<td width="95px">范瑶</td>
+						<td width="100px">265</td>
+						<td width="80px">包干制</td>
+						<td width="95px">56,000.00</td>
+						<td width="110px">2,156,000.00</td>
+						<td width="70px">85人</td>
+						<td width="65px">进行中</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>委托</td>
+						<td>2018-03-08</td>
+						<td>2018-03-15</td>
+						<td>范瑶</td>
+						<td>265</td>
+						<td>包干制</td>
+						<td>56,000.00</td>
+						<td>2,156,000.00</td>
+						<td>85人</td>
+						<td>进行中</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>委托</td>
+						<td>2018-03-08</td>
+						<td>2018-03-15</td>
+						<td>范瑶</td>
+						<td>265</td>
+						<td>包干制</td>
+						<td>56,000.00</td>
+						<td>2,156,000.00</td>
+						<td>85人</td>
+						<td>进行中</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>委托</td>
+						<td>2018-03-08</td>
+						<td>2018-03-15</td>
+						<td>范瑶</td>
+						<td>265</td>
+						<td>包干制</td>
+						<td>56,000.00</td>
+						<td>2,156,000.00</td>
+						<td>85人</td>
+						<td>进行中</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>委托</td>
+						<td>2018-03-08</td>
+						<td>2018-03-15</td>
+						<td>范瑶</td>
+						<td>265</td>
+						<td>包干制</td>
+						<td>56,000.00</td>
+						<td>2,156,000.00</td>
+						<td>85人</td>
+						<td>进行中</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>委托</td>
+						<td>2018-03-08</td>
+						<td>2018-03-15</td>
+						<td>范瑶</td>
+						<td>265</td>
+						<td>包干制</td>
+						<td>56,000.00</td>
+						<td>2,156,000.00</td>
+						<td>85人</td>
+						<td>进行中</td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>委托</td>
+						<td>2018-03-08</td>
+						<td>2018-03-15</td>
+						<td>范瑶</td>
+						<td>265</td>
+						<td>包干制</td>
+						<td>56,000.00</td>
+						<td>2,156,000.00</td>
+						<td>85人</td>
+						<td>进行中</td>
+					</tr>
+			</table>
+		</div>
+		<div class="index-rates index-ready">
+			<table class="rates-table index-scend">
+				<caption>本月班次决算
+					<span>查看更多</span>
+				</caption>
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>班级名称</th>
+						<th>结束日期</th>
+						<th>项目主任</th>
+						<th>收费标准</th>
+						<th>学员数量</th>
+						<th>应收金额</th>
+						<th>实收金额</th>
+						<th>教师课酬</th>
+						<th>教师差旅</th>
+						<th>总支出</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody index-rates-projectApprove">
+					<tr>
+						<td width="40px">1</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td width="90px">2018-03-15</td>
+						<td width="80px">范瑶</td>
+						<td width="90px">包干制</td>
+						<td width="90px">265</td>
+						<td width="115px">2,156,000.00</td>
+						<td width="105px">256,000.00</td>
+						<td width="100px">56,000.00</td>
+						<td width="90px">10,000.00</td>
+						<td width="90px">30,000.00</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>2018-03-15</td>
+						<td>范瑶</td>
+						<td>包干制</td>
+						<td>265</td>
+						<td>2,156,000.00</td>
+						<td>256,000.00</td>
+						<td>56,000.00</td>
+						<td>10,000.00</td>
+						<td>30,000.00</td>
+					</tr>
+			</table>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/echarts/echarts.min.js"></script>
+	<script src="../../resources/js/calendar/yt-calendar.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/page/yt-page.min.js" ></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/index/educationindex.js"></script>
+
+</html>

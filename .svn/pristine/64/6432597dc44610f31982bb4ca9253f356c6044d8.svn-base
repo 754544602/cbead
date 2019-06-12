@@ -1,0 +1,87 @@
+var projectSettlementList = {
+	//初始化方法
+	init: function() {
+		
+		//调用获取列表数据方法
+		projectSettlementList.getSettlementListInf();
+		$(".settlement-tbody").on("click",".project-name",function(){
+			debugger
+			var projectCode = $(this).parents("tr").find('td.project-code').text();//获取班级编号
+			window.location.href="projectDetails.html?projectCode=" + projectCode;
+		});
+	},
+		
+	/**
+	 * 获取列表数据
+	 */
+	getSettlementListInf: function() {
+		$yt_baseElement.showLoading();
+		selectParam=$(".selectParam").val(); 
+		$('.settlement-page').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/settlement/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam:selectParam,
+				projectDateStart:"",
+				projectDateEnd:"",
+				amountReceivableStart:"",
+				amountReceivableEnd:"",
+				netReceiptsStart:"",
+				netReceiptsEnd:"",
+				uncollectedStart:"",
+				uncollectedEnd:"",
+				expenditureStart:"",
+				expenditureEnd:"",
+				projectType:"",
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				$yt_baseElement.showLoading();
+				if(data.flag == 0) {
+					var htmlTbody = $('.settlement-tbody');
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td class="project-code"><input type="hidden" value="' + v.pkId + '" class="pkId">'+v.projectCode+'</td>' +
+								'<td><a style="color: #4169E1;" class="project-name">' + v.projectName + '</a></td>' +
+								'<td>' + v.projectHead + '</td>' +
+								'<td>' + v.startDate + '</td>' +
+								'<td>' + v.trainDate + '</td>' +
+								'<td>' + v.createTime + '</td>' +
+								'<td>' + v.budgetTotal + '</td>' +
+								'<td>' + v.workFlawState + '</td>' +
+								'<td>' + v.implementationRate + '</td>' +
+								'<td>' + v.surplusBudget + '</td>' +
+								'</tr>';
+						});
+					} else {
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="10" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	}
+}
+$(function() {
+	//初始化方法
+	projectSettlementList.init();
+	
+});

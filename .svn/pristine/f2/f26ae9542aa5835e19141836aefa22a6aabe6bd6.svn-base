@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/query/finalQuery.css" />
+		<!--引用CSS文件END-->
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="body-div">
+			<div class="search-div" style="min-width: 1200px;">
+				<table border="0" cellspacing="0" cellpadding="0" class="form-table">
+					<tbody>
+					<tr>
+						<td style="min-width: 580px">
+							<label<span style="letter-spacing: 6px;">关键字</span>：</label>
+							<input style="width: 430px;" type="text" id="" value="" class="yt-input keyword-input apply-reason" placeholder="请输入关键字">
+						</td>
+						<td class="proposer-td" style="padding-left: 40px;min-width: 500px;">
+							<label><span class="letter-four">日</span>期：</label>
+							<input class="calendar-input calendar-input-bg save-begin-date" id="startDate" type="text" placeholder="请选择日期" readonly="readonly" style="width: 160px;">
+							<span style="padding: 0 10px;">-</span>
+							<input class="calendar-input calendar-input-bg save-end-date" id="endDate" type="text" placeholder="请选择日期" readonly="readonly" style="width: 160px;">	
+                       </td>
+					</tr>
+					</tbody>
+				</table>
+				<table border="0" cellspacing="0" cellpadding="0" class="form-table" style="max-width: 1200px;">
+					<tbody>
+						<tr>
+							<td style="min-width: 300px;">
+								<label><span class="letter-four">采购途</span>径：</label>
+								<select class="yt-select user-name-sel apply-type" style="display:inline-block;">  
+                          			<option value="">请选择</option>
+                          			<option value="1">集中采购机构采购</option>
+                          			<option value="2">部门集中采购</option>
+                          			<option value="3">分散采购</option>
+                        		</select>
+							</td>
+							<td style="min-width: 300px;padding-left: 320px;">
+								<label><span class="letter-four">采购机</span>构：</label>
+								<select class="yt-select user-name-sel apply-type" style="display:inline-block;">  
+                          			<option value="">请选择</option>
+                          			<option value="1">政府部门集中采购</option>
+                          			<option value="2">委托第三方采购</option>
+                          			<option value="3">分散采购</option>
+                        		</select>
+							</td>
+						</tr>
+						<tr>
+							<td style="min-width: 300px">
+								<label><span class="letter-four">采购方</span>式：</label>
+								<select class="yt-select user-name-sel apply-type" style="display:inline-block;">  
+                          			<option value="">请选择</option>
+                          			<option value="1">公开招标</option>
+                          			<option value="2">协议定点采购</option>
+                          			<option value="3">邀请招标</option>
+                          			<option value="4">竞争性谈判</option>
+                          			<option value="5">竞争性磋商</option>
+                          			<option value="6">单一来源采购</option>
+                          			<option value="7">询价</option>
+                        		</select>
+							</td>
+							<td>
+								<div style="padding-left: 630px;">
+									<button class="yt-option-btn yt-search-btn drafts-search-btn" onselectstart="return false" id="heardSearchBtn">查询 </button>
+									<button style="margin-left: 10px;" class="yt-option-btn yt-reset-btn drafts-reset-btn" onselectstart="return false" id="">重置</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<!--上方填写区域END-->
+				<!--拆分区域START-->
+				<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				<!--拆分区域END-->
+				<!--排序筛选区域START-->
+				<div style="padding: 20px 25px 0;min-width: 1200px;" class="clearfix">
+					<div style="padding-top: 15px;" class="radio-input-list float-left">
+						<span style="font-size: 16px;">筛选条件：</span>
+						<div style="display: inline-block;">
+							<label class="check-label yt-radio" style="margin-right: 40px;">  
+						    	<input id="radio1" type="radio" name="test"  value="m.NEW_ADVANCE_NUM>0"/> 只看已完成 
+					    	</label>
+							<label class="check-label yt-radio" style="margin-right: 40px;">  
+						    	<input id="radio2" type="radio" name="test"  value="m.NEW_ADVANCE_NUM=0"/> 只看未完成  
+					   		</label>
+							<label class="check-label yt-radio check" >  
+						    	<input id="radio3" type="radio" name="test"  value=""/> 全部  
+					    	</label>
+						</div>
+						<div style="margin-top: 15px;padding-left: 83px;">
+							<label class="check-label yt-radio" style="margin-right: 54px;">  
+						    	<input id="radio1" type="radio" name="test"  value="m.NEW_ADVANCE_NUM>0"/> 只看招标  
+					    	</label>
+							<label class="check-label yt-radio" style="margin-right: 40px;">  
+						    	<input id="radio2" type="radio" name="test"  value="m.NEW_ADVANCE_NUM=0"/> 只看未招标 
+					    	</label>
+							<label class="check-label yt-radio check" >  
+						    	<input id="radio3" type="radio" name="test"  value=""/> 全部  
+					    	</label>
+						</div> 
+					</div>
+					<div class="sort-btn-list float-right" style="padding-top: 15px;">
+						<button class="yt-option-btn yt-search-btn date-sort-btn" style="margin-right: 20px;" btn-val="m.APPLICANT_TIME">生成采购计划</button>
+						<button class="yt-option-btn yt-search-btn export-excel"  >导出查询结果</button>
+					</div>
+				</div>
+				<!--排序筛选区域END-->	
+				<!--中间表格区域START-->
+				<div class="plan-list-model">
+					<table class="yt-table" style="min-width: 1200px;">
+						<thead class="yt-thead">
+							<tr>
+								<th style="width: 120px;">所属采购活动编号</th>
+								<th style="width: 100px;">采购品目</th>
+								<th style="width: 100px;">计划开始日期</th>
+								<th style="width: 100px;">计划完成日期</th>
+								<th style="width: 100px;">采购途径</th>
+								<th style="width: 120px;">是否招标</th>
+								<th style="width: 100px;">采购机构</th>
+								<th style="width: 100px;">采购方式</th>
+								<th style="width: 80px;">当前状态</th>
+								<th style="width: 120px;">成交日期（实际）</th>
+								<th style="width: 80px;">申请部门</th>
+								<th style="width: 80px;">操作</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody drafts-list">
+							<tr>
+								<td><a class="yt-link" href="javascript:void(0)">CGHD2018060802001</a></td>
+								<td style="text-align: left;">台式计算机</td>
+								<td>2018-07-01</td>
+								<td>2018-09-30</td>
+								<td>部门集中采购</td>
+								<td>是</td>
+								<td>委托第三方代理机构</td>
+								<td>公开招标</td>
+								<td>待验收</td>
+								<td>2018-07-25</td>
+								<td>基建处</td>
+								<td><a class="yt-link" href="javascript:void(0)">查看</a></td>
+							</tr>
+							<tr>
+								<td><a class="yt-link" href="javascript:void(0)">CGHD2018060802002</a></td>
+								<td style="text-align: left;">打印机</td>
+								<td>2018-10-01</td>
+								<td>2018-12-31</td>
+								<td>分散采购</td>
+								<td>否</td>
+								<td>自行采购</td>
+								<td>协议定点采购</td>
+								<td>--</td>
+								<td>--</td>
+								<td>办公室</td>
+								<td><a class="yt-link" href="javascript:void(0)">查看</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info table-page page1" onselectstart="return false"></div>
+				</div>
+				<!--中间表格区域END-->
+			</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/query/finalQuery.js"></script>
+	<!--引用JS文件END-->
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classOccupy.min.css"/>
+		<title>课程查询</title>
+		<style type="text/css">
+			.search-box #endDate{
+				right: 0 !important;
+    			left: initial !important;
+			}
+		</style>
+	</head>
+	<body>
+			
+		<div class="page-main">
+			<div class="page-title">
+			</div>
+			<div class="tab-title-list" style="overflow: hidden;">
+				<div class="tab-title-box" style="width: 1440px;">
+					<button class="yt-option-btn class-info-btn active">• 甘特图</button>
+					<button class="yt-option-btn teacher-info-btn">• 课程列表</button>
+				</div>
+			</div>
+			<!--数据展示区域START-->
+			<div class="box-list">
+				<div class="content-box programme">
+					<div class="list-title tc">
+						<div class="fl">
+							<span>教学方案共享</span>
+							<input id="txtDate" class="calendar-input" style="width: 150px;" value="" placeholder="请选择日期" type="text" />
+						</div>
+						<span class="change-week">
+							<span>前一周</span>							
+							<span>本周</span>							
+							<span>后一周</span>	
+						</span>
+						<div class="fr example">
+							<span>上午</span>
+							<span>下午</span>
+							<span>晚上</span>
+						</div>	
+											
+					</div>
+					<table class="border-table">
+						<thead>
+							<tr>
+								<th>班级名称</th>
+								<th style="width: 40px;text-align: center;">时段</th>
+								<th class="state-day"></th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+				</div>
+				<div class="list-box content-box dn course-list">
+					<div class="list-title">
+						
+						<div class="" style="height: 14px;position: relative;">
+							<div class="search-btn-slect" style="margin-bottom: 8px;">
+								<span style="display: inline-block;margin-top: 5px;">课程列表</span>
+								<button class="yt-option-btn search-more" onclick="" onselectstart="return false">
+									更多
+									<img class="search-put" src="../../resources/images/icons/class-put.png"/>
+								</button>
+								<div class="key-word">
+									<input class="yt-input keyword" placeholder="请输入关键字" type="text"/>
+									<button class="yt-option-btn search-btn">
+										<img class="search-img" src="../../resources/images/icons/class-search.png" />
+									</button>
+								</div>
+							</div>
+							<!--弹出START-->
+							<div class="search-box">
+								<table class="search-table">
+									<tr>
+										<td>上课时间：</td>
+										<td>
+											<input class="calendar-input course-date-start" style="width: 98px;" value="" placeholder="请选择" type="text" />
+											<span class="date-line">—</span>
+											<input class="calendar-input course-date-end" value="" style="width: 98px;" placeholder="请选择" type="text" />
+										</td>
+									</tr>
+									<tr>
+										<td>编号：</td>
+										<td>
+											<input class="yt-input project-code" type="text" placeholder="请输入" />
+										</td>
+									</tr>
+									<tr>
+										<td>班级：</td>
+										<td>
+											<input class="yt-input project-name" type="text" placeholder="请输入" />
+										</td>
+									</tr>
+									<tr>
+										<td>课程名称：</td>
+										<td>
+											<input class="yt-input course-name" type="text" placeholder="请输入" />
+										</td>
+									</tr>
+									<tr>
+										<td>课程类型：</td>
+										<td>
+											<div class="base-form-model select-type">
+												<div class="project-state-box">
+													<select class="yt-select course-type-code" style="width: 241px;">
+														<!--<option value="">请选择</option>
+														<option value="2">培训中</option>
+														<option value="3">未结项</option>
+														<option value="4">已结项</option>-->
+														<option value=""></option>
+														<option value="">全部</option>
+														<option value="openingCeremony">开班式</option>
+													    <option value="seminar">专题讲座</option>
+													    <option value="caseShare">案例分享</option>
+													    <option value="teachingActivities">教学活动</option>
+													    <option value="windingUp">结业式</option>
+													</select>
+												</div>
+											</div>	
+										</td>
+									</tr>
+									<tr>
+										<td>教师：</td>
+										<td>
+											<input class="yt-input teacher-name" type="text" placeholder="请输入" />
+										</td>
+									</tr>
+									<tr>
+										<td>课程评分：</td>
+										<td>
+											<input class="calendar-input grade-start" value="" style="width: 98px;" placeholder="请选择" type="text" />
+											<span class="date-line">—</span>
+											<input class="calendar-input grade-end" value="" style="width: 98px;" placeholder="请选择" type="text" />
+										</td>
+									</tr>
+									<tr>
+										<td>项目主任：</td>
+										<td>
+											<input class="yt-input project-user-name" type="text" placeholder="请输入" />
+										</td>
+									</tr>
+								</table>
+								<!--底部按钮START-->
+								<div class="search-bottom-btn">
+									<button class="yt-model-bot-btn yt-model-sure-btn">
+										<img class="search-btn-img" src="../../resources/images/icons/class-search.png"/>
+									</button>
+									<button class="yt-model-bot-btn yt-model-reset-btn">
+										<img class="search-btn-img" src="../../resources/images/icons/class-reset.png"/>
+									</button>
+								</div>
+							</div>
+							<!--弹出END-->
+						</div>
+					</div>
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th width="30px">序号</th>
+								<th width="70px">编号</th>
+								<th>班级</th>
+								<th width="150px">上课时间</th>
+								<th>课程名称</th>
+								<th width="70px">课程类型</th>
+								<th width="110px">教师</th>
+								<th>项目主任</th>
+								<th width="60px">课程评分</th>
+							</tr>	
+						</thead>
+						<tbody class="yt-tbody list-tbody curriculum-tbody">
+							<tr>
+								<td colspan="8" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info curriculum-page" onselectstart="return false"></div>
+				</div>
+			</div>
+			
+			<!--数据展示区域END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/teacher/curriculumList.min.js"></script>
+</html>

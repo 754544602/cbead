@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>结业证列表</title>
+		<style type="text/css">
+			
+			.tr-height {
+				height: 35px;
+			}
+			.tr-head{
+				width: 60px;
+			}
+			.alert-tr-td{
+				width: 170px;
+				text-align: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<div class="search-btn-slect">
+					<div class="add-release-btn key-word" style="float: left;">
+						<button class="yt-option-btn add-class">
+							分配
+						</button>
+						<button class="yt-option-btn winding-up">
+							<img src="../../resources/images/button/update-icon.png">
+							修改
+						</button>
+					</div>
+					<div class="key-word">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!--顶部条件查询END-->
+
+			<!--数据展示区域START-->
+			<div class="list-box">
+				<table class="yt-table list-table" style="margin-top: 0px;">
+					<thead class="list-thead">
+						<tr>
+							<th class="tr-head">序号</th>
+							<th>班级名称</th>
+							<th class="tr-head">类型</th>
+							<th style="width: 80px;">项目主任</th>
+							<th class="tr-head">项目状态</th>
+							<th style="width: 170px;">申请时间</th>
+							<th class="tr-head">申请人</th>
+							<th class="tr-head">报道学员</th>
+							<th class="tr-head">状态</th>
+							<th style="width: 120px;">已分配编号组</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody list-tbody open-class-tbody">
+						<tr>
+							<td colspan="10" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info list-page" onselectstart="return false"></div>
+			</div>
+
+			<!--弹窗--> 
+			<div class="yt-pop-model yt-edit-alert add-shuttle-box" style="width: 480px;">
+				<div class="yt-edit-alert-title ">
+					<span class="ticket-class-title-span">分配</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test">
+					<form>
+						<table class="repair-tab" cellspacing="1px" cellpadding="1px" style="">
+							<tr class="tr-height">
+								<td id="projectCode" style="display: none;"></td>
+								<td class="alert-tr-td">班级名：</td>
+								<td id="projectName"></td>
+							</tr>
+							<tr class="tr-height">
+								<td class=" alert-tr-td">类型：</td>
+								<td id="projectType"></td>
+							</tr>
+							<tr class="tr-height">
+								<td class=" alert-tr-td">项目主任：</td>
+								<td id="projectHead"></td>
+							</tr>
+							<tr class="tr-height">
+								<td class=" alert-tr-td">报道学员数量：</td>
+								<td id="checkInCount"></td>
+							</tr>
+							<tr class="tr-height">
+								<td class=" alert-tr-td">申请人：</td>
+								<td id="distributionUser"></td>
+							</tr>
+							<tr class="tr-height">
+								<td class=" alert-tr-td">申请时间：</td>
+								<td id="distributionDate"></td>
+							</tr>
+							
+							<tr class="tr-height">
+								<td style="width: 170px;text-align: right;">结业证编号组：</td>
+								<td >
+									<input class="yt-input" id="serialNumber" style="width: 200px;" value="" />
+								</td>
+							</tr>
+						</table>
+					</form>
+					<div class="yt-eidt-model-bottom select-btn-div">
+						<input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="确定" />
+						<input class="yt-model-bot-btn yt-model-canel-btn select-ticket-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/distributionList/distributionList.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	
+	<!--字段验证js-->
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	
+</html>

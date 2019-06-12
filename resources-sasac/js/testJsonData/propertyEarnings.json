@@ -1,0 +1,23 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 100,
+		"rows": [
+			{
+				"propertyEarningsId":"1",
+				"serialNumber":"2020-1",
+				"assetNumber": "BG-1802-001",
+				"assetName": "电脑",
+				"assetClassification":"固定资产",
+				"businessType":"处置",
+				"contractNumber":"HT-MM-2020-003",
+				"secondPartyCompany":"东风电脑学校",
+				"managementDate":"2020-3-7",
+				"amountCollected":"1200.00",
+				"receivablesDate":"2020-3-8",
+				"paidMoney":"1200.00",
+				"incomeApplyNumbers":"087900068941"
+			}
+		]
+	}
+}

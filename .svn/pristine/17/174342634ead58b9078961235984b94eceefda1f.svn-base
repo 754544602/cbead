@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/borrow/borrow.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/bank/bankBillListInfo.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>认领记录</title>
+		<style type="text/css">
+			td{
+				word-break: break-all;
+			}
+		</style>
+	</head>
+	<!--min-width: 2764px-->
+
+	<body style="overflow: scroll;">
+		<div id="project-main" style="min-width: 1945px;">
+			<div class="head-div" style="height: 20px;">
+				<div class="search-btn-slect">
+					<div class="add-release-btn key-word" style="float: left;width: auto;">
+						<button class="yt-option-btn admission-manual">
+			  				<img src="../../resources/images/icons/export.png" alt="" />
+			  				导出
+			  			</button>
+					</div>
+					<div class="key-word">
+						<input class="yt-input selectParam" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="box-list">
+					<div class="tab-content class-info get-project-inf add-project list-box">
+						<div class="list-box">
+							<div>
+								<div style="font-size: 16px;margin-bottom: 12px;float: left;width:50%;">对账单信息</div>
+								<div class="surecheck">
+									<label class="check-label check-box-load yt-checkbox check check-cancel">  
+										<input id="checkBox2" type="checkbox" name="test" value="0">未确认  
+									</label>
+									<label class="check-label check-box-load yt-checkbox check check-sure">  
+	    								<input id="checkBox1" type="checkbox" name="test" value="1">已确认 
+									</label>
+								</div>
+								<div class="clear-both"></div>
+							</div>
+							<div class="bank-table-left">
+								<table class="list-table bank-list-table" style="margin: 0px;overflow: auto;">
+									<thead class="list-thead">
+										<tr style="height: 30px;border-bottom: none;">
+											<th width="41px" style="">序号</th>
+											<th width="90px" style="">交易时间</th>
+											<th width="98px" class="bank-th-hide" style="display: none;">借方发生额度/元</th>
+											<th width="98px" style="">贷方发生额度/元</th>
+											<th width="98px" class="bank-th-hide" style="display: none;">余额/元</th>
+											<th width="60px" class="bank-th-hide" style="display: none;">币种</th>
+											<th width="131px" style="">对方户名</th>
+											<th width="131px" class="bank-th-hide" style="display: none;">对方账号</th>
+											<th width="131px" class="bank-th-hide" style="display: none;">对方开户机构</th>
+											<th width="80px" class="bank-th-hide" style="display: none;">记账日期</th>
+											<th width="116px" class="bank-th-hide" style="display: none;">摘要</th>
+											<th width="116px" style="">备注</th>
+											<th width="131px" style="position: relative;">帐户明细编号-交易流水号
+												<div class="bank-more-div" style="cursor: pointer;font-size: 16px;margin-bottom: 12px;color: #7b74c7;position: absolute;top:-33px;;right: 0px;">查看更多</div>
+											</th>
+											<th width="116px" class="bank-th-hide" style="display: none;">企业流水号</th>
+											<th width="77px" class="bank-th-hide" style="display: none;">凭证种类</th>
+											<th width="131px" class="bank-th-hide" style="display: none;">凭证号</th>
+											<th width="131px" class="bank-th-hide" style="display: none;">关联帐户</th>
+											<th width="240px" class="bank-th-hide" style="display: none;">别名</th>
+										</tr>
+									</thead>
+									<tbody class="yt-tbody list-tbody project-tbody">
+										<tr>
+											<td class="bank-tbody-td" colspan="17" align="center" style="border:0px;">
+												<div class="no-data" style="width: 280px;margin: 0 auto;">
+													<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="bank-table-right">
+								<table class="list-table bank-list-table">
+									<thead class="list-thead">
+										<tr style="height: 30px;border-bottom: none;">
+											<th width="190px" class="project-th-hide payment-list" style="display: none;">项目销售</th>
+											<th width="90px" class="project-th-hide payment-list" style="display: none;">认领时间</th>
+											<th width="137px" class="payment-list payment-list-show lable-check" style="position: relative;">项目名称</th>
+											<th width="200px" class="payment-list payment-list-show">项目周期</th>
+											<th width="200px" class="payment-list payment-list-show">学员姓名/单位名称</th>
+											<th width="200px" class="project-th-hide payment-list" style="display: none;">单位</th>
+											<th width="68px" class="payment-list payment-list-show">未收金额(元)</th>
+											<th width="67px" class="payment-list payment-list-show">对账金额(元)</th>
+											<th width="70px" class="payment-list payment-list-show">入账金额(元)</th>
+											<th width="90px" class="payment-list payment-list-show">差额(入账金额-对账金额)</th>
+											<th width="60px" class="payment-list payment-list-show">入账确认</th>
+											<th width="100px" class="payment-list payment-list-show" style="position: relative;">
+												入账人
+												<div class="project-more-div" style="cursor: pointer;font-size: 16px;margin-bottom: 12px;color: #7b74c7;position: absolute;top:-33px;;right: -5px;">查看更多</div>
+											</th>
+										</tr>
+									</thead>
+									<tbody class="yt-tbody list-tbody project-tbody">
+										<tr>
+											<td class="bank-tbody-td" colspan="17" align="center" style="border:0px;">
+												<div class="no-data" style="width: 280px;margin: 0 auto;">
+													<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="page-info table-page page1" onselectstart="return false"></div>
+							<div class="clear-both"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/bill/claimRecord.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+
+</html>

@@ -1,0 +1,546 @@
+var statist={
+	init:function(){
+		var me = this ;
+		$("#txtDate1").calendar({  
+		    speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+		    complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+		    readonly: true, // 目标对象是否设为只读，默认：true     
+		    lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+		    nowData:true,//默认选中当前时间,默认true  
+		    dateFmt:"yyyy-MM",  
+		    callback: function() { // 点击选择日期后的回调函数  
+		    	me.setData();
+		        me.statistDatas($('#txtDate1').val().split('-')[0],$('#txtDate1').val().split('-')[1]);
+		    }  
+		}); 
+		
+		me.statistDatas($('#txtDate1').val().split('-')[0],$('#txtDate1').val().split('-')[1]);
+		me.setData();
+		$('.txtDate-before').click(function(){
+			var before = me.beforedate($('.txtDate-now').text());
+			$('#txtDate1').val(before);
+			me.setData();
+			me.statistDatas($('#txtDate1').val().split('-')[0],$('#txtDate1').val().split('-')[1]);
+		})
+		$('.txtDate-after').click(function(){
+			var after = me.afterdate($('.txtDate-now').text());
+			$('#txtDate1').val(after);
+			me.setData();
+			me.statistDatas($('#txtDate1').val().split('-')[0],$('#txtDate1').val().split('-')[1]);
+		})
+	},
+	statistDatas:function(yearData,monthData){
+		var me  = this ;
+		$.ajax({
+			type:"post",
+			url: $yt_option.base_path + "class/questionnaire/getStatisticalAnalysis",
+			async:true,
+			beforeSend:function(){
+				$yt_baseElement.showLoading();
+			},
+			data:{
+				yearData:yearData,
+				monthData:monthData
+			},
+			success:function(data){
+				if(data.flag==0){
+					//总体满意度均值
+					if(data.data.overallSatisfaction!=''){
+						var overallSatisfactionXArr = [];
+						var overallSatisfactionDataArr = [];
+						$.each(data.data.overallSatisfaction.overallSatisfactionX, function(i,n) {
+							overallSatisfactionXArr.push(n);
+						});
+						$.each(data.data.overallSatisfaction.overallSatisfactionData, function(i,n) {
+							overallSatisfactionDataArr.push(n);
+						});
+						me.part1(overallSatisfactionXArr,overallSatisfactionDataArr);
+					}
+					//每月各维度均值比较
+					var monthDataArr = [];
+					var valueList=[];
+					if(data.data.everyMonthMean.length>0){
+						$.each(data.data.everyMonthMean,function(i,n){
+							var typeList = {aa:[]};
+							monthDataArr.push(n.monthData+'均值');
+							typeList.aa.push(n.teachingPlan);
+							typeList.aa.push(n.teachersTeach);
+							typeList.aa.push(n.teachingActivitiea);
+							typeList.aa.push(n.teachingOrganization);
+							typeList.aa.push(n.learningInteraction);
+							typeList.aa.push(n.windSchoolWind);
+							typeList.aa.push(n.headmasterAbility);
+							typeList.aa.push(n.logisticalServices);
+							typeList.aa.push(n.trainingLearningEffect);
+							typeList.aa.push(n.overallSatisfaction);
+							valueList.push(typeList);
+						})
+					}
+					me.part2(monthDataArr,valueList);
+					//当月各维度均值同比
+					monthDataArr=[];
+					valueList=[];
+					if(data.data.nowMonthMean.length>0){
+						$.each(data.data.nowMonthMean, function(i,n) {
+						monthDataArr.push(n.monthData);
+						var typeList = {aa:[]};
+						typeList.aa.push(n.teachingPlan);
+						typeList.aa.push(n.teachersTeach);
+						typeList.aa.push(n.teachingActivitiea);
+						typeList.aa.push(n.teachingOrganization);
+						typeList.aa.push(n.learningInteraction);
+						typeList.aa.push(n.windSchoolWind);
+						typeList.aa.push(n.headmasterAbility);
+						typeList.aa.push(n.logisticalServices);
+						typeList.aa.push(n.trainingLearningEffect);
+						typeList.aa.push(n.overallSatisfaction);
+						valueList.push(typeList);
+						});
+					}
+					me.part3(monthDataArr,valueList);
+					//总体满意度分类统计
+					var hrmlBody = $('.four-tbody').empty();
+					var htmlTr = '';
+					if(data.data.overallSatisfactionType.length>0){
+						var valueList = [];
+						//线性图
+						var dateList=[];
+						var fiveList = [{
+									name: '调训班次',
+									type: 'line',
+									stack: '总量',
+									data: []
+								},
+								{
+									name: '委托班次',
+									type: 'line',
+									stack: '总量',
+									data: []
+								},
+								{
+									name: '选学班次',
+									type: 'line',
+									stack: '总量',
+									data: []
+								}]
+						$.each(data.data.overallSatisfactionType, function(i,n) {
+							var typeList = {aa:[]};
+							/*
+							 表格
+							 * */
+							htmlTr = '<tr>'+
+							'<td>'+n.monthData+'</td>'+
+							'<td>'+n.byreakInClass+'</td>'+
+							'<td>'+n.entrustClass+'</td>'+
+							'<td>'+n.selectionClass+'</td>'+
+							'</tr>';
+							hrmlBody.append(htmlTr);
+							/*
+							 柱状图
+							 * */
+							if(i==Number(data.data.overallSatisfactionType.length)-1){
+								typeList.aa.push(n.byreakInClass);
+								typeList.aa.push(n.entrustClass);
+								typeList.aa.push(n.selectionClass);
+								valueList.push(typeList);
+							}
+							if(i==Number(data.data.overallSatisfactionType.length)-2){
+								typeList.aa.push(n.byreakInClass);
+								typeList.aa.push(n.entrustClass);
+								typeList.aa.push(n.selectionClass);
+								valueList.push(typeList);
+							}
+							/*
+							 线图
+							 * 
+							 * */
+							if(i!=Number(data.data.overallSatisfactionType.length)-1){
+								dateList.push(n.monthData);
+								fiveList[0].data.push(n.byreakInClassCount);
+								fiveList[1].data.push(n.entrustClassCount);
+								fiveList[2].data.push(n.selectionClassCount);
+							}
+							
+						});
+						me.part4(valueList);
+						me.part5(dateList,fiveList);
+					}else{
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="5" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 120px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="width: 120px;padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							htmlBody.append(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				}else{
+					$yt_baseElement.hideLoading(function(){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+				
+				
+				
+			}
+		});
+	},
+	setData:function(){
+	var me = this ;
+	$('.txtDate-now').text($("#txtDate1").val());
+	$('.txtDate-before').text(me.beforedate($("#txtDate1").val()));
+	$('.txtDate-after').text(me.afterdate($("#txtDate1").val()));
+	},
+	beforedate:function(val){
+			var mouthArr =  val.split('-');
+			if(mouthArr[1]=='01'){
+				mouthArr[1] = '12';
+				mouthArr[0] = Number(mouthArr[0])-1;
+			}else{
+				mouthArr[1] = Number(mouthArr[1])-1;
+				if(mouthArr[1]<10){
+					mouthArr[1] = '0'+mouthArr[1];
+				}
+			}
+			mouthArr = mouthArr.join('-');
+			return mouthArr;
+		},
+		afterdate:function(val){
+			var mouthArr = val.split('-');
+			if(mouthArr[1]=='12'){
+				mouthArr[1] = '01';
+				mouthArr[0] = Number(mouthArr[0])+1;
+			}else{
+				mouthArr[1] = Number(mouthArr[1])+1;
+				if(mouthArr[1]<10){
+					mouthArr[1] = '0'+mouthArr[1];
+				}
+			}
+			mouthArr = mouthArr.join('-');
+			return mouthArr;
+		},
+		part1: function(overallSatisfactionXArr,overallSatisfactionDataArr) {
+		var myChart = echarts.init($('.statistics-draw1').get(0));
+		option = {
+			title: {
+				text: '一、总体满意度均值',
+				textStyle: {
+					color: '#111111',
+					fontSize: 18,
+					fontWeight: 100
+				},
+				top: 17
+			},
+			toolbox: {
+		        feature: {
+		            magicType: {
+		            },
+		            dataView: {}
+		        },
+		        top:15
+		    },
+			grid: {
+				top: '20%',
+				bottom: '5%',
+				left:'0%',
+				right:'0%',
+				containLabel: true
+			},
+			xAxis: {
+				type: 'category',
+				data:overallSatisfactionXArr
+			},
+			yAxis: {
+				type: 'value'
+			},
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			series: [{
+				data:overallSatisfactionDataArr,
+				type: 'bar',
+				label: {
+					show: true,
+					position: 'top',
+					color: '#000'
+				},
+				barWidth: 15,
+				barGap: "0%",
+				barCategoryGap: "60px",
+				itemStyle: {
+					barBorderRadius: [2, 2, 0, 0]
+				},
+			}]
+		};
+		myChart.setOption(option);
+	},part2: function(dateList,valueList) {
+		var myChart = echarts.init($('.statistics-draw2').get(0));
+		var nameList = ['教学方案', '教师授课', '教学活动', '教学组织', '学员互动', '学风院风', '班主任履职能力', '后勤服务', '培训学习效果', '总体满意度'];
+		var dateList = dateList;
+		var valueList = valueList;
+		var seriesList = [];
+		$.each(dateList, function(k, v) {
+			seriesList.push({
+				name: v,
+				type: 'bar',
+				barMaxWidth: 40,
+				itemStyle: {
+					normal: {
+						show: true,
+					}
+				},
+				barWidth: 15,
+				barGap: "0%",
+				barCategoryGap: "130px",
+				itemStyle: {
+					barBorderRadius: [2, 2, 0, 0]
+				},
+				data: valueList[k].aa
+			});
+		});
+		option = {
+			title: {
+				text: '二、每月各维度均值比较',
+				textStyle: {
+					color: '#111111',
+					fontSize: 18,
+					fontWeight: 100
+				},
+				top: 27
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'shadow'
+				}
+			},
+			toolbox: {
+		        feature: {
+		            magicType: {
+		            },
+		            dataView: {}
+		        },
+		        top:25
+		    },
+			legend: {
+				data: dateList,
+				right: 21,
+				itemWidth: 10,
+				itemHeight: 10,
+				top: 30,
+			},
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			grid: {
+				top: '20%',
+				left: '0%',
+				right: '0%',
+				containLabel: true
+			},
+			yAxis: {
+				type: 'value',
+				boundaryGap: [0, 0.01]
+			},
+			xAxis: {
+				type: 'category',
+				data: nameList
+			},
+			series: seriesList
+		};
+		myChart.setOption(option);
+	},
+	part3: function(dateList,valueList) {
+		var myChart = echarts.init($('.statistics-draw3').get(0));
+		var nameList = ['教学方案', '教师授课', '教学活动', '教学组织', '学员互动', '学风院风', '班主任履职能力', '后勤服务', '培训学习效果', '总体满意度'];
+		var dateList =dateList;
+		var valueList = valueList;
+		var seriesList = [];
+		$.each(dateList, function(k, v) {
+			seriesList.push({
+				name: v,
+				type: 'bar',
+				barMaxWidth: 40,
+				itemStyle: {
+					normal: {
+						show: true,
+					}
+				},
+				barWidth: 15,
+				barGap: "0%",
+				barCategoryGap: "130px",
+				itemStyle: {
+					barBorderRadius: [2, 2, 0, 0]
+				},
+				data: valueList[k].aa
+			});
+		});
+		option = {
+			title: {
+				text: '三、当月各维度均值同比',
+				textStyle: {
+					color: '#111111',
+					fontSize: 18,
+					fontWeight: 100
+				},
+				top: 24
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'shadow'
+				}
+			},
+			toolbox: {
+		        feature: {
+		            magicType: {
+		            },
+		            dataView: {}
+		        },
+		        top:25
+		    },
+			legend: {
+				data: dateList,
+				right: 21,
+				itemWidth: 10,
+				itemHeight: 10,
+				top: 30,
+			},
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			grid: {
+				top: '20%',
+				left: '0%',
+				right: '0%',
+				containLabel: true
+			},
+			yAxis: {
+				type: 'value',
+				boundaryGap: [0, 0.01]
+			},
+			xAxis: {
+				type: 'category',
+				data: nameList
+			},
+			series: seriesList
+		};
+		myChart.setOption(option);
+	},
+	
+	part4: function(valueList) {
+		var myChart = echarts.init($('.statistics-draw4').get(0));
+		var nameList = ['调训', '委托', '选学'];
+		var dateList = [ '总统满意度'+$('#txtDate1').val().split('-')[1]+'月均值','总体满意度'+$('#txtDate1').val().split('-')[0]+'年均值'];
+		var valueList = valueList;
+		var seriesList = [];
+		$.each(dateList, function(k, v) {
+			seriesList.push({
+				name: v,
+				type: 'bar',
+				barMaxWidth: 40,
+				itemStyle: {
+					normal: {
+						show: true,
+					}
+				},
+				barWidth: 15,
+				barGap: "0%",
+				barCategoryGap: "130px",
+				itemStyle: {
+					barBorderRadius: [2, 2, 0, 0]
+				},
+				data: valueList[k].aa
+			});
+		});
+		option = {
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'shadow'
+				}
+			},
+			legend: {
+				data: dateList,
+				right: 21,
+				itemWidth: 10,
+				itemHeight: 10,
+				top: 4,
+			},
+			toolbox: {
+		        feature: {
+		            magicType: {
+		            },
+		            dataView: {}
+		        }
+		    },
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			grid: {
+				left: '4%',
+				right: '5%',
+				bottom: '0%',
+				containLabel: true
+			},
+			yAxis: {
+				type: 'value',
+				boundaryGap: [0, 0.01]
+			},
+			xAxis: {
+				type: 'category',
+				data: nameList
+			},
+			series: seriesList
+		};
+		myChart.setOption(option);
+	},
+	part5: function(dataList,seriesData) {
+		var myChart = echarts.init($('.statistics-draw5').get(0));
+		option = {
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data: ['调训班次','委托班次', '选学班次'],
+				right:25,
+				top:10
+			},
+			toolbox: {
+		        feature: {
+		            magicType: {
+		            },
+		            dataView: {}
+		        },
+		        top:5
+		    },
+			grid: {
+				left: '1%',
+				right: '1%',
+				bottom: '3%',
+				containLabel: true
+			},
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			xAxis: {
+				type: 'category',
+				boundaryGap: false,
+				data: dataList
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: seriesData
+//			[{
+//					name: '委托班次',
+//					type: 'line',
+//					stack: '总量',
+//					data: [120, 132, 101, 134, 90, 230, 210, 210, 210]
+//				},
+//				{
+//					name: '选学班次',
+//					type: 'line',
+//					stack: '总量',
+//					data: [220, 182, 191, 234, 290, 330, 310, 210, 210]
+//				}
+//			]
+		};
+
+		myChart.setOption(option);
+	}
+}
+$(document).ready(function() {
+	statist.init();
+})

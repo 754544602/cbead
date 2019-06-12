@@ -1,0 +1,86 @@
+.body-div {
+    margin: 5px;
+    border: 1px solid #DFE6F3;
+    background-color: #FFFFFF;
+    min-width: 950px;
+    /*min-height: 865px;*/
+}
+.search-div {
+    /*width: 1400px;*/
+    padding: 10px 25px;
+    background: #fff;
+    /*border-bottom: 1px solid #DFE6F3;*/
+}
+.form-table tr td {
+    padding: 10px 0;
+}
+
+.letter-four {
+    letter-spacing: 5px;
+}
+.nice-select {
+    display: inline-block;
+    float: none;
+    width: 150px;
+    vertical-align: middle;
+}
+.nice-select .current {
+    width: 100%;
+    color: #999;
+    display: inline-block;
+    overflow: hidden;
+}
+.apply-types {
+    width: 233px;
+}
+.department {
+    width: 246px;
+}
+
+.input-rod {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.plan-list-model{
+	margin: 20px;
+}
+.operate-update {
+    margin-right: 23px;
+}
+.separator{
+ margin: 0px 10px;
+ color: #999999;
+}
+.yt-table{
+	table-layout: auto;
+}
+.user-name-sel{
+	width: 190px;
+}
+.apply-begin-money,.apply-end-money{
+	width: 190px;
+	padding-right: 4px;
+}
+
+/*
+ * 清楚浮动
+ */
+.clearfix:after{
+    content:"";/*设置内容为空*/
+    height:0;/*高度为0*/
+    line-height:0;/*行高为0*/
+    display:block;/*将文本转为块级元素*/
+    visibility:hidden;/*将元素隐藏*/
+    clear:both;/*清除浮动*/
+}
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+}
+.float-left {
+    float: left
+}
+
+.float-right {
+    float: right
+}
+

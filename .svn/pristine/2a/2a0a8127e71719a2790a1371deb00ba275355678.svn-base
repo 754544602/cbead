@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-frame-base.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<title>班次看板</title>
+		<style>
+			.active-title{
+				height: 40px;
+				line-height: 40px;
+			    font-size: 16px;
+			    color: #de595a;
+			    padding: 5px 25px;
+			}
+			.active-num{
+				display: inline-block;
+				width: 32px;
+				height: 32px;
+				background: url(../../resources/images/icons/discuss-steps-red.png);
+				line-height: 32px;
+				text-align: center;
+				margin-right:10px ;
+			}
+			.active-content{
+			    background: #FFF;
+			    padding: 5px 20px;
+			    margin-bottom: 10px;
+			}
+			.active-content tr{
+				height: 40px;
+			}
+			.active-content td{
+				font-size: 15px;
+			}
+			.active-content tr td:nth-child(1){
+				text-align: right;
+			}
+			.nav{
+				position: fixed;
+				right: 50px;
+				top: 50px;
+				z-index: 100;
+			}
+			.nav ul{
+				list-style: none;
+			}
+			.nav ul li {
+				margin-top: 20px;
+				cursor: pointer;
+			}
+			.nav ul .round{
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				border: 1px solid #3A3A3A;
+				background-color: #fff;
+				margin-right: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="project-main" style="min-width: 1100px;">
+			<div class="page-title">
+				<span class="project-name"></span>
+				<button class="page-return-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png"/>
+					返回
+				</button>
+			</div>
+			<!--数据展示区域START-->
+				<!--导航-->
+				<div class="nav">
+					<ul>
+						<li><span class="round"></span>班级信息</li>
+						<li><span class="round"></span>委托方领导及驻班员</li>
+						<li><span class="round"></span>重要学员</li>
+						<li><span class="round"></span>接待活动</li>
+					</ul>
+				</div>
+				<div class="content-box class-div">
+					<div class="class-info-div" id="className">
+						班级信息
+					</div>
+					<div class="tab-content class-info">
+						<div class="class-info-centent">
+							<table class="class-info-table">
+								<tr>
+									<td width="160px">
+										<span class="project-code-span">班级编号：</span>
+									</td>
+									<td width="360px">
+										<input type="hidden" class="project-pk-id" />
+										<div type="text" style="display: inline-block;" data-text="projectCode"></div>
+										<span ><a class="yt-link see-more-mssage">点击查看更多项目信息</a></span>
+									</td>
+									<td width="160px">
+										<span>班级名称：</span>
+									</td>
+									<td>
+										<div type="text" data-text="projectName"></div>
+									</td>
+								</tr> 
+								<tr>
+									<td>
+										<span>项目类型：</span>
+									</td>
+									<td>
+										<div type="text" data-text="projectTypeVal"></div>
+									</td>
+									<td>
+										<span>培训天数：</span>
+									</td>
+									<td colspan="3">
+										<div type="text" data-text="trainDate"></div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>培训日期：</span>
+									</td>
+									<td>
+										<div type="text" data-text="startDate"></div>
+									</td>
+									<td>
+										<span>结束日期：</span>
+									</td>
+									<td>
+										<div type="text" data-text="endDate"></div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!--委托方领导及驻班员-->
+					<div class="class-info-div entrust-compay-div" id="entrust">
+						委托方领导及驻班员
+					</div>
+					<div class="tab-content entrust-info">
+						<div class="entrust-info-centent">
+							<table class="entrust-info-table" style="width: 100%;">
+								<tr class="class-tr">
+										<td colspan="9" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+					<!--重要学员-->
+					<div class="class-info-div" id="teacher">
+						重要学员
+					</div>
+					<div class="person-info">
+						<div class="person-info-centent">
+							<table class="yt-table teacher-table list-table">
+								<thead class="teacher-tbody list-thead">
+									<tr>
+										<th class="check-box-th">
+											序号
+										</th>
+										<th style="width: 100px;">姓名</th>
+										<th width="40px">性别</th>
+										<th style="width: 100px;">手机号</th>
+										<th>集团</th>
+										<th>单位</th>
+										<th width="130px">部门/职务</th>
+										<th width="60px">首次培训</th>
+										<th>重要原因</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody list-tbody teacher-list-tbody">
+									<tr class="class-tr">
+										<td colspan="9" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--接待活动-->
+					<div class="class-info-div" id="acive">
+						接待活动
+					</div>
+					<div class="acive-info">
+						<div class="acive-info-centent">
+							<div class="no-data" style="width: 280px;margin: 0 auto;">
+								<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+							</div>
+					</div>
+				</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/echarts/echarts.min.js"></script>
+	<script src="../../resources/js/calendar/yt-calendar.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/modules/classBoard/classBoardInfo.js"></script>
+
+</html>

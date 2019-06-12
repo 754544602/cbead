@@ -1,0 +1,519 @@
+.tab-td-num tr td {
+	text-align: center;
+	color: #FFFFFF;
+	background: #0000FF;
+}
+
+.td-num-sty {
+	background: #384495;
+	color: #FFFFFF;
+	height: 25px !important;
+	line-height: 25px;
+}
+
+.nav-heard {
+	width: 100%;
+	border-top: none;
+	z-index: 5;
+	background: #FFFFFF;
+	height: 40px;
+}
+
+.active-nav {
+	color: #384495;
+	border-bottom: 2px solid #384495;
+	background: #FFFFFF;
+	box-sizing: border-box;
+}
+
+.tab-nav {
+	float: left;
+	display: inline;
+	padding: 0px 20px;
+	height: 40px;
+	line-height: 38px;
+	font-size: 16px;
+	text-align: center;
+	cursor: pointer;
+	box-sizing: border-box;
+}
+
+.config-thead tr th.config-btn,
+.config-table tr td.config-btn {
+	background: #384495;
+	font-size: 12px;
+}
+
+.config-table tr th,
+.config-thead tr th div {
+	text-align: center;
+	font-size: 12px;
+}
+
+.config-table tr td {
+	font-size: 12px;
+}
+
+.yt-tbody tr {
+	border: none;
+}
+
+.yt-tbody td {
+	border: 1px solid #DFE6F3;
+}
+
+
+/*滚动条样式*/
+
+ ::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width: 6px;
+	/*高宽分别对应横竖滚动条的尺寸*/
+	height: 6px;
+}
+
+ ::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	background: #97C7ED;
+}
+
+ ::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	background: #c8c8c8;
+}
+
+.no-select-table {
+	text-align: center;
+	position: absolute;
+	top: 44%;
+	left: 0;
+	right: 0;
+}
+
+.save-config,
+.canel-config {
+	display: none;
+}
+
+.box-row {
+	height: 35px;
+	line-height: 35px;
+}
+
+.attributes {
+	top: 4px;
+}
+
+.save-config,
+.save-btn {
+	margin-right: 5px;
+}
+
+.tab-config-btngroup {
+	position: absolute;
+	right: 10px;
+	top: 18px;
+	text-align: right;
+	width: 145px;
+}
+
+.config-btngroup {
+	display: none;
+	padding: 20px 0px;
+	text-align: center;
+	width: 100%;
+}
+
+.config-btngroup .tb-save-btn {
+	margin-right: 15px;
+}
+
+.row-config-panel p {
+	padding-left: 28px;
+}
+
+.model-bottom-btn {
+	width: 100%;
+}
+
+.row-config-panel .box-lable2 {
+	width: 100px !important;
+}
+
+.row-config-panel .box-lable2 input.word-code {
+	position: absolute;
+	margin-top: 2px;
+	width: 150px !important;
+	margin-right: 10px;
+}
+
+.row-config-panel .attributes-list,
+.column-config-panel .attributes-list {
+	margin-top: 10px;
+}
+
+.table-active {
+	background: #d9e8f5 !important;
+}
+
+.column-config-panel .box-lable ,.row-config-panel .box-lable{
+	width: auto !important;
+}
+
+.row-config-panel .attributes-list .box-lable1,
+.column-config-panel .attributes-list .box-lable1 {
+	letter-spacing: 4px;
+	width: 109px;
+}
+
+.column-config-panel .attributes-list .box-lable1 {
+	width: 140px;
+}
+.row-attr .attributes-list .box-row,.column-attr .attributes-list .box-row,.row-col-model .attributes-list .box-row{
+	float: left;
+	display: inline;
+}
+.column-config-panel .box-row {
+	margin-top: 5px;
+}
+
+.column-config-panel .attributes {
+	width: 165px;
+}
+
+.column-config-panel,
+.row-config-panel {
+	padding: 5px;
+}
+
+.row-col-model {
+	float: left;
+	width: 100%;
+	margin-top: 5px;
+	min-width: 1100px;
+}
+
+.no-data,
+.no-data img {
+	padding: 0px;
+}
+
+.table-attr .word-code,
+.column-config-panel .word-code {
+	width: 362px !important;
+	margin-right: 12px;
+}
+
+.table-attr p,
+.column-attr p,
+.row-attr p,
+.cell-attr p {
+	color: #384495;
+	width: 165px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.table-attr {
+	float: left;
+	display: inline;
+}
+
+.row-attr {
+	float: left;
+	display: inline;
+}
+.del-attr img,.add-attr img{
+	margin-bottom: 4px;
+	vertical-align: middle;
+}
+.column-attr,
+.cell-attr {
+	float: left;
+	display: inline;
+	margin-top: 15px;
+}
+
+.tr-shadow {
+	border: 2px solid #384495 !important;
+	background: #d9e8f5 !important;
+}
+
+.td-shadow {
+	border-left: 2px solid #384495 !important;
+	border-right: 2px solid #384495 !important;
+	background: #d9e8f5 !important;
+}
+
+.config-th-sty {
+	opacity: 0.8;
+	background: green !important;
+}
+
+.cell-shadow {
+	border: 2px solid #384495 !important;
+	background: #d9e8f5 !important;
+}
+
+.font-bold {
+	color: #384495;
+	font-weight: bold;
+}
+
+.cell-model .cell-title {
+	text-align: center;
+	font-size: 15px;
+}
+
+.cell-model .area-box {
+	padding-bottom: 10px;
+}
+
+.cell-tip-btn {
+	text-align: center;
+}
+
+.cell-tip-btn button {
+	padding: 0px 5px;
+	height: 25px;
+	line-height: 23px;
+	width: 40px;
+	font-size: 12px;
+}
+
+.tick-img {
+	vertical-align: middle;
+}
+
+.search-img {
+	margin-right: 8px;
+	margin-bottom: 3px;
+    width: 25px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.row-config-panel .attributes-list .box-lable{
+	width: 78px !important;
+	text-align:left;
+}
+.formual input {
+	width: 490px;
+}
+.word-num-sel{
+	float: none !important;
+	/*position: absolute;*/
+	margin-top: 3px;
+	width: 368px;
+	margin-right: 10px;
+}
+.table-attr .box-lable2{
+	width: 380px;
+}
+.column-config-panel .attributes-list .box-lable2{
+	width: 380px;
+}
+.row-config-panel .word-num-sel{
+	width: 200px;
+}
+
+.row-config-panel .box-content{
+	text-align: center !important;
+}
+.row-config-panel .attributes-list .box-lable2{
+	width: 188px !important;
+}
+.box-button {
+	position: relative;
+	width: 108px;
+}
+.column-config-panel .nice-select ul.list{
+    bottom: inherit !important;
+} 
+.property-model label.check-label{
+	display: initial;
+	margin-right: 10px;
+}
+
+/*20180503*/
+.attributes-list-append .box-row{
+	padding-bottom: 15px;
+}
+
+.rule-table .indicate-head .dis,.rule-table .yt-tbody th.dis{
+	background-color: #C8C8C8;
+}
+.rule-table .yt-thead th{
+	text-align: center;
+}
+.box-lable, .box-lable1{
+	width: auto;
+}
+/*
+ * 
+ * 
+ * 
+ * 20180523
+ * 表间计算相关
+ * 
+ * 
+ */
+.table-rela-model{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0 auto;
+	display: none;
+	width: 100%;
+	height: 100%;
+	background: #FFFFFF;
+}
+.title-div-sty{
+	padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 0px 5px;
+    text-align: center;
+    font-size: 20px;
+}
+.title-div-sty label{
+	color: #384495;
+    font-weight: bold;
+}
+.table-rela-model .calcu-area{
+  padding: 15px;	
+}
+#calcuInput{
+	width: 80%;
+}
+#tableTemplate{
+	padding: 15px 0px 0px 15px;
+}
+#tableTemplate .rule-table-div{
+	overflow-y: scroll !important;
+}
+#tableTemplate .rule-table .img-def{
+	display: none;
+}
+button.calcu-sure-btn{
+	margin-right: 5px;
+}
+.tab-table-title{
+	text-align: center;
+    font-weight: bold;
+    margin: 10px 0px;
+    font-size: 15px;
+}
+#tableTemplate .tabs li a.tabs-inner{
+    background: #6495bc !important;
+    border-color: #6495bc !important;
+    color: #FFFFFF !important;
+}
+#tableTemplate .tabs-header, .tabs-tool{
+	background-color: initial !important;
+	border: none !important;
+}
+.tabs-scroller-left,.tabs-scroller-right{
+	background-color: #FFFFFF;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+}
+#tableTemplate .tabs-panels,#tableTemplate  ul.tabs{
+    border-color: #DFE6F3 !important;
+}
+.help-icon{
+	margin-left: 5px;
+	cursor: pointer;
+}
+.attr-table-sel{
+	width: 200px;
+}
+#tableTemplate .tabs li.tabs-selected a.tabs-inner .tabs-title{
+	color: #333333 !important;
+	font-size: 14px  !important;
+}
+/**
+ * 
+ * 
+ * 表间计算表格拖拽右键样式
+ * 
+ * 
+ */
+.right-button-context {
+	position: fixed;
+	left: 0;
+	top: 0;
+	min-width: 100px;
+	background: #f3f3f3;
+	display: none;
+	z-index: 9;
+	border:1px solid #e9ecf3;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.right-button-context ul li {
+	list-style: none;
+	padding: 5px 10px;
+	border-top: 1px solid #e6e6e6;
+	cursor: pointer;
+    text-align: center;
+}
+
+.right-button-context ul li:first-child {
+	border-top: none;
+}
+
+.right-button-context ul li.dis {
+	color: #999;
+	cursor: default;
+}
+
+.right-button-context ul li.dis:hover {
+	background: #fff;
+	color: #999;
+	cursor: default;
+}
+
+.right-button-context ul li:hover {
+	background: #384495;
+	color: #fff;
+}
+.yt-table tbody td.cell-check .img-def,.yt-table tbody td.cell-check .img-check{
+	display: inline-block !important;
+}
+.layout-panel-north .panel-body{
+	border: 0px !important;
+}
+.row-col-model .row-col-title{
+	padding-left: 10px;
+	height: 30px;
+	line-height: 30px;
+	border-style: solid;
+	border-width: 1px 0px;
+	border-color: #d6e6f3;
+	background: #f3f3f3;
+	cursor: pointer;
+}
+.attr-model{
+	display: none;
+}
+.attr-model .save-config{
+	display: inline-block;
+    float: right;
+    margin-top: 10px;
+}
+.attr-model .row-attr,.attr-model .column-attr,.attr-model .cell-attr{
+	width: 92%;
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+.config-title-check{
+	background: #d6e6f3 !important;
+}
+.row-col-model .config-num{
+	margin: 0px 5px;
+	color: #384495;
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-frame-base.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/statistics/statistics.css" />
+		<title></title>
+	</head>
+
+	<body>
+		<div class="statistics-top">
+			<input id="txtDate1" class="calendar-input" style="width: 109px;height: 24px;" value="" placeholder="请选择日期" type="text" />
+			<div id="txtDate-box">
+				<span class="txtDate-before txtDate-span"></span>
+				<span class="txtDate-now txtDate-span"></span>
+				<span class="txtDate-after txtDate-span"></span>
+			</div>
+		</div>
+		<div class="statistics-box">
+			<div class="average"></div>
+			<div class="statistics-draw1">
+			</div>
+		</div>
+		<div class="statistics-box">
+			<div class="average"></div>
+			<div class="statistics-draw2">
+			</div>
+		</div>
+		<div class="statistics-box">
+			<div class="statistics-draw3">
+			</div>
+		</div>
+		<div class="statistics-box">
+			<h1>四、总体满意度分类统计</h1>
+			<div class="left-table">
+				<table border="" cellspacing="" cellpadding="">
+					<thead>
+						<tr>
+							<th>月份</th>
+							<th>调班班次</th>
+							<th>委托班次</th>
+							<th>选学班次</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>3-4月</td>
+							<td>95.42/2期</td>
+							<td>97.42/10期</td>
+							<td>97.42/5期</td>
+						</tr>
+						<tr>
+							<td>3-4月</td>
+							<td>95.42/2期</td>
+							<td>97.42/10期</td>
+							<td>97.42/5期</td>
+						</tr>
+						<tr>
+							<td>3-4月</td>
+							<td>95.42/2期</td>
+							<td>97.42/10期</td>
+							<td>97.42/5期</td>
+						</tr>
+						<tr>
+							<td>3-4月</td>
+							<td>95.42/2期</td>
+							<td>97.42/10期</td>
+							<td>97.42/5期</td>
+						</tr>
+						<tr>
+							<td>3-4月</td>
+							<td>95.42/2期</td>
+							<td>97.42/10期</td>
+							<td>97.42/5期</td>
+						</tr>
+						<tr>
+							<td>3-4月</td>
+							<td>95.42/2期</td>
+							<td>97.42/10期</td>
+							<td>97.42/5期</td>
+						</tr>
+						<tr>
+							<td>3-4月</td>
+							<td>95.42/2期</td>
+							<td>97.42/10期</td>
+							<td>97.42/5期</td>
+						</tr>
+						<tr>
+							<td>3-4月</td>
+							<td>95.42/2期</td>
+							<td>97.42/10期</td>
+							<td>97.42/5期</td>
+						</tr>
+						<tr>
+							<td>3-4月</td>
+							<td>95.42/2期</td>
+							<td>97.42/10期</td>
+							<td>97.42/5期</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="draw">
+				<div class="statistics-draw4">
+				</div>
+			</div>
+			<div class="clear-both"></div>
+			<div class="statistics-draw5">
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/echarts/echarts.min.js"></script>
+	<script src="../../resources/js/calendar/yt-calendar.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/modules/statistics/statistics.js"></script>
+
+</html>

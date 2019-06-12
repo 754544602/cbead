@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--窗口小图标-->
+		<link rel="icon" href="/cbead/website/resources/images/icons/ICO.png" type="image/x-icon">
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		
+		<!--提示信息控件-->
+		<!--<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" />-->
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/payment/costSharingList.css?YTVERSIONCODE=2018052802" /><!--?YTVERSIONCODE=2018052101-->
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+	<body>
+		<div id="costSharingList">
+			<input type="hidden" id="saveOrChange" value="" />
+			<div id="costSharingBtn">
+				<button class="yt-option-btn yt-common-btn">费用分摊</button>
+			</div>
+			<div style="clear: both;" id="accountingSubsidiary">
+				<!--标题区域START-->
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+					<span class="title-text">手动预算核减明细</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<input type="hidden" id="subInfoId" />
+				<!--标题区域END-->
+				<!--当前预算核减明细内容START-->
+				<table class="yt-table this-budget-table" style="width: 100%;margin-top:15px">
+					<thead class="yt-thead">
+						<tr>
+							<th>所属预算项目</th>
+							<th style="width: 120px;">金额（元）</th>
+							<th style="width: 130px;">有无费用分摊纪录</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<tr class="accounting-subsidiary-cut-total">
+							<td>合计</td><td class="budget-sum-me-money" id="accountingSubsidiaryMoney" style="text-align: right;">0.00</td><td></td>
+						</tr>
+					</tbody>
+				</table>	
+				<!--当前预算核减明细内容END-->
+			</div>
+			<div style="" id="currentApportionment">
+				<!--标题区域START-->
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+					<span class="title-text">当前分摊费用</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<p class="cost-sharing-project">请选择一条需要分摊费用的所属预算项目</p>
+				<div id="costSharingProjectInf" style="display: none;">
+					<span style="font-weight: bold;">当前分摊费用所属预算项目:</span>
+					<span class="costSharingProName"></span>
+					<span style="margin-left: 100px;font-weight: bold;">当前分摊费用金额:</span>
+					<span class="costSharingProMoney"></span>
+					<span>元</span>
+				</div>
+			</div>
+			<div style="" id="projectAllocationDetails">
+				<!--标题区域START-->
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+					<span class="title-text">项目分摊明细</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<p class="cost-sharing-project">请选择一条需要分摊费用的所属预算项目</p>
+				<table class="yt-table this-budget-table project-allocation-details-table" style="width: 100%;margin-top:15px;display: none;">
+					<thead class="yt-thead">
+						<tr>
+							<th>分摊项目名称</th>
+							<th style="width: 150px;">费用分摊金额（元）</th>
+							<th style="width: 120px;">操作</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<tr class="default-tr list-tr">
+							<td style="text-align: left;padding-left:15px;text-align: center;">
+								<input type="hidden" class="project-id" value="">
+								<span class="data-span"></span>
+								<input  id="" class="yt-input data-input share-project-change" readonly="readonly" placeholder="请选择" style="cursor: pointer;" />
+							</td>
+							<td style="text-align: right;" class="shareAmount-td">
+								<span class="data-span"></span>
+								<input  id="" class="yt-input data-input input-money" value="0.00" placeholder="0.00" style="text-align: right;width: 80%;padding-right: 4px;" />
+							</td>
+							<td class="img-icon">
+								<div class="budget-share-detailed-list-yes">
+									<span class="operate-update" style="margin-right: 20px;"><img src="../../../../../resources-sasac/images/common/edit-icon.png"></span>
+									<span class="operate-del"><img src="../../../../../resources-sasac/images/common/del-icon.png"></span>
+								</div>
+								<div class="budget-share-detailed-list-no">
+									<span class="operate-save" style="margin-right: 20px;"><img src="../../../../../resources-sasac/images/common/save-icon.png"></span>
+									<span class="operate-del"><img src="../../../../../resources-sasac/images/common/canel-icon.png"></span>
+								</div>
+							</td>
+						</tr>
+						<tr class="last">
+							<td style="padding-top: 10px;" colspan="3"><span class="add-row"><img src="../../../../../resources-sasac/images/common/addRow.png" style="width: 15px;height: 15px;"></span></td>
+						</tr>
+						<tr class="project-allocation-detail-scut-total">
+							<td>合计</td><td class="budget-sum-me-money" id="projectAllocationDetailsMoney" style="text-align: right;">0.00</td><td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--弹出框-->
+			 <div class="yt-pop-model yt-edit-alert"  id="shareProjectAlert" style="width: 800px;">  
+		          <!--标题区域START-->  
+		          <div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">分摊项目选择</span>  
+		          </div>  
+		          <!--标题区域END-->  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main cont-edit-test" style="padding-top: 18px;height: 500px;overflow-y: auto;">  
+		          	<!--模糊查询-->
+		          	<div style="margin: 0px 0px 0px 20px;">
+		          		<div id="keyWord" style="display: inline-block;">
+		          			<span>关键字：</span>
+		          			<input type="text" class="yt-input key-word" placeholder="请输入关键字" />
+		          		</div>
+		          		<div style="display: inline-block;">
+		          			<button class="yt-option-btn yt-common-btn" id="searchBtn">查询</button>
+		          			<button class="yt-option-btn yt-reset-btn" id="resetBtn">重置</button>
+		          		</div>
+		          	</div>
+		            <form>  
+		                <table class="yt-table" style="width: 765px;">  
+		                    <thead class="yt-thead">
+								<tr>
+									<th>单据编号</th>
+									<th>培训项目</th>
+									<th>申请人</th>
+									<th>申请处室</th>
+									<th>申请日期</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody">
+							</tbody>
+		                </table> 
+		                <!--分页START-->  
+						<div class="page-info table-page" onselectstart="return false"></div>  
+						<!--分页END-->  
+		            </form>
+		          </div>  
+		          <!--主体内容部分END-->    
+		            <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom">  
+		                <input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="确定" />  
+		                <input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />  
+		            </div>  
+		    </div>
+		    <!--底部按钮-->
+		    <div style="text-align: center;margin-top: 20px;">
+		    	<button class="yt-option-btn yt-common-btn" id="saveBtn" style="margin-right: 10px;">保存</button>
+  				<button class="yt-option-btn yt-reset-btn" id="cancelBtn" style="margin-left: 10px;">关闭</button>
+		    </div>
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script>
+	
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用字段验证文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-valid.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/payment/costSharingList.min.js?YTVERSIONCODE=2019011501"></script><!--?YTVERSIONCODE=2018052202-->
+	<!--引用JS文件END-->
+</html>

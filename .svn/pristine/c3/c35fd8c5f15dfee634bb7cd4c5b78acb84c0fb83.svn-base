@@ -1,0 +1,400 @@
+var addCostList = {
+	//初始化方法
+	init: function() {
+		//加载项目列表projectName
+		addCostList.getProjectInfo();
+		//下拉列表刷新
+		$("select").niceSelect();
+		//点击下拉框选择项目名称获取数据
+		$("select.project-name-select").change(function() {
+			if($(this).val() != 0) {
+				var costData = $(this).find("option:selected").data("costData");
+				if(costData.projectCode != null) {
+					$('.project-code').text(costData.projectCode);
+				} else {
+					$('.project-code').text("");
+				}
+				if(costData.projectType != null) {
+					$('.project-type').text(addCostList.projectTypeInfo(costData.projectType));
+				} else {
+					$('.project-type').text("");
+				}
+				if(costData.projectHead != null) {
+					$('.project-head').text(costData.projectHead);
+				} else {
+					$('.project-head').text("");
+				}
+				if(costData.classTeacher != null) {
+					$('.class-teacher').text(costData.classTeacher);
+				} else {
+					$('.class-teacher').text("");
+				}
+				if(costData.startDate != null) {
+					$('.start-date').text(costData.startDate);
+				} else {
+					$('.start-date').text("");
+				}
+				if(costData.endDate != null) {
+					$('.end-date').text(costData.endDate);
+				} else {
+					$('.end-date').text("");
+				}
+
+			}
+		});
+		//获取下一步操作人
+		var dealingWithPeople = addCostList.getListSelectDealingWithPeople();
+		if(dealingWithPeople != null) {
+			$.each(dealingWithPeople, function(i, n) {
+				$("select.dealing-with-people").append('<option value="' + n.userCode + '">' + n.userName + '</option>');
+			});
+			$("select.dealing-with-people").niceSelect();
+		};
+		//点击保存
+		$(".save-budget").click(function() {
+			var dealingWithPeople = $(".dealing-with-people").val();
+			var projectName = $('.project-name-select').val()
+			if(projectName == 0) {
+				$yt_alert_Model.prompt("请选择项目");
+			} else if(dealingWithPeople == 0) {
+				$yt_alert_Model.prompt("请选择下一步操作人");
+			} else {
+				//声明存储数据的数组
+				var reductionDetails = [];
+				//声明参数
+				var types = "";
+				var reductionExemption = "";
+				var preReliefStandard = "";
+				var postRemissionStandard = "";
+				var postRemissionMoney = "";
+				var remarks = "";
+				//遍历列表得到数据
+				$('.project-tbody').find('tr').each(function() {
+					types = $(this).children().find("input.types-input").val();
+					reductionExemption = $(this).find("td.reduction-exemption-td").text();
+					preReliefStandard = $(this).find("td.pre-relief-standard-td").text();
+					postRemissionStandard = $(this).find("td.post-remission-standard-td").text();
+					postRemissionMoney = $(this).find("td.post-remission-money-td").text();
+					remarks = $(this).find("td.remarks-td").text();
+					//存储数据到数组内
+					var reductionDetailsArr = {
+						types: types,
+						reductionExemption: reductionExemption,
+						preReliefStandard: preReliefStandard,
+						postRemissionStandard: postRemissionStandard,
+						postRemissionMoney: postRemissionMoney,
+						remarks: remarks,
+					};
+					reductionDetails.push(reductionDetailsArr);
+				});
+				var dataStates = 1;
+				var pkId = $yt_common.GetQueryString("pkId");
+				addCostList.addCostListInfo(dataStates, reductionDetails, pkId);
+			}
+		});
+		//点击提交
+		$(".submit-budget").click(function() {
+			var dealingWithPeople = $(".dealing-with-people").val();
+			var projectName = $('.project-name-select').val()
+			if(projectName == 0) {
+				$yt_alert_Model.prompt("请选择项目");
+			} else if(dealingWithPeople == 0) {
+				$yt_alert_Model.prompt("请选择下一步操作人");
+			} else {
+				//声明存储数据的数组
+				var reductionDetails = [];
+				//声明参数
+				var types = "";
+				var reductionExemption = "";
+				var preReliefStandard = "";
+				var postRemissionStandard = "";
+				var postRemissionMoney = "";
+				var remarks = "";
+				//遍历列表得到数据
+				$('.project-tbody').find('tr').each(function() {
+					types = $(this).children().find("input.types-input").val();
+					reductionExemption = $(this).find("td.reduction-exemption-td").text();
+					preReliefStandard = $(this).find("td.pre-relief-standard-td").text();
+					postRemissionStandard = $(this).find("td.post-remission-standard-td").text();
+					postRemissionMoney = $(this).find("td.post-remission-money-td").text();
+					remarks = $(this).find("td.remarks-td").text();
+					//存储数据到数组内
+					var reductionDetailsArr = {
+						types: types,
+						reductionExemption: reductionExemption,
+						preReliefStandard: preReliefStandard,
+						postRemissionStandard: postRemissionStandard,
+						postRemissionMoney: postRemissionMoney,
+						remarks: remarks,
+					};
+					reductionDetails.push(reductionDetailsArr);
+				});
+				var dataStates = 2;
+				var pkId = $yt_common.GetQueryString("pkId");
+				addCostList.addCostListInfo(dataStates, reductionDetails, pkId);
+			}
+		});
+		$(".btn-off").click(function(){
+			window.location.href = "borrowList.html";
+			$yt_baseElement.showLoading();
+		})
+		//点击返回
+		$('.page-return-btn').on('click', function() {
+			window.location.href = "borrowList.html";
+			$yt_baseElement.showLoading();
+		});
+		//点击弹窗填写减免详情
+		var i = 0;
+		var htmlTr = "";
+		var htmlTbody = $('.project-tbody')
+		$('.borrow-search-btn').click(function() {
+			//显示减免详情弹出框
+			$(".select-teacher-div").show();
+			//计算弹出框位置
+			$yt_alert_Model.setFiexBoxHeight($(".select-teacher-div .yt-edit-alert-main"));
+			$yt_alert_Model.getDivPosition($(".select-teacher-div"));
+			$yt_model_drag.modelDragEvent($(".select-teacher-div .yt-edit-alert-title"));
+			//初始化输入框
+			$(".types").val("0");
+			$('.types').niceSelect();
+			$('.pre-relief-standard').val("");
+			$('.post-remission-standard').val("");
+			$('.reduction-exemption').val("");
+			$('.post-remission-money').text("");
+			$('.remarks').val("");
+			//总计
+			$('input.total').keyup(function() {
+				var num = 0;
+				var preReliefStandard = $('.pre-relief-standard').val();
+				var postRemissionStandard = $('.post-remission-standard').val();
+				var reductionExemption = $('.reduction-exemption').val();
+				num = (preReliefStandard - postRemissionStandard) * reductionExemption;
+				$('.post-remission-money').text(parseFloat(num));
+			});
+			//确定按钮事件
+			$('.sreduction-details-sure-btn').off().click(function() {
+				//得到值
+				var types = $(".types").val();
+				var preReliefStandard = $('.pre-relief-standard').val();
+				var postRemissionStandard = $('.post-remission-standard').val();
+				var reductionExemption = $('.reduction-exemption').val();
+				var postRemissionMoney = $('.post-remission-money').text();
+				var remarks = $('.remarks').val();
+				//渲染列表
+				htmlTrLast = '<tr style="border:0px;background-color:#fff !important;" >' +
+					'<td colspan="6" align="center" style="border:0px;">' +
+					'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+					'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+					'</div>' +
+					'</td>' +
+					'</tr>';
+				if(types == 0) {
+					$yt_baseElement.showLoading();
+					//设置tbody内html
+					htmlTbody.html(htmlTrLast);
+					$yt_baseElement.hideLoading();
+					$yt_alert_Model.prompt("请选择费用类型");
+				} else if(preReliefStandard == "") {
+					$yt_baseElement.showLoading();
+					//设置tbody内html
+					htmlTbody.html(htmlTrLast);
+					$yt_baseElement.hideLoading();
+					$yt_alert_Model.prompt("请填写减免前标准");
+				} else if(postRemissionStandard == "") {
+					$yt_baseElement.showLoading();
+					//设置tbody内html
+					htmlTbody.html(htmlTrLast);
+					$yt_baseElement.hideLoading();
+					$yt_alert_Model.prompt("请填写减免后标准");
+				} else if(reductionExemption == "") {
+					$yt_baseElement.showLoading();
+					//设置tbody内html
+					htmlTbody.html(htmlTrLast);
+					$yt_baseElement.hideLoading();
+					$yt_alert_Model.prompt("请填写减免数量");
+				} else if(i == 0) {
+					htmlTbody.html("");
+					htmlTr = '<tr>' +
+						'<td class="types-td"><input class="types-input" style="display: none;" value="' + types + '"/>' + addCostList.costTypeInfo(types) + '</td>' +
+						'<td class="reduction-exemption-td">' + reductionExemption + '</td>' +
+						'<td class="pre-relief-standard-td">' + preReliefStandard + '</td>' +
+						'<td class="post-remission-standard-td">' + postRemissionStandard + '</td>' +
+						'<td class="post-remission-money-td">' + postRemissionMoney + '</td>' +
+						'<td class="remarks-td">' + remarks + '</td>' +
+						'</tr>';
+					htmlTbody.append(htmlTr);
+					i++;
+					$(".yt-edit-alert,#heard-nav-bak").hide();
+					$("#pop-modle-alert").hide();
+				} else {
+					htmlTr += '<tr>' +
+						'<td class="types-td"><input class="types-input" style="display: none;" value="' + types + '"/>' + addCostList.costTypeInfo(types) + '</td>' +
+						'<td class="reduction-exemption-td">' + reductionExemption + '</td>' +
+						'<td class="pre-relief-standard-td">' + preReliefStandard + '</td>' +
+						'<td class="post-remission-standard-td">' + postRemissionStandard + '</td>' +
+						'<td class="post-remission-money-td">' + postRemissionMoney + '</td>' +
+						'<td class="remarks-td">' + remarks + '</td>' +
+						'</tr>';
+					htmlTbody.html(htmlTr);
+					i++;
+					addCostList.costTypeInfo(types);
+					$(".yt-edit-alert,#heard-nav-bak").hide();
+					$("#pop-modle-alert").hide();
+				}
+			});
+			//取消按钮
+			$('.sreduction-details-canel-btn').off().on("click", function() {
+				//隐藏页面中自定义的表单内容  
+				$(".yt-edit-alert,#heard-nav-bak").hide();
+				$("#pop-modle-alert").hide();
+			});
+		});
+
+	},
+	//新增费用减免
+	addCostListInfo: function(dataStates, reductionDetails, pkId) {
+		var projectCode = $('.project-code').text();
+		var remissionCause = $('.remission-cause').val();
+		var postRemissionMoney = $('.post-remission-money-td').text();
+		var dealingWithPeople = $(".dealing-with-people").val();
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/reduction/addOrUpdateBean", //ajax访问路径  
+			async: false,
+			data: {
+				pkId: pkId,
+				projectCode: projectCode,
+				remissionCause: remissionCause,
+				"reductionDetails": JSON.stringify(reductionDetails),
+				postRemissionMoney: postRemissionMoney,
+				dataStates: dataStates,
+				businessCode: "reduction",
+				dealingWithPeople: dealingWithPeople,
+				opintion: "",
+				processInstanceId: "",
+				nextCode: "submited",
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					if(dataStates == 1) {
+						$yt_alert_Model.prompt("新增成功");
+						window.location.href = "borrowList.html";
+					} else if(dataStates == 2) {
+						$yt_alert_Model.prompt("提交成功");
+						window.location.href = "borrowList.html";
+					}
+				} else {
+					if(dataStates == 1) {
+						$yt_alert_Model.prompt("新增失败");
+					} else if(dataStates == 2) {
+						$yt_alert_Model.prompt("提交失败");
+					}
+				}
+			} //回调函数 匿名函数返回查询结果  
+
+		})
+	},
+	//获取项目下拉列表
+	getProjectInfo: function() {
+		$yt_baseElement.showLoading();
+		var selectParam = "";
+		$.ajax({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/reduction/lookForAllProject", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					if(data.data && data.data && data.data.length > 0) {
+						//遍历给下拉框添加数据
+						$.each(data.data, function(i, v) {
+							$("select.project-name-select").append($('<option value="' + (i + 1) + '">' + v.projectName + '</option>').data("costData", v));
+						});
+						$('select.project-name-select').niceSelect();
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+						$yt_baseElement.hideLoading();
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+		});
+
+	},
+	//费用类型设置
+	costTypeInfo: function(code) {
+		if(code == 1) {
+			return "培训费";
+		} else if(code == 2) {
+			return "课程费";
+		} else if(code == 3) {
+			return "住宿费";
+		} else if(code == 4) {
+			return "餐费";
+		} else if(code == 5) {
+			return "杂费";
+		} else if(code == 6) {
+			return "场地使用费";
+		} else if(code == 7) {
+			return "会务费";
+		} else if(code == 8) {
+			return "其他";
+		} else {
+			return '';
+		};
+	},
+	//项目类型设置
+	projectTypeInfo: function(code) {
+		if(code == 1) {
+			return "计划";
+		} else if(code == 2) {
+			return "委托";
+		} else if(code == 3) {
+			return "选学";
+		} else if(code == 4) {
+			return "调训";
+		} else {
+			return '';
+		};
+	},
+	//获取下一步操作人
+	getListSelectDealingWithPeople: function() {
+		var list = [];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "uniform/workFlowOperate/getSubmitPageData",
+			data: {
+				businessCode: "reduction",
+				processInstanceId: "",
+				parameters: "",
+				versionNum: ""
+			},
+			async: false,
+			success: function(data) {
+				$.each(data.data, function(i, n) {
+					for(var k in n) {
+						list = n[k];
+					}
+				});
+			}
+		});
+		return list;
+	},
+}
+$(function() {
+	//初始化方法
+	addCostList.init();
+
+});

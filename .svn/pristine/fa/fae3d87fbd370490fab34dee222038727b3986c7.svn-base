@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/tip/tip-yellowsimple.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/newRuleTable.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/jquery-easyui-1.5.1/themes/default/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/jquery-easyui-1.5.1/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/budget/module/expenditure/budgetStatistics.min.css?YTVERSIONCODE=2018050701" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/budget/module/expenditure/configDefinition.min.css?YTVERSIONCODE=2018053101"/>
+			
+		<!--引用CSS文件END-->
+		<title>行政事业单位财务报销系统</title>
+		<style type="text/css">
+			/*表25-26*/
+       		/*.tr-title{
+       			background-color: #EEEEEE;
+       		}
+       		.tr-title2{
+       			background-color: #F5F5F5;
+       		}*/
+       		.tr-title td{
+       			font-weight: bold;
+       		}
+       		
+       		.yt-tbody .td-pad1{
+       			text-align: left;
+       		}
+       		.yt-tbody .td-pad2{
+       			text-align: left;
+       			padding-left: 20px ;
+       		}
+       		.yt-tbody .td-pad3{
+       			text-align: left;
+       			padding-left: 40px;
+       		}
+       		.yt-tbody .td-pad4{
+       			text-align: left;
+       			padding-left: 60px;
+       		}
+       		.yt-tbody .td-pad5{
+       			text-align: left;
+       			padding-left: 80px;
+       		}
+       		.tr-title3{
+       			font-weight: bold;
+       		}
+       		.td-r{
+       			text-align: right !important;
+       		}
+       		.rule-table-div{ overflow-y: hidden; max-height: none; }
+		</style>
+	</head>
+
+	<body>
+		<div id="config-layout" class="easyui-layout" style="width:100%;margin-top: 40px;">
+			<div data-options="region:'north',split:true" style="height: 260px;">
+				<div class="nav-heard" style="margin-top: 0px;position: fixed;top: 0;width: 100%;">
+					<ul>
+						<!--<li class="tab-nav active-nav"><input type="hidden" value="1">选择要配置的预算表</li>-->
+						<li class="tab-nav active-nav"><input type="hidden" value="2">预算表整体过滤条件配置</li>
+					</ul>
+					<button class="yt-option-btn yt-reset-btn page-retu-btn" style="float: right;display:inline;margin: 5px 10px;">返回</button>
+				</div>
+				<!--tab内容切换区域START-->
+				<div style="margin-top: 10px;">
+					<!--预览表列表显示START-->
+					<div class="tab-content" style="display: block;">
+						<table class="yt-table" id="table-list" style="width: 100%;">
+							<thead class="yt-thead">
+								<tr>
+									<th width="100px" align="center">预算表编号</th>
+									<th width="100px" align="center">预算表类别</th>
+									<th align="center">预算表名称</th>
+									<th width="90px" align="center">上次修改人</th>
+									<th width="160px" align="center">上次修改时间</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody"></tbody>
+						</table>
+					</div>
+					<!--预览表列表显示END-->
+					<!--配置表区域START-->
+					<div class="tab-content">
+						<div class="model-content table-config-panel dn">
+							<div class="box-row">
+								<div class="box-content label-font-bold" style="width: 155px;text-align: center;padding-left: 5px;">当前配置的预算表为：</div>
+								<div class="box-content table-name" style="font-weight: bold;"></div>
+							</div>
+							<div style="float: left;display: inline;width: 100%;">
+								<div class="table-attr">
+									<p>选择当前表过滤维度：</p>
+									<div class="attributes-list-append">
+										<!--<div class="box-row">
+											<div class="box-content" style="letter-spacing: 1px;padding-left: 14px;">预算年度：</div>
+											<div class="box-content">
+												<input type="text" value="" class="yt-input word-code" id="budgetYear" style="width: 130px; display: inline-block;" validform="{isNull:true,blurFlag:true,msg:'请输入预算年度'}">
+												<input type="hidden" class="hid-word-code" value="">
+												<span class="valid-font" style="top:35px;"></span>
+											</div>
+										</div>
+										<div class="box-row unit-code-row">
+											<div class="box-content" style="letter-spacing: 1px;padding-left: 14px;">单位编码：</div>
+											<div class="box-content box-lable2">
+												<select name="" class="attributes" id="unitCodeMark" style="display: none;">
+													<option value="UNIT_NUM">单位编码</option>
+												</select>
+												<select name="" class="yt-select word-num-sel" id="unitCode" placeholder="请选择" validform="{isNull:true,changeFlag:true,msg:'请选择单位编码'}">
+													<option value="" selected="selected"></option>
+												</select>
+												<input type="hidden" class="hid-word-code" value="">
+												<span class="valid-font" style="top:35px;"></span>
+											</div>
+											<div class="box-content box-button">
+												<img src="../../../../../resources-sasac/images/common/search.png" class="search-img unit-code-search">
+											</div>
+										</div>-->
+										
+										
+									</div>
+									<div class="attributes-list"></div>
+								</div>
+							</div>
+							<div class="row-col-model">
+								<div class="column-attr">
+									<p>选择当前列过滤维度：</p>
+									<div class="attributes-list"></div>
+								</div>
+							</div>
+							<div class="row-col-model">
+								<div class="row-attr" style="padding-top: 16px;">
+									<p>选择当前行过滤维度：</p>
+									<div class="attributes-list"></div>
+								</div>
+							</div>
+							<div class="row-col-model">
+								<div class="cell-attr">
+									<p style="width: 200px;">选择当前单元格过滤维度：</p>
+									<div class="attributes-list"></div>
+								</div>
+							</div>
+							<!--操作按钮区域START-->
+							<div class="tab-config-btngroup table-btn">
+								<button class="yt-option-btn yt-common-btn save-config">保存</button>
+							</div>
+							<!--操作按钮区域END-->
+						</div>
+						<div class="no-select-table">
+							尚未选择要配置的预算表,请选择预算表进行配置
+						</div>
+					</div>
+					<!--配置表区域END-->
+				</div>
+			</div>
+			<!--tab内容切换区域END-->
+			<!--底部列配置区域START-->
+			<div class="column-config-panel" data-options="region:'south',split:true,minHeight:200,maxHeight:300,collapsed:true" title="列的配置">
+				<div class="no-select-table">请选择需要配置的列进行配置</div>
+			<!--	<div class="model-content dn">
+					<input type="hidden" class="hid-config-id" value=""/>
+					<div class="box-row">
+						<div class="box-content box-lable" style="width: 150px;"><span class="letter6">显示名</span>称：</div>
+						<div class="box-content  column-name"></div>
+						<div class="box-content box-lable1" style="width: 150px;"><span style="letter-spacing: 15px;">所属</span>表：</div>
+						<div class="box-content table-name"></div>
+						<div class="box-content box-lable" style="width: 150px !important;">行或列：</div>
+						<div class="box-content box-content-read" style="width: 150px !important;">列</div>
+						<div class="box-content box-lable1">列号：</div>
+						<div class="box-content column-num"></div>
+					</div>
+					<div class="box-row">
+						<div class="box-content box-lable">是否为计算项：</div>
+						<div class="box-content box-content-read" style="width: 70px;">
+							<label class="yt-checkbox check" style="position: absolute; margin-top: 9px;">
+								<input class="is-calculation" type="checkbox" name="test" value="1" checked="checked">
+							</label>
+						</div>
+						<div class="box-content box-lable1 formual dn" style="display: table-cell;width: 140px;"><span class="letter6">计算公</span>式：</div>
+						<div class="box-content formual dn" style="display: table-cell;">
+							<input class="yt-input formula-inpu" type="text" value="" style="width: 370px;" validform="{isNull:true,blurFlag:true,msg:'请输入计算公式'}">
+							<span class="valid-font" style="top: 32px;"></span>
+						</div>
+					</div>
+					<div class="attributes-list"></div>
+				</div>
+				<div class="no-select-table">
+					请选择需要配置的列进行配置
+				</div>
+				<div class="config-btngroup" style="padding-bottom: 0px;">
+					 <button class="yt-option-btn yt-common-btn tb-save-btn">保存<input type="hidden" class="hid-flag" value="c"/></button>
+					 <button class="yt-option-btn yt-cancel-btn r-cancel-btn">取消</button>
+				</div>-->
+			</div>
+			<!--底部列配置区域START-->
+			<!--右侧行配置区域START-->
+			<div class="row-config-panel" data-options="region:'east',split:true,minWidth:100,maxWidth:650,collapsed:true" title="行的配置">
+				<div class="model-content dn" style="width: 640px;">
+					<input type="hidden" class="hid-config-id" value=""/>
+					<div class="box-row">
+						<div class="box-content box-lable"><span style="letter-spacing: 14px;">所属</span>表：</div>
+						<div class="box-content table-name"></div>
+					</div>
+					<div class="box-row">
+						<div class="box-content box-lable"><span style="letter-spacing: 14px;">行或</span>列：</div>
+						<div class="box-content box-content-read">行</div>
+						<div class="box-content box-lable1"style="width: 147px;"><span style="letter-spacing: 40px;">行</span>号：</div>
+						<div class="box-content row-num"></div>
+					</div>
+					<!--<div class="box-row">
+						<div class="box-content box-lable"><span class="letter6">功能科</span>目：</div>
+						<div class="box-content box-content-read subject"></div>
+						<div class="box-content box-lable1" style="width: 147px;"><span class="letter6">单位编</span>码：</div>
+						<div class="box-content co-code"></div>
+					</div>
+					<div class="box-row">
+						<div class="box-content box-lable">单位名称（功能科目）：</div>
+						<div class="box-content co-name"></div>
+					</div>-->
+					<div class="box-row">
+						<div class="box-content box-lable" style="float: left;display: inline;">属性：</div>
+						<div class="property-model">
+							<label class="check-label yt-radio check">  
+						     <input id="radio1" type="radio" name="property"  value="3"/>数字  
+						    </label>
+						    <label class="check-label yt-radio">  
+						     <input id="radio1" type="radio" name="property"  value="2"/>文本  
+						    </label>
+							<label class="check-label yt-radio">  
+						     <input id="radio1" type="radio" name="property"  value="1"/>单表  
+						    </label>
+						    <label class="check-label yt-radio">  
+						     <input id="radio1" type="radio" name="property"  value="4"/>表间  
+						    </label> 
+						</div>
+						<!--<div class="box-content box-lable">是否为计算项：</div>
+						<div class="box-content box-content-read" style="width: 123px;">
+							<label class="yt-checkbox" style="position: absolute; margin-top: 9px;">
+									<input class="is-calculation" type="checkbox" name="test"  value="1"/>
+								</label>
+						</div>-->
+					</div>
+					<div class="box-row property-val-model" style="display: none;">
+						<div class="box-content box-lable1 formual dn" style="width: 132px;">
+						<span class="not-null">*</span><span class="letter6">计算公</span>式：</div>
+						<div class="box-content formual dn"><input class="yt-input formula-inpu" type="text" value="" />
+							<span class="valid-font" style="top: 32px;"></span>
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+					<div class="attributes-list">
+					</div>
+				</div>
+
+				<div class="no-select-table">
+					请选择需要配置的行进行配置
+				</div>
+				<!--操作按钮START-->
+				<div class="config-btngroup">
+					 <button class="yt-option-btn yt-common-btn tb-save-btn">保存<input type="hidden" class="hid-flag" value="r"/></button>
+					 <button class="yt-option-btn yt-cancel-btn r-cancel-btn">取消</button>
+				</div>
+				<!--操作按钮END-->
+			</div>
+			<!--右侧行配置区域START-->
+			<div data-options="region:'center'" class="table-config">
+				<div id="createConfigTableDiv">
+					
+				</div>
+				 	 	
+				
+				<div class="no-select-table">尚未选择需要配置的预算表，请在上方选择要配置的预算表中点击预算表编号进行选择</div>
+			</div>
+			<!--预览区域END-->
+		</div>
+		<div class="dialog-box" id="code-list" style="z-index:10005;width: 720px;">
+			<div class="model-title">
+				<img src="../../../../../resources-sasac/images/common/list.png"><span class="title-text">编码列表</span>
+			</div>
+			<div class="model-content">
+				<div style="padding: 10px 50px;">
+					<div style="height: 50px;">
+						<input type="text" class="yt-input" style="width: 530px;float: left;" placeholder="请输入关键字" name="" id="" value="" />
+						<button style="float: right;" class="yt-option-btn yt-search-btn">查询</button>
+					</div>
+					<table class="yt-table code-list" width="100%">
+						<thead class="yt-thead">
+							<tr>
+								<th>编码</th>
+								<th>名称</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody"></tbody>
+					</table>
+					<div class="page-info table-page page1" onselectstart="return false"></div>
+				</div>
+
+				<!--底部按钮操作区域START-->
+				<div class="model-bottom-btn">
+					<button class="yt-option-btn yt-common-btn" style="margin-right: 10px;">确定</button>
+					<button class="yt-option-btn yt-cancel-btn" style="margin-right: 0;">取消</button>
+				</div>
+				<!--底部按钮操作区域END-->
+			</div>
+		</div>
+		<!--表间计算选表区域START-->
+		<div class="table-rela-model">
+			  <div class="title-div-sty">
+			  	   <label>预算表间计算</label>
+			  	   <span style="float: right;display: inline;">
+			  	    	<button class="yt-option-btn yt-common-btn calcu-sure-btn">确定</button>
+			  	        <button class="yt-option-btn yt-cancel-btn calcu-close-btn">关闭</button>
+			  	   </span>
+			  </div>
+			  <!--计算公式区域START-->
+			  <div class="calcu-area">
+			  	 <label>计算公式：</label>
+			  	 <input class="yt-input" id="calcuInput" value="" placeholder="支持手动输入公式/选择表格中的单元格/拖拽选中多个单元格右键添加拼接公式" />
+			  	 <label class="clear-lab" style="display: none;"><a class="yt-link">清空</a></label>
+			  	 <span class="help-icon" title="手动输入计算公式标准如下：表格编号+!+列编号+行编号+运算符号;示例:T01!c1r1*T02!c2r1">
+			  	 	<img style="vertical-align: middle;" src="../../../../../resources-sasac/images/common/help-icon.png"/>
+			  	 </span>
+			  	 <div style="padding: 20px 0px 35px 0px;">
+		  	   	    <label style="display: inline;float: left;margin-top: 5px;">相同属性表格：</label>
+		  	   	    <div style="float: left;display: inline;">
+		  	   	    	<select class="yt-select attr-table-sel">
+		  	   	    	 <option value="">请选择</option>
+		  	   	   		</select>
+		  	   	    </div>
+			  	 </div>
+			  </div>
+			  <!--计算公式区域END-->
+			  <!--表格模板区域START-->
+			  <div id="tableTemplate">
+			  </div>
+			  <!--表格模板区域END-->
+		</div>
+		<!--表间计算选表区域END-->
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/tip/jquery.poshytip.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script src="../../../../../resources-sasac/js/common/newTable.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<!--引用JS文件END-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/budget/module/expenditure/configDefinition.min.js?YTVERSIONCODE=2018053101"></script>
+</html>

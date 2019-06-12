@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>项目审批</title>
+	</head>
+	<body>
+			
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="height: 20px;">
+				<div class="search-btn-slect">
+					<div class="key-word">
+						<input class="yt-input selectParam" placeholder="请输入关键字" type="text"/>
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png"/>
+						</button>
+					</div>
+				</div>
+			</div>
+			<!--顶部条件查询END-->
+			
+			<div class="tab-title-list" style="overflow: hidden;">
+				<div class="tab-title-box" style="width: 1440px;">
+					<button class="yt-option-btn pending-btn active">• 待审批</button>
+					<button class="yt-option-btn approved-btn">• 审批记录</button>
+				</div>
+				<!--隐藏数据表示获取的是哪种数据，1  减免，2发票-->
+				<input type="hidden" id="operate-type" value="减免" />
+			</div>
+			<!--数据展示区域START-->
+			<div class="list-box">
+				<div class="list-title">
+						<span>项目审批</span>
+					</div>
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th class="projeect-code-approval">项目编号</th>
+								<th>项目名称</th>
+								<th>项目类型</th>
+								<th>培训日期</th>
+								<th>培训天数</th>
+								<th>项目销售</th>
+								<th>学员人数</th>
+								<th>申请状态</th>
+							</tr>	
+						</thead>
+						<tbody class="yt-tbody list-tbody project-approval-tbody">
+							<tr>
+								<td colspan="8" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info project-approval-page" onselectstart="return false"></div>
+			</div>
+			<!--数据展示区域END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/projectApproval/projectApprovalList.min.js"></script>
+</html>

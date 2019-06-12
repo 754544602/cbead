@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />	
+		<!--提示信息控件-->
+        <link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" /> 
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/approve/projectBefList.css" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+
+	<body>
+		<div id="projectBefList" class="pro-appl-appr-list">
+			<!--顶部条件查询START-->
+			<div class="head-div">
+				<span class="sel-text">关键字：</span>
+				<input type="text" class="yt-input search" id="keywordInput" style="width: 250px;" placeholder="请输入申请变更编号/申请编号/事由" />
+				<img class="clearImg" src="../../../../../resources-sasac/images/system/expensesReim/common/sc_ret.png" />
+				<button class="yt-option-btn yt-search-btn" onselectstart="return false" id="searchBtn" style="margin-left: 12px;">查询 </button>
+				<button class="yt-option-btn yt-reset-btn" id="resetBtn" style="margin-left: 5px;">重置</button>
+			</div>
+			<!--顶部条件查询END-->
+			<!--数据展示区域START-->
+			<div class="screen" style="margin-left: 10px;height: 35px;">
+				<label style="letter-spacing: 15px;">打</label>印:
+				<label class="check-label yt-checkbox apply-state check" style="margin-right: 20px;margin-left:10px;padding-left: 20px!important;"><input type="checkbox" checked value="1">已打印</label>
+				<label class="check-label yt-checkbox apply-state check" style="padding-left: 20px!important;"><input type="checkbox" checked value="0">未打印</label>
+			</div>
+			<div class="tab-div">
+				<!--tab标签START-->
+				<div class="tab-header">
+					<div style="float: left;display: inline;line-height: 36px;">
+						<button class="yt-option-btn yt-search-btn already-printed" style="margin-left: 10px;">已打印</button>
+						<button class="yt-option-btn yt-cancel-btn non-printing" style="margin-left: 20px;">未打印</button>
+					</div>
+					<div style="float: right;display: inline;">
+						<button class="yt-option-btn yt-search-btn print-btn" id="printUpdateBtn" value="printBills">打印预算调整申请表</button>
+					</div>
+				</div>
+				<!--第二页  已处理,已完结-->
+				<div class="tab-content">
+					<table class="pending end-table" style="width: 100%;">
+						<thead class="yt-thead">
+							<tr>
+								<th style="width: 80px;" class="all-checked" style="cursor: pointer;">全选</th>
+								<th style="width: 130px;">单据编号</th>
+								<th style="width: 130px;">关联事前申请编号</th>
+								<th>事前申请事由</th>
+								<th style="width: 130px;">调整后金额（元）</th>
+								<th style="width: 80px;">申请人</th>
+								<th style="width: 80px;">申请部门</th>
+								<th style="width: 100px;" class="process-state-th">当前状态</th>
+								<th style="width: 100px;" class="applicant-time-th">申请日期</th>
+								<th style="width: 100px;" class="isprint-th">打印状态</th>
+								<th style="width: 100px;">操作</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+						</tbody>
+					</table>
+					<div class="page-info table-page page2" onselectstart="return false"></div>
+				</div>
+			</div>
+			<!--数据展示区域END-->
+				</div>
+				<!--主体内容部分END-->
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script> 
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script> 
+	<!--引用字段验证文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-valid.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/business/projectChangeBusinessList.min.js?YTVERSIONCODE=201903120"></script>
+	<!--引用JS文件END-->
+
+</html>

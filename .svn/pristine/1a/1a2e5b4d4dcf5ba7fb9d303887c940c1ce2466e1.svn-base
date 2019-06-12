@@ -1,0 +1,35 @@
+{
+	"flag":0,
+	"data":{
+		"total":101,
+		"cashAmount":10000,
+		"businessCardAmount":483,
+		"bankTransferAmount":490000,
+		"rows":[
+			{   
+				"appId": "1",
+		        "appNum": "RM20180417001",
+		        "cash":1100,
+		        "businessCard":483,
+		        "bankTransfer":1200,
+		        "totalAmount":10483,
+		        "appName":"报销参加财政部举办的行政事业单位内部控制培训的差旅费",
+		        "applicantUserName":"陈财科",
+		        "applicantUser": "陈财科",  
+		        "applicateTime": "2018-05-16"
+		    },{  
+		        "appId": "2",
+		        "appNum": "RM20180417001",
+		        "cash":2221,
+		        "businessCard":1200,
+		        "bankTransfer":1200,
+		        "totalAmount":14500,
+		        "appName":"采购计划CGSQ001中付给广州福田机械制造有限公司的第一期款",
+		        "applicantUserName":"魏业科",
+		        "applicantUser": "魏业科",  
+		        "applicateTime": "2018-05-16"
+		    }
+		]
+	}
+
+}

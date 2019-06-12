@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE=20180420" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/loanApply/loanApply.min.css?YTVERSIONCODE=20180420" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style>
+			.qtip-default{display: none;}	
+			.base-form-info td{
+				text-align: left !important;
+				padding-left: 10px !important;
+				padding-top: 5px !important;
+			}
+			.life-of-loan-sel{
+				width: 180px;
+			}
+			.refund-tab-inp{
+				width: 95%;
+				padding-right: 5px;
+				text-align: right;
+			}
+			.yt-edit-alert{
+				width: 700px;
+			}
+			.yt-edit-alert-main{
+				padding: 10px;
+			}
+			.yt-eidt-model-bottom{
+				border:0 !important;
+			}
+			.moneyText{
+				margin-right: 5px;
+				text-align: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="loanApply">
+			<!--基本信息区域START-->
+			<div class="base-info-model">
+				<!--标题区域START-->
+				<div style="padding: 0px 10px;">
+					 <div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+						<span class="title-text">基本信息</span>
+						<div class="form-num-model">
+							<label><span style="letter-spacing: 4px;">单据编</span>号：</label>
+							<span id="formNum" data-text="loanAppNum">提交后自动生成</span>
+							<input type="hidden" id="hidFormNum" value="" data-val="loanAppNum"/>
+							<input type="hidden" id="processInstanceId" data-val="processInstanceId"/>
+							<label style="margin-left: 30px;"><span style="letter-spacing: 4px;">申请日</span>期：</label><span data-text="applicantTime">--</span>
+						</div>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<!--基础信息表单区START-->
+				<div class="base-form-info base-font">
+					<div id="firstTr">
+						<div style="padding-left: 14px;"><label><span style="letter-spacing: 15px;">申请</span>人：</label>
+							<span id="busiUsers" data-text="applicantUserName"></span>
+						    <input type="hidden" id="hidUserCode" value="" data-val="applicantUser"/>
+						</div>
+						<div><label class="dept-label"><span style="letter-spacing: 40px;">部</span>门：</label><span id="deptName"></span></div>
+						<div><label class="job-label"><span style="letter-spacing: 40px;">职</span>务：</label><span id="jobName"></span></div>
+						<div><label class="tel-label"><span style="letter-spacing: 40px;">电</span>话：</label><span id="telPhone">--</span></div>
+					</div>
+					<div style="clear: both;"></div>
+					<div class="base-info1">
+						<table width="100%" style="margin-top: 6px;" >
+							<thead>
+								<tr>
+									<th width="35%"></th><th width="30%"></th><th></th>
+								</tr>
+							</thead>
+							<tr>
+								<td colspan="3">
+									<div style="float: left;padding-top: 5px;">
+										<span class="not-null">*</span><label><span style="letter-spacing: 5px;">借款事</span>由：</label>
+									</div>
+									<div style="float: left;width: 70%;">
+										<input class="yt-input" id="loanReason" placeholder="请输入" data-val="loanAppName" validform="{isNull:true,blurFlag:true,msg:'请输入借款事由'}"/>
+										<div class="valid-font"></div>
+										<!--风险标识START-->
+									    <span class="risk-model">
+											<input type="hidden" class="hid-edit-risk" value="loanReason"/>
+											<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+										</span>
+										<!--风险标识END-->
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label style="padding-left: 7px;">是否有未清账借款单：</label>
+									<span id="noCloseOut">否</span>
+								</td>
+								<td colspan="2">
+									<div id="loanAppNumStrDiv">
+										 <label style="padding-left: 7px;">未清账借款单编号：</label>
+										 <span id="loanAppNumStr">--</span>
+									</div>
+								</td>
+							</tr>
+							<!--<tr>
+								<td>
+									<label style="padding-left: 7px;">已借款：</label><span id="borrowedMoney">200.00</span><span>元</span>
+								</td>
+								<td>
+									<label style="padding-left: 7px;">剩余额度：</label><span id="surplusAmount">100.00</span><span>元</span>
+								</td>
+							</tr>-->
+						</table>
+					</div>
+					
+						
+				</div>
+				<!--基础信息表单区END-->
+			</div>
+			<!--基本信息区域END-->
+			
+			<!--借款明细区域START-->
+			<div class="base-info-model">
+				<!--标题区域START-->
+				<div style="padding:10px 10px 0">
+					<div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+						<span class="title-text">借款明细</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				
+				<!--基础信息表单区START-->
+				<div class="base-form-info"  class="base-info1">
+					<div class="base-info1">
+						<table width="100%">
+							<thead>
+								<tr>
+									<th width="35%"></th><th width="30%"></th><th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<span class="not-null">*</span><label><span style="letter-spacing: 5px;">借款金</span>额：</label>
+										<input class="yt-input refund-tab-inp" id="loanMoney" type="text" data-val="loanAmount" placeholder="0.00" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入借款金额'}"/>元
+									   	<div class="valid-font" style="margin-left: 100px;"></div>
+									    <!--风险标识START-->
+									    <span class="risk-model">
+											<input type="hidden" class="hid-edit-risk" value="loanPrice"/>
+											<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+										</span>
+										<!--风险标识END-->
+									</td>
+									<td colspan="2">
+										<label><span style="letter-spacing: 1px;">人民币大</span>写：<label id="moneyLower">--</label></label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div style="float: left;padding-top: 5px;">
+											<span class="not-null">*</span><label><span style="letter-spacing: 5px;">借款期</span>限：</label>
+										</div>
+										<div style="float: left;padding-left: 5px;">
+											<select class="yt-select life-of-loan-sel" id="lifeOfLoan">
+												<option value="">请选择</option>
+												<option value="1">一个月之内</option>
+												<option value="2">超过一个月</option>
+											</select>
+										</div>
+									</td>
+									<td>
+										<div>
+											 <label>预计还款日期：</label>
+											 <input class="calendar-input" id="returnDate" type="text" data-val="expectRepaymentTime" placeholder="请选择日期" />
+										     <!--<span class="risk-model"><input type="hidden" class="hid-edit-risk" value="expectRepayDate"/><img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/></span>-->
+										     <span class="valid-font" style="right: 130px;top: 40px;"></span>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3">
+										<div style="display: inline;padding-left: 7px;" class="pay-met">
+											<label><span style="letter-spacing: 5px;">付款方</span>式：</label>
+											<label class="check-label yt-radio check">  
+											 	<input id="radio1" class="radio-inpu" type="radio" name="test"  value="1"/>现金 
+											</label>
+											<label class="check-label yt-radio" style="margin-right: 0px;">  
+											 	<input id="radio2" class="radio-inpu" type="radio" name="test"  value="2"/>支票 
+											</label>
+											
+											<!--风险标识START-->
+										    <span class="risk-model">
+												<input type="hidden" class="hid-edit-risk" value="payWay"/>
+												<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+											</span>
+											<!--风险标识END-->
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!--基础信息表单区END-->
+			</div>
+			<!--借款明细区域START-->
+			<!--流程审批START-->
+			<div class="flow-approve-model">
+				<!--标题区域START-->
+				<div class="title-model">
+					<div class="travel-plan-title title-model-sty">
+						<!--<img src="../../../../../resources-sasac/images/system/expensesReim/common/flow-approve-title.png" />-->
+						<img src="../../../../../resources-sasac/images/icons/flow-title-icon.png">
+						<span class="title-text">流程审批</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<div style="padding-left: 2px;">
+					<table width="100%" id="flowApproveTab">
+						<tr>
+							<td width="113px" align="center"><span class="not-null">*</span><label>选择操作流程：</label></td>
+							<td width="255px">
+								<select class="yt-select operate-flow-sel" id="operate-flow" validform="{isNull:true,changeFlag:true,msg:'请选择操作流程'}">
+									<option value="">请选择</option>
+								</select>
+								<!--风险标识START-->
+							    <span class="risk-model" style="position: absolute;top:25px">
+									<input type="hidden" class="hid-edit-risk" value="operFlow"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+								<!--风险标识END-->
+								<div class="valid-font" style="top:49px"></div>
+							</td>
+							<td align="right" class="approvel-users"><div><span class="not-null">*</span><label>选择审批人：</label></div></td>
+							<td>
+								<div>
+									<select class="yt-select approve-users-sel" id="approve-users">
+									<option value="">请选择</option>
+									</select>
+									<!--风险标识START-->
+								    <span class="risk-model" style="position: absolute;top:25px">
+										<input type="hidden" class="hid-edit-risk" value="approveUsers"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td valign="top" align="right"><label style="padding-right: 2px;">操作意见：</label></td>
+							<td colspan="3">
+								<textarea class="yt-textarea" id="operateMsg" placeholder="请输入"></textarea>
+								<!--风险标识START-->
+							    <span class="flow-textare-risk risk-model">
+									<input type="hidden" class="hid-edit-risk" value="flowOperSug"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+								<!--风险标识END-->
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4" align="center" style="padding-bottom: 20px;">
+								<button class="yt-option-btn yt-common-btn save-btn" id="saveBtn">保存</button>
+								<button class="yt-option-btn yt-common-btn sub-btn" id="approveSubBtn">提交并生成借款单</button>
+								<button class="yt-option-btn yt-cancel-btn" id="approveCanelBtn">取消</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!--流程审批END-->
+			
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.js?YTVERSIONCODE=20180420"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js?YTVERSIONCODE=20180420"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js?YTVERSIONCODE=20180420"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js?YTVERSIONCODE=20180420"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js?YTVERSIONCODE=20180420"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js?YTVERSIONCODE=20180420"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE=20180420"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/loanApply/loanApply.js?YTVERSIONCODE=20180706"></script>
+	<!--引用JS文件END-->
+
+</html>

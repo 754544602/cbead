@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css"/>
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>资料归档</title>
+		<style type="text/css">
+			
+			.tr-height {
+				height: 35px;
+			}
+			.tr-head{
+				width: 60px;
+			}
+			.alert-tr-td{
+				width: 170px;
+				text-align: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<button class="page-return-btn">
+							<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+							返回
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!--顶部条件查询END-->
+			<div class="class-info-div">
+				第二期国企深化改革专题培训班
+			</div>
+			<!--数据展示区域START-->
+			<div class="list-box">
+				<table class="yt-table list-table" style="margin-top: 0px;">
+					<thead class="list-thead">
+						<tr>
+							<th style="width: 50px;">序号</th>
+							<th style="">教学资料</th>
+							<th style="width: 80px;">必须</th>
+							<th style="width: 80px;">状态</th>
+							<th style="width: 100px;">操作</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody list-tbody open-class-tbody">
+						<tr>
+							<td colspan="5" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info list-page" onselectstart="return false"></div>
+			</div>
+
+		</div>
+	</body>
+	<!--js文件引用-->
+	
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/distributionList/dataArchiving.js"></script>
+	<!--字段验证js-->
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	
+</html>

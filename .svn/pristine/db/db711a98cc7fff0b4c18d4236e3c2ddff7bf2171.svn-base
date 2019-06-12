@@ -1,0 +1,19 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 100,
+		"rows": [
+			{
+				"paymentAppNum":"BXH20180310",
+				"paymentAppName":"付款测试2333333",
+				"costType":"业务招待费",	
+				"applicantUser":"魏业科",
+				"applicantDept":"运维部",
+				"totalAmount":"50000",			
+				"applicantTime":"2018-4-1",	
+				"nodeNowState": "待业务部负责人审批",
+				"workFlowState":"审核"
+			}
+		]
+	}
+}

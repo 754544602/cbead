@@ -1,0 +1,234 @@
+var budgetApprovalList = {
+	//初始化方法
+	init: function() {
+		//标识加载的是待审批列表还是审批记录列表
+		var index = 0;
+		budgetApprovalList.getPendingBudgetApprovalListInf();
+		//点击页签切换页
+		$(".tab-title-list button").click(function() {
+			$(this).addClass("active").siblings().removeClass("active");
+			$(".box-list .content-box").hide().eq($(this).index()).show();
+			if($(this).index() == 0) {//待审批
+				index = 0;
+				//初始化搜索框
+				$(".pending-approval-selectParam").val("");
+				//待审批页签
+				budgetApprovalList.getPendingBudgetApprovalListInf();
+			};
+			if($(this).index() == 1) {//审批记录
+				index = 1;
+				//初始化搜索框
+				$(".approval-record-selectParam").val(""); 
+				//审批记录页签
+				budgetApprovalList.getApprovalRecordListInf();
+			}
+		});
+		
+		
+		//点击待审批中项目名称跳转到审批详情页面
+		$(".budget-approval-tbody").on("click",".project-name-approval",function(){
+			window.location.href="/cbead/website/view/budgetApproval/budgetApprovalDetails.html?pkId=" + $('.yt-table-active .pkId').val();
+		});
+		//点击审批记录中项目名称跳转到审批详情页面
+		$(".approval-record-tbody").on("click",".project-name-approval",function(){
+			window.location.href="/cbead/website/view/projectBudget/projectBudgetDetails.html?pkId=" + $('.yt-table-active .pkId').val();
+		});
+		//模糊查询
+		$(".search-btn").click(function(){
+			if(index == 0){
+				budgetApprovalList.getPendingBudgetApprovalListInf();
+			}else if(index == 1) {
+				budgetApprovalList.getApprovalRecordListInf();
+			}
+			
+		});
+	
+		
+		
+	},
+		
+	/**
+	 * 待审批列表查询
+	 */
+	getPendingBudgetApprovalListInf: function() {
+		$yt_baseElement.showLoading();
+		var selectParam=$(".pending-approval-selectParam").val(); 
+		$('.budget-approval-page').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/projectBudget/lookForAllByApproved", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam:selectParam,
+				startDateStart:"",
+				startDateEnd:"",
+				createTimeStart:"",
+				createTimeEnd:"",
+				trainDateStart:"",
+				trainDateEnd:"",
+				surplusBudgetStart:"",
+				surplusBudgetEnd:"",
+				projectType:"",
+				types:""
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				$yt_baseElement.showLoading();
+				if(data.flag == 0) {
+					var htmlTbody = $('.budget-approval-tbody');
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							if(v.projectType==1){
+								v.projectType="计划"
+							}
+							if(v.projectType==2){
+								v.projectType="委托"
+							}
+							if(v.projectType==3){
+								v.projectType="选学"
+							}
+							if(v.projectType==4){
+								v.projectType="调训"
+							}
+							if(v.types==1){
+								v.types="预算申请"
+							}
+							if(v.types==2){
+								v.types="预算变更"
+							}
+							htmlTr += '<tr>' +
+								'<td><a class="file-name"><input type="hidden" value="' + v.pkId + '" class="pkId">'+v.projectCode+'</a></td>' +
+								'<td style="text-align: left;"><a style="color:#3c4687;" href="#" class="project-name-approval">' + v.projectName + '</a></td>' +
+								'<td style="text-align: center;">' + v.projectType + '</td>' +
+								'<td style="text-align: left;">' + v.projectHead + '</td>' +
+								'<td>' + v.startDate + '</td>' +
+								'<td style="text-align: right;">' + v.trainDate + '</td>' +
+								'<td>' + v.createTime + '</td>' +
+								'<td style="text-align: right;">' + v.budgetTotal + '</td>' +
+								'<td style="text-align: center;">' + v.types + '</td>' +
+								'<td style="text-align: center;">' + v.dealingWithPeople + '</td>' +
+								'</tr>';
+								$(".budget-approval-page").show();
+						});
+					} else {
+						$(".budget-approval-page").hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="10" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 审批记录列表查询
+	 */
+	getApprovalRecordListInf: function() {
+		var selectParam=$(".approval-record-selectParam").val(); 
+		$('.approval-record-page').pageInfo({
+			async:true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/projectBudget/lookForAllByHi", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam:selectParam,
+				startDateStart:"",
+				startDateEnd:"",
+				createTimeStart:"",
+				createTimeEnd:"",
+				trainDateStart:"",
+				trainDateEnd:"",
+				surplusBudgetStart:"",
+				surplusBudgetEnd:"",
+				projectType:"",
+				types:""
+			}, //ajax查询访问参数
+			before:function (){
+				$yt_baseElement.showLoading();
+				
+			},
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.approval-record-tbody');
+					var htmlTr = '';
+					if(data.data.rows != null) {
+						$.each(data.data.rows, function(i, v) {
+							if(v.projectType==1){
+								v.projectType="计划"
+							}
+							if(v.projectType==2){
+								v.projectType="委托"
+							}
+							if(v.projectType==3){
+								v.projectType="选学"
+							}
+							if(v.projectType==4){
+								v.projectType="调训"
+							}
+							if(v.types==1){
+								v.types="预算申请"
+							}
+							if(v.types==2){
+								v.types="预算变更"
+							}
+							htmlTr += '<tr>' +
+								'<td><a class="file-name"><input type="hidden" value="' + v.pkId + '" class="pkId">'+v.projectCode+'</a></td>' +
+								'<td style="text-align: left;"><a style="color:#3c4687;" href="#" class="project-name-approval">' + v.projectName + '</a></td>' +
+								'<td style="text-align: center;">' + v.projectType + '</td>' +
+								'<td style="text-align: left;">' + v.projectHead + '</td>' +
+								'<td>' + v.startDate + '</td>' +
+								'<td style="text-align: right;">' + v.trainDate + '</td>' +
+								'<td>' + v.createTime + '</td>' +
+								'<td style="text-align: right;">' + v.budgetTotal + '</td>' +
+								'<td style="text-align: center;">' + v.types + '</td>' +
+								'<td style="text-align: center;">' + v.dealingWithPeople + '</td>' +
+								'</tr>';
+								$(".approval-record-page").show();
+						});
+					} else {
+						$(".approval-record-page").hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="10" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	}
+	
+}
+
+$(function() {
+	//初始化方法
+	budgetApprovalList.init();
+	
+});

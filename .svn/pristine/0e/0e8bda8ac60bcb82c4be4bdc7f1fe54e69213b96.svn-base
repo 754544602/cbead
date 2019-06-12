@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>开班式资料归档</title>
+		<style type="text/css">
+			.td-style{
+				width: 300px; 
+				text-align: left;
+			}
+			.img-ul{
+				width: 1056px; 
+				text-align: left; 
+				list-style: none;
+				padding: 5px;
+				margin: 0px auto;
+			}
+			.img-li{
+				width: 120px;
+				height: 160px; 
+				border: 1px solid #DDD;
+				box-shadow: 0px 2px 4px #DDD;
+				margin: 5px;
+				display: inline-block;
+			}
+			.operate-box{
+				height: 30px; 
+				background-color: #FFF;
+				line-height: 30px;
+			}
+			.down-btn-img{
+				margin-right:5px;
+				width:12px;
+				height:12px
+			}
+			.dele-btn-img{
+				margin-left:5px;
+				width:12px;
+				height:12px
+			}
+			
+			.down-img{
+				float: left;
+				padding: 0px 0px 0px 3px;
+				font-size:14px;
+			}
+			.dele-img{
+				float: right;
+				padding: 0px 3px 0px 0px;
+				font-size:14px;
+			}
+			.img-div-box{
+				height: 130px; 
+				background-color: #DDD;
+			}
+		</style>
+	</head>
+		<!--该页面仅申请人修改班级详情，审批流程不能改动-->
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin: 0px;">
+				<button class="page-return-btn">
+					<img class="class-return-img back-btn"  src="../../resources/images/icons/class-return.png">
+					返回
+				</button>
+			</div>
+			<div class="title-div-box">
+				<p class="title-p-style" style="margin: 9px 20px 0px 6px;" ></p>
+				<p class="title-text-p class-title" style="margin-top: -1px;">开班式待审批</p>
+				<!--隐藏数据 班级类型-->
+				<input type="hidden" value="" id="types" />
+				<!--隐藏数据 pkId-->
+				<input type="hidden" value="" id="pkId" />
+			</div>
+			<!--数据展示区域START-->
+			<!--班级STAR-->
+			<div class="content-div-box">
+				<table class="open-tb-style" cellspacing="1px" cellpadding="1px" style="height: 130px;margin: 0px auto;">
+					<tr>
+						<td class="td-text-style" style="width: 123px;">班级：</td>
+						<td class="td-style" id="projectCode">
+						</td>
+						<td class="td-text-style" style="width: 128px;">项目主任：</td>
+						<td class="td-style" id="projectUserName"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style">召开时间：</td>
+						<td class="td-style" id="startTime"></td>
+						<td class="td-text-style">学员数量：</td>
+						<td class="td-style" id="traineeCount"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style">提交时间：</td>
+						<td class="td-style" id="createTimeString"></td>
+						<td class="td-text-style">提交人：</td>
+						<td class="td-style" id="createUser"></td>
+					</tr>
+				</table>
+			</div>
+			<!--班级END-->
+			<!--开班式会序STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p class-order-title">开班式会序</p>
+				<button style="float: right;margin: 7px;" class="yt-option-btn btn-bg-color" onclick="projectList.getOutOpenHonors()">
+					<img class="ioc-img" src="../../resources/images/open/daochu.png" />
+					导出excel
+				</button>
+			</div>
+			<div class="content-div-box">
+				<table class="yt-table list-table add-order-tb valid-tab" cellspacing="1px" cellpadding="1px" style="width: 910px;margin: 0px auto;">
+					<thead style="background: #F5F5F5;">
+						<th class="order-th-style">步骤</th>
+						<th style="text-align: left; ">内容</th>
+						<th  style="width: 120px;">时间长度（分钟）</th>
+					</thead>
+					<tbody>
+						<!--会序列表部分-->
+					</tbody>
+				</table>
+			</div>
+			<!--开班式会序END-->
+			
+			<!--开班式讲稿STAR	-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p class-order-file">开班式讲稿</p>
+			</div>
+			<div class="content-div-box">
+				<table class="add-lecture-tb lecture" cellspacing="1px" cellpadding="1px" style="width: 950px;margin: 0px auto;">
+					<tbody>
+						<!--讲稿列表-->
+					</tbody>
+				</table>
+			</div>	
+			<!--开班式讲稿END-->
+			
+			<!--委托单位讲稿STAR	-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p depute-order-file">开班式讲稿</p>
+				
+			</div>
+			<div class="content-div-box">
+				<div class="order-div-up">
+					<span style="float: left;margin: 10px 5px 0px 0px;">委托单位讲稿归档：</span>
+					
+					<div class="up-btn-div-box up-file" id="up-file" style="float: left;">
+						<input type="file" id="addFile" name="file" class="up-imgs" style="width: 70px; position: absolute; left: -28px;top: 5px; font-size: 20px;z-index: 10;opacity: 0;" />
+						<button class="yt-option-btn btn-bg-color btn-up-file" style="float: right;margin: 7px; width: 70px;">
+							<img class="ioc-img" src="../../resources/images/open/daochu.png"/>
+							上传
+						</button>
+					</div>
+				</div>
+				<table class="add-depute-lecture-tb depute-lecture" cellspacing="1px" cellpadding="1px" style="width: 950px;margin: 0px auto;">
+					<tbody>
+						<!--讲稿列表-->
+					</tbody>
+				</table>
+			</div>	
+			<!--委托单位讲稿END-->
+			
+			<!--归档照片STAR	-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p depute-img">开班式照片</p>
+				<div class="up-btn-div-box operate-depute-img-box">
+					<input type="file" id="addImg" name="file" class="up-imgs" style="width: 70px; position: absolute; left: -28px;top: 5px; font-size: 20px;z-index: 10;opacity: 0;" />
+					<button class="yt-option-btn btn-bg-color btn-up-file" style="float: right;margin: 7px;width: 70px;">
+						<img class="ioc-img" src="../../resources/images/open/daochu.png"/>
+						上传
+					</button>
+				</div>
+			</div>
+			<div class="content-div-box">
+				<ul class="ul-btn img-ul">
+					
+				</ul>
+			</div>	
+			<!--归档照片END-->
+			<div class="yt-eidt-model-bottom" style="text-align: center;margin: 10px 0px;">
+				<input class="yt-model-bot-btn yt-model-sure-btn" id="submit" type="button" value="确定" />
+				<input class="yt-model-bot-btn yt-model-canel-btn " id="last-cancel" type="button" value="取消" style="margin-left: 20px;" />
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/open/reviseOpenLecture.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--文件上传js-->
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<!--图片样式文件-->
+	<script type="text/javascript" src="../../resources/js/jqthumb/jqthumb.min.js"></script>
+
+</html>

@@ -1,0 +1,52 @@
+{
+	"data":{
+		"flag":0,
+		"total":101,
+		"rows":[
+			{  
+		       	"costNumber": "AD2018418001", 
+		        "cause": "招待人工智能科学宣讲团教授",  
+		        "costType": "公务接待费",
+		        "money1": "1000",
+		        "money2": "1000",
+		        "money3": "1000",
+		        "count": "1", 
+		        "applicant": "魏业科",  
+		        "applyTime": "2018-4-18" 
+		    },{  
+		        "costNumber": "AD2018418005", 
+		        "cause":"",  
+		        "costType":"",
+		        "money1": "1200000",
+		        "money2": "1200000",
+		        "money3": "0",
+		        "count": "0", 
+		        "applicant": "魏业科",  
+		        "applyTime": "2018-05-14"
+		    }
+	
+		]
+	},
+	
+	"sel":[
+		{  
+	        "userCode": "001",  
+	        "userName": "清风"  
+	    }, {  
+	        "userCode": "002",  
+	        "userName": "徐来"  
+	    }, {  
+	        "userCode": "003",  
+	        "userName": "张三"  
+	    }, {  
+	        "userCode": "004",  
+	        "userName": "李四"  
+	    }, {  
+	        "userCode": "005",  
+	        "userName": "小明同学"  
+	    }
+
+	],
+	"table":[]
+
+}

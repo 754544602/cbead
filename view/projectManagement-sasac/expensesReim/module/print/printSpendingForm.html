@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<!--<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/approve/expenApplApprList.min.css?YTVERSIONCODE=2018052101" />-->
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style type="text/css">
+			body {
+				background-color: #fff;
+			}
+			table td{
+				border:1px solid #000;
+				height: 30px;
+			}
+			.yt-tbody tr,.yt-tbody td{
+				border:1px solid #000;
+			}
+			
+			#printSpendingForm{
+				width: 1030px;
+			}
+			.expenditure-app-name-css{
+				width: 400px;
+			    height: 30px;
+			    line-height: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="printSpendingForm">
+			<!--头部按钮-->
+			<div style="text-align: right;margin:10px 15px;">
+				<button class="yt-option-btn yt-search-btn" id="printBtn" style="margin-left: 5px;">打印 </button>
+				<!--<button class="yt-option-btn yt-reset-btn" id="closeBtn" style="margin-left: 15px;">关闭 </button>-->
+			</div>
+			<!--startprint-->
+			<!--表格-->
+			<table class="" width="1050px" style="margin:10px 20px;">
+				<tbody class="yt-tbody">
+					<tr>
+						<td colspan="6" style="text-align:right;border:1px solid #FFF;border-bottom: 1px solid #000;">
+							<!--表格头部-->
+							<div style="width:100%;padding:0 20px;">
+								<div style="text-align: center;text-decoration:underline;font-size: 26px;">
+									<span style="letter-spacing:10px;">支出凭</span>单
+								</div>
+								<div style="text-align:right;margin-top:10px;">
+									<div style="float: left;width: 450px;"><span class="print-year" style="margin-right: 10px;"></span>年</div>
+									<div style="float: left;width: 80px;"><span class="print-month" style="margin-right: 10px;"></span>月</div>
+									<div style="float: left;width: 80px;margin-right: 40px;"><span class="print-day" style="margin-right: 10px;"></span>日</div>
+									<div style="float: left;width: 250px;">单据编号：<span class="expenditure-app-num"></span></div>
+								</div>
+							</div>
+						</td>
+						<td style="border:1px solid #FFF;"></td>
+					</tr>
+					<tr>
+						<td style="width: 100px;">支出事由</td>
+						<td colspan="2" style="text-align:left;width: 400px;padding:2px 5px; ">
+							<div class="expenditure-app-name"></div>
+						</td>
+						<td style="width: 100px;">已支出金额</td>
+						<td colspan="2">
+							<div class="total-amount"></div>
+						</td>
+						<td rowspan="7" style="width:20px;border:1px solid #FFF;border-left-color:#000;">
+							<div>附</div>
+							<div>单</div>
+							<div>据</div>
+							<div style="margin-top: 40px;">张</div>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="5" class="rowspan-attr-td">收款方</td><td>全称</td><td style="width: 90px;">金额</td>
+						<td style="width: 220px;">开户银行</td><td style="width: 180px;">账号</td><td style="width: 70px;">合同协议</td>
+					</tr>
+					<tr class="datas-start-tr">
+						<td style="text-align:left;padding:2px 5px;"><div class="width-td"></div></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;padding:2px 5px;"><div class="width-td"></div></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;padding:2px 5px;"><div class="width-td"></div></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;padding:2px 5px;"><div class="width-td"></div></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td colspan="2">合计</td><td class="sum-money" style="text-align: right;"></td><td>合计金额大写</td><td colspan="2" class="text-sum-money"></td>
+					</tr>
+					<tr>
+						<td colspan="6" style="width:20px;border:1px solid #FFF;">
+							<!--表格底部-->
+							<div style="text-align: left;padding-left: 20px;">
+								<div style="display: inline-block;width: 19%;">中心主任</div>
+								<div style="display: inline-block;width: 19%;">财务分管领导</div>
+								<div style="display: inline-block;width: 19%;">财务审核</div>
+								<div style="display: inline-block;width: 19%;">部门负责人</div>
+								<div style="display: inline-block;width: 19%;">经办人</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<!--审批流程日志START-->
+			<div class=" appr-flow-log" style="padding: 20px;width:1030px">
+				<!--标题区域START-->
+				<div>
+					<div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+						<span class="title-text">流程日志</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<div class="flow-log-div">
+				</div>
+			</div>
+			<!--审批流程日志END-->
+			<!--endprint-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/print/printSpendingForm.min.js?YTVERSIONCODE=20180705"></script>
+	<!--引用JS文件END-->
+
+</html>

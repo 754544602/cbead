@@ -1,0 +1,92 @@
+var projectArchivesInfo = {
+
+	//初始化方法
+	init: function() {
+		//初始化列表
+		projectArchivesInfo.getPlanListInfo();
+		//点击查询
+		$('.key-word').off().on('click', '.search-btn', function() {
+			//调用获取列表数据方法查询
+			projectArchivesInfo.getPlanListInfo();
+		});
+		
+		//跳转页面
+		$('.list-table .yt-tbody').on("click","a.pk-id",function(){
+			debugger
+			var pkId = $(this).parent().find("input.pk-id").val();
+			window.location.href = "dataArchiving.html?pkId=" + pkId;
+		});
+
+	},
+
+	/**
+	 * 项目档案列表
+	 */
+	getPlanListInfo: function() {
+		$yt_baseElement.showLoading();
+		var keyword = $('#keyword').val();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "project/lookForAllByProjectArchives", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.list-table .yt-tbody');
+					var htmlTr = '';
+					var num = 1;
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						var states;
+						var projectStates;
+						$.each(data.data.rows, function(i, v) {
+							htmlTr = '<tr>' +
+								'<td class="project-code">' + v.projectCode + '</td>' +
+								'<td style="text-align:left"><a class="pk-id yt-link" href="#">' + v.projectName + '</a><input style="display:none" class="pk-id" value="' + v.pkId + '"/></td>' +
+								'<td class="project-type">' + (projectArchivesInfo.projectTypeInfo(v.projectType)) + '</td>' +
+								'<td class="distribution-date">' + v.startDate + '</td>' +
+								'<td class="distribution-date">' + v.endDate + '</td>' +
+								'<td class="project-head">' + v.projectSell + '</td>' +
+								'<td class="project-head">' + v.projectHead + '</td>' +
+								'<td class="distribution-user">' + v.unarchivedItem + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					}
+
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+		//项目类型设置
+	projectTypeInfo: function(code) {
+		if(code == 1) {
+			return "计划";
+		} else if(code == 2) {
+			return "委托";
+		} else if(code == 3) {
+			return "选学";
+		} else if(code == 4) {
+			return"调训";
+		}else {
+			return '';
+		};
+	},
+
+}
+$(function() {
+	//初始化方法
+	projectArchivesInfo.init();
+});

@@ -1,0 +1,56 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 100,
+		"rows": [
+			{
+				"unitLevelManagementId":"1",
+				"internalEvaluation":"单位内部控制领导小组负责人",
+				"implementation": "单位一把手",
+				"remarks": "",
+				"relatedDocuments":"内控制度手册",
+				"lastUpdateTime":"2017-10-20 17:00:20"
+			},
+			{
+				"unitLevelManagementId":"2",
+				"internalEvaluation":"单位内部控制领导小组会议次数",
+				"implementation": "2次及以上",
+				"remarks": "",
+				"relatedDocuments":"会议记录01  会议记录02   会议记录03",
+				"lastUpdateTime":"2017-10-20 17:00:20"
+			},
+			{
+				"unitLevelManagementId":"3",
+				"internalEvaluation":"单位内部主要负责人参加会议次数",
+				"implementation": "2次及以上",
+				"remarks": "",
+				"relatedDocuments":"会议记录01  会议记录02   会议记录03",
+				"lastUpdateTime":"2017-10-20 17:00:20"
+			},
+			{
+				"unitLevelManagementId":"4",
+				"internalEvaluation":"班子成员是否在单位内部控制领导机构中任职",
+				"implementation": "是",
+				"remarks": "职务列表",
+				"relatedDocuments":"内控制度手册",
+				"lastUpdateTime":"2017-10-20 17:00:20"
+			},
+			{
+				"unitLevelManagementId":"5",
+				"internalEvaluation":"单位内部控制工作小组负责人",
+				"implementation": "单位一把手",
+				"remarks": "",
+				"relatedDocuments":"内控制度手册",
+				"lastUpdateTime":"2017-10-20 17:00:20"
+			},
+			{
+				"unitLevelManagementId":"6",
+				"internalEvaluation":"单位内部控制工作小组会议次数",
+				"implementation": "2次及以上",
+				"remarks": "",
+				"relatedDocuments":"会议记录01  会议记录02   会议记录03",
+				"lastUpdateTime":"2017-10-20 17:00:20"
+			}
+		]
+	}
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.css" />
+		<title>我的项目预算</title>
+		<style type="text/css">
+			.calendar{
+				z-index: 10000 !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="project-main" style="min-width: 1100px;">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="height: 20px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<button class="yt-option-btn budget-add-list" style="margin-right: 10px;">
+							<img src="../../resources/images/button/add-icon.png">
+							新增
+						</button>
+						<button class="yt-option-btn budget-update-list" style="margin-right: 10px;">
+							<img src="../../resources/images/button/update-icon.png">
+							修改
+						</button>
+						<button class="yt-option-btn budget-delete-list" style="margin-right: 10px;">
+							<img src="../../resources/images/button/del-icon.png">
+							删除
+						</button>
+						<button class="yt-option-btn budget-change-list" style="width: 100px;">
+							<img src="../../resources/images/icons/variation-change.png">
+							预算变更
+						</button>
+						<div class="key-word" style="margin-right: 0;">
+							<input class="yt-input selectParam" placeholder="请输入关键字" type="text"/>
+							<button class="yt-option-btn search-btn">
+								<img class="search-img" src="../../resources/images/icons/class-search.png" />
+							</button>
+						</div>
+					</div>
+					</div>
+				</div>
+			<!--顶部条件查询END-->
+			<!--数据展示区域START-->
+			<div class="list-box" style="padding-top: 0px;">
+				<div class="list-title" style="padding: 12px 0px;">
+						<span>项目预算</span>
+					</div>
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th width="70px">项目编号</th>
+								<th style="">项目名称</th>
+								<th style="">项目主任</th>
+								<th width="85px">开班日期</th>
+								<th width="60px">培训天数</th>
+								<th width="140px">申请时间</th>
+								<th width="60px">预算总额</th>
+								<th width="60px">状态</th>
+								<th width="60px">执行率</th>
+								<th width="60px">剩余预算</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody budget-tbody list-tbody">
+							<tr class="class-tr">
+								<td colspan="10" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info budget-page" onselectstart="return false"></div>
+			</div>
+			<!--数据展示区域END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/projectBudget/bankBillList.min.js"></script>
+</html>

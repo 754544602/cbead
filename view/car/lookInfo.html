@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css" />
+		<title>查看车辆详情</title>
+		<style>
+			.add-car-back-btn {
+				height: 40px;
+				background-color: #FFF;
+				margin-left: 5px;
+			}
+			
+			.add-car-content-box {
+				padding-bottom: 36px;
+				margin: 10px 0px 0px 5px;
+			}
+			
+			.tab-content {
+				height: 650px;
+				text-align: right;
+				background-color: #FFF;
+			}
+			
+			.input-style {
+				width: 271px;
+				float: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<button class="page-return-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+					返回
+				</button>
+			</div>
+			<!--顶部条件查询END-->
+
+			<!--数据展示区域START-->
+			<div class="title-div-box">
+				<p class="title-p-style"></p>
+				<p class="title-text-p">车辆信息</p>
+			</div>
+			<div class="content-div-box list-box" style="padding: 0px; margin: 5px;">
+				<table cellspacing="1px" cellpadding="1px" style="height: 300px;margin: 20px auto;width: 1200px;">
+					<tr>
+						<td class="td-right" style="width: 200px;">车牌号：</td>
+						<td id="carNum">
+						</td>
+						<td class="td-right" style="width: 300px;">车辆类型：</td>
+						<td id="carType"></td>
+					</tr>
+					<tr>
+						<td class="td-right">车辆品牌：</td>
+						<td id="carBrand"></td>
+						<td class="td-right">车辆型号：</td>
+						<td id="carModel"></td>
+					</tr>
+					<tr>
+						<td class="td-right">车辆颜色：</td>
+						<td id="carColor"></td>
+						<td class="td-right">车辆来源：</td>
+						<td id="carSource"></td>
+					</tr>
+					<tr>
+						<td class="td-right">发动机号：</td>
+						<td id="engineNumber"></td>
+						<td class="td-right">购车日期：</td>
+						<td id="carBuyString"></td>
+					</tr>
+					<tr>
+						<td class="td-right" style="vertical-align: text-top;padding-top: 10px;">备注：</td>
+						<td colspan="3">
+							<p id="remarks" style="width: 697px;min-height: 100px;text-align: left;"></p>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="title-div-box">
+				<p class="title-p-style"></p>
+				<p class="title-text-p">车辆维修/报废信息</p>
+			</div>
+			<div class="content-div-box ist-box" style="padding: 0px; margin: 5px;">
+				<div class="" style="margin: 0px 30px;padding: 10px;">
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr style="height: 35px;">
+								<th style="width: 130px;">维修/报废日期</th>
+								<th style="width: 80px;padding-left:20px;">车辆行为</th>
+								<th style="padding-left: 20px;">描述</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody">
+
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/tabEdit/yt-tab-edit.js"></script>
+
+	<script type="text/javascript" src="../../resources/js/sortable/yt-sortable.js"></script>
+
+	<script type="text/javascript" src="../../resources/js/modules/car/lookInfo.js"></script>
+
+</html>

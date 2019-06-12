@@ -1,0 +1,1016 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/budget/module/expenditure/budgetStatistics.css?YTVERSIONCODE"/>
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style>
+			.yt-tbody tr{
+				border: none;
+			}
+			.yt-tbody td{
+				border: 1px solid #DFE6F3;
+				height: 20px;
+			}
+			.tab-content{
+				padding-top: 0;
+				margin-top: 190px;
+			}
+			
+			.fixed-table{
+			    table-layout: auto;
+			    width: 371px;
+			    position: fixed;
+			    left: 0;
+			    background: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		 <div id="budgetSatistics">
+		 	<div class="top-content">
+		 		 <!--顶部tab切换START-->
+		 	  <div class="tab-model">
+		 	  	   <div class="tab-header">
+						<ul>
+						</ul>
+					</div>
+		 	  </div>
+		 	  <div class="tab-heard-model" style="margin-top: 30px;">
+		 	  	   	<button class="yt-option-btn yt-common-btn config-save-btn" style="margin-right: 10px;">保存</button>
+		 	  	   	<button class="yt-option-btn yt-cancel-btn canel-btn">取消</button>
+		 	  	   	
+	 	  	   </div>
+	 	  	    <div class="table-title" style="text-align: center;font-weight: bold;font-size: 18px;"></div>
+		 	  	   <span style="float: right;margin-right: 30px;">单位：万元</span>
+		 	</div>
+		 	 
+		 	  <!--顶部Tab切换END-->
+		 	  <!--人员经费(工资福利支出)预算表区域START-->
+		 	  <div class="tab-content" style="display: block;">
+		 	  	  <table class="yt-table fixed-table" width="2300px" style="table-layout: auto;width: 458px;">
+	 	  	   	      	<thead class="yt-thead">
+	 	  	   	      		<tr style="height: 31px;">
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	    </tr>
+	 	  	   	      	    <tr style="height: 77px;">
+	 	  	   	      	    	<th class="no-th-sty"></th>
+	 	  	   	      	    	<th>功能科目</th>
+	 	  	   	      	    	<th>单位编码</th>
+	 	  	   	      	    	<th>单位名称(功能科目)</th>
+	 	  	   	      	    </tr>
+	 	  	   	      </thead>
+	 	  	   	      <tbody class="yt-tbody">
+	 	  	   	      		<tr class="flag-tr">
+	 	  	   	      			<th class="no-th-sty"></th>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r1">配置</td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>合计</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r2">配置</td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>天津市疾病预防控制中心</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r3">配置</td>
+		 	  	   	      		<td>2080505</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>机关事业单位基本养老保险缴费支出</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r4">配置</td>
+		 	  	   	      		<td>2080506</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>机关事业单位职业年金缴费支出</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r5">配置</td>
+		 	  	   	      		<td>2100401</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>疾病预防控制机构</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r5">配置</td>
+		 	  	   	      		<td>2101102</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>事业单位医疗</td>
+		 	  	   	      	</tr>
+	 	  	   	      </tbody>
+		 	  	   </table>
+		 	  	   <table class="yt-table wage-welfare" width="1630px" style="table-layout:auto;margin-left: 42px;">
+		 	  	   	      <thead class="config-thead">
+		 	  	   	      	     <tr>
+		 	  	   	      	     	  <th class="no-th-sty"></th>
+		 	  	   	      	     	  <th class="no-th-sty"></th>
+		 	  	   	      	     	  <th class="no-th-sty"></th>
+		 	  	   	      	     	  <th class="config-btn c1">配置</th>
+		 	  	   	      	     	  <th class="config-btn c2">配置</th>
+		 	  	   	      	     	  <th class="config-btn c3">配置</th>
+		 	  	   	      	     	  <th class="config-btn c4">配置</th>
+		 	  	   	      	     	  <th class="config-btn c5">配置</th>
+		 	  	   	      	     	  <th class="config-btn c6">配置</th>
+		 	  	   	      	     	  <th class="config-btn c7">配置</th>
+		 	  	   	      	     	  <th class="config-btn c8">配置</th>
+		 	  	   	      	     	  <th class="config-btn c9">配置</th>
+		 	  	   	      	     	  <th class="config-btn c10">配置</th>
+		 	  	   	      	     	  <th class="config-btn c11">配置</th>
+		 	  	   	      	     	  <th class="config-btn c12">配置</th>
+		 	  	   	      	     	  <th class="config-btn c13">配置</th>
+		 	  	   	      	     	  <th class="config-btn c14">配置</th>
+		 	  	   	      	     	  <th class="config-btn c15">配置</th>
+		 	  	   	      	     	  <th class="config-btn c16">配置</th>
+		 	  	   	      	     </tr>
+		 	  	   	      </thead>
+		 	  	   	      <thead class="yt-thead">
+		 	  	   	      	    <tr>
+		 	  	   	      	    	<th rowspan="3">功能科目</th>
+		 	  	   	      	    	<th rowspan="3">单位编码</th>
+		 	  	   	      	    	<th rowspan="3" width="240px">单位名称</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name0">合计</th>
+		 	  	   	      	    </tr>
+		 	  	   	      	    <tr>
+		 	  	   	      	    	<th colspan="5" class="no-hr">工资性支出</th>
+		 	  	   	      	    	<th colspan="8" class="no-hr">社会保险缴费</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name14">伙食补助费</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name15"><span>其他工资</span><br/><span>福利支出</span></th>
+		 	  	   	      	    </tr>
+		 	  	   	      	    <tr>
+		 	  	   	      	    	<th class="column-name1">小计</th>
+		 	  	   	      	    	<th class="column-name2">基本工资</th>
+		 	  	   	      	    	<th class="column-name3">津贴补贴</th>
+		 	  	   	      	    	<th class="column-name4"><span>年终一次</span><br/><span>性奖金</span></th>
+		 	  	   	      	    	<th class="column-name5">绩效工资</th>
+		 	  	   	      	    	<th class="column-name6">小计</th>
+		 	  	   	      	    	<th class="column-name7">养老保险</th>
+		 	  	   	      	    	<th class="column-name8">医疗保险</th>
+		 	  	   	      	    	<th class="column-name9">失业保险</th>
+		 	  	   	      	    	<th class="column-name10">工伤保险</th>
+		 	  	   	      	    	<th class="column-name11">生育保险</th>
+		 	  	   	      	    	<th class="column-name12">职业年金</th>
+		 	  	   	      	    	<th class="column-name13">其他缴费</th>
+		 	  	   	      	    </tr>
+		 	  	   	      </thead>
+		 	  	   	      <tbody class="yt-tbody">
+		 	  	   	      	<tr class="flag-tr">
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>1</td>
+		 	  	   	      		<td>2</td>
+		 	  	   	      		<td>3</td>
+		 	  	   	      		<td>4</td>
+		 	  	   	      		<td>5</td>
+		 	  	   	      		<td>6</td>
+		 	  	   	      		<td>7</td>
+		 	  	   	      		<td>8</td>
+		 	  	   	      		<td>9</td>
+		 	  	   	      		<td>10</td>
+		 	  	   	      		<td>11</td>
+		 	  	   	      		<td>12</td>
+		 	  	   	      		<td>13</td>
+		 	  	   	      		<td>14</td>
+		 	  	   	      		<td>15</td>
+		 	  	   	      		<td>16</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>合计</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td class="tl">天津市疾病预防控制中心</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td>2080505</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td class="tl">机关事业单位基本养老保险缴费支出</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td>2080506</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td class="tl">机关事业单位职业年金缴费支出</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td>2100401</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td class="tl">疾病预防控制机构</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td>2101102</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td class="tl">事业单位医疗</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      </tbody>
+		 	  	   </table>
+		 	  </div>
+		 	  <!--人员经费(工资福利支出)预算表区域END-->
+		 	  <!--人员经费(对个人和家庭的补助)预算表START-->
+		 	  <div class="tab-content">
+		 	  	<table class="yt-table fixed-table" width="2300px" style="table-layout: auto;width: 405px;">
+	 	  	   	      	<thead class="yt-thead">
+	 	  	   	      		<tr style="height: 31px;">
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	    </tr>
+	 	  	   	      	    <tr style="height: 77px;">
+	 	  	   	      	    	<th class="no-th-sty"></th>
+	 	  	   	      	    	<th>功能科目</th>
+	 	  	   	      	    	<th>单位编码</th>
+	 	  	   	      	    	<th>单位名称(功能科目)</th>
+	 	  	   	      	    </tr>
+	 	  	   	      </thead>
+	 	  	   	      <tbody class="yt-tbody">
+	 	  	   	      		<tr class="flag-tr">
+	 	  	   	      			<th class="no-th-sty"></th>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r1">配置</td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>合计</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r2">配置</td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>天津市疾病预防控制中心</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r3">配置</td>
+		 	  	   	      		<td>2100401</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>疾病预防控制机构</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r4">配置</td>
+		 	  	   	      		<td>2101102</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>事业单位医疗</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r5">配置</td>
+		 	  	   	      		<td>2101199</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>其他行政事业单位医疗支出</td>
+		 	  	   	      	</tr>
+	 	  	   	      </tbody>
+		 	  	   </table>
+		 	  	   <table class="yt-table per-subsidy" width="1630px" style="table-layout:auto;margin-left: 42px;">
+		 	  	   			<thead  class="config-thead">
+		 	  	   				<tr>
+		 	  	   	      	     	  <th class="no-th-sty"></th>
+		 	  	   	      	     	  <th class="no-th-sty"></th>
+		 	  	   	      	     	  <th class="no-th-sty"></th>
+		 	  	   	      	     	  <th class="config-btn c1">配置</th>
+		 	  	   	      	     	  <th class="config-btn c2">配置</th>
+		 	  	   	      	     	  <th class="config-btn c3">配置</th>
+		 	  	   	      	     	  <th class="config-btn c4">配置</th>
+		 	  	   	      	     	  <th class="config-btn c5">配置</th>
+		 	  	   	      	     	  <th class="config-btn c6">配置</th>
+		 	  	   	      	     	  <th class="config-btn c7">配置</th>
+		 	  	   	      	     	  <th class="config-btn c8">配置</th>
+		 	  	   	      	     	  <th class="config-btn c9">配置</th>
+		 	  	   	      	     	  <th class="config-btn c10">配置</th>
+		 	  	   	      	     	  <th class="config-btn c11">配置</th>
+		 	  	   	      	     	  <th class="config-btn c12">配置</th>
+		 	  	   	      	     	  <th class="config-btn c13">配置</th>
+		 	  	   	      	     	  <th class="config-btn c14">配置</th>
+		 	  	   	      	     	  <th class="config-btn c15">配置</th>
+		 	  	   	      	     	  <th class="config-btn c16">配置</th>
+		 	  	   	      	     	  <th class="config-btn c17">配置</th>
+		 	  	   	      	     	  <th class="config-btn c18">配置</th>
+		 	  	   	      	     	  <th class="config-btn c19">配置</th>
+		 	  	   	      	     	  <th class="config-btn c20">配置</th>
+		 	  	   	      	     </tr>
+		 	  	   			</thead>
+		 	  	   	      	<thead class="yt-thead">
+		 	  	   	      		
+		 	  	   	      	    <tr>
+		 	  	   	      	    	<th rowspan="3">功能科目</th>
+		 	  	   	      	    	<th rowspan="3">单位编码</th>
+		 	  	   	      	    	<th rowspan="3">单位名称</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name0">合计</th>
+		 	  	   	      	    </tr>
+		 	  	   	      	    <tr>
+		 	  	   	      	    	<th colspan="3">离退休费</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name4">退职(役)费</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name5">抚恤金</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name6">生活补助</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name7">救济费</th>
+		 	  	   	      	    	<th colspan="3">医疗费</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name11">助学金</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name12">奖励金</th>
+		 	  	   	      	    	<th colspan="4">住房补贴</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name17">采暖补贴</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name18">物业服务补贴</th>
+		 	  	   	      	    	<th rowspan="3" class="column-name19"><span>其他对个</span><br/><span>人和家庭</span><br/><span>的补助</span></th>
+		 	  	   	      	    </tr>
+		 	  	   	      	    <tr>
+		 	  	   	      	    	<th class="column-name1">小计</th>
+		 	  	   	      	    	<th class="column-name2">离休费</th>
+		 	  	   	      	    	<th class="column-name3">退休费</th>
+		 	  	   	      	    	<th class="column-name8">小计</th>
+		 	  	   	      	    	<th class="column-name9">离休医疗费</th>
+		 	  	   	      	    	<th class="column-name10"><span>在职及退</span><br/><span>休医疗费</span></th>
+		 	  	   	      	    	<th class="column-name13">小计</th>
+		 	  	   	      	    	<th class="column-name14"><span>住房</span><br/><span>公积金</span></th>
+		 	  	   	      	    	<th class="column-name15"><span>购房</span><br/><span>补贴</span></th>
+		 	  	   	      	    	<th class="column-name16"><span>提租</span><br/><span>补贴</span></th>
+		 	  	   	      	    </tr>
+		 	  	   	      </thead>
+		 	  	   	      <tbody class="yt-tbody">
+		 	  	   	      	<tr class="flag-tr">
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>1</td>
+		 	  	   	      		<td>2</td>
+		 	  	   	      		<td>3</td>
+		 	  	   	      		<td>4</td>
+		 	  	   	      		<td>5</td>
+		 	  	   	      		<td>6</td>
+		 	  	   	      		<td>7</td>
+		 	  	   	      		<td>8</td>
+		 	  	   	      		<td>9</td>
+		 	  	   	      		<td>10</td>
+		 	  	   	      		<td>11</td>
+		 	  	   	      		<td>12</td>
+		 	  	   	      		<td>13</td>
+		 	  	   	      		<td>14</td>
+		 	  	   	      		<td>15</td>
+		 	  	   	      		<td>16</td>
+		 	  	   	      		<td>17</td>
+		 	  	   	      		<td>18</td>
+		 	  	   	      		<td>19</td>
+		 	  	   	      		<td>20</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>合计</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>天津市疾病预防控制中心</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td>2100401</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>疾病预防控制机构</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td>2101102</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>事业单位医疗</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td>2101199</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>其他行政事业单位医疗支出</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      </tbody>
+		 	  	   </table>
+		 	  </div>
+		 	  <!--人员经费(对个人和家庭的补助)预算表END-->
+		 	  <!--公用经费预算表START-->
+		 	  <div class="tab-content">
+		 	  		<table class="yt-table fixed-table" width="2300px" style="table-layout: auto;">
+	 	  	   	      	<thead class="yt-thead">
+	 	  	   	      		<tr style="height: 31px;">
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	    </tr>
+	 	  	   	      	    <tr style="height: 62px;">
+	 	  	   	      	    	<th class="no-th-sty"></th>
+	 	  	   	      	    	<th>功能科目</th>
+	 	  	   	      	    	<th>单位编码</th>
+	 	  	   	      	    	<th>单位名称(功能科目)</th>
+	 	  	   	      	    </tr>
+	 	  	   	      </thead>
+	 	  	   	      <tbody class="yt-tbody">
+	 	  	   	      		<tr class="flag-tr">
+	 	  	   	      			<th class="no-th-sty"></th>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r1">配置</td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>合计</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r2">配置</td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>天津市疾病预防控制中心</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td class="config-btn r3">配置</td>
+		 	  	   	      		<td>2100401</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>疾病预防控制机构</td>
+		 	  	   	      	</tr>
+	 	  	   	      </tbody>
+		 	  	   </table>
+		 	  	   <table class="yt-table  public-exp-audit" width="2300px" style="table-layout: auto;margin-left: 42px;">
+		 	  	   		<thead  class="config-thead">
+	 	  	   				<tr>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="no-th-sty"></th>
+	 	  	   	      	     	  <th class="config-btn c1">配置</th>
+	 	  	   	      	     	  <th class="config-btn c2">配置</th>
+	 	  	   	      	     	  <th class="config-btn c3">配置</th>
+	 	  	   	      	     	  <th class="config-btn c4">配置</th>
+	 	  	   	      	     	  <th class="config-btn c5">配置</th>
+	 	  	   	      	     	  <th class="config-btn c6">配置</th>
+	 	  	   	      	     	  <th class="config-btn c7">配置</th>
+	 	  	   	      	     	  <th class="config-btn c8">配置</th>
+	 	  	   	      	     	  <th class="config-btn c9">配置</th>
+	 	  	   	      	     	  <th class="config-btn c10">配置</th>
+	 	  	   	      	     	  <th class="config-btn c11">配置</th>
+	 	  	   	      	     	  <th class="config-btn c12">配置</th>
+	 	  	   	      	     	  <th class="config-btn c13">配置</th>
+	 	  	   	      	     	  <th class="config-btn c14">配置</th>
+	 	  	   	      	     	  <th class="config-btn c15">配置</th>
+	 	  	   	      	     	  <th class="config-btn c16">配置</th>
+	 	  	   	      	     	  <th class="config-btn c17">配置</th>
+	 	  	   	      	     	  <th class="config-btn c18">配置</th>
+	 	  	   	      	     	  <th class="config-btn c19">配置</th>
+	 	  	   	      	     	  <th class="config-btn c20">配置</th>
+	 	  	   	      	     	  <th class="config-btn c21">配置</th>
+	 	  	   	      	     	  <th class="config-btn c22">配置</th>
+	 	  	   	      	     	  <th class="config-btn c23">配置</th>
+	 	  	   	      	     	  <th class="config-btn c24">配置</th>
+	 	  	   	      	     	  <th class="config-btn c25">配置</th>
+	 	  	   	      	     	  <th class="config-btn c26">配置</th>
+	 	  	   	      	     	  <th class="config-btn c27">配置</th>
+	 	  	   	      	     	  <th class="config-btn c28">配置</th>
+	 	  	   	      	     </tr>
+	 	  	   			</thead>
+	 	  	   	      	<thead class="yt-thead">
+	 	  	   	      	    <tr>
+	 	  	   	      	    	<th rowspan="2">功能科目</th>
+	 	  	   	      	    	<th rowspan="2">单位编码</th>
+	 	  	   	      	    	<th rowspan="2">单位名称</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name0">合计</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name1">办公费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name2">印刷费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name3">咨询费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name4">手续费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name5">水费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name6">电费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name7">邮电费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name8">取暖费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name9">物业管理费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name10">差旅费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name11"><span>因公出国</span><br><span>(境)费用</span></th>
+	 	  	   	      	    	<th rowspan="2" class="column-name12">维修(护)费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name13">租赁费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name14">会议费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name15">培训费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name16">公务接待费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name17">专用材料费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name18">被装购置费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name19">专用燃料费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name20">劳务费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name21">委托业务费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name22">工会经费</th>
+	 	  	   	      	    	<th rowspan="2" class="column-name23">福利费</th>
+	 	  	   	      	    	<th colspan="2">交通费</th>
+	 	  	   	      	    	<th colspan="2">公用经费其他</th>
+	 	  	   	      	    </tr>
+	 	  	   	      	    <tr>
+	 	  	   	      	    	<th class="column-name24">小计</th>
+	 	  	   	      	    	<th class="column-name25">其中:公务用车运行维护费</th>
+	 	  	   	      	    	<th class="column-name26">小计</th>
+	 	  	   	      	    	<th class="column-name27">其中：公务用车购置</th>
+	 	  	   	      	    </tr>
+	 	  	   	      </thead>
+	 	  	   	      <tbody class="yt-tbody">
+	 	  	   	      		<tr class="flag-tr">
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>**</td>
+		 	  	   	      		<td>1</td>
+		 	  	   	      		<td>2</td>
+		 	  	   	      		<td>3</td>
+		 	  	   	      		<td>4</td>
+		 	  	   	      		<td>5</td>
+		 	  	   	      		<td>6</td>
+		 	  	   	      		<td>7</td>
+		 	  	   	      		<td>8</td>
+		 	  	   	      		<td>9</td>
+		 	  	   	      		<td>10</td>
+		 	  	   	      		<td>11</td>
+		 	  	   	      		<td>12</td>
+		 	  	   	      		<td>13</td>
+		 	  	   	      		<td>14</td>
+		 	  	   	      		<td>15</td>
+		 	  	   	      		<td>16</td>
+		 	  	   	      		<td>17</td>
+		 	  	   	      		<td>18</td>
+		 	  	   	      		<td>19</td>
+		 	  	   	      		<td>20</td>
+		 	  	   	      		<td>21</td>
+		 	  	   	      		<td>22</td>
+		 	  	   	      		<td>23</td>
+		 	  	   	      		<td>24</td>
+		 	  	   	      		<td>25</td>
+		 	  	   	      		<td>26</td>
+		 	  	   	      		<td>27</td>
+		 	  	   	      		<td>28</td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>合计</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td></td>
+		 	  	   	      		<td>天津市疾病预防控制中心</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+		 	  	   	      	<tr>
+		 	  	   	      		<td>2100401</td>
+		 	  	   	      		<td>368F26</td>
+		 	  	   	      		<td>疾病预防控制机构</td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      		<td class="right-td"></td>
+		 	  	   	      	</tr>
+	 	  	   	      </tbody>
+		 	  	   </table>
+		 	  </div>
+		 	  <!--公用经费预算表END-->
+		 </div>
+		 <!--配置弹出框-->
+		 <div class="dialog-box" id="config-form-column">
+			  <div class="model-title">
+			  	   <img src="../../../../../resources-sasac/images/common/list.png"><span class="title-text"></span>
+			  </div>
+			  <div class="model-content">
+		  			<div class="box-row">
+		  				<div class="box-content box-lable">显示名称：</div>
+		  				<div class="box-content box-content-read column-name"></div>
+		  				<div class="box-content box-lable1">所属表：</div>
+		  				<div class="box-content table-name"></div>
+		  	    	</div>
+		  	    	<div class="box-row">
+		  				<div class="box-content box-lable">行或列：</div>
+		  				<div class="box-content box-content-read">列</div>
+		  				<div class="box-content box-lable1">列号：</div>
+		  				<div class="box-content column-num"></div>
+		  	    	</div>
+		  	    	<div class="box-row">
+		  				<div class="box-content box-lable">是否为计算项：</div>
+		  				<div class="box-content box-content-read">	
+		  					<label class="yt-checkbox" style="position: absolute; margin-top: 15px;">
+								<input class="is-calculation" type="checkbox" name="test"  value="1"/>
+							</label>
+		  				</div>
+		  				<div class="box-content box-lable1 formual dn">计算公式：</div>
+		  				<div class="box-content formual dn"><input class="yt-input" type="text" value="" /><span class="valid-font"></span></div>
+		  	    	</div>
+		  	    	<div class="attributes-list">
+		  	    		<div class="box-row">
+			  				<div class="box-content box-lable">引用字典/预算属性：</div>
+			  				<div class="box-content box-content-read" style="position: relative;">
+			  					<select name="" class="yt-select attributes"> </select>
+			  				</div>
+			  				<div class="box-content box-lable1">字典编码：</div>
+			  				<div class="box-content box-lable2"><input type="text" value="" class="yt-input word-code" validform="{isNull:true,msg:'请选择编码'}" style="width: 130px;cursor: pointer;" readonly="readonly" /><span class="valid-font"></span></div>
+			  				<div class="box-content box-button"><button class="yt-option-btn yt-common-btn add-attr">添加属性</button> </div>
+			  	    	</div>
+		  	    	</div>
+		  	    	
+			  	   
+			  	    <!--底部按钮操作区域START-->
+			  	    <div class="model-bottom-btn">
+    	  	     	 	 <button class="yt-option-btn yt-common-btn">确定</button>
+    	  	     	 	 <button class="yt-option-btn yt-cancel-btn" style="margin-right: 0;">取消</button>
+			  	    </div>
+			  	    <!--底部按钮操作区域END-->
+			  </div>
+		</div>
+		<div class="dialog-box" id="config-form-row">
+			  <div class="model-title">
+			  	   <img src="../../../../../resources-sasac/images/common/list.png"><span class="title-text"></span>
+			  </div>
+			  <div class="model-content">
+			  	<div class="box-row">
+		  				<div class="box-content box-lable">所属表：</div>
+		  				<div class="box-content table-name"></div>
+		  	    	</div>
+		  	    	<div class="box-row">
+		  				<div class="box-content box-lable">行或列：</div>
+		  				<div class="box-content box-content-read">行</div>
+		  				<div class="box-content box-lable1">列号：</div>
+		  				<div class="box-content row-num"></div>
+		  	    	</div>
+		  	    	<div class="box-row">
+		  				<div class="box-content box-lable">功能科目：</div>
+		  				<div class="box-content box-content-read subject"></div>
+		  				<div class="box-content box-lable1 co-code">单位编码：</div>
+		  				<div class="box-content"></div>
+		  	    	</div>
+		  	    	<div class="box-row">
+		  				<div class="box-content box-lable">单位名称（功能科目）：</div>
+		  				<div class="box-content co-name"></div>
+		  	    	</div>
+		  	    	<div class="box-row">
+		  				<div class="box-content box-lable">是否为计算项：</div>
+		  				<div class="box-content box-content-read">
+		  					<label class="yt-checkbox" style="position: absolute; margin-top: 15px;">
+								<input class="is-calculation" type="checkbox" name="test"  value="1"/>
+							</label>
+		  				</div>
+		  				<div class="box-content box-lable1 formual dn">计算公式：</div>
+		  				<div class="box-content formual dn"><input class="yt-input" type="text" value="" />
+		  					<span class="valid-font"></span>
+		  				</div>
+		  				
+		  	    	</div>
+		  	    	<div class="attributes-list">
+			  	    	<div class="box-row">
+			  				<div class="box-content box-lable">引用字典/预算属性：</div>
+			  				<div class="box-content box-content-read" style="position: relative;">
+			  					<select name="" class="yt-select attributes">
+			  						<option value="1">功能分类</option>
+			  						<option value="2">经济分类</option>
+			  						<option value="3">单位编码</option>
+			  						<option value="4">单位名称</option>
+			  						<option value="5">计算项</option>
+			  					</select>
+			  				</div>
+			  				<div class="box-content box-lable1">字典编码：</div>
+			  				<div class="box-content box-lable2"><input type="text" value="" class="yt-input word-code" validform="{isNull:true,msg:'请选择编码'}" style="width: 130px;cursor: pointer;" readonly="readonly" /><span class="valid-font"></span></div>
+			  				<div class="box-content box-button"><button class="yt-option-btn yt-common-btn add-attr">添加属性</button></div>
+			  	    	</div>
+	  	    		</div>
+			  	    <!--底部按钮操作区域START-->
+			  	    <div class="model-bottom-btn">
+    	  	     	 	 <button class="yt-option-btn yt-common-btn">确定</button>
+    	  	     	 	 <button class="yt-option-btn yt-cancel-btn" style="margin-right: 0;">取消</button>
+			  	    </div>
+			  	    <!--底部按钮操作区域END-->
+			  </div>
+		</div>
+		
+		<div class="dialog-box" id="code-list" style="z-index:10005;width: 720px;">
+			  <div class="model-title">
+			  	   <img src="../../../../../resources-sasac/images/common/list.png"><span class="title-text">编码列表</span>
+			  </div>
+			  <div class="model-content">
+			  	<div style="padding: 10px 50px;">
+			  		<div style="height: 50px;">
+			  			<input type="text" class="yt-input" style="width: 530px;float: left;" name="" id="" value="" />
+			  			<button style="float: right;" class="yt-option-btn yt-search-btn">查询</button>
+			  		</div>
+			  		<table class="yt-table code-list" width="100%">
+		  	    		<thead class="yt-thead">
+		  	    			<tr><th>编码</th><th>名称</th></tr>
+		  	    		</thead>
+		  	    		<tbody class="yt-tbody"></tbody></table>
+	  	    		<div class="page-info table-page page1" onselectstart="return false"></div>
+			  	</div>
+		  	    	
+			  	    <!--底部按钮操作区域START-->
+			  	    <div class="model-bottom-btn">
+    	  	     	 	 <button class="yt-option-btn yt-common-btn">确定</button>
+    	  	     	 	 <button class="yt-option-btn yt-cancel-btn" style="margin-right: 0;">取消</button>
+			  	    </div>
+			  	    <!--底部按钮操作区域END-->
+			  </div>
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-valid.min.js" ></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/budget/module/expenditure/budgetStatisticsConfig.js"></script>
+	<!--引用JS文件END-->
+</html>

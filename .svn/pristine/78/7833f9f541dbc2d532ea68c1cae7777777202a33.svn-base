@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teachingStaff/teachingStaffList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>教职工管理</title>
+		<style type="text/css">
+			.calendar {
+				z-index: 10000 !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1100px;">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="height: 20px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<button class="yt-option-btn teaching-staff-add-list" style="margin: 0px 3px 0px 5px;">
+							<img src="../../resources/images/button/add-icon.png">
+							新增
+						</button>
+						<button class="yt-option-btn teaching-staff-update-list" style="margin: 0px 3px;">
+							<img src="../../resources/images/button/update-icon.png">
+							修改
+						</button>
+						<button class="yt-option-btn teaching-staff-delete-list" style="margin: 0px 3px;">
+							<img src="../../resources/images/button/del-icon.png">
+							删除
+						</button>
+						<div class="key-word" style="margin-right: 0px;">
+							<input class="yt-input selectParam" placeholder="请输入关键字" type="text" />
+							<button class="yt-option-btn search-btn">
+								<img class="search-img" src="../../resources/images/icons/class-search.png" />
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--顶部条件查询END-->
+			<!--数据展示区域START-->
+			<div class="list-box">
+				<span style="font-size: 17px;">教职工信息</span>
+				<table class="yt-table list-table" style="margin-top: 12px;">
+					<thead class="list-thead">
+						<tr>
+							<th class="check-box-th" style="width: 30px;">
+								<label class="check-label yt-checkbox parent-check"><input type="checkbox" class="check-all" name="test" value=""/>  </label>
+							</th>
+							<th style="width: 50px;">序号</th>
+							<th style="width: 110px;">姓名</th>
+							<th style="width: 50px;">性别</th>
+							<th style="width: 110px;">职务</th>
+							<th style="width: 110px;">科室</th>
+							<th>邮箱</th>
+							<th style="width:120px;">电话</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody teaching-staff-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="8" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info teaching-staff-page" onselectstart="return false"></div>
+			</div>
+			<!--数据展示区域END-->
+			<!--弹窗-->
+			<div class="teacher-select-div">
+				<div class="yt-pop-model yt-edit-alert teaching-staffList-div" style="width: 440px;">
+					<div class="yt-edit-alert-title teaching-staffList-title-div">
+						<span class="teaching-staffList-title-span">新增教职工</span>
+					</div>
+					<div class="yt-edit-alert-main " style="overflow: visible;">
+						<table class="teaching-staffList-table valid-tab" style="width: auto;margin:0 auto;;">
+							<tr>
+								<td align="right">
+									<span>姓名：</span><span style="color:red;font-weight:bold" data-qtip="Required">*</span>
+								</td>
+								<td style="position: relative;">
+									<input class="yt-input  user-name" validform="{isNull:true,blurFlag:true,msg:'请输入姓名'}" placeholder="请输入姓名" type="text" style="width: 275px;" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>性别：</span><span style="color:red;font-weight:bold" data-qtip="Required">*</span>
+								</td>
+								<td>
+									<select class="yt-select type-select user-gender" style="width: 281px;" validform="{isNull:true,blurFlag:true,msg:'请选择性别'}">
+										<option value="">请选择</option>
+										<option value="1">男</option>
+										<option value="0">女</option>
+									</select>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>职务：</span><span style="color:red;font-weight:bold" data-qtip="Required">*</span>
+								</td>
+								<td>
+									<select class="yt-select type-select position-code" style="width: 281px;" validform="{isNull:true,blurFlag:true,msg:'请选择职务'}">
+										<option value="">请选择</option>
+									</select>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>科室：</span><span style="color:red;font-weight:bold" data-qtip="Required">*</span>
+								</td>
+								<td class="applay-td-border pro-td-center">
+									<div class="tree-text-div"style="height: 30px;width: 274px;line-height: 30px; padding-left:5px;position: relative; border: 1px solid #DFE6F3;"></div>
+									<div style="position: relative;">
+										<ul class="prepare-tt" style="height: 184px;overflow: auto;position: absolute;border: 1px solid #DFE6F3;width: 199px;z-index: 1;background: #fff;display: none;"></ul>
+									</div>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span>邮箱：</span><span style="color:red;font-weight:bold" data-qtip="Required">*</span>
+								</td>
+								<td>
+									<input class="yt-input  user-email" validform="{isNull:true,blurFlag:true,type:'email',size:100,msg:'请输入正确的邮箱'}" placeholder="请输入邮箱" type="email" style="width: 275px;" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									<span style="width: 200px;">电话：</span><span style="color:red;font-weight:bold" data-qtip="Required">*</span>
+								</td>
+								<td>
+									<input class="yt-input  user-phone" validform="{isNull:true,blurFlag:true,type:'phone',msg:'请输入正确电话号码'}" placeholder="请输入电话" type="tel" style="width: 275px;" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="yt-eidt-model-bottom teaching-staffList-btn-div">
+						<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-sure-btn teaching-staffList-sure-btn" type="button" value="确定" />
+						<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-canel-btn teaching-staffList-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/teachingStaff/teachingStaffList.js"></script>
+
+</html>

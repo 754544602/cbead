@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/questionnaire/approvalDeatail.css" />
+		<style type="text/css">
+			.yt-edit-alert tr td {
+				padding: 10px 0;
+				position: relative;
+				line-height: 10px;
+			}
+			.cont-edit-test table{
+				margin-top: 20px;
+			}
+		</style>
+		<title>非选学班次问卷</title>
+	</head>
+
+	<body>
+		<div class="page-main">
+		<!--顶部条件查询START-->
+		<div class="page-title">
+			<span class="project-name">非选学班次满意度调查问卷</span>
+			<button class="page-return-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png"/>
+					返回
+				</button>
+		</div>
+		<!--顶部条件查询END-->
+		<!--数据展示区域START-->
+		<div class="tab-div " style="padding-bottom: 36px; margin-left: 5px;">
+			<!--内容部分START-->
+			<div class="title-content">
+
+			</div>
+			<!--内容部分END-->
+			<!--底部按钮部分-->
+			<div style="text-align: center;">
+				<input class="yt-model-bot-btn yt-model-sure-btn approval-submit" type="button" value="确定" />
+				<input class="yt-model-bot-btn yt-model-canel-btn approval-canel-bottom" type="button" value="取消" />
+			</div>
+			<!--弹出框START-->
+			<div class="yt-pop-model yt-edit-alert" style="width: 480px;left: 329.5px;top: 174px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">新增问卷项</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<table style="margin: 0px auto;margin-top: 20px;">
+						<tr>
+							<td>类型：</td>
+							<td>
+								<select class="yt-select approval-select">
+									<option value="1" selected="selected">评分</option>
+									<option value="2">单选</option>
+									<option value="3">多选</option>
+									<option value="4">开放</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>标题：</td>
+							<td><input class="yt-input title-content-input"  placeholder="请输入" /></td>
+						</tr>
+						<tr class="choose-tr">
+							<td>选项：</td>
+							<td><input class="yt-input choose-content-input"  placeholder="请输入" /></td>
+						</tr>
+					</table>
+					<!--弹窗底部部分-->
+					<div class="form-bottom-content">
+						<div class="form-bottom-btn">
+							<td colspan="2">
+								<span>+</span><span style="font-size: 14px;">新增选项</span>
+							</td>
+						</div>
+					</div>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom">
+						<input class="yt-model-bot-btn yt-model-sure-btn form-sure-btn" type="button" value="确定" />
+						<input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="取消" />
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--弹出框END-->
+		</div>
+		<!--数据展示区域END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/tabEdit/yt-tab-edit.js"></script>
+	<script type="text/javascript" src="../../resources/js/open/updateApplyList.js"></script>
+	<script type="text/javascript" src="../../resources/js/sortable/yt-sortable.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/questionnaire/nonSelection.js"></script>
+
+</html>

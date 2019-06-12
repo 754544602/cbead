@@ -1,0 +1,372 @@
+/**
+ * 时间文本框C14样式
+ */
+/*公用时间选择框类样式标识*/
+.calendar {
+	position: absolute;
+	width: 220px;
+	height: 242px;
+	padding: 0;
+	display: none;
+	float: left;
+	border: 1px solid #e5e5e5;
+	background:#fff;
+	color: #333;
+	font-size:12px;
+	overflow: hidden;
+	line-height: initial;
+}
+/*公用的输入框样式*/
+.calendar-input{
+	width:110px;
+	height: 28px;
+	line-height: 28px;
+	padding:0 4px;
+	margin: 0;
+	border:1px solid #dfe6f3;
+	border-radius: 2px;
+	cursor: pointer;
+}
+/*输入框的图标样式*/
+.calendar-input-bg{
+	background: #fff url(../../images/calendar/date-bg.png) no-repeat;
+	/*background-attachment:fixed;*/
+	background-position: 101px 7px;
+}
+/*公用时间选择框内部类样式标识*/
+.calendar .calMain {
+	width: 100%;
+	height: 227px;
+	float: left;
+	overflow: hidden;
+	position: absolute;
+}
+/*公用时间选择框顶部 年 月 类样式标识*/
+.calendar .calMain .calTitle {
+	width: 100%;
+	float: left;
+	background: #fff;
+	overflow: hidden;
+	padding-top: 11px;
+	padding-bottom: 5px;
+	background-color: #fafafa;
+}
+
+/*顶部 标题的样式*/
+.calendar .calMain .calTitle .t_date {
+	color: #333;
+	text-align: center;
+	font-size:12px;
+}
+.calendar .calMain .calTitle .t_date div{
+	width: 50%;
+	display: inline-block;
+}
+/*顶部 点击减少按钮*/
+.calendar .calMain .calTitle .prevMonth,.calendar .calMain .calTitle .prevYear {
+	width: 15px;
+	height: 15px;
+	float: left;
+	margin: 0px 0 0 10px;
+	cursor: pointer;
+	background: url(../../images/calendar/prev-btn.png) no-repeat 50% 50%;
+}
+/*顶部 点击增加按钮*/
+.calendar .calMain .calTitle .nextMonth,.calendar .calMain .calTitle .nextYear{
+	width: 15px;
+	height: 15px;
+	float: right;
+	margin: 0px 10px 0 0;
+	cursor: pointer;
+	background: url(../../images/calendar/next-btn.png) no-repeat 50% 50%;
+}
+
+.calendar .calMain .calTitle .currentYearText,.calendar .calMain .calTitle .currentMonthText {
+	cursor: pointer;
+}
+
+.calendar .calMain .calContent {
+	width: 378px;
+	height: 157px;
+	float: left;
+}
+
+.calendar .calMain .calContent .enabled {
+	position: absolute;
+	width: 100%;
+	height: 170px;
+	float: left;
+}
+
+.calendar .calMain .calContent .reserve {
+	position: absolute;
+	width: 100%;
+	height: 157px;
+	float: left;
+}
+
+.calendar .calMain .calContent .tabD {
+	margin:0 auto;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 0;
+	width: 100%;
+}
+
+/*星期 的公用样式*/
+.calendar .calMain .calContent .tabD th {
+	line-height: 14px;
+	font-weight: normal;
+	color: #333;
+	width:25px;
+	height:14px;
+	padding-bottom: 5px;
+	font-size: 12px;
+	background-color: #fafafa;
+	border-bottom: 1px solid #e5e5e5;
+}
+/*日期的区域样式*/
+.calendar .calMain .calContent .tabD td {
+	color: #333;
+	text-align: center;
+	line-height: 25px;
+	width: 25px;
+	font-size: 12px;
+	padding: 1px 2px;
+}
+
+.calendar .calMain .calContent .tabD td span {
+	color: #e4e2e2;
+	font-size: 12px;
+}
+
+/*日期默认样式*/
+.calendar .calMain .calContent .tabD td a {
+	width: 25px;
+	height:25px;
+	line-height:25px;
+	float: left;
+	margin: 1px 0 0 2px;
+	cursor: pointer;
+	color: #333;
+	font-size: 12px;
+}
+
+/*之后的日期*/
+.calendar .calMain .calContent .tabD td .nextD {
+	color: #999;
+}
+
+/*之前 日期*/
+.calendar .calMain .calContent .tabD td .prevD {
+	color: #999;
+}
+
+.calendar .calMain .calContent .tabD td .hover {
+	/*width: 25px;
+	height:25px;
+	line-height:25px;
+	border: 1px solid #7D99BD;
+	float: left;*/
+}
+
+.calendar .calMain .calContent .tabD td .current {
+	width: 25px;
+	height:25px;
+	line-height:25px;
+	background: #cccccc;
+	color: #fff;
+	float: left;
+	border-radius:50%;
+}
+/*日期的选中样式*/
+.calendar .calMain .calContent .tabD td .select {
+	width: 25px;
+	height:25px;
+	line-height:25px;
+	background: #4387cd;
+	color: #fff;
+	float: left;
+	border-radius:50%;
+}
+/*月份表格*/
+.calendar .calMain .calContent .tabM {
+	width: 185px;
+	margin: 0 auto;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 0;
+}
+/*月份边框*/
+.calendar .calMain .calContent .tabM td {
+	color: #333;
+	text-align: center;
+	padding: 5px 7px;
+	font-size: 12px;
+}
+/*月份默认*/
+.calendar .calMain .calContent .tabM td a {
+	width: 40px;
+	line-height: 20px;
+	float: left;
+	cursor: pointer;
+	color: #333;
+	font-size: 12px;
+}
+/*月份悬浮*/
+.calendar .calMain .calContent .tabM td .hover {
+	/*width: 40px;
+	line-height: 20px;
+	border: 1px solid #7D99BD;
+	float: left;
+	margin: 0px 0 0 2px;*/
+}
+/*当前*/
+.calendar .calMain .calContent .tabM td .current {
+	width: 40px;
+	line-height: 20px;
+	background: #cccccc;
+	color: #fff;
+	float: left;
+	border-radius: 4px;
+}
+/*月份选中*/
+.calendar .calMain .calContent .tabM td .select {
+	width: 40px;
+	line-height: 20px;
+	background: #4387cd;
+	color: #fff;
+	float: left;
+	border-radius: 4px;
+}
+
+.calendar .calMain .calContent .tabY {
+	width: 185px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0;
+}
+
+.calendar .calMain .calContent .tabY td {
+	color: #333;
+	text-align: center;
+	padding: 5px 0;
+	font-size: 12px;
+}
+
+.calendar .calMain .calContent .tabY td a {
+	width: 40px;
+	line-height: 20px;
+	float: left;
+	cursor: pointer;
+	color: #333;
+	font-size: 12px;
+}
+/*之后的年份*/
+.calendar .calMain .calContent .tabY td .nextY {
+	color: #333;
+}
+/*之前的年份*/
+.calendar .calMain .calContent .tabY td .prevY {
+	color: #333;
+}
+
+.calendar .calMain .calContent .tabY td .hover {
+	/*width: 40px;
+	line-height: 40px;
+	border: 1px solid #7D99BD;
+	float: left;
+	margin: 0px 0 0 2px;*/
+}
+/*当前年份*/
+.calendar .calMain .calContent .tabY td .current {
+	width: 40px;
+	line-height: 20px;
+	background: #cccccc;
+	color: #fff;
+	float: left;
+	border-radius: 4px;
+}
+/*选中年份*/
+.calendar .calMain .calContent .tabY td .select {
+	width: 40px;
+	line-height: 20px;
+	background: #4387cd;
+	color: #fff;
+	float: left;
+	border-radius: 4px;
+}
+
+.calendar .calMain a:hover {
+	text-decoration: none;
+}
+/*追加输入框按钮*/
+.calendar .buttonBox{
+	width: 100%;
+	height: 24px;
+	line-height: 24px;
+	border-top: 1px solid #e5e5e5;
+	position: absolute;
+	bottom: 0;
+	z-index: 1;
+	background: #fafafa url(../../images/calendar/date-bg.png) no-repeat;
+	background-position: 9px 5px;
+}
+.calendar .buttonBox .buttonImg{
+	float: left;
+	vertical-align: middle;
+	margin-left: 9px;
+}
+.calendar .buttonBox .buttonList{
+	float: right;
+	overflow: hidden;
+	zoom: 1;
+	margin-right: 5px;
+}
+/*日期选择框按钮*/
+.calendar .buttonBox .buttonList button{
+	width: 40px;
+	height: 18px;
+	line-height: 18px;
+	background-color: #4387cd;
+	border-radius: 2px;
+	margin:3px 1px;
+	color: #fff;
+	outline: none;
+	border: none;
+	cursor: pointer;
+}
+.calendar .buttonBox .buttonList button:hover{
+	background-color: #699fd7;
+}
+
+.calendar-hms{
+	height: 16px;
+	border: 1px solid #dfe6f3;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+	display: inline-block;
+    margin-top: 3px;
+    margin-left: 2px;
+    background: #fff;
+    line-height: 14px;
+    
+}
+.calendar-hms input[type="text"] {
+    height: 16px;
+    border: none;
+    font-size: 12px;
+    width: 25px;
+    text-align: center;
+    outline: none;
+}
+.calendar-box{
+	display: inline-block;
+	position: relative;
+}
+
+.calendar tr td,.calendar tr{
+    height: auto;
+}

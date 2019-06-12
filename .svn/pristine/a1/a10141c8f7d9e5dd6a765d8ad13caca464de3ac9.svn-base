@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>班级详情页</title>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1200px;">
+			<div class="box-list">
+				<div class="add-title">
+					新增项目
+				</div>
+				<!--班级信息-->
+				<div class="content-box class-div get-project-inf valid-tab">
+					<div class="class-info-div">
+						项目负责人信息
+					</div>
+					<div class="tab-content class-info add-project">
+						<div class="class-info-centent">
+							<table class="class-info-table">
+								<tr>
+									<td align="right">
+										<span>项目名称：</span>
+									</td>
+									<td colspan="3">
+										<input type="text" class="yt-input project-name" data-val="projectName" validform="{isNull:true,blurFlag:true,size:50,msg:'所填内容不可超过50个字'}" placeholder="请输入项目名称"/>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>类型：</span>
+									</td>
+									<td>
+										<select class="yt-select type-select project-type" validform="{isNull:true,blurFlag:true,msg:'请选择类型'}" data-val="projectType">
+											<option value="">请选择</option>
+											<option value="1">计划</option>
+					  	    	       	    <option value="2">委托</option>
+					  	    	       	    <option value="3">选学</option>
+					  	    	       	    <option value="4">调训</option>
+				  	    	      		</select>
+				  	    	      		<span class="valid-font"></span>
+									</td>
+									<td align="right" width="156px">
+										<span>项目销售：</span>
+									</td>
+									<td colspan="3">
+										<select class="yt-select type-select project-sell" validform="{isNull:true,blurFlag:true,msg:'请选择项目销售'}" data-val="projectSell">
+				  	    	      			<option value="">请选择</option>
+										</select>
+				  	    	      		<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>培训日期：</span>
+									</td>
+									<td>
+										<input class="calendar-input start-date" data-val="startDate" placeholder="设置培训日期" type="text" style="width: 275px;"/>
+										<span class="valid-font"></span>
+									</td>
+									<td align="right">
+										<span>结束日期：</span>
+									</td>
+									<td>
+										<input class="calendar-input end-date" data-val="endDate" placeholder="设置结束日期" type="text" style="width: 275px;"/>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>培训天数：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input train-date" data-val="trainDate" validform="{isNull:true,blurFlag:true,size:10,type:/^[0-9]*$/,msg:'所填内容为数字'}" placeholder="请输入培训天数"/>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top" height="156px">
+										<span style="position: relative;top: 10px;">备注：</span>
+									</td>
+									<td colspan="3">
+										<textarea type="text" class="yt-textarea details" data-val="details" placeholder="请输入项目简介"></textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!--委托单位信息-->
+					<div class="class-info-div">
+						委托单位信息
+					</div>
+					<div class="tab-content class-info entrust-inf">
+						<div class="class-info-centent">
+							<table class="class-info-table">
+								<tr>
+									<td align="right">
+										<span>单位名称：</span>
+									</td>
+									<td colspan="3">
+										<select class="yt-select type-select group-id" data-val="groupId" validform="{isNull:true,blurFlag:true,msg:'请选择单位名称'}" style="width: 728px;">
+											<option value="">请选择</option>
+				  	    	      		</select>
+				  	    	      		<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>负责部门：</span>
+									</td>
+									<td colspan="3">
+										<input type="text" class="yt-input customer-dept" data-val="customerDept" validform="{isNull:true,blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" style="width: 722px;" placeholder="请输入"/>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>联系人：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input customer-linkman" data-val="customerLinkman" validform="{isNull:true,blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" placeholder="请输入"/>
+										<span class="valid-font"></span>
+									</td>
+									<td align="right" width="156px">
+										<span>职务：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input customer-linkman-position" data-val="customerLinkmanPosition" validform="{isNull:true,blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" placeholder="请输入"/>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>电话：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input customer-linkman-phone" data-val="customerLinkmanPhone" placeholder="请输入"/>
+									</td>
+									<td align="right" width="156px">
+										<span>手机：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input customer-linkman-cellphone" data-val="customerLinkmanCellphone" validform="{isNull:true,blurFlag:true,type:'phone',size:11,msg:'请填写正确的手机号'}" placeholder="请输入"/>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>传真：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input customer-linkman-fax" data-val="customerLinkmanFax" placeholder="请输入"/>
+									</td>
+									<td align="right" width="156px">
+										<span>邮箱：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input customer-linkman-email" data-val="customerLinkmanEmail" placeholder="请输入"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>学员职务：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input customer-trainee-position" data-val="customerTraineePosition" validform="{isNull:true,blurFlag:true,size:10,msg:'所填内容不可超过10个字'}" placeholder="请输入"/>
+										<span class="valid-font"></span>
+									</td>
+									<td align="right">
+										<span>学员人数：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input customer-trainee-sum" data-val="customerTraineeSum" validform="{isNull:true,blurFlag:true,type:/^[0-9]*$/,size:10,msg:'请填写数字'}" placeholder="请输入"/>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>学员年龄结构：</span>
+									</td>
+									<td colspan="3">
+										<input type="text" class="yt-input customer-trainee-age" data-val="customerTraineeAgeStructure" validform="{isNull:true,blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" placeholder="请输入"/>
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top" height="156px">
+										<span style="position: relative;top: 10px;">培训目标及课程需求：</span>
+									</td>
+									<td colspan="3">
+										<textarea type="text" class="yt-textarea customer-target-demand" data-val="customerTargetDemand" validform="{isNull:true,blurFlag:true,size:200,msg:'所填内容不可超过200个字'}" placeholder="请输入培训及课程需求"></textarea>
+										<span class="valid-font" style="top: 140px;"></span>
+									</td>
+								</tr>
+							</table>
+							<div class="btn-all">
+								<button class="yt-option-btn btn-sub">确定</button>
+								<button class="yt-option-btn btn-off">取消</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/project/addProjectList.js?20180802"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+
+</html>

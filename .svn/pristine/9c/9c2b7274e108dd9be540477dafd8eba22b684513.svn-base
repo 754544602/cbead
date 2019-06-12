@@ -1,0 +1,45 @@
+{
+	"data":{
+		"flag":0,
+		"total":101,
+		"rows":[
+			{  
+		        "applyTime": "2018-04-17",  
+		        "paymentNumber": "LA20180417",
+		        "cause": "招待孙专家备用金",  
+		        "loanMoney": "5000",
+		        "applicant": "魏业科",  
+		        "department": "业务处",
+		        "applyTypes": "现金", 
+		        "term": "一个月之内",
+		        "repaymentDate": "-",
+		        "approvalState": "已通过",
+		        "repaymentState": "未清账",
+		        "nonRepayment": "5000"
+		    }
+	
+		]
+	},
+	
+	"sel":[
+		{  
+	        "userCode": "001",  
+	        "userName": "清风"  
+	    }, {  
+	        "userCode": "002",  
+	        "userName": "徐来"  
+	    }, {  
+	        "userCode": "003",  
+	        "userName": "张三"  
+	    }, {  
+	        "userCode": "004",  
+	        "userName": "李四"  
+	    }, {  
+	        "userCode": "005",  
+	        "userName": "小明同学"  
+	    }
+
+	],
+	"table":[]
+
+}

@@ -1,0 +1,842 @@
+var billListInfo = {
+	//初始化方法
+	init: function() {
+		//对账单信息列表
+		billListInfo.getBillListInfo();
+		//获取所有下拉框项目数据
+		$(".bank-more-div").on("click", function() {
+			
+			if($(".bank-more-div").text() == "查看更多") {
+				$("#project-main").css("width","2350px");
+				$('.bank-more-div').text("收起");//
+				$(".bank-th-hide").show();
+				$(".bank-tbody-td").attr("colspan", "18");
+			} else {
+				$("#project-main").css("width","100%");
+				$('.bank-more-div').text("查看更多");
+				$(".bank-th-hide").hide();
+				$(".bank-tbody-td").attr("colspan", "7");
+			}
+		});
+		//认领记录
+		$(".claim-record").click(function() {
+//			if($(".yt-table-active").length != 0) {
+//				var pkId = $(".yt-table-active").find(".pkId").val();
+//				window.location.href = "claimRecord.html?pkId=" + pkId;
+//			} else {
+//				$yt_alert_Model.prompt("请选择一行数据！");
+//			}
+			var pkIds =[];
+			$.each($('.project-tbody tr'),function(i,n){
+				pkIds.push($(n).find('.pkId').val());
+			})
+			pkIds = pkIds.join(',');
+			window.location.href = "claimRecord.html?pkId=" + pkIds;
+		});
+		//模糊查询
+		$(".search-btn").click(function() {
+			billListInfo.getBillListInfo();
+		});
+		//认领弹窗
+		$(".admission-manual").click(function() {
+			//判断复选框
+			if($(".yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择一条信息进行认领");
+				return false;
+			}
+			//手动入账弹窗方法
+			billListInfo.classAlertFunc();
+//			if($(".yt-table-active").length != 0) {
+//				//其他班级弹窗样式设置
+//				$(".alert-table-div").show();
+//				$(".alert-div-input").show();
+//				$("#confiscate-amount").hide();
+//				$("#user-name").css({
+//					float: "left",
+//					'margin': "0px 0px 0px 20px"
+//				});
+//				$("#last-amount").css({
+//					float: "left",
+//					'margin': "0px 0px 0px 100px"
+//				});
+//				$(".select-teacher-div").width("1100px");
+//				$(".yt-edit-alert-main").height("736px");
+//
+//				//显示选择所属项目弹出框
+//				$(".select-teacher-div").show();
+//				//查询选择所属项目列表
+//				//计算弹出框位置
+//				$yt_alert_Model.setFiexBoxHeight($(".select-teacher-div .yt-edit-alert-main"));
+//				$yt_alert_Model.getDivPosition($(".select-teacher-div"));
+//				$yt_model_drag.modelDragEvent($(".select-teacher-div .yt-edit-alert-title"));
+//				$("select").niceSelect();
+//				//取消按钮
+//				$('.select-teacher-canel-btn').click(function() {
+//					$(".yt-edit-alert,#heard-nav-bak").hide();
+//					$("#pop-modle-alert").hide();
+//				});
+//			} else {
+//				$yt_alert_Model.prompt("请选择一行数据！");
+//			}
+		});
+		//班级项目下拉框点击事件
+		//		$('.class-select').change(function() {
+		//			var classData = $(this).find("option:selected").data("classData");
+		//
+		//			//在页面隐藏项目类型用于模糊查询判断
+		//			$('.hid-project-type').val(classData.projectType);
+		//			//调用单位列表查询
+		//			billListInfo.getPlanListInfo();
+		//			//调用个人信息列表
+		//			billListInfo.groupOrPerson();
+		//			//
+		//			billListInfo.getProjectStatementByProjectCode();
+		//		});
+		//单位列表复选框点击事件
+		//		$(".company-table").on('click', '.select-checkbox', function() { //当前行的隐藏input只要值不为空当前行都是被选中的
+		//			var states = $(this).parent().find(".states").val();
+		//			//隐藏的input的值为0，是被删除的，值为1是已经认领的，值为2是新增的
+		//			if(states == 1) { //已经认领
+		//				$(this).parent().find(".states").val(0); //已经被认领的取消选中，该条信息被标识为删除0
+		//			} else if(states == 0) { //院被删除的在标识为1，原来被删除的有重新被勾选
+		//				$(this).parent().find(".states").val(1);
+		//			} else if(states == 2) { //值为2当前行信息是将要认领的数据
+		//				$(this).parent().find(".states").val("");
+		//			} else { //当前行input值为空，没被勾选
+		//				$(this).parent().find(".states").val(2);
+		//			}
+		//		});
+		//		//个人信息列表复选框点击事件
+		//		$(".person-table").on('click', '.select-checkbox', function() {
+		//			var states = $(this).parent().find(".states").val();
+		//			//隐藏的input的值为0，是被删除的，值为1是已经认领的，值为2是新增的
+		//			if(states == 1) { //已经认领
+		//				$(this).parent().find(".states").val(0); //已经被认领的取消选中，该条信息被标识为删除0
+		//			} else if(states == 0) { //院被删除的在标识为1，原来被删除的有重新被勾选
+		//				$(this).parent().find(".states").val(1);
+		//			} else if(states == 2) { //值为2当前行信息是将要认领的数据
+		//				$(this).parent().find(".states").val("");
+		//			} else { //当前行input值为空，没被勾选
+		//				$(this).parent().find(".states").val(2);
+		//			}
+		//		});
+		//全选  
+		$(".check-all").on("click", function() {
+			//判断自己是否被选中  
+			if($(this).parent().hasClass("check")) {
+				//设置反选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("uncheck");
+			} else {
+				//调用设置选中方法,全选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("check");
+			}
+		});
+		//修改全选按钮状态
+		$(".person-tbody,.company-tbody").on("change", "input[type='checkbox']", function() {
+			if($(this).parents("table").find("tbody input[type='checkbox']").length != $(this).parents("table").find("tbody input[type='checkbox']:checked").length) {
+				$(this).parents("table").find(".check-all").setCheckBoxState("uncheck");
+			} else {
+				$(this).parents("table").find(".check-all").setCheckBoxState("check");
+			}
+		});
+	},
+	//手动入账弹窗
+	classAlertFunc: function() {
+		//获取所属项目下拉列表
+		billListInfo.getProjectInfo();
+		//初始化数据
+		$(".check-all").setCheckBoxState("uncheck")
+		$(".class-select").setSelectVal("0");
+		$(".class-select").niceSelect();
+		billListInfo.getNoDetailedList("0");
+		billListInfo.getDetailedPersonalList("0", "");
+		//下拉框change事件
+		//标识
+		var identifications = $(".yt-table-active").find("input.identifications").val();
+		//银行流水Id
+		var bankStatementDetailsIds = $(".yt-table-active").find("input.pkId").val();
+		//项目code
+		var projectCode = "";
+		$("select.class-select").change(function() {
+			//弹窗样式设置
+			$(".alert-table-div").show();
+			$(".alert-div-input").show();
+			$("#confiscate-amount").hide();
+			$("#user-name").css({
+				float: "left",
+				'margin': "0px 0px 0px 20px"
+			});
+			$("#last-amount").css({
+				float: "left",
+				'margin': "0px 0px 0px 100px"
+			});
+			$("#form-class").css({
+				float: "left",
+				'margin': "0px 0px 0px 70px"
+			});
+			//初始化
+			$(".select-teacher-div").width("1100px");
+			$(".yt-edit-alert-main").height("736px");
+			//计算弹出框位置
+			$yt_alert_Model.setFiexBoxHeight($(".select-teacher-div .yt-edit-alert-main"));
+			$yt_alert_Model.getDivPosition($(".select-teacher-div"));
+			$yt_model_drag.modelDragEvent($(".select-teacher-div .yt-edit-alert-title"));
+			$("select").niceSelect();
+			//获取code
+			projectCode = $(this).val();
+			billListInfo.getNoDetailedList(projectCode);
+			billListInfo.getDetailedPersonalList(projectCode, "");
+			$(".search-btn").click(function() {
+				var keyword = $("#keyword").val();
+				billListInfo.getDetailedPersonalList(projectCode, keyword);
+			})
+			//改变同时获取一次标识
+			if($(".identifications-div").text() != "") {
+				var identifications = $(".identifications-div").text();
+				//获取选择项目之后的数据
+				billListInfo.getProjectStatementByProjectCode(projectCode, identifications);
+			} else {
+				//标识
+				//标识
+				var identifications = $(".yt-table-active").find(".identifications").val();
+				billListInfo.getProjectStatementByProjectCode(projectCode, identifications);
+			}
+		});
+
+		//点击认领提交方法
+		$(".select-teacher-sure-btn").on("click", function() {
+			//关联的单位和个人新增的数据
+			var paymentListAdd = [];
+			$(".company-tbody,.person-tbody").find('label input[type="checkbox"]:checked').each(function() {
+				if($(this).hasClass("statement-check")) {
+
+				} else {
+					var paymentType = "";
+					var paymentValue = $(this).val();
+					if($(this).parents("tr").find("td").length > 6) {
+						paymentType = "2";
+					} else {
+						paymentType = "1";
+					}
+					var paymentListAddArr = {
+						paymentType: paymentType,
+						paymentValue: paymentValue
+					}
+					paymentListAdd.push(paymentListAddArr);
+				}
+			});
+			//关联的单位和个人删除的数据
+			var paymentListDelete = [];
+			$(".company-tbody,.person-tbody").find('input.statement-check').not("input:checked").each(function() {
+				var paymentType = "";
+				var paymentValue = $(this).val();
+				if($(this).parents("tr").find("td").length > 6) {
+					paymentType = "2";
+				} else {
+					paymentType = "1";
+				}
+				var paymentListDeleteArr = {
+					paymentType: paymentType,
+					paymentValue: paymentValue
+				}
+				paymentListDelete.push(paymentListDeleteArr);
+			});
+			var identifications = $(".yt-table-active").find(".identifications").val();;
+			billListInfo.addNotReconciliations(projectCode, identifications, bankStatementDetailsIds, JSON.stringify(paymentListDelete), JSON.stringify(paymentListAdd), "")
+		});
+		//其他班级弹窗样式设置
+		$(".alert-table-div").show();
+		$(".alert-div-input").show();
+		$("#confiscate-amount").hide();
+		$("#user-name").css({
+			float: "left",
+			'margin': "0px 0px 0px 20px"
+		});
+		$("#last-amount").css({
+			float: "left",
+			'margin': "0px 0px 0px 100px"
+		});
+		$("#form-class").css({
+			float: "left",
+			'margin': "0px 0px 0px 70px"
+		});
+		//初始化
+		$(".select-teacher-div").width("1100px");
+		$(".yt-edit-alert-main").height("736px");
+		//显示选择所属项目弹出框
+		$(".select-teacher-div").show();
+		//查询选择所属项目列表
+		//计算弹出框位置
+		$yt_alert_Model.setFiexBoxHeight($(".select-teacher-div .yt-edit-alert-main"));
+		$yt_alert_Model.getDivPosition($(".select-teacher-div"));
+		$yt_model_drag.modelDragEvent($(".select-teacher-div .yt-edit-alert-title"));
+		$("select").niceSelect();
+		//取消按钮
+		$('.select-teacher-canel-btn').click(function() {
+			$(".yt-edit-alert,#heard-nav-bak").hide();
+			$("#pop-modle-alert").hide();
+		});
+	},
+	//提交表单
+	addNotReconciliations: function(projectCode, identifications, bankStatementDetailsIds, paymentListDelete, paymentListAdd, uncollectedTotal) {
+		$.ajax({
+			url: $yt_option.base_path + "finance/projectStatement/addNotReconciliations", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				isUserClaim:'1',
+				projectCode: projectCode,
+				bankStatementDetailsIds: bankStatementDetailsIds,
+				identifications: identifications,
+				paymentListDelete: paymentListDelete,
+				paymentListAdd: paymentListAdd,
+				uncollectedTotal: uncollectedTotal
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("认领成功");
+						$(".yt-edit-alert,#heard-nav-bak").hide();
+						$("#pop-modle-alert").hide();
+//						$('.person-page').pageInfo("refresh");
+						$('.page1').pageInfo("refresh");
+					});
+					$(".identifications-div").text(data.data);
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("认领失败");
+					});
+				}
+			}
+		})
+	},
+	/**
+	 * 对账单信息列表
+	 */
+	getBillListInfo: function() {
+		var keyword = $('.selectParam').val();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "project/getBankStatementList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			async:true,
+			before:function(){
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					$(".num").text(data.data.total);
+					var htmlTbody = $('.project-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						$('.page-info').show();
+						$.each(data.data.rows, function(i, v) {
+	//序号1  交易时间1   借方发生额/元(支取)  贷方发生额度/元 1   对方户名1    备注1  对方账号1   余额   币种   记账日期  摘要    账户明细编号-交易流水号   企业流水号  凭证种类  凭证号   关联账户   别名   对方开户机构
+							htmlTr += '<tr>' +
+								'<td style=""><input type="hidden" value="' + v.pkId + '" class="pkId">' + (i + 1) + '</td>' +
+								'<td style=""><input type="hidden" class="identifications" value="' + v.identification + '"/>' + v.exchangeHour + '</td>' +
+								'<td class="bank-th-hide" style="display:none;tex-align:right;">' + v.draw + '</td>' +
+								'<td style="text-align:right;">' + v.income + '</td>' +
+								'<td style="text-align:left;">' + v.otherPartyName + '</td>' +
+								'<td style="text-align:left;">' + v.remarks + '</td>' +
+								'<td style="">' + v.otherPartyAccounts + '</td>' +
+
+								'<td class="bank-th-hide" style="display:none;">' + v.balance + '</td>' +
+								'<td class="bank-th-hide" style="display:none;">' + v.currency + '</td>' +
+								'<td class="bank-th-hide" style="display:none;">' + v.accountDate + '</td>' +
+								'<td class="bank-th-hide" style="display:none;">' + v.abstractData + '</td>' +
+								'<td class="bank-th-hide" style="display:none;">' + v.bankTradeNumber + '</td>' +
+								'<td class="bank-th-hide enterpriseTradeNumber" style="display:none;">' + v.enterpriseTradeNumber + '</td>' +
+								'<td class="bank-th-hide" style="display:none;">' + v.voucherType + '</td>' +
+								'<td class="bank-th-hide" style="display:none;">' + v.voucherNo + '</td>' +
+								'<td class="bank-th-hide" style="display:none;text-align:left;">' + v.associatedAccount + '</td>' +
+								'<td class="bank-th-hide" style="display:none;text-align:left;">' + v.alias + '</td>' +
+								'<td style="text-align:left;">' + v.otherPartyGroup + '</td>' +
+								'</tr>';
+
+							//								htmlTr = '<tr>' +
+							//								'<td style="text-align: center;display:none;">' +
+							//								'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="select-teacher-pkId" value="' +v.projectCode + '"/></label>' + '</td>' +
+							//								'<td>' + i + '</td>' +
+							//								'<td><input type="hidden" class="identifications" value="'+v.identification+'"/>' + v.exchangeHour + '</td>' +
+							//								'<td class="bank-th-hide" style="text-align:right;display:none">' + '3400.00' + '</td>' +
+							//								'<td style="text-align:right">' + v.income + '</td>' +
+							//								'<td class="bank-th-hide" style="text-align:right;display:none">' + '50000.00' + '</td>' +
+							//								'<td class="bank-th-hide" style="display:none">' + '人名币元' + '</td>' +
+							//								'<td style="text-align:left">' + v.otherPartyName + '</td>' +
+							//								'<td class="bank-th-hide" style="display:none">' + '2015-12-12' + '</td>' +
+							//								'<td class="bank-th-hide" style="display:none">' + '人民币卡消费款' + '</td>' +
+							//								'<td>' + '收单清算款105210282200085' + '</td>' +
+							//								'<td>' + '6228543444345321' + '</td>' +
+							//								'<td class="bank-th-hide" style="display:none">' + '27130-21228008916TPTNITU0' + '</td>' +
+							//								'<td class="bank-th-hide" style="display:none">' + '27130-21228008916TPTNITU0' + '</td>' +
+							//								'<td class="bank-th-hide" style="display:none">' + '电汇凭证' + '</td>' +
+							//								'<td class="bank-th-hide" style="display:none">' + '2284875' + '</td>' +
+							//								'<td class="bank-th-hide" style="display:none">' + '21201501910059106618' + '</td>' +
+							//								'<td class="bank-th-hide" style="display:none">' + 'QAQ' + '</td>' +
+							//								'<td>' + '建行大连栾金支行' + '</td>' +
+							//								'</tr>';
+						});
+					} else {
+						$('.page-info').hide();
+						htmlTbody.empty();
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="7" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.append(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//认领弹弹窗单位列表
+	getNoDetailedList: function() {
+		$yt_baseElement.showLoading();
+		var projectCode = $('.class-select').val();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/settlement/getNoDetailedList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.company-tbody');
+					var htmlTr = '';
+					var num = 1;
+					htmlTbody.empty();
+					if(data.data.length > 0) {
+						$(".company-table").show();
+						$(".company-table").attr('isHave',1);
+						var states;
+						var projectStates;
+						$.each(data.data, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td style="text-align: center;">' +
+								'<input type="hidden" class="states"/>' +
+								'<label class="check-label yt-checkbox select-checkbox">' +
+								'<input type="checkbox" name="test" class="group-id" value="' + v.groupId + '"/></label>' +
+								'</td>' +
+								'<td style="text-align:left">' + v.groupName + '</td>' +
+								'<td style="text-align:right">' + v.amountReceivable + '</td>' +
+								'<td style="text-align:right">' + v.netReceipts + '</td>' +
+								'<td style="text-align:right">' + v.uncollected + '</td>' +
+								'</tr>';
+
+						});
+					} else {
+						$(".company-table").hide();
+						$(".company-tbody").attr('isHave',0);
+						htmlTbody.empty();
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="5" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						$('.page-info').hide();
+					}
+					htmlTbody.append(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 认领弹窗选学和委托个人信息列表
+	 */
+	getDetailedPersonalList: function(projectCode, keyword) {
+		$(".person-page").pageInfo({
+			pageIndexs: 1,
+			pageNum: 1000000000, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			async: false,
+			url: $yt_option.base_path + "finance/settlement/getDetailedPersonalList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode,
+				selectParam: keyword,
+				trainingExpenseStart: "",
+				trainingExpenseEnd: "",
+				traineeNegotiatedPriceStart: "",
+				traineeNegotiatedPriceEnd: "",
+				quarterageStart: "",
+				quarterageEnd: "",
+				mealFeeStart: "",
+				mealFeeEnd: "",
+				otherChargesStart: "",
+				otherChargesEnd: "",
+				uncollectedStart: "",
+				uncollectedEnd: "",
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.person-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						$(".person-table").show();
+						$(".person-table").attr('isHave',1);
+						$.each(data.data.rows, function(i, v) {
+							htmlTr = '<tr>' +
+								'<td style="text-align: center;">' +
+								'<label class="check-label yt-checkbox personal-checkbox"><input type="checkbox" value="' +
+								v.traineeId + '"/></label>' + '</td>' +
+								'<td>' + v.groupNum + '</td>' +
+								'<td>' + v.realName + '</td>' +
+								'<td>' + v.gender + '</td>' +
+								'<td style="text-align:left">' + v.groupName + '</td>' +
+								'<td style="text-align:left">' + v.groupOrgName + '</td>' +
+								'<td style="text-align:right">' + v.smallPlan + '</td>' +
+								'<td style="text-align:right">' + v.moneyTotal + '</td>' +
+								'<td style="text-align:right">' + v.uncollected + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					} else {
+						$(".person-table").hide();
+						$(".person-table").attr('isHave',0);
+						htmlTbody.html("");
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//计划和调训个人信息列表
+	getAlertListInfoPlan: function() {
+		//获取项目code
+		var projectCode = $(".class-select").val();
+		var keyword = $('#keyword').val();
+		$yt_baseElement.showLoading();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/settlement/getNoDetailedPersonalList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode,
+				selectParam: keyword
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.person-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						var states;
+						var projectStates;
+						$.each(data.data.rows, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td style="text-align: center;">' +
+								'<input type="hidden" class="states"/>' +
+								'<label class="check-label yt-checkbox select-teacher-checkbox">' +
+								'	<input type="checkbox" name="test" class="select-trainee-pkId" value="' + v.traineeId + '"/></label>' +
+								'</td>' +
+								'<td style="text-align:left">' + v.realName + '</td>' +
+								'<td style="text-align:right">' + v.gender + '</td>' +
+								'<td style="text-align:right">' + v.groupName + '</td>' +
+								'<td style="text-align:right">' + v.groupOrgName + '</td>' +
+								'<td style="text-align:right">' + v.trainingExpenseNegotiatedPrice + '</td>' +
+								'<td style="text-align:right">' + v.otherCost + '</td>' +
+								'<td style="text-align:right">' + v.netReceipts + '</td>' +
+								'<td style="text-align:right">0.00</td>' +
+								'</tr>';
+						});
+					} else {
+						htmlTbody.empty();
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.append(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//项目类型设置
+	projectTypeInfo: function(code) {
+		if(code == 1) {
+			return "计划";
+		} else if(code == 2) {
+			return "委托";
+		} else if(code == 3) {
+			return "选学";
+		} else if(code == 4) {
+			return "调训";
+		} else {
+			return '';
+		};
+	},
+	//获取所属项目下拉列表
+	getProjectInfo: function() {
+		$yt_baseElement.showLoading();
+		var selectParam = "";
+		$.ajax({
+			async: true,
+			url: $yt_option.base_path + "finance/projectStatement/getProjects", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					if(data.data && data.data && data.data.length > 0) {
+						$("select.class-select").empty();
+						//遍历给下拉框添加数据
+						$.each(data.data, function(i, v) {
+							$("select.class-select").append($('<option value="' + v.projectCode + '">' + v.projectName + '</option>').data("classData", v));
+						});
+						$('select.class-select').niceSelect();
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+						$yt_baseElement.hideLoading();
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+		});
+	},
+	getProjectStatementByProjectCode: function(projectCode, identifications) {
+		$.ajax({
+			url: $yt_option.base_path + "finance/projectStatement/getProjectStatementByProjectCode", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode,
+				identifications: identifications
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称 
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					$.each(data.data, function(i, v) {
+						$(".company-tbody,.person-tbody").find('input[type="checkbox"]').each(function(j, n) {
+							if($(this).parents("tr").find("td").length < 6) {
+								if($(this).val() == v.paymentValue && v.paymentType == "1") {
+									$(this).setCheckBoxState("check");
+									$(this).addClass("statement-check")
+								}
+							} else {
+								if($(this).val() == v.paymentValue && v.paymentType == "2") {
+									$(this).setCheckBoxState("check");
+									$(this).addClass("statement-check")
+								}
+							}
+						})
+					});
+				} else {
+					$yt_alert_Model.alertOne("查询失败");
+				}
+				$yt_baseElement.hideLoading();
+			}
+		})
+	},
+	//	//获取所有班级
+//	groupOrPerson: function() {
+//		//获取项目类型， 1:计划 2:委托 3:选学 4:调训
+//		var projectType = $('.hid-project-type').val();
+//		//判断项目类型调用对应项个人详情列表
+//		if(projectType == 3 || projectType == 4) {
+//			//调用选学和委托方法
+//			billListInfo.getAlertListInfoDepute();
+//		} else {
+//			//调用计划和调训方法
+//			billListInfo.getAlertListInfoPlan();
+//		}
+//	},
+//	//选择所属项目之后获取已经对账的数据
+//	getProjectStatementByProjectCode: function() {
+//		//获取所有单位行
+//		var companyTr = $('.company-table tbody').children();
+//		//获取所有个人信息行
+//		var personTr = $('.person-table tbody').children();
+//		var projectCode = $('.class-select').val();
+//		var identifications = $(".yt-table-active").find(".identifications").val();
+//		$.ajax({
+//			async: true,
+//			url: $yt_option.base_path + "finance/projectStatement/getProjectStatementByProjectCode", //ajax访问路径  
+//			type: "post", //ajax访问方式 默认 "post"  
+//			data: {
+//				projectCode: projectCode,
+//				identifications: identifications
+//			}, //ajax查询访问参数
+//			before: function() {
+//				$yt_baseElement.showLoading();
+//			},
+//			success: function(data) {
+//				if(data.flag == 0) {
+//					if(data.data != null) {
+//						$.each(data.data, function(i, v) {
+//							if(data.data.paymentType == 1) { //单位
+//								$.each(companyTr, function(j, c) {
+//									if($(c).find(".group-id").val() == v.paymentValue) {
+//										$(c).find(".check-label").addClass("check");
+//										$(c).find(".states").val(1); //隐藏input值为1标识为是原本已经存在的对账
+//									}
+//								});
+//							} else { //人员
+//								$.each(personTr, function(k, p) {
+//									if($(p).find(".select-trainee-pkId").val() == v.paymentValue) {
+//										$(p).find(".check-label").addClass("check");
+//										$(p).find(".states").val(1); //隐藏input值为1标识为是原本已经存在的对账
+//									}
+//								});
+//							}
+//						});
+//					}
+//
+//				}
+//
+//			}, //回调函数 匿名函数返回查询结果  
+//		});
+//	},
+	//认领提交
+	//	getAllClaimFn: function() {
+	//		var companyTr = $('.company-table tbody').children();
+	//		var personTr = $('.person-table tbody').children();
+	//		var projectCode = $('.class-select').val();
+	//		var paymentListDeleteArr = [];
+	//		var paymentListAddArr = [];
+	//		var uncollectedTotal = [];
+	//		var paymentValue = "";
+	//		//遍历单位列表
+	//		$.each(companyTr, function(i, c) {
+	//			if($(c).find(".states").val() == 0) { //删除的
+	//				paymentValue = $(c).find(".group-id").val();
+	//				var paymentListDeleteJson = {
+	//					paymentType: "1",
+	//					paymentValue: paymentValue
+	//				};
+	//				paymentListDeleteArr.push(paymentListDeleteJson);
+	//			};
+	//			if($(c).find(".states").val() == 2) { //新增的
+	//				paymentValue = $(c).find(".group-id").val();
+	//				var paymentListAddArrJson = {
+	//					paymentType: "1",
+	//					paymentValue: paymentValue
+	//				}
+	//				paymentListAddArr.push(paymentListAddArrJson);
+	//			};
+	//
+	//		});
+	//		//遍历个人详情列表
+	//		$.each(personTr, function(j, k) {
+	//			if($(k).find(".states").val() == 0) {
+	//				paymentValue = $(j).find(".select-trainee-pkId").val();
+	//				paymentListDeleteJson = {
+	//					paymentType: "2",
+	//					paymentValue: paymentValue
+	//				};
+	//				paymentListDeleteArr.push(paymentListDeleteJson);
+	//			};
+	//			if($(k).find(".states").val() == 2) { //新增的
+	//				paymentValue = $(k).find(".select-trainee-pkId").val();
+	//				var paymentListAddArrJson = {
+	//					paymentType: "2",
+	//					paymentValue: paymentValue
+	//				}
+	//				paymentListAddArr.push(paymentListAddArrJson);
+	//			};
+	//
+	//		});
+	//		var paymentListDeleteArrJson = JSON.stringify(paymentListDeleteArr);
+	//		var paymentListAddArrJson = JSON.stringify(paymentListAddArr);
+	//		var uncollectedTotal = "";
+	//		var projectCode = $('.class-select').val();
+	//		var identifications = $(".yt-table-active").find(".identifications");
+	//		var bankStatementDetailsIds = $(".yt-table-active").find(".pkId");
+	//		$.ajax({
+	//			async: true,
+	//			url: $yt_option.base_path + "finance/projectStatement/addNotReconciliations", //ajax访问路径  
+	//			type: "post", //ajax访问方式 默认 "post"  
+	//			data: {
+	//				projectCode: projectCode,
+	//				bankStatementDetailsIds: bankStatementDetailsIds,
+	//				identifications: identifications,
+	//				paymentListDelete: paymentListDeleteArrJson,
+	//				paymentListAdd: paymentListAddArrJson,
+	//				uncollectedTotal: ""
+	//			}, //ajax查询访问参数
+	//			before: function() {
+	//				$yt_baseElement.showLoading();
+	//			},
+	//			success: function(data) {
+	//				if(data.flag == 0) {
+	//					$yt_baseElement.hideLoading();
+	//				} else {
+	//					$yt_baseElement.hideLoading(function() {
+	//						$yt_alert_Model.prompt("认领失败");
+	//					});
+	//				}
+	//			},
+	//		});
+	//	}
+}
+$(function() {
+	//初始化方法
+	billListInfo.init();
+});

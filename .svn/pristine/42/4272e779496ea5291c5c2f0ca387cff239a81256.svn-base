@@ -1,0 +1,295 @@
+var meetingRoom = {
+	 mouseState:'up',
+    pos:{
+    	x:0,
+    	y:0
+    },
+	init:function (){
+		var me = this;
+		//构建甘特图
+		me.getRoomsInfo();
+	
+		$(".meeting-time").niceSelect();
+		$(".appointment").click(function (){
+			$(".add-appointment-box .yt-edit-alert-main input").val('');  
+		 	$("#txtDate").calendar({  
+			    speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+			    complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+			    readonly: true, // 目标对象是否设为只读，默认：true     
+			    lowerLimit:"2010/01/01", // 日期下限，默认：NaN(不限制)     
+			    nowData:true,//默认选中当前时间,默认true  
+			    dateFmt:"yyyy-MM-dd",  
+			    callback: function() { // 点击选择日期后的回调函数  
+			        //alert("您选择的日期是：" + $("#txtDate").val()); 
+			        if($("#txtDate").val() != ''){
+			        	$("#txtDate").removeClass("valid-hint").next().text("");
+			        }
+			    }  
+			});  
+			
+			
+			me.getRooms(3,$(".add-appointment-box select.rooms"));
+			
+				/** 
+	         * 显示编辑弹出框和显示顶部隐藏蒙层 
+	         */  
+	        $(".add-appointment-box").show();  
+	        /** 
+	         * 调用算取div显示位置方法 
+	         */  
+	        $yt_alert_Model.getDivPosition($(".add-appointment-box"));  
+	        /* 
+	         * 调用支持拖拽的方法 
+	         */  
+	        $yt_model_drag.modelDragEvent($(".add-appointment-box .yt-edit-alert-title"));  
+	        /** 
+	         * 点击取消方法 
+	         */  
+	        $('.add-appointment-box .yt-eidt-model-bottom .yt-model-canel-btn').off().on("click", function() {  
+	            //隐藏页面中自定义的表单内容  
+	            $(".add-appointment-box").hide();  
+	        });
+	         /** 
+	         * 点击取消方法 
+	         */  
+	        $('.add-appointment-box .yt-eidt-model-bottom .yt-model-sure-btn').off().on("click", function() {
+	        	var validState = true;
+				if($(".rooms").val() == ''){
+					$(".rooms").addClass("valid-hint").next().next().text("请选择");
+					validState = false;
+				}else{
+					$(".rooms").removeClass("valid-hint").next().next().text("");
+				}
+				validState = $yt_valid.validForm($(".add-appointment-box"));
+				
+				if(validState){
+					var startTimeVal = $("#txtDate").val() + ' ' + $("select.start-h").val() + ':' + $("select.start-m").val();
+					var endTimeVal = $("#txtDate").val() + ' ' + $("select.end-h").val() + ':' + $("select.end-m").val();
+					$.ajax({
+						type:"post",
+						url:"administrator/room/addOrUpdateRoom",
+						async:true,
+						data:{
+							types:3,
+							titles:$("input[name='titles']").val(),
+							roomId:$("select.rooms").val(),
+							startTime:startTimeVal,
+							endTime:endTimeVal,
+							details:$("[name='details']").val(),
+							phone:$("input[name='phone']").val()	
+							},
+						beforeSend:function(){
+							$yt_baseElement.showLoading();
+						},
+						success:function (data){
+							if(data.flag == 0){
+								$yt_baseElement.hideLoading(function (){
+									$yt_alert_Model.prompt("会议室预约成功");
+								});
+							}else{
+								$yt_baseElement.hideLoading(function (){
+									$yt_alert_Model.prompt("会议室预约失败");
+								});
+							}
+						},error:function(data){
+							$yt_baseElement.hideLoading(function (){
+								$yt_alert_Model.prompt("网络出现问题,请稍后重试");
+							});
+						}
+					});
+					
+					//隐藏页面中自定义的表单内容  
+					$(".add-appointment-box").hide();  
+				}
+	        });
+	        
+		});
+		$(".rooms").change(function (){
+			if($(this).val() == ''){
+				$(this).next().addClass("valid-hint").next().text("请选择");
+			}else{
+				$(this).next().removeClass("valid-hint").next().text("");
+			}
+		});
+		
+	},createGanttView:function (ganttData){
+		
+		//构建甘特图
+		/*$("#ganttChart").ganttView({ 
+			data: ganttData
+		});*/
+	},getRoomsInfo:function (){
+		var me = this;
+		$yt_baseElement.showLoading();
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path+"administrator/room/lookForAll",
+			data:{types:3,dates:'2018-08-06'},
+			async:true,
+			success:function(data){
+				if(data.flag == 0){
+					var ganttData = [];
+					var series = [];
+					var gantInfo = {};
+					$yt_baseElement.hideLoading();
+					var htmlTr = '';
+					$.each(data.data, function(i,n) {
+						htmlTr = '<tr class="ganttview-grid-row">'+
+						'<td class="ganttview-grid-row-cell">'+n.roomName+'</td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'<td class="ganttview-grid-row-cell"><div class="grid-item"></div></td>'+
+						'</tr>';
+						htmlTr = $(htmlTr);
+						$(".meeting-room tbody").append(htmlTr);
+						if(n.dateTimes != ''){
+							$.each($.parseJSON(n.dateTimes), function(j,m) {
+								var startIndex = $("th[timeval='"+(m.startTime.split(" ")[1])+"']").index();
+								startIndex = startIndex<0?0:startIndex;
+								var endIndex = $("th[timeval='"+(m.endTime.split(" ")[1])+"']").index();
+								endIndex = endIndex-1
+								htmlTr.find(".ganttview-grid-row-cell:gt("+startIndex+"):lt("+(endIndex-startIndex)+")").find(".grid-item").addClass("old-item tool-info");
+								htmlTr.find(".ganttview-grid-row-cell:eq("+(startIndex+1)+")").find(".grid-item").addClass("start");
+								htmlTr.find(".ganttview-grid-row-cell:eq("+endIndex+")").find(".grid-item").addClass("end");
+								var toolBox = $('<div class="tool-box">'+m.createUser+'</div>');
+								toolBox.css("width",htmlTr.find(".ganttview-grid-row-cell:gt("+startIndex+"):lt("+(endIndex-startIndex)+")").length * 41).data("useData",m);
+								htmlTr.find(".ganttview-grid-row-cell:eq("+(startIndex+1)+")").find(".grid-item").append(toolBox);
+								
+							});
+						}
+					});
+					//鼠标悬浮
+		    		$('div.tool-box').tooltip({
+						position: 'bottom',
+						content: function() {
+							var useData = $(this).data("useData");
+							var showBox = '<div class="tip-box" style="width:264px"><table class="tip-table">' +
+									'<tr><td class="tip-lable">会议主题：</td><td>'+useData.titles+'</td></tr>' +
+									'<tr><td class="tip-lable">会议时间：</td><td>'+(useData.startTime.replace('-','年').replace('-','月'))+'日-'+(useData.endTime.split(' ')[1])+'</td></tr>' +
+									'<tr><td class="tip-lable">申请人：</td><td>'+useData.createUser+'</td></tr>' +
+									'<tr><td class="tip-lable">联系方式：</td><td>'+useData.phone+'</td></tr>' +
+									'</table></div>';	
+							return showBox;
+						},
+						onShow: function() {
+							$(this).tooltip('tip').css({
+								backgroundColor: '#666',
+								borderColor: '#666'
+							});
+						}
+					});
+					me.gantt($(".meeting-room tbody"));
+				}else{
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询出错,请稍后重试");
+					});	
+				}
+			},
+			error:function(data){
+				$yt_baseElement.hideLoading(function (){
+					$yt_alert_Model.prompt("网络出现问题,请稍后重试");
+				});
+			}
+		});
+	},gantt:function (div){
+		var me = this;
+		 $(div).find(".ganttview-grid-row-cell").mousedown(function (){
+        	if($(this).find(".grid-item.old-item").length == 0){
+        		$(div).find(".grid-item").removeClass("select-item");
+        		$(this).find(".grid-item").addClass("select-item");
+        		me.mouseState = 'down';
+        		me.pos.x = $(this).index();
+        		me.pos.y = $(this).parent().index();
+        		$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .select-item").first().addClass("start");
+        			$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .select-item").last().addClass("end");
+        	}else{
+        		me.mouseState = 'up';
+        	}
+        });
+         $(div).find(".ganttview-grid-row-cell").mouseup(function (){
+            	me.mouseState = 'up';
+            });
+            $(div).find(".ganttview-grid-row-cell").mousemove(function (){
+            	$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .select-item").removeClass("start end");
+            	if($(this).find(".grid-item.old-item").length == 0){
+            		if(me.mouseState == 'down'){
+            			
+            			$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .select-item").removeClass("select-item");
+            			if($(this).index() < me.pos.x){
+            				$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .ganttview-grid-row-cell:gt("+$(this).index()+"):lt("+(me.pos.x-$(this).index())+") .grid-item").addClass("select-item");
+            				$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .ganttview-grid-row-cell:eq("+$(this).index()+") .grid-item").addClass("select-item");
+            			}else{
+            				$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .ganttview-grid-row-cell:gt("+me.pos.x+"):lt("+($(this).index()-me.pos.x)+") .grid-item").addClass("select-item");
+            				$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .ganttview-grid-row-cell:eq("+me.pos.x+") .grid-item").addClass("select-item");
+            			}
+            			/*
+            			$(this).find(".grid-item").addClass("select-item");*/
+            		}
+            	}else{
+            		me.mouseState = 'up';
+            	}
+            	$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .select-item").first().addClass("start");
+    			$(div).find(".ganttview-grid-row:eq("+me.pos.y+") .select-item").last().addClass("end");
+            });
+            
+            $(div).find(".ganttview-grid").mouseleave(function (){
+            	me.mouseState = "up";
+            });
+        
+	},getRooms:function (typeVal,doc){
+		doc.empty().append('<option value="">请选择</option>');
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "administrator/room/getRooms",
+			async:true,
+			data:{roomName:"",types:typeVal},
+			beforeSend:function (){
+				$yt_baseElement.showLoading();
+			},
+			success:function(data){
+				if(data.flag == 0){
+					$.each(data.data, function(i,n) {
+						doc.append('<option value="'+n.pkId+'">'+n.roomName+'</option>');
+					});
+					$(".add-appointment-box select.rooms").niceSelect();
+					$yt_baseElement.hideLoading();
+				}else{
+					$yt_baseElement.hideLoading(function (){
+				    	$yt_alert_Model.prompt("查询教室出现问题，请稍后重试");
+				    })
+				}
+			},
+			error:function(data){
+			    $yt_baseElement.hideLoading(function (){
+			    	$yt_alert_Model.prompt("网络出现问题，请稍后重试");
+			    })
+			}
+		});
+	}
+}
+$(function (){
+	meetingRoom.init();
+})

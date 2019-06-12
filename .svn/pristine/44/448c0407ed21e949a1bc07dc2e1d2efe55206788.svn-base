@@ -1,0 +1,242 @@
+var classBoardInfo = {
+	//初始化方法
+	init: function() {
+		//调用获取列表数据方法
+		classBoardInfo.projectDetail();
+		$('.class-return-img').click(function(){
+			//返回
+			window.history.back();
+		})
+		//导航
+		$('.nav li').click(function(){
+			$('body,html').animate({
+				scrollTop:$('.class-info-div').eq($(this).index()).offset().top
+			},300)
+		})
+		
+	},
+	projectDetail:function(){
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "class/getClassKanBanByPkId",
+			async:false,
+			beforeSend:function(){
+				$yt_baseElement.showLoading();
+			},
+			data:{
+				projectCode: projectCode
+			},
+			success:function(data){
+				if(data.flag==0){
+					//点击更多，进入班级信息页面
+					$('.see-more-mssage').click(function(){
+							window.location.href="../class/classInfo.html?projectCode="+ data.data.projectCode+"&projectType="+data.data.projectType
+					})
+					if(data.data.projectType == 2) {
+						data.data.projectTypeVal = "委托";
+					} else if(data.data.projectType == 3) {
+						data.data.projectTypeVal = "选学";
+					} else if(data.data.projectType == 4) {
+						data.data.projectTypeVal = "调训";
+					}
+					$('.class-info-table').setDatas(data.data);
+					$('.project-name').text(data.data.projectName);
+					//委托方领导及驻班员
+					var tbody = $('.entrust-info-table').empty();
+					var tr = '';
+					data.data.personnelNames = JSON.parse(data.data.personnelNames);
+					if(data.data.personnelNames.length>0){
+						$.each(data.data.personnelNames, function(i,n) {
+							if(n.types==1){
+								n.typesVel='驻班员'
+							}else if(n.types == 2){
+								n.typesVel='委托方领导'
+							}
+							tr = '<tr>'+
+									'<td width="80px">'+
+										'<span>姓名：</span>'+
+									'</td>'+
+									'<td width="100px">'+
+										'<div type="text" class="customer-unit project-div">'+n.personnelName+'</div>'+
+									'</td>'+
+									'<td width="80px">'+
+										'<span>身份：</span>'+
+									'</td>'+
+									'<td width="150px">'+
+										'<div type="text" class="customer-dept project-div">'+n.personnelName+'</div>'+
+									'</td>'+
+									'<td width="80px">'+
+										'<span>单位：</span>'+
+									'</td>'+
+									'<td>'+
+										'<div type="text" class="customer-dept project-div">'+n.groupName+'</div>'+
+									'</td>'+
+									'<td width="80px">'+
+										'<span>职务：</span>'+
+									'</td>'+
+									'<td width="150px">'+
+										'<div type="text" class="customer-dept project-div">'+n.positionName+'</div>'+
+									'</td>'+
+									'<td width="80px">'+
+										'<span>备注：</span>'+
+									'</td>'+
+									'<td>'+
+										'<div type="text" class="customer-dept project-div">'+n.remarks+'</div>'+
+									'</td>'+
+								'</tr>';
+								tbody.append(tr);
+						});
+					}else{
+						tr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="10" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							tbody.append(tr);
+					}
+					//重要学员
+					var htmlTbody = $('.teacher-list-tbody').empty();
+					var htmlTr = '';
+					data.data.importantTrainee = JSON.parse(data.data.importantTrainee);
+					if(data.data.importantTrainee.length>0){
+						$.each(data.data.importantTrainee, function(i,n) {
+							if(n.gender==1){
+								n.genderVel='男'
+							}else if(n.gender == 2){
+								n.genderVel='女'
+							}
+							if(n.isFirstTraining==0){
+								n.isFirstTrainingVel = '不是';
+							}else if(n.isFirstTraining==1){
+								n.isFirstTrainingVel = '是';
+							}
+							//部门/职位
+							var deposName = [];
+							n.deptName!=''?deposName.push(n.deptName):n.deptName=n.deptName;
+							n.positionName!=''?deposName.push(n.positionName):n.positionName=n.positionName;
+							deposName = deposName.join('/');
+							htmlTr = '<tr>'+
+										'<td>'+(i+1)+'</td>'+
+										'<td><a class="traineeName">'+n.traineeName+'</a></td>'+
+										'<td>'+n.genderVel+'</td>'+
+										'<td>'+n.phone+'</td>'+
+										'<td style="text-align: left;">'+n.groupName+'</td>'+
+										'<td style="text-align: left;">'+n.groupOrgName+'</td>'+
+										'<td>'+deposName+'</td>'+
+										'<td>'+n.isFirstTrainingVel+'</td>'+
+										'<td style="text-align: left;">'+n.importantDetails+'</td>'+
+									'</tr>'
+								htmlTbody.append(htmlTr);
+						});
+						$('.traineeName').off().click(function(){
+							
+						})
+					}else{
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							htmlTbody.append(htmlTr);
+					}
+					//接待活动receptionActivities
+					var activeTable = $('.acive-info-centent').empty();
+					var activeTr = '';
+					data.data.receptionActivities = JSON.parse(data.data.receptionActivities);
+					if(data.data.receptionActivities.length>0){
+						$.each(data.data.receptionActivities, function(i,n) {
+							if(n.types==1){
+								n.typesVel='院领导出席开班式'
+							}else if(n.types == 2){
+								n.typesVel='院领导出席结业式'
+							}
+							else if(n.types == 3){
+								n.typesVel='院领导贵宾厅座谈'
+							}
+							else if(n.types == 4){
+								n.typesVel='院领导交流座谈'
+							}
+							var raTime = n.raTimeStart+'-'+n.raTimeEnd;
+							activeTr = '<div class="active-title">'+
+									'<label class="active-num">'+(i+1)+'</label>接待活动</div>'+
+									'<div class="active-content">'+
+									'<table class="active-table">'+
+									'<tr><td>类型：</td><td>'+n.typesVel+'</td></tr>'+
+									'<tr><td>出席领导：</td><td>'+n.userName+'</td></tr>'+
+									'<tr><td>日期：</td><td>'+n.raDate+'</td></tr>'+
+									'<tr><td>时间：</td><td>'+raTime+'</td></tr>'+
+									'<tr><td>地点：</td><td>'+n.raAddress+'</td></tr>'+
+									'<tr><td>对方人员：</td><td>'+n.personOther+'</td></tr>'+
+									'<tr><td>活动流程：</td><td>'+n.activityFlow+'</td></tr>'+
+								'</table>'+
+							'</div>'
+							activeTable.append(activeTr);
+						});
+					}else{
+						activeTr ='<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>'
+							activeTable.append(activeTr);
+					}
+					$yt_baseElement.hideLoading();
+				}else{
+					$yt_baseElement.hideLoading(function(){
+						$yt_alert_Model.prompt('查询失败')
+					});
+							
+				}
+			},
+			error:function(data){
+				$yt_alert_Model.prompt('网络异常，获取项目信息失败');
+			}
+		});
+	}
+}
+$(function() {
+	//初始化方法
+	classBoardInfo.init();
+	$(document).scroll(function(){
+		var scr = $(document).scrollTop();
+		if(scr<=$('.class-info-div').eq(0).offset().top){
+			$.each($('.round'), function(i,n) {
+				if(i==0){
+					$('.round').eq(i).css('background','#de595a')
+				}else{
+					$('.round').eq(i).css('background','#fff')
+				}
+			});
+		}
+		if(scr<=$('.class-info-div').eq(1).offset().top&&scr>$('.class-info-div').eq(0).offset().top){
+			$.each($('.round'), function(i,n) {
+				if(i==1){
+					$('.round').eq(i).css('background','#de595a')
+				}else{
+					$('.round').eq(i).css('background','#fff')
+				}
+			});
+		}
+		if(scr<=$('.class-info-div').eq(2).offset().top&&scr>$('.class-info-div').eq(1).offset().top){
+			$.each($('.round'), function(i,n) {
+				if(i==2){
+					$('.round').eq(i).css('background','#de595a')
+				}else{
+					$('.round').eq(i).css('background','#fff')
+				}
+			});
+		}
+		if(scr<=$('.class-info-div').eq(3).offset().top&&scr>$('.class-info-div').eq(2).offset().top){
+			$.each($('.round'), function(i,n) {
+				if(i==3){
+					$('.round').eq(i).css('background','#de595a')
+				}else{
+					$('.round').eq(i).css('background','#fff')
+				}
+			});
+		}
+	})
+});

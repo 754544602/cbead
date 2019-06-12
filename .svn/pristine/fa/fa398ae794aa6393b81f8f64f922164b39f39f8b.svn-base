@@ -1,0 +1,81 @@
+var dataArchivingInfo = {
+
+	//初始化方法
+	init: function() {
+		//初始化列表
+		dataArchivingInfo.getPlanListInfo();
+		//点击查询
+		$('.key-word').off().on('click', '.search-btn', function() {
+			//调用获取列表数据方法查询
+			dataArchivingInfo.getPlanListInfo();
+		});
+		//返回按钮
+		$('.page-return-btn').on('click', function() {
+			window.location.href = "projectArchives.html";
+		});
+	},
+
+	/**
+	 * 结业证信息列表
+	 */
+	getPlanListInfo: function() {
+		var me = this;
+		$yt_baseElement.showLoading();
+		var keyword = $('#keyword').val();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "class/lookForAllByDistribution", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.list-table .yt-tbody');
+					var htmlTr = '';
+					var num = 1;
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						var projectType;
+						var states;
+						var projectStates;
+						$.each(data.data.rows, function(i, v) {
+							htmlTr = '<tr>' +
+								'<td class="projectCode" style="text-align: center;">' + v.projectCode + '</td>' +
+								'<td><a style="color: #4169E1;" class="serialNumber" href="#">' + v.serialNumber + '</a></td>' +
+								'<td class="projectName" style="text-align: center;">' + v.projectName + '</td>' +
+								'<td class="serialNumber" style="text-align: center;">' + v.serialNumber + '</td>' +
+								'<td class="projectType" style="text-align: center;"><a style="color: #4169E1;" href="#">' + (me.getOperation(v.projectType)) + '</a></td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					}
+
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//设置操作值
+	getOperation:function(state){
+		if(state == "4"){
+			return "下载";
+		}else{
+			return "";
+		}
+	}
+
+}
+$(function() {
+	//初始化方法
+	dataArchivingInfo.init();
+});

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		
+		<title>待审批列表</title>
+		<style type="text/css">
+			.btn-box{
+				height: 45px; 
+				background: #FFF;
+				margin: 0px 0px 5px 0px; 
+				padding-left: 10px;
+				line-height: 45px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<div class="search-btn-slect" style="margin-bottom: 0px;">
+					<div class="key-word">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text"/>
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!--顶部条件查询END-->
+
+			<!--数据展示区域START-->
+			<div class="list-box tab-title-list" style="background-color: #EDEBEC;padding-top: 0px;">
+				<div class="btn-box" style="">
+					<button class="yt-option-btn class-info-btn active">• 待审批</button>
+					<button class="yt-option-btn teacher-info-btn">• 审批记录</button>
+				</div>
+				<div class="list-title" style="background: #FFF;padding: 5px;">
+					<span style="color: black;font-size: 16px;">开(结业)式</span>
+					<input id="btn-type" type="hidden" value="" />
+				</div>
+				<table class="yt-table list-table" style="margin: 0px 0px 0px 0px;">
+					<thead class="list-thead">
+							<th style="width: 50px;">序号</th>
+							<th >班级名称</th>
+							<th style="width: 50px;">类型</th>
+							<th style="width: 80px;">项目主任</th>
+							<th style="width: 120px;">召开时间</td>
+							<th style="width: 80px;">提交人</th>
+							<th style="width: 120px;">创建时间</th>
+							<th style="width: 80px;">审批人</td>
+					</thead>
+					<tbody class="yt-tbody list-tbody class-tbody">
+						<tr>
+							<td colspan="7" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info list-page" onselectstart="return false"></div>
+			</div>
+		</div>
+		
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	
+	<script type="text/javascript" src="../../resources/js/tabEdit/yt-tab-edit.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/open/waitOpenHonorsList.js"></script>
+</html>

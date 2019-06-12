@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--日期控件-->
+		<!--<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />-->
+		<!--提示信息控件-->
+        <link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" /> 
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/budget/module/expenditure/budgetList.min.css?YTVERSIONCODE=2018052802" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+
+	<body>
+		<div id="budgetList">
+			<!--顶部查询区域START-->
+			<div class="heard-query">
+				<div>
+					<span class="mf20" style="letter-spacing:5px;">关键</span>字：
+					<div style="display: inline-block;">
+						<input type="text" class="keyword-input yt-input query-text" placeholder="请输入关键字" />
+					</div>
+					<div style="display: inline-block;">
+						<button class="yt-option-btn yt-search-btn" onselectstart="return false " id="heardSearchBtn">查询 </button>
+						<button class="yt-option-btn yt-reset-btn" style="margin-left: 10px;margin-right: 10px;" id="resetBtn">重置</button>
+					</div>
+				</div>
+			</div>
+			<!--顶部查询区域END-->
+			<div class="interval-div"></div>
+			<!--操作按钮区域START-->
+			<div class="operation-btn-list">
+				<button class="yt-option-btn yt-search-btn add-plan-item" style="margin-left: 10px;color: #fff;" id="">新增</button>
+				<button class="yt-option-btn yt-search-btn update-plan-item" style="margin-left: 10px;color: #fff;" id="">编辑</button>
+			</div>
+			<!--操作按钮区域END-->
+			
+			<!--列表显示区域START-->
+			<div class="plan-list">
+				<!--<div class="plan-list-item">
+					<div class="list-item-title">
+						<label><span style="letter-spacing:5px;">账套名</span>称：<span class="yt-link">帐套名称</span></label>
+						<label><span style="letter-spacing:5px;">所属年</span>度：<span>所属年度</span></label>
+						<label><span style="letter-spacing:5px;">单位编</span>码：<span>单位编码</span></label>
+						<label><span style="letter-spacing:5px;">单位名</span>称：<span>单位名称</span></label>
+						<label><span style="letter-spacing:43px;">描</span>述：<span>描述</span></label>
+					</div>
+					<div class="list-item-table">
+						<table class="yt-table" style="">
+							<tbody class="yt-tbody">
+								<tr>
+									<td>阶段</td><td>状态</td>
+								</tr>
+								<tr>
+									<td><a class="yt-link">一上(<span>1</span>)</a></td><td></td>
+								</tr>
+								<tr>
+									<td><a class="yt-link">一下(<span>1</span>)</a></td><td></td>
+								</tr>
+								<tr>
+									<td><a class="yt-link">二上(<span>1</span>)</a></td><td></td>
+								</tr>
+								<tr>
+									<td><a class="yt-link">二下(<span>1</span>)</a></td><td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>-->
+			</div>
+			<!--列表显示区域END-->
+			<!--添加弹窗区域START-->
+			<div class="yt-pop-model yt-edit-alert add-data-pop">  
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-icon"><img src="../../../../../resources-sasac/images/common/file-icon.png" style="width: 25px;height: 25px;"></span>
+					<span class="yt-edit-alert-title-msg">新增/修改</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<table>
+						<tr>
+							<td>
+								<label><span class="not-null">*</span><span style="letter-spacing:5px;">账套名</span>称：</label>
+								<input type="hidden"  id="booksId"/>
+								<input class="yt-input" type="text" id="planInput" placeholder="请输入账套名称" validform="{isNull:true,blurFlag:true,msg:'请输入账套名称'}"/>
+								<div class="valid-font" style="padding-left: 95px;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label><span class="not-null">*</span><span style="letter-spacing:5px;">所属年</span>度：</label>
+								<input class="yt-input" type="text" id="yearInput" placeholder="请输入年度" validform="{isNull:true,blurFlag:true,msg:'请输入年度'}"/>
+								<div class="valid-font" style="padding-left: 95px;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label style="margin-left: 5px;"><span style="letter-spacing:5px;">单位名</span>称：</label></div>
+								<select class="yt-select" id="unitCode"  style="width: 190px;"><!--validform="{isNull:true,blurFlag:true,msg:'请选择单位名称'}"-->
+									<option value="">请选择</option>
+								</select>
+								<div class="valid-font" style="padding-left: 90px;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label style="vertical-align:top;display:inline-block;margin-left: 5px;"><span style="letter-spacing:43px;">描</span>述：</label>
+								<textarea class="yt-textarea" id="describeTextarea" style="width: 260px;"></textarea>
+							</td>
+						</tr>
+					</table>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom">
+						<input class="yt-model-bot-btn yt-model-sure-btn add-plan-btn" type="button" value="添加" />
+						<input class="yt-model-bot-btn yt-model-sure-btn save-plan-btn" type="button" value="保存" />
+						<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--添加弹窗区域END-->
+			
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件-->
+	<!--<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>-->
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script> 		
+	<!--字段验证-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/budget/module/expenditure/budgetList.min.js?YTVERSIONCODE=2018052804"></script><!--?YTVERSIONCODE=2018042803-->
+	<!--引用JS文件END-->
+
+</html>

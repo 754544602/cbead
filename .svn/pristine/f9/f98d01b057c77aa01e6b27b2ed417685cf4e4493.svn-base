@@ -1,0 +1,291 @@
+.border-table {
+	width: 100%;
+}
+
+.border-table td,
+.border-table th {
+	border: 1px solid #e2e9ef;
+	padding: 5px;
+	text-align: left;
+	color: #333333;
+	position: relative;
+}
+
+.border-table th {
+	color: #888888;
+	background: none;
+}
+
+.list-thead th.sun-head {
+	background: url(../../../images/img/sun.png) no-repeat;
+}
+
+.list-thead th.sat-head {
+	background: url(../../../images/img/sat.png) no-repeat;
+}
+
+.border-table th.state-day {
+	text-align: center;
+	width: 1px;
+	padding: 0;
+}
+
+.border-table th.state-day div {
+	width: 28px;
+}
+.state-day.all-use:after,
+.state-day.sub-use:after {
+	content: '';
+	position: absolute;
+	display: inline-block;
+	top: auto;
+	left: -1px;
+	width: 100%;
+	height: 22px;
+	padding: 0 1px;
+	margin-top: -11px;
+	background: #f59700;
+}
+
+.state-day.all-use:after {
+	background: #847ccf;
+}
+
+.state-day.all-use.start-state:after,
+.state-day.sub-use.start-state:after {
+	-webkit-border-radius: 5px 0 0 5px;
+	-moz-border-radius: 5px 0 0 5px;
+	border-radius: 5px 0 0 5px;
+}
+
+.state-day.all-use.end-state:after,
+.state-day.sub-use.end-state:after {
+	-webkit-border-radius: 0 5px 5px 0;
+	-moz-border-radius: 0 5px 5px 0;
+	border-radius: 0 5px 5px 0;
+}
+
+.state-day.all-use.end-state.start-state:after,
+.state-day.sub-use.end-state.start-state:after {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.tip-table td.tip-lable {
+	text-align: right;
+	color: #968deb;
+}
+
+.tip-table td {
+	color: #fff;
+	padding: 5px 0;
+}
+
+.calendar .calMain .calContent .enabled {
+	height: 80px;
+}
+
+.mouth-check {
+	cursor: pointer;
+	color: #7b74c7;
+}
+
+.tip-box {
+	border-top: 1px dashed #ffffff;
+	color: #fff;
+	padding: 0 12px;
+	position: relative;
+}
+
+.tip-box:first-child {
+	border: none;
+}
+
+.tip-box table td.tip-lable {
+	color: #FFF;
+}
+
+.tip-box:before {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	height: 12px;
+	width: 5px;
+	background: #968deb;
+	top: 9px;
+	left: 0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.content-box {
+	background: #FFFFFF;
+}
+
+.change-week span {
+	color: #7b74c7;
+	font-size: 16px;
+	margin: 0 15px;
+	cursor: pointer;
+}
+
+.example span {
+	position: relative;
+	color: #555555;
+	font-size: 12px;
+	margin: 0 35px;
+}
+
+.example span:after {
+	position: absolute;
+	left: -14px;
+	top: 5px;
+	width: 8px;
+	height: 8px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	content: '';
+	display: inline-block;
+	background: #b8b3e2;
+}
+
+/*.example span:first-child:after {
+	background: #847ccf;
+}
+
+.example span:last-child:after {
+	background: #df94e0;
+}*/
+.example span:first-child:after {
+	background: #f59700;
+}
+
+.example span:last-child:after {
+	background: #847ccf;
+}
+.example.class-room span:last-child:after {
+	background: #847CCF;
+}
+
+.programme .list-title {
+	height: 56px;
+	line-height: 56px;
+}
+
+.border-table {
+	width: 100%;
+}
+
+.border-table td,
+.border-table th {
+	border: 1px solid #e2e9ef;
+	padding: 5px;
+	text-align: left;
+	color: #333333;
+	position: relative;
+}
+
+.programme th {
+	position: relative;
+	color: #888888;
+	padding: 8px 5px;
+}
+
+.programme thead tr th span {
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: right;
+	font-size: 12px;
+	display: inline-block;
+	padding: 2px 2px 0 0;
+	width: 58px;
+	height: 33px;
+	background: url(../../../../resources/images/img/day-head.png) no-repeat;
+	color: #4c4c4c;
+}
+
+.border-table .have-couse {
+	color: #fff;
+	text-align: center;
+}
+
+.programme th.state-day div {
+	width: 115px;
+}
+
+.morning .have-couse {
+	position: relative;
+	overflow: hidden;
+}
+
+.morning .have-couse .teacher-name {
+	background: #f59700;
+}
+
+.afternoon .have-couse .teacher-name {
+	background: #b8b3e2;
+}
+
+.night .have-couse .teacher-name {
+	background: #847ccf
+}
+
+.programme th.state-day {
+	text-align: left;
+	text-indent: 15px;
+}
+
+.programme .tool-box {
+	position: absolute;
+	width: 101%;
+	top: auto;
+	left: 0;
+	height: 22px;
+	margin-top: -11px;
+}
+
+.have-couse .teacher-name {
+	position: absolute;
+	height: 22px;
+	left: 0;
+	top: auto;
+	text-align: center;
+	line-height: 22px;
+	width: 100%;
+	margin-top: -11px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 2px;
+}
+
+.programme .tool-info {
+	width: 115px;
+	height: 22px;
+	float: left;
+	cursor: pointer;
+}
+
+.content-box.programme {
+	margin: 0 5px;
+	padding: 0 6px;
+}
+
+.table-title {
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+}
+
+.title-h1 {
+	font-family: MicrosoftYaHei;
+	font-size: 16px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0;
+	color: #111111;
+	margin: 6px 0 11px;
+}

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/administrator/administrator.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>车辆信息列表</title>
+		<style type="text/css">
+			.td-text-rigth {
+				text-align: right;
+			}
+			
+			.tr-height {
+				height: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="project-main" style="min-width: 1052px;">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<div class="search-btn-slect">
+					<div class="btn-all" style="position: relative;">
+						<button class="yt-option-btn addList">
+							<img src="../../resources/images/button/add-icon.png">
+							新增
+						</button>
+						<button class="yt-option-btn updateList">
+							<img src="../../resources/images/button/update-icon.png" />
+							修改
+						</button>
+						<button class="yt-option-btn deleteList">
+							<img src="../../resources/images/button/del-icon.png" />
+							删除
+						</button>
+						<button class="yt-option-btn repair-work">
+							<img src="../../resources/images/car/repair-icon.png" />
+							维修
+						</button>
+						<button class="yt-option-btn repair-report">
+							<img src="../../resources/images/car/scrap-icon.png" />
+							报废
+						</button>
+					</div>
+					<div class="key-word">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+			</div>
+			<!--数据展示区域START-->
+			<div class="list-box">
+				<div style="font-size: 16px;margin: 6px 0px 10px;">
+					车辆信息
+				</div>
+				<table class="yt-table list-table">
+					<thead class="list-thead">
+						<tr>
+							<th style="width: 50px;">序号</th>
+							<th style="width: 150px;">车牌号</th>
+							<th>品牌型号</th>
+							<th style="width: 80px;">车辆类型</th>
+							<th style="width: 120px;">购买日期</th>
+							<th style="width: 80px;">车辆状态</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody list-tbody">
+						<tr class="">
+							<td colspan="6" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info table-page page1" onselectstart="return false"></div>
+			</div>
+			<!--数据展示区域END-->
+
+			<!--弹窗-->
+
+			<div class="yt-pop-model yt-edit-alert shuttle-box" style="width: 450px;">
+				<div class="yt-edit-alert-title ">
+					<span class="alert-title-span">车辆维修</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test">
+					<form>
+						<table class="repair-tab" cellspacing="1px" cellpadding="1px" style="width: 385px;margin: 0px auto;">
+							<tr class="tr-height">
+								<td class="recordDate" style="width: 170px;text-align: right;">维修日期：</td>
+								<td>
+									<input id="recordDate" class="calendar-input" style="width: 300px; background-position: 183px -25px;" value="" placeholder="请选择日期" type="text" />
+								</td>
+							</tr>
+							<tr class="tr-height">
+								<td class="details" style="vertical-align: text-top;width: 170px;text-align: right;">故障描述：</td>
+								<td style="position: relative;">
+									<textarea id="details" class="yt-textarea" style="width: 304px;height: 100px;" validform="{isNull:true,size:10,msg:'请输入故障描述,不要超过10个字'}"placeholder="请输入原因,不要超过10个字"></textarea>
+								</td>
+							</tr>
+						</table>
+					</form>
+					<div class="yt-eidt-model-bottom select-teacher-btn-div"style="border: none;">
+						<input class="yt-model-bot-btn yt-model-sure-btn select-ticket-sure-btn" type="button" value="确定" />
+						<input class="yt-model-bot-btn yt-model-canel-btn select-ticket-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+			</div>
+			<div class="teacher-select-div">
+				<div class="yt-pop-model yt-edit-alert select-teacher-div" style="width: 480px;">
+					<div class="yt-edit-alert-title select-teacher-title-div">
+						<span class="select-teacher-title-span">新增车辆信息</span>
+					</div>
+					<div class="yt-edit-alert-main cont-edit-test">
+						<table class="list-table" style="width: auto;margin-left: 60px;margin-top: 15px;">
+							<tr style="height: 42px;">
+								<td align="right">
+									<span>车牌号：</span>
+								</td>
+								<td>
+									<input class="yt-input entrust-org-count" id="carNum" placeholder="请输入" type="text" style="width: 275px;" validform="{isNull:true,size:20,msg:'请输入车牌号,不要超过20个字'}"/>
+								</td>
+							</tr>
+							<tr style="height: 42px;">
+								<td align="right">
+									<span>车辆类型：</span>
+								</td>
+								<td>
+									<select class="yt-select type-select" id="carType" style="width: 281px;">
+										<option value="0">请选择</option>
+									</select>
+								</td>
+							</tr>
+							<tr style="height: 42px;">
+								<td align="right">
+									<span>车辆品牌：</span>
+								</td>
+								<td>
+									<input class="yt-input entrust-org-count" id="carBrand" placeholder="请输入" type="text" style="width: 275px;"validform="{isNull:true,size:20,msg:'请输入车辆品牌,不要超过20个字'}"/>
+								</td>
+							</tr>
+							<tr style="height: 42px;">
+								<td align="right">
+									<span>车辆型号：</span>
+								</td>
+								<td>
+									<input class="yt-input entrust-org-count" id="carModel" placeholder="请输入" type="text" style="width: 275px;" validform="{isNull:true,size:20,msg:'请输入车辆型号,不要超过20个字'}" />
+								</td>
+							</tr>
+							<tr style="height: 42px;">
+								<td align="right">
+									<span>车辆颜色：</span>
+								</td>
+								<td>
+									<input class="yt-input entrust-org-count" id="carColor" placeholder="请输入" type="text" style="width: 275px;" validform="{isNull:true,size:20,msg:'请输入车辆颜色,不要超过20个字'}" />
+								</td>
+							</tr>
+							<tr style="height: 42px;">
+								<td align="right">
+									<span>车辆来源：</span>
+								</td>
+								<td>
+									<input class="yt-input entrust-org-count" id="carSource" placeholder="请输入" type="text" style="width: 275px;" validform="{isNull:true,size:20,msg:'请输入车辆来源,不要超过20个字'}" />
+								</td>
+							</tr>
+							<tr style="height: 42px;">
+								<td align="right">
+									<span>发动机号：</span>
+								</td>
+								<td>
+									<input class="yt-input entrust-org-count" id="engineNumber" placeholder="请输入" type="text" style="width: 275px;" validform="{isNull:true,size:20,msg:'请输入车辆来源,不要超过20个字'}"/>
+								</td>
+							</tr>
+							<tr style="height: 42px;">
+								<td align="right">
+									<span>购车日期：</span>
+								</td>
+								<td>
+									<input class="calendar-input" id="carBuyString" placeholder="请输入" type="text" style="width: 272px;" validform="{isNull:true,size:40,msg:'请输入发动机号,不要超过40个字'}" />
+								</td>
+							</tr>
+							<tr style="height: 42px;vertical-align: top;line-height: 40px;">
+								<td align="right">
+									<span style="width: 200px;">备注：</span>
+								</td>
+								<td>
+									<textarea class="yt-textarea" id="remarks" style="width: 275px;margin-top: 10px;" validform="{isNull:true,size:200,msg:'请输入内容,不要超过200个字'}"></textarea>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="yt-eidt-model-bottom add-edita-btn-div" style="border: none;">
+						<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-sure-btn sreduction-details-sure-btn" type="button" value="确定" />
+						<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-canel-btn sreduction-details-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--树形文件引用-->
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/car/carInfoList.js"></script>
+
+</html>

@@ -1,0 +1,56 @@
+
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/payment/ordinaryPaymentApply.css" />
+
+		<div class="ordinary-payment">
+		<div class="paymentDetailed">
+				<button class="yt-option-btn yt-common-btn" id="addOrdinaryPayment" style="margin-left: 10px;">新增</button>
+				<table class="yt-table" id="paymentDetailedTable" style="width: 100%;table-layout: initial;margin-top: 20px;">
+					<thead class="yt-thead">
+						<tr>
+							<th>款项用途</th>
+							<th>金额（元）</th>
+							<th style="width: 200px;">操作</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<tr class="pay-detail-tabel-total">
+							<td>合计</td>
+							<td style="text-align: right;" class="total-money">0.00</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--新增弹窗START-->
+			<div class="general-alert alert-div" style="left: 358.5px; top: 305px; display: none;">
+				<div class="model-title">
+					<img src="../../../../../resources-sasac/images/common/title-edit.png"><span>新增/修改付款明细</span>
+				</div>
+				<div class="model-content">
+					<table border="0" cellspacing="0" cellpadding="0" class="from-table">
+						<tbody>
+							<tr>
+								<td>
+									<span class="not-null">*</span><label><span class="letter-four">款项用</span>途：</label><input id="MoneyUse" class="yt-input" placeholder="请输入" validform="{isNull:true,size:18,blurFlag:true,msg:'请输入款项用途'}">
+									<div style="left: 105px;" class="valid-font"></div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label><span class="not-null">*</span><span class="letter-two">金</span>额：</label><input onkeyup="value=value.replace(/[^\d.]/g,'')" style="text-align: right;" id="addMoney" type="text" class="yt-input money-input" placeholder="请输入" validform="{isNull:true,size:18,blurFlag:true,msg:'请输入金额'}"><span>元</span>
+									<div style="left: 105px;" class="valid-font"></div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="button-box min-but">
+						<button class="yt-option-btn yt-common-btn general-common" id="addOk">添加到列表</button>
+						<button class="yt-option-btn yt-cancel-btn general-cancel" style="margin-left: 20px;" id="addClear">取消</button>
+					</div>
+				</div>
+			</div>
+			<!--新增弹窗END-->
+			</div>
+
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/payment/ordinaryPaymentApply.js"></script>
+

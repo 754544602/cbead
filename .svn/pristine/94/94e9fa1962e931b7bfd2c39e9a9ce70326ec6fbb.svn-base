@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/ueditor/ueditor.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/bank/bankBillListInfo.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>班级详情页</title>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1200px;">
+			<div class="page-title">
+				<span class="project-name"></span>
+				<button class="page-return-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png"/>
+					返回
+				</button>
+			</div>
+			<div class="tab-title-list" style="overflow: hidden;">
+				<div class="tab-title-box" style="width: auto;">
+					<button class="yt-option-btn class-info-btn active">• 班级信息</button>
+					<button class="yt-option-btn teacher-info-btn">• 费用清单</button>
+					<button class="yt-option-btn">• 项目收入</button>
+					<button class="yt-option-btn other-income-btn">• 其他收入</button>
+					<button class="yt-option-btn">• 项目支出</button>
+				</div>
+			</div>
+			<div class="box-list">
+				<!--班级信息-->
+				<div class="content-box">
+					<div class="class-div">
+						<div class="class-info-div">
+							班级信息
+						</div>
+						<div class="tab-content list-box class-info">
+							<div class="class-info-centent">
+								<table class="class-info-table">
+									<tr>
+										<td width="160px">
+											<span class="project-code-span">班级编号：</span>
+										</td>
+										<td width="360px">
+											<div type="text" class="project-code project-div"></div>
+										</td>
+										<td width="160px">
+											<span>班级名称：</span>
+										</td>
+										<td>
+											<div type="text" class="project-name project-div"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>项目类型：</span>
+										</td>
+										<td>
+											<div type="text" class="project-type project-div"></div>
+										</td>
+										<td>
+											<span>培训天数：</span>
+										</td>
+										<td colspan="3">
+											<div type="text" class="train-date project-div"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>培训日期：</span>
+										</td>
+										<td>
+											<div type="text" class="start-date project-div"></div>
+										</td>
+										<td>
+											<span>结束日期：</span>
+										</td>
+										<td>
+											<div type="text" class="end-date project-div"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>项目简介：</span>
+										</td>
+										<td colspan="3" class="details project-div">
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<!--委托单位信息-->
+						<div class="projectType-2">
+							<div class="class-info-div">
+								委托单位信息
+							</div>
+							<div class="tab-content list-box entrust-info">
+								<div class="list-box">
+									<table class="entrust-info-table">
+										<tr>
+											<td width="160px">
+												<span>单位名称：</span>
+											</td>
+											<td width="360px">
+												<div type="text" class="customer-unit project-div"></div>
+											</td>
+											<td width="160px">
+												<span>负责部门：</span>
+											</td>
+											<td>
+												<div type="text" class="customer-dept project-div"></div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<span>联系人：</span>
+											</td>
+											<td>
+												<div type="text" class="customer-linkman project-div"></div>
+											</td>
+											<td>
+												<span>职务：</span>
+											</td>
+											<td>
+												<div type="text" class="customer-linkman-position project-div"></div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<span>电话：</span>
+											</td>
+											<td>
+												<div type="text" class="customer-linkman-phone project-div"></div>
+											</td>
+											<td>
+												<span>手机：</span>
+											</td>
+											<td>
+												<div type="text" class="customer-linkman-cellphone project-div"></div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<span>传真：</span>
+											</td>
+											<td>
+												<div type="text" class="customer-linkman-fax project-div"></div>
+											</td>
+											<td>
+												<span>邮箱：</span>
+											</td>
+											<td>
+												<div type="text" class="customer-linkman-email project-div"></div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<span>学员职务：</span>
+											</td>
+											<td>
+												<div type="text" class="customer-trainee-position project-div"></div>
+											</td>
+											<td>
+												<span>学员人数：</span>
+											</td>
+											<td>
+												<div type="text" class="customer-trainee-sum project-div"></div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<span>学员年龄结构：</span>
+											</td>
+											<td colspan="3">
+												<div type="text" class="customer-trainee-age-structure project-div"></div>
+											</td>
+										</tr>
+										<tr>
+											<td valign="top">
+												<span>培训目标及课程需求：</span>
+											</td>
+											<td colspan="3" class="customer-target-demand">
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!--负责人信息-->
+						<div class="class-info-div">
+							项目负责人
+						</div>
+						<div class="person-info list-box">
+							<div class="person-info-centent">
+
+								<table class="person-info-table">
+									<tr>
+										<td width="160px">
+											<span>项目销售：</span>
+										</td>
+										<td width="360px">
+											<div type="text" class="project-sell project-div"></div>
+										</td>
+										<td width="160px">
+											<span class="class-boss">班主任：</span>
+										</td>
+										<td>
+											<div style="width: 182px;" type="text" class="class-teacher project-div"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>项目主任：</span>
+										</td>
+										<td>
+											<div type="text" class="project-head project-div"></div>
+										</td>
+										<td>
+											<span>项目助理：</span>
+										</td>
+										<td>
+											<div type="text" class="project-aid project-div"></div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--项目费用清单-->
+				<div class="content-box" style="display: none;">
+					<div class="project-expenses-list">
+						<div class="class-info-div">
+							项目结算清单
+						</div>
+						<div class="list-box">
+							<table class="yt-table list-table" style="margin-top: 10px;">
+								<thead class="list-thead">
+									<tr>
+										<th style="width: 30px;" rowspan="2">序号</th>
+										<th rowspan="2">项目</th>
+										<th style="width: 240px;" colspan="3">应收（元）</th>
+										<th style="width: 240px;" colspan="3">实收（元）</th>
+										<th style="width: 240px;" colspan="3">挂账金额（元）</th>
+									</tr>
+									<tr>
+										<th style="text-align: right;width: 80px;">总金额</th>
+										<th style="text-align: right;width: 80px;">不含税</th>
+										<th style="text-align: right;width: 80px;">税额</th>
+										<th style="text-align: right;width: 80px;">总金额</th>
+										<th style="text-align: right;width: 80px;">不含税</th>
+										<th style="text-align: right;width: 80px;">税额</th>
+										<th style="text-align: right;width: 80px;">总金额</th>
+										<th style="text-align: right;width: 80px;">不含税</th>
+										<th style="text-align: right;width: 80px;">税额</th>
+									</tr>
+	
+								</thead>
+								<tbody class="yt-tbody project-check-List-tbody list-tbody">
+									<tr class="class-tr">
+										<td colspan="11" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="class-info-div">
+						项目结算明细
+					</div>
+					<div class="list-box">
+						<div style="font-size: 16px;">单位支付信息</div>
+						<table class="yt-table list-table" style="margin-top: 10px;">
+							<thead class="list-thead">
+								<tr>
+									<th style="text-align: left;">单位名称</th>
+									<th style="width: 100px;text-align: right;">应收金额（元）</th>
+									<th style="width: 100px;text-align: right;">前台已收（元）</th>
+									<th style="width: 100px;text-align: right;">挂账金额（元）</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody project-company-tbody list-tbody">
+								<tr class="class-tr">
+									<td colspan="4" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="list-box" style="min-width: 1350px;">
+						<div style="position: relative;font-size: 16px;height: 30px;">
+							学员费用详情
+							<div style="">
+								<div class="key-word" style="line-height:0px;position:absolute;top: 0px;right: -10px;">
+									<input class="yt-input selectParam" placeholder="请输入关键字" type="text" />
+									<button class="yt-option-btn search-btn">
+										<img class="search-img" src="../../resources/images/icons/class-search.png" />
+									</button>
+								</div>
+							</div>
+						</div>
+						<table class="yt-table list-table" style="margin-top: 10px;">
+							<thead class="list-thead">
+								<tr>
+									<th style="width: 40px" rowspan="2">分组</th>
+									<th style="width: 60px" rowspan="2">姓名</th>
+									<th style="text-align: left;" rowspan="2">单位名称</th>
+									<th style="width: 50px" rowspan="2">房间号</th>
+									<th class="detailed-hide-selection" style="width: 543px;" colspan="6">应收（元）</th>
+									<th class="detailed-hide-selection" style="width: 360px;" colspan="4">已收（元）</th>
+									<th class="detailed-hide-break" style="width: 270px;display: none;" colspan="3">成本（次数）</th>
+									<th class="detailed-hide-break" style="width: 120px;display: none;text-align: right;" rowspan="2">其他费用（元）</th>
+									<th class="detailed-hide-break" style="width: 80px;display: none;" rowspan="2">详情</th>
+									<th class="detailed-hide-selection" style="width: 80px; text-align: right;" class="th-hide" rowspan="2">挂账金额（元）</th>
+								</tr>
+								<tr class="detailed-hide-selection">
+									<th style="text-align: right;">培训费</th>
+									<th style="text-align: right;">课程费</th>
+									<th style="text-align: right;">住宿费</th>
+									<th style="text-align: right;">餐费</th>
+									<th style="text-align: right;">杂费</th>
+									<th style="text-align: right;">小计</th>
+									<th style="text-align: right;">现金</th>
+									<th style="text-align: right;">银联</th>
+									<th style="text-align: right;">电汇</th>
+									<th style="text-align: right;">小计</th>
+								</tr>
+								<tr class="detailed-hide-break" style="display: none;">
+									<th style="text-align: right;">早餐</th>
+									<th style="text-align: right;">中餐</th>
+									<th style="text-align: right;">晚餐</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody project-student-tbody list-tbody">
+								<tr class="class-tr">
+									<td colspan="15" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-info project-student-page" onselectstart="return false"></div>
+						<div>
+							<div style="margin: 15px auto;width: 104px;">
+								<button class="update-details yt-option-btn amend-expense-list" style="">修改费用清单</button>
+							</div>
+						</div>
+					</div>
+					<!--成本详情弹窗Start-->
+					<div>
+						<div class="yt-pop-model yt-edit-alert select-teacher-div">
+							<div class="yt-edit-alert-title select-teacher-title-div">
+								<span class="select-teacher-title-span"></span>
+							</div>
+							<div class="yt-edit-alert-main list-box">
+								<table class="yt-table list-table" style="width: 100%;margin: 0px;">
+									<thead class="list-thead">
+										<tr style="height: 30px;">
+											<th>日期</th>
+											<th>早餐</th>
+											<th>午餐</th>
+											<th>晚餐</th>
+										</tr>
+									</thead>
+									<tbody class="yt-tbody list-tbody addBorrow-tbody">
+										<tr>
+											<td colspan="4" align="center" style="border:0px;">
+												<div class="no-data" style="width: 280px;margin: 0 auto;">
+													<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="page-info borrow-page" onselectstart="return false"></div>
+							</div>
+							<div class="yt-eidt-model-bottom select-teacher-btn-div">
+								<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-sure-btn select-teacher-canel-btn" type="button" value="关闭" />
+							</div>
+						</div>
+					</div>
+					<!--成本详情弹窗End-->
+					<!--修改费用清单弹窗START-->
+					<div class="yt-pop-model yt-edit-alert student-details-form" style="width: 978px;;">
+						<!--标题区域START-->
+						<div class="yt-edit-alert-title">
+							<span class="yt-edit-alert-title-msg">修改费用清单</span>
+						</div>
+						<!--标题区域END-->
+						<!--主体内容部分START-->
+						<div class="yt-edit-alert-main cont-edit-test">
+							<div style="height: 209px;position: relative;margin-top: 30px;width: ;">
+								<table class="student-details-table">
+									<tr>
+										<td align="right">姓名：</td>
+										<td style="width: 200px;" class="realName"></td>
+										<td align="right">组号：</td>
+										<td data-text="groupNum" style="width: 200px;" class="groupNum"></td>
+										<td align="right">性别：</td>
+										<td data-text="gender" class="gender"></td>
+									</tr>
+									<tr>
+										<td align="right">电话：</td>
+										<td data-text="phone" class="phone"></td>
+										<td align="right">身份证号：</td>
+										<td data-text="idNumber" class="idNumber"></td>
+										<td align="right">集团：</td>
+										<td data-text="groupName" class="groupName"></td>
+									</tr>
+									<tr>
+										<td align="right">单位：</td>
+										<td data-text="groupOrgName" class="groupOrgName"></td>
+										<td align="right">部门/职位：</td>
+										<td data-text="deptName" class="deptPosition"></td>
+										<td align="room">房间号：</td>
+										<td data-text="" class="roomNumber"></td>
+									</tr>
+								</table>
+								<div style="display: inline-table; width: 102px;height: 136px;border:1px dashed #cdcdcd;position: absolute;right: 50px;">
+									<img class="student-details-img" src="../../resources/images/icons/loading123.gif" style="width: 32px;height:32px;margin: 50px 0px 0px 35px;" />
+								</div>
+							</div>
+							<div class="student-details-tecket" style="margin-right: 17px;width: auto;">
+								<span class="ticket-open-msg">费用明细</span>
+								<table style="width: 960px;margin-top: 20px; text-align: center;" class="cost-of-listing">
+									<tr>
+										<td align="" style="">
+											<span><input type="hidden" name="" id="" value="1" />培训费：</span>
+											<input type="hidden" class="training-expense-negotiated-price-hidden-input hidden-input" name="" id="" value="" />
+											<input type="hidden" class="traineeId-hidden-input" name="" id="" value="" />
+											<input style="width: 80px;" class="yt-input training-expense-negotiated-price-input"/>
+										</td>
+										<td align="" style="">
+											<span><input type="hidden" name="" id="" value="3" />住宿费：</span>
+											<input type="hidden" class="quarterage-negotiated-price-hidden-input hidden-input" name="" id="" value="" />
+											<input style="width: 80px;" class="yt-input quarterage-negotiated-price-input"/>
+										</td>
+										<td align="" style="">
+											<span><input type="hidden" name="" id="" value="4" />餐费：</span>
+											<input type="hidden" class="meal-fee-negotiated-price-hidden-input hidden-input" name="" id="" value="" />
+											<input style="width: 80px;" class="yt-input meal-fee-negotiated-price-input"/>
+										</td>
+										<td align="" width="">
+											<span><input type="hidden" name="" id="" value="5" />其他费用：</span>
+											<input type="hidden" class="incidental-hidden-input hidden-input" name="" id="" value="" />
+											<input style="width: 80px;" class="yt-input incidental-input"/>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<!--底部按钮START-->
+						<div class="yt-eidt-model-bottom" style="border: none;">
+							<input class="yt-model-bot-btn yt-model-sure-btn update-student-sure-btn" type="button" value="确定" />
+							<input class="yt-model-bot-btn yt-model-canel-btn update-student-canel-btn" type="button" value="取消" />
+						</div>
+						<!--主体内容部分END-->
+					</div>
+					<!--修改费用清单弹窗End-->
+				</div>
+				<!--项目收入-->
+				<div class="content-box" style="display: none;">
+					<div class="project-income-study">
+						<div class="class-info-div">
+							项目收入详情
+							<div class="key-word" style="line-height:0px;position:absolute;top: 12px;right: 0px;">
+								<input class="yt-input selectParam" placeholder="请输入关键字" type="text" />
+								<button class="yt-option-btn search-btn">
+									<img class="search-img" src="../../resources/images/icons/class-search.png" />
+								</button>
+							</div>
+						</div>
+						<div class="list-box">
+							<div>
+								<span class="data-span">
+								项目应收：
+								<div class="data-info-div">9600</div>
+								元
+								</span>
+								<span class="data-span">
+								项目实收：
+								<div class="data-info-div">9600</div>
+								元
+								</span>
+							</div>
+							<table class="yt-table list-table" style="margin-top: 10px;">
+								<thead class="list-thead">
+									<tr>
+										<th style="width: 40px" rowspan="2">分组</th>
+										<th class="income-hide" style="width: 60px" rowspan="2">姓名</th>
+										<th style="text-align: left;" rowspan="2">单位名称</th>
+										<th style="width: 543px;" colspan="6">应收（元）</th>
+										<th style="width: 360px;" colspan="4">已收（元）</th>
+									</tr>
+									<tr class="income-hide">
+										<th style="text-align: right;">培训费</th>
+										<th style="text-align: right;">课程费</th>
+										<th style="text-align: right;">住宿费</th>
+										<th style="text-align: right;">餐费</th>
+										<th style="text-align: right;">杂费</th>
+										<th style="text-align: right;">小计</th>
+										<th style="text-align: right;">现金</th>
+										<th style="text-align: right;">银联</th>
+										<th style="text-align: right;">电汇</th>
+										<th style="text-align: right;">小计</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody project-income-student-tbody list-tbody">
+									<tr class="class-tr">
+										<td colspan="14" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="page-info project-student-page" onselectstart="return false"></div>
+						</div>
+						<div class="class-info-div income-hide">
+							费用减免情况
+						</div>
+						<div class="list-box income-hide">
+							<table class="yt-table list-table" style="margin-top: 10px;">
+								<thead class="list-thead">
+									<tr>
+										<th style="width: 40px" rowspan="2">分组</th>
+										<th style="width: 60px" rowspan="2">姓名</th>
+										<th style="text-align: left;" rowspan="2">单位名称</th>
+										<th style="width: 400px;" colspan="2">住宿费</th>
+										<th style="text-align: right;width: 200px;" rowspan="2">住宿天数</th>
+										<th style="text-align: right;width: 200px;" rowspan="2">减免金额</th>
+									</tr>
+									<tr class="tr-hide-selection">
+										<th style="text-align: right;">标准房价（元）</th>
+										<th style="text-align: right;">实际房价（元）</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody project-income-cost-tbody list-tbody">
+									<tr class="class-tr">
+										<td colspan="7" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="page-info project-income-page" onselectstart="return false"></div>
+						</div>
+						<div class="list-box total-hide">
+							<table class="yt-table list-table" style="margin-top: 10px;">
+								<thead class="list-thead">
+									<tr>
+										<th>减免类型</th>
+										<th>减免金额（元）</th>
+										<th style="width: 30px;">操作</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody project-total-cost-tbody list-tbody">
+									<tr class="class-tr">
+										<td colspan="3" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="project-revenue-training">
+						<table class="yt-table list-table" style="margin-top: 10px;">
+							<thead class="list-thead">
+								<tr>
+									<th style="width: 40px">序号</th>
+									<th style="text-align: left;">单位名称</th>
+									<th style="text-align: right;">应收(元)</th>
+									<th style="text-align: right;">实收(元)</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody project-revenue-training-tbody list-tbody">
+								<tr class="class-tr">
+									<td colspan="5" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!--其他收入-->
+				<div class="content-box other-income" style="display: none;">
+					<div class="class-info-div">
+						学院费用详情
+					</div>
+					<div class="list-box">
+						<div style="float: right;">
+							<span class="data-span" style="float: none;">
+							其他应收：
+							<div class="data-info-div other-receivables"></div>
+							元
+							</span>
+							<span class="data-span" style="float: none;">
+							实收：
+							<div class="data-info-div other-paid-in"></div>
+							元
+							</span>
+						</div>
+						<table class="yt-table list-table" style="margin-top: 10px;">
+							<thead class="list-thead">
+								<tr>
+									<th style="width: 40px" rowspan="2">分组</th>
+									<th style="width: 60px">姓名</th>
+									<th style="text-align: left;" rowspan="2">单位名称</th>
+									<th style="width: 280px;text-align: right;">其他收入（元）</th>
+									<th style="width: 280px;text-align: right;">实收（元）</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody project-income-other-tbody list-tbody">
+								<tr class="class-tr">
+									<td colspan="5" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-info project-income-other-page" onselectstart="return false"></div>
+					</div>
+				</div>
+				<!--项目支出-->
+				<div class="content-box" style="display: none;">
+					<!--数据展示区域START-->
+					<div class="class-info-div">
+						教师差旅支出
+					</div>
+					<div class="list-box">
+						<table class="yt-table list-table">
+							<thead class="list-thead">
+								<tr>
+									<th>序号</th>
+									<th>教师</th>
+									<th>航班/车次</th>
+									<th>出发地</th>
+									<th>目的地</th>
+									<th style="width: 160px;">起止日期</th>
+									<th>交通费</th>
+									<th>改签/退票情况</th>
+									<th>改签/退票费</th>
+									<th>报销费用</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody expenseDetails-tbody list-tbody">
+								<tr class="class-tr">
+									<td colspan="10" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="class-info-div">
+						教师课酬支出
+					</div>
+					<div class="list-box">
+						<table class="yt-table list-table">
+							<thead class="list-thead">
+								<tr>
+									<th>序号</th>
+									<th>教师</th>
+									<th>证件类型</th>
+									<th style="width: 165px;">证件号</th>
+									<th>开户行</th>
+									<th style="width: 165px;">账号</th>
+									<th>授课日期</th>
+									<th>税后金额</th>
+									<th>代缴个税</th>
+									<th>报销金额</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody expenseClassDetails-tbody list-tbody">
+								<tr class="class-tr">
+									<td colspan="10" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="class-info-div">
+						其他费用
+					</div>
+					<div class="list-box">
+						<table class="yt-table list-table">
+							<thead class="list-thead">
+								<tr>
+									<th>序号</th>
+									<th>费用类型</th>
+									<th>花费金额</th>
+									<th>说明</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody otherCost-tbody list-tbody">
+								<tr class="class-tr">
+									<td colspan="4" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!--数据展示区域END-->
+					<div style="text-align: center;margin: 25px 0px 25px 0px;">
+						<button class="yt-option-btn budget-change-list expenditure-sure-btn" style="margin: 0px 50px 0px 50px;width: 100px;">确定</button>
+						<button class="yt-option-btn budget-change-list expenditure-cancel-btn" style="margin: 0px 50px 0px 50px;width: 100px;background-color: white;color: #de595a;border: 1px solid #ccc;">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/projectSettlement/projectDetails.min.js"></script>
+
+</html>

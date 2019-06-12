@@ -1,0 +1,964 @@
+/**
+ * 满意度评分汇总（非选学）
+ */
+var quList = {
+	//初始化方法
+	init: function() {
+		quList.demoSatisfaction();
+		quList.getDetailsExportList();//学员满意度评分导出
+		quList.getOriginalExportList();//原始评分导出
+		
+		//设置列表样式
+		$(".tab-title-list button").click(function() {
+			$(this).addClass("active").siblings().removeClass("active");
+			$(".details-box .original-box").hide().eq($(this).index()).show();
+			//初始化原型评分和兴奋详情页模糊查询输入框
+			$('#keyword1').val("");
+			$('#keyword2').val("");
+			if($(this).index() == 0) {
+				$(".summary-box").show();
+				$(".details-box").hide();
+				$(".original-box").hide();
+				quList.demoSatisfaction();
+			} else if($(this).index() == 1) {
+				$(".details-box").show();
+				$(".summary-box").hide();
+				$(".original-box").hide();
+				
+				$("input[type=checkbox][name='test']").setCheckBoxState("check");  
+				quList.getDetailsList();//满意度评分列表
+			} else if($(this).index() == 2) {
+				$(".original-box").show();
+				$(".summary-box").hide();
+				$(".details-box").hide();
+				$("input[type=checkbox][name='test2']").setCheckBoxState("check");  
+				quList.getOriginalList();//原始评分列表
+			}
+		});
+		//返回班级管理页面
+		$('.page-return-btn').off().on('click', function() {
+			window.location.href = "projectQualityList.html";
+		});
+		
+		///tab标签切换
+		$(".more-tab-btn-end").click(function() {
+			var leftVal = parseInt($(".tab-title-box").css("margin-left")) - 120;
+			if($(".tab-title-box").parent().width() > ($(".tab-title-box button").last().position().left - 120)) {
+				$(".more-tab-btn-end").hide();
+				leftVal = (120 * $(".tab-title-box button").length - $(".tab-title-box").parent().width() + 32) * -1;
+			}
+			$(".tab-title-box").css("padding-left", "32px").stop(true, true).animate({
+				"margin-left": leftVal
+			}, 100);
+			$(".more-tab-btn-start").show();
+		});
+		$(".more-tab-btn-start").click(function() {
+			var leftVal = parseInt($(".tab-title-box").css("margin-left")) + 120;
+
+			if(leftVal >= -120) {
+				$(this).hide();
+				leftVal = 0;
+				$(".tab-title-box").css("padding-left", "0");
+			}
+			console.log(leftVal);
+			$(".tab-title-box").stop(true, true).animate({
+				"margin-left": leftVal
+			}, 100);
+			$(".more-tab-btn-end").show();
+		});
+		$("#searchList").click(function(){
+			quList.getDetailsList();
+		});
+		$("#searchList2").click(function(){
+			quList.getOriginalList();
+		});
+		//点击有效
+		$(".effective").click(function(){
+			quList.updateEffective($('.effective').val());
+			quList.refreshEffective();
+		});
+		//点击无效
+		$(".invalid").click(function(){
+			quList.updateEffective($('.invalid').val());
+			quList.refreshEffective();
+		});
+		//评分详情查看original
+		$('.score-info').on('click','.lookDetails',function(){
+			//调用原始评分查看
+			quList.lookDetails(); 
+		});
+		//原始评分详情查看
+		$('.original-score-info').on('click','.lookDetails',function(){
+			quList.originalLookDetails();
+		});
+		
+	},
+	/**
+	 * 总体满意度dom图
+	 */
+	demoSatisfaction: function() {
+		var xAxisList = new Array();
+		var seriesList = new Array();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		var downUrl = $yt_option.base_path + "class/questionnaire/getChartByNoSelection";
+		$.post(downUrl,{'projectCode':projectCode},function(data){
+			if(data.flag == 0) {
+				var wholeSatisfaction=data.data.satisfaction.wholeSatisfaction.wholeSatisfactionFraction;
+				$.each(data.data.radarChart.columnCode,function(k,v){
+					xAxisList.push({name:v,max:100});
+				});
+				seriesList =data.data.radarChart.columnFraction;
+				// 基于准备好的dom，初始化echarts实例
+				var myChart = echarts.init($('.drawing-1').get(0));
+				// 指定图表的配置项和数据
+				var option = {
+					title: {
+						text: '总体满意度: '+wholeSatisfaction,
+						x:'left'
+					},
+					tooltip: {},
+					legend: {
+						x: 'center',
+			            top:'10%',
+			            textStyle: {
+				            color: '#5B5B5B',
+				        },
+					},
+					radar: {
+						// shape: 'circle',
+						name: {
+							textStyle: {
+								color: '#5B5B5B',
+								backgroundColor: '#999',
+								borderRadius: 3,
+								padding: [3, 5]
+							}
+						},
+						indicator: xAxisList
+					},
+					series: [{
+						name: '满意度统计',
+						type: 'radar',
+						// areaStyle: {normal: {}},
+						data : [
+						          {
+						              value : seriesList
+						          }
+						       ]
+					}]
+				};
+
+				// 使用刚指定的配置项和数据显示图表。
+				myChart.setOption(option);
+				quList.demoTrain(data.data);
+				quList.demoTrain2(data.data);
+				quList.demoTrain3(data.data);
+				quList.demoTrain4(data.data);
+				quList.demoTrain5(data.data);
+				quList.demoTrain6(data.data);
+				quList.demoTrain7(data.data);
+			}
+		});
+		
+	},
+	/**
+	 * 1培训设计与实施dom图
+	 */
+	demoTrain: function(data) {
+		var designScore=data.radarChart.columnFraction[0];//培训设计与实施平均满意度
+		var nameList=data.designImplementation.designImplementationName;
+		var dataList=data.designImplementation.designImplementationFraction;
+		
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init($('.drawing-2').get(0));
+		// 指定图表的配置项和数据
+		var option = {
+				color: ['#2F4F4F'],
+				title: {
+					text: '一、学员对培训设计与实施的平均满意度为: '+designScore,
+				},
+			    tooltip : {
+			        trigger: 'axis',
+			        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			        }
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis:  {
+			        type: 'value',
+			        lineStyle: {
+	                    color: '#000000',
+	                }
+			    },
+			    yAxis: {
+			        type: 'category',
+			        data: nameList
+			    },
+			    series: [
+			        {
+			            type: 'bar',
+			            stack: '总量',
+			            barMaxWidth:40,//最大宽度,
+			            label: {
+			                normal: {
+			                    show: true,
+			                    position: 'insideRight'
+			                }
+			            },
+			            data: dataList
+			        }
+			    ]
+			};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	},
+	
+	/**
+	 * 2教师授课效果dom图
+	 */
+	demoTrain2: function(data) {
+		var designScore=data.radarChart.columnFraction[1];//平均满意度
+		var nameList=data.teachingEffect.teacherName;
+		var dataList=data.teachingEffect.teacherFraction;
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init($('.drawing-3').get(0));
+		// 指定图表的配置项和数据
+		var option = {
+				color: ['#2F4F4F'],
+				title: {
+					text: '二、学员对教师授课效果的平均满意度为: '+designScore
+				},
+			    tooltip : {
+			        trigger: 'axis',
+			        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			        }
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis:  {
+			        type: 'value',
+			        lineStyle: {
+	                    color: '#000000',
+	                }
+			    },
+			    yAxis: {
+			        type: 'category',
+			        data: nameList
+			    },
+			    series: [
+			        {
+			            type: 'bar',
+			            stack: '总量',
+			            barMaxWidth:40,//最大宽度,
+			            label: {
+			                normal: {
+			                    show: true,
+			                    position: 'insideRight'
+			                }
+			            },
+			            data: dataList
+			        }
+			    ]
+			};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	},
+	/**
+	 * 3教学活动dom图
+	 */
+	demoTrain3: function(data) {
+		var designScore=data.radarChart.columnFraction[2];//平均满意度
+		var nameList=data.teachingActivites.courseName;
+		var dataList=data.teachingActivites.courseFraction;
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init($('.drawing-4').get(0));
+		// 指定图表的配置项和数据
+		var option = {
+				color: ['#2F4F4F'],
+				title: {
+					text: '三、学员对教学活动的平均满意度为: '+designScore
+				},
+				tooltip : {
+					trigger: 'axis',
+					axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+						type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+					}
+				},
+				grid: {
+					left: '3%',
+					right: '4%',
+					bottom: '3%',
+					containLabel: true
+				},
+				xAxis:  {
+					type: 'value',
+					lineStyle: {
+						color: '#000000',
+					}
+				},
+				yAxis: {
+					type: 'category',
+					data: nameList
+				},
+				series: [
+				         {
+				        	 type: 'bar',
+				        	 barMaxWidth:40,//最大宽度,
+				        	 label: {
+				        		 normal: {
+				        			 show: true,
+				        			 position: 'insideRight'
+				        		 }
+				        	 },
+				        	 data: dataList
+				         }
+				        ]
+		};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	},
+	/**
+	 * 4教学组织、学院院风、后勤服务dom图
+	 */
+	demoTrain4: function(data) {
+		var designScore=data.radarChart.columnFraction[3];//平均满意度
+		var nameList=data.towsls.towslsName;
+		var dataList=data.towsls.towslsFraction;
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init($('.drawing-5').get(0));
+		// 指定图表的配置项和数据
+		var option = {
+				color: ['#2F4F4F'],
+				title: {
+					text: '四、学员对教学组织、学院院风、后勤服务的平均满意度为: '+designScore
+				},
+				tooltip : {
+					trigger: 'axis',
+					axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+						type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+					}
+				},
+				grid: {
+					left: '3%',
+					right: '4%',
+					bottom: '3%',
+					containLabel: true
+				},
+				xAxis:  {
+					type: 'value',
+					lineStyle: {
+						color: '#000000',
+					}
+				},
+				yAxis: {
+					type: 'category',
+					data: nameList
+				},
+				series: [
+				         {
+				        	 type: 'bar',
+				        	 barMaxWidth:40,//最大宽度,
+				        	 label: {
+				        		 normal: {
+				        			 show: true,
+				        			 position: 'insideRight'
+				        		 }
+				        	 },
+				        	 data: dataList
+				         }
+				        ]
+		};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	},
+	/**
+	 * 5学员对培训学习效果的dom图
+	 */
+	demoTrain5: function(data) {
+		var designScore=data.radarChart.columnFraction[4];//平均满意度
+		var nameList=data.learningeffect.learningeffectName;
+		var dataList=data.learningeffect.learningeffectFraction;
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init($('.drawing-6').get(0));
+		// 指定图表的配置项和数据
+		var option = {
+				color: ['#2F4F4F'],
+				title: {
+					text: '五、学员对培训学习效果平均满意度为: '+designScore
+				},
+				tooltip : {
+					trigger: 'axis',
+					axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+						type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+					}
+				},
+				grid: {
+					left: '3%',
+					right: '4%',
+					bottom: '3%',
+					containLabel: true
+				},
+				xAxis:  {
+					type: 'value',
+					lineStyle: {
+						color: '#000000',
+					}
+				},
+				yAxis: {
+					type: 'category',
+					data: nameList
+				},
+				series: [
+				         {
+				        	 type: 'bar',
+				        	 barMaxWidth:40,//最大宽度,
+				        	 label: {
+				        		 normal: {
+				        			 show: true,
+				        			 position: 'insideRight'
+				        		 }
+				        	 },
+				        	 data: dataList
+				         }
+				        ]
+		};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	},
+	/**
+	 * 6满意度dom图
+	 */
+	demoTrain6: function(data) {
+		var dataList2=[];
+		var nameList=data.satisfaction.wholeSatisfaction.wholeSatisfactionName;
+		var dataList=data.satisfaction.wholeSatisfaction.wholeSatisfactionFraction;
+		var nameList2=['本期培训班平均满意度'];
+		var num1 =data.radarChart.columnFraction[0];
+		var num2 =data.radarChart.columnFraction[1];
+		var num3 =data.radarChart.columnFraction[2];
+		var num4 =data.radarChart.columnFraction[2];
+		var num5 =data.radarChart.columnFraction[2];
+		
+		var resultNum =(Number(num1)+Number(num2)+Number(num3)+Number(num4)+Number(num5))/5;
+		if (resultNum != 0){
+			resultNum = resultNum.toFixed(2);
+		}
+		dataList2.push(resultNum);
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init($('.drawing-7').get(0));
+		// 指定图表的配置项和数据
+
+		var waterMarkText = '';
+
+		var canvas = document.createElement('canvas');
+		var ctx = canvas.getContext('2d');
+		canvas.width = canvas.height = 100;
+		ctx.textAlign = 'center';
+		ctx.textBaseline = 'middle';
+		ctx.globalAlpha = 0.08;
+		ctx.font = '20px Microsoft Yahei';
+		ctx.translate(50, 50);
+		ctx.rotate(-Math.PI / 4);
+		ctx.fillText(waterMarkText, 0, 0);
+
+		option = {
+			color: ['#2F4F4F'],
+		    backgroundColor: {
+		        type: 'pattern',
+		        image: canvas,
+		        repeat: 'repeat',
+		    },
+		    tooltip: {},
+		    title: [{
+		        text: '六、满意度'
+		    }],
+		    grid: [{
+		        top: 50,
+		        bottom: '45%',
+		        left: 10,
+		        containLabel: true
+		    }, {
+		        top: '55%',
+		        bottom: 0,
+		        left: 10,
+		        containLabel: true
+		    }],
+		    xAxis: [{
+		        type: 'value',
+		        splitLine: {
+		            show: false
+		        }
+		    }, {
+		        type: 'value',
+		        gridIndex: 1,
+		        splitLine: {
+		            show: false
+		        }
+		    }],
+		    yAxis: [{
+		        type: 'category',
+		        data: nameList,
+		        splitLine: {
+		            show: false
+		        }
+		    }, {
+		        gridIndex: 1,
+		        type: 'category',
+		        data: nameList2,
+		        splitLine: {
+		            show: false
+		        }
+		    }],
+		    series: [{
+		        type: 'bar',
+		        barMaxWidth:40,//最大宽度
+		        stack: 'chart',
+		        z: 3,
+		        label: {
+		            normal: {
+		                position: 'right',
+		                show: true
+		            }
+		        },
+		        data: dataList
+		    }, {
+		        type: 'bar',
+		        barMaxWidth:40,//最大宽度
+		        stack: 'component',
+		        xAxisIndex: 1,
+		        yAxisIndex: 1,
+		        z: 3,
+		        label: {
+		            normal: {
+		                position: 'right',
+		                show: true
+		            }
+		        },
+		        data:dataList2
+		    }],
+		};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	},
+	/**
+	 * 7办学特色dom图
+	 */
+	demoTrain7: function(data) {
+		var nameList=data.schoolCharacteristic.singleElection.singleName;
+		var dataList=data.schoolCharacteristic.singleElection.singleFraction;
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init($('.drawing-8').get(0));
+		// 指定图表的配置项和数据
+		var option1 = {
+				color: ['#2F4F4F'],
+				title: {
+					text: '七、办学特色'
+				},
+				tooltip : {
+					trigger: 'axis',
+					axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+						type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+					}
+				},
+				grid: {
+					left: '3%',
+					right: '4%',
+					bottom: '3%',
+					containLabel: true
+				},
+				xAxis:  {
+					type: 'value',
+					lineStyle: {
+						color: '#000000',
+					}
+				},
+				yAxis: {
+					type: 'category',
+					data: nameList
+				},
+				series: [
+				         {
+				        	 type: 'bar',
+				        	 label: {
+				        		 normal: {
+				        			 show: true,
+				        			 position: 'insideRight'
+				        		 }
+				        	 },
+				        	 data: dataList
+				         }
+				        ]
+		};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option1);
+		$.each(data.schoolCharacteristic.multiSelection,function(k,v){
+			var nameList2=[];
+			var dataList2=[];
+			var titleList2= v.multiITitle;
+			
+			nameList2= v.multiIName;
+			dataList2= v.multiPercentage;
+			var option2 = {
+					color: ['#2F4F4F'],
+					title: {
+						text: '          ◆◆'+titleList2+": "
+					},
+					tooltip : {
+						trigger: 'axis',
+						axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+							type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+						}
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						containLabel: true
+					},
+					xAxis:  {
+						type: 'value',
+						lineStyle: {
+							color: '#000000'
+						}
+					},
+					yAxis: {
+						type: 'category',
+						data: nameList2
+					},
+					series: [
+					         {
+					        	 type: 'bar',
+					        	 label: {
+					        		 normal: {
+					        			 show: true,
+					        			 position: 'insideRight'
+					        		 }
+					        	 },
+					        	 data: dataList2
+					         }
+					         ]
+			};
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option2);
+		});
+	},
+	
+	/**
+	 * 评分详情
+	 */
+	getDetailsList:function(){
+		$('.class-tbody').empty();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		var traineeName = $('#keyword1').val();
+		var classCacsi = quList.getChecks();
+		var isEffective ='0';
+		$('.page1').pageInfo({
+			async:true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "class/questionnaire/getClassTraineeList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode,
+				traineeName:traineeName,
+				classCacsi:classCacsi,
+				isEffective:isEffective
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before:function(){
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.class-tbody');
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						var num = 1;
+						$.each(data.data.rows, function(i, v) {
+							var type ='';
+							var classCacsi ='';
+							if (v.classCacsi == 0){
+								classCacsi ='未评价';
+								type ='--';
+							}
+							if (v.classCacsi == 1){
+								classCacsi ='已评价';
+								type ='<a class="yt-link lookDetails" id='+v.traineeId+'>查看</a>';
+							}
+							htmlTr += '<tr>' +
+								'<td>' + num++ + '</td>' +
+								'<input type="hidden" value="' + v.traineeId + '">' +
+								'<td style="text-align:left;">'+v.traineeName+'</td>' +
+								'<td class="text-overflow">' + v.designImplementation + '</td>' +
+								'<td class="text-overflow">' + v.teachingEffect + '</td>' +
+								'<td>' + v.towsls + '</td>' +
+								'<td>' + v.learningEffect + '</td>' +
+								'<td>' + v.characteristic + '</td>' +
+								'<td>' + v.criticismSuggestion + '</td>' +
+								'<td>' + v.teacherRecommendation + '</td>' +
+								'<td>' + classCacsi + '</td>'+
+								'<td>' + type + '</td>'+
+								'</tr>';
+						});
+						//$('.details-box').show();
+					} else {
+						//$('.list-page').hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="10" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+		quList.lookDetails();
+	},
+	/**
+	 * 详情评分的导出
+	 */
+	getDetailsExportList:function(){
+		//点击导出
+        $(".exportList").on("click",function (){
+        	/*if($("tr.yt-table-active").length == 0){
+				$yt_alert_Model.prompt("请选择要操作的数据");
+				return false;
+			}*/
+        	var projectCode = $yt_common.GetQueryString("projectCode");
+    		var traineeName = $('#keyword1').val();
+    		var classCacsi = quList.getChecks();
+    		var isEffective ='0';
+            var downUrl = $yt_option.base_path + "class/questionnaire/exportQuestionnaire";
+            $.ajaxDownloadFile({
+            	url:downUrl,
+            	data:{
+            		projectCode: projectCode,
+    				traineeName:traineeName,
+    				classCacsi:classCacsi,
+    				isEffective:isEffective,
+					isDownload:true,
+            	}
+            });
+        });
+	},
+	getChecks:function (){
+		var classCacsi='';
+	    var checks = document.getElementsByName("test");
+	    for(k in checks){
+	        if(checks[k].checked){
+	        	if (classCacsi ==''){
+	        		classCacsi += checks[k].value;
+	        	}else{
+	        		classCacsi += ','+checks[k].value;
+	        	}
+	        }
+	    }
+	    return classCacsi;
+	},
+	//评分详情查看
+	lookDetails:function (classCacsi){
+		
+	},
+	//原始评分详情查看
+	originalLookDetails:function (classCacsi){
+		
+	},
+	/**
+	 * 原始评分
+	 */
+	getOriginalList:function(){
+		$('.class-tbody2').empty();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		var traineeName2 = $('#keyword2').val();
+		var classCacsi2 = quList.getChecks2();
+		var isEffective2 ='1';
+		$('.page2').pageInfo({
+			async:true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "class/questionnaire/getClassTraineeList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode,
+				traineeName:traineeName2,
+				classCacsi:classCacsi2,
+				isEffective:isEffective2
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before:function(){
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.class-tbody2');
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						var num = 1;
+						$.each(data.data.rows, function(i, v) {
+							var type ='';
+							var classCacsi ='';
+							if (v.classCacsi == 0){
+								classCacsi ='未评价';
+								type ='--';
+							}
+							if (v.classCacsi == 1){
+								classCacsi ='已评价';
+								type ='<a class="yt-link lookDetails" id='+v.traineeId+'>查看</a>';
+							}
+							if (v.classCacsi == 2){
+								classCacsi ='<span style="color:red;">无效</span>';
+								type ='<a class="yt-link lookNoDetails" id='+v.traineeId+'>查看</a>';
+							}
+							htmlTr += '<tr>' +
+								'<td>' + num++ + '</td>' +
+								'<input type="hidden" class="traineeId" value="' + v.traineeId + '">' +
+								'<td style="text-align:left;">'+v.traineeName+'</td>' +
+								'<td class="text-overflow">' + v.designImplementation + '</td>' +
+								'<td class="text-overflow">' + v.teachingEffect + '</td>' +
+								'<td>' + v.towsls + '</td>' +
+								'<td>' + v.learningEffect + '</td>' +
+								'<td>' + v.characteristic + '</td>' +
+								'<td>' + v.criticismSuggestion + '</td>' +
+								'<td>' + v.teacherRecommendation + '</td>' +
+								'<td>' + classCacsi + '</td>'+
+								'<td>' + type + '</td>'+
+								'</tr>';
+						});
+						//$('.details-box').show();
+					} else {
+						//$('.list-page').hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="10" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+		quList.lookDetails2();
+	},
+	/**
+	 * 原始评分导出
+	 */
+	getOriginalExportList:function(){
+		//点击导出
+        $(".originalExportList").on("click",function (){
+        	/*if($("tr.yt-table-active").length == 0){
+				$yt_alert_Model.prompt("请选择要操作的数据");
+				return false;
+			}*/
+        	var projectCode = $yt_common.GetQueryString("projectCode");
+    		var traineeName = $('#keyword2').val();
+    		var classCacsi = quList.getChecks2();
+    		var isEffective ='1';
+            var downUrl = $yt_option.base_path + "class/questionnaire/exportQuestionnaire";
+            $.ajaxDownloadFile({
+            	url:downUrl,
+            	data:{
+            		projectCode: projectCode,
+    				traineeName:traineeName,
+    				classCacsi:classCacsi,
+    				isEffective:isEffective,
+					isDownload:true
+            	}
+            });
+        });
+	},
+	/**
+	 * 查询原始评分的多选框
+	 */
+	getChecks2:function (){
+		var classCacsi='';
+	    var checks = document.getElementsByName("test2");
+	    for(k in checks){
+	        if(checks[k].checked){
+	        	if (classCacsi ==''){
+	        		classCacsi += checks[k].value;
+	        	}else{
+	        		classCacsi += ','+checks[k].value;
+	        	}
+	        }
+	    }
+	    return classCacsi;
+	},
+	/**
+	 * 原始评分的详情
+	 */
+	lookDetails2:function (classCacsi){
+		$('.lookDetails2').click(function(){
+			alert("学员满意度评分详情");
+		});
+	},
+	/**
+	 * 原始评分的有效操作
+	 */
+	updateEffective:function(isEffective){
+		if($("tr.yt-table-active").length == 0){
+			$yt_alert_Model.prompt("请选择要操作的数据");
+			return false;
+		}
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		var traineeId = $(".yt-table-active .traineeId").val();
+        var downUrl = $yt_option.base_path + "class/questionnaire/updateEffective";
+        $.ajaxDownloadFile({
+        	url:downUrl,
+        	data:{
+        		projectCode: projectCode,
+        		traineeId:traineeId,
+				isEffective:isEffective,
+        	}
+        });
+	},
+	/**
+	 * 原始评分的页面刷新
+	 */
+	refreshEffective:function(){
+		 $('.page2').pageInfo("refresh");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+};
+$(function() {
+	//初始化方法
+	quList.init();
+
+});

@@ -1,0 +1,91 @@
+.class-info-name{
+	position: relative;
+	font-size: 18px;
+	color: #6495bc;
+	font-weight: bold;
+}
+.discuss-info-div{
+	position: relative;
+}
+.discuss-steps{
+    position: relative;
+    top: 6px;
+    right: 11px;
+}
+.steps-num{
+	color: #6495bc;
+	width: 32px;
+	height: 32px;
+	font-size: 18px;
+    line-height: 32px;
+    text-align: center;
+	font-weight: bold;
+	position: absolute;
+	top: 6px;
+	left: 4px; 
+	z-index: 2;
+}
+.discuss-btn{
+	float: right;
+	margin: 8px 40px 0px 0px;
+}
+.discuss-btn button{
+	margin-right: 10px;
+}
+.discuss-box table span{
+	font-size: 14px;
+}
+.offer-case{
+	color: #6495bc;
+}
+.btn-add{
+	width: 73px;
+	margin: 0 auto;
+}
+.add-discuss{
+	width: 72px;
+}
+.discuss-info-table{
+    margin: 25px auto;
+}
+.student-details-msgges {
+    width: 247px;
+    height: 145px;
+    border: 1px solid #f2f2f2;
+    display: inline-block;
+    margin: 0px 6px;
+}
+.student-details-tecket {
+    width: 1040px;
+    height: 192px;
+    border: 1px solid #F6F6F6;
+    margin-left: 17px;
+}
+.ticket-open-msg {
+    display: block;
+    background: #5b66ab;
+    color: #ffffff;
+    height: 31px;
+    width: 83px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 2px;
+}
+.student-details-msgges p {
+    margin: 25px 0px 10px 8px;
+}
+.student-details-train-record {
+    width: 1000px;
+    margin: 15px auto 0;
+}
+.student-details-train-record thead tr {
+    background: #F5F5F5;
+    height: 30px;
+}
+.student-details-train-record thead tr th {
+    padding-left: 10px;
+}
+.student-details-train-record thead tr th, .student-details-train-record tbody td {
+    border: 1px solid #E6E6E6;
+}

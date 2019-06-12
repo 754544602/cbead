@@ -1,0 +1,363 @@
+function dateinit() {
+	$("#txtDate-yyyy").calendar({
+		speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+		complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+		readonly: true, // 目标对象是否设为只读，默认：true     
+		lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+		nowData: true, //默认选中当前时间,默认true  
+		dateFmt: "yyyy",
+		callback: function() { // 点击选择日期后的回调函数  
+			//alert("您选择的日期是：" + $("#txtDate").val());  
+			changedate($("#txtDate-yyyy").val());
+		}
+	});
+	$("#txtDate-MM").calendar({
+		speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+		complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+		readonly: true, // 目标对象是否设为只读，默认：true     
+		lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+		nowData: true, //默认选中当前时间,默认true  
+		dateFmt: "MM",
+		callback: function() { // 点击选择日期后的回调函数  
+			//alert("您选择的日期是：" + $("#txtDate").val());  
+		}
+	});
+}
+
+function changedate(text) {
+	var ss = 0
+	ss += parseInt(text);
+	$("#txtDate-yyyy").val(text);
+	$('.txtDate-before').text(ss - 1);
+	$('.txtDate-now').text(ss);
+	$('.txtDate-after').text(ss + 1);
+
+}
+$('.statistics-top .txtDate-span').click(function() {
+	changedate($(this).text());
+})
+
+var statistics = {
+	part1: function() {
+
+		var dateName = ['本年度每月', '上一年度每月'];
+		var dateCound = [96.8, 96.8];
+		$.each(dateName, function(i, n) {
+			$('.statistics-box:nth-child(2) .average').append('<span class="userCount">' + n + '满意度均值：<label class="userCount-label">' + dateCound[i] + '</label>分</span>');
+		});
+		var myChart = echarts.init($('.statistics-draw1').get(0));
+		option = {
+			title: {
+				text: '一、总体满意度均值',
+				textStyle: {
+					color: '#111111',
+					fontSize: 18,
+					fontWeight: 100
+				},
+				top: 17
+			},
+			grid: {
+				top: '20%',
+				bottom: '5%',
+				containLabel: true
+			},
+			xAxis: {
+				type: 'category',
+				data: ['3-4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+			},
+			yAxis: {
+				type: 'value'
+			},
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			series: [{
+				data: [93, 97, 88, 78, 88, 88, 88, 88, 88],
+				type: 'bar',
+				label: {
+					show: true,
+					position: 'top',
+					color: '#000'
+				},
+				barWidth: 15,
+				barGap: "0%",
+				barCategoryGap: "60px",
+				itemStyle: {
+					barBorderRadius: [2, 2, 0, 0]
+				},
+			}]
+		};
+		myChart.setOption(option);
+	},
+	part2: function() {
+		var myChart = echarts.init($('.statistics-draw2').get(0));
+		var nameList = ['教学方案', '教师授课', '教学活动', '教学组织', '学员互动', '培训效果', '办学特色'];
+		var dateList = ['3-4月均值', '5月均值', '6月均值', '7月均值', '8月均值', '9月均值', '10月均值', '11月均值', '12月均值'];
+		var valueList = [{
+			aa: ['54', '95', '96', '91', '90', '88', '66']
+		}, {
+			aa: ['31', '21', '88', '66', '90', '96', '66']
+		}, {
+			aa: ['11', '58', '96', '91', '90', '88', '95']
+		}, {
+			aa: ['24', '85', '96', '91', '90', '88', '66']
+		}, {
+			aa: ['34', '95', '96', '91', '90', '88', '66']
+		}, {
+			aa: ['44', '25', '96', '91', '90', '88', '66']
+		}, {
+			aa: ['54', '15', '96', '91', '90', '88', '66']
+		}, {
+			aa: ['64', '75', '96', '91', '90', '88', '66']
+		}, {
+			aa: ['74', '35', '96', '91', '90', '88', '66']
+		}];
+		var seriesList = [];
+		$.each(dateList, function(k, v) {
+			seriesList.push({
+				name: v,
+				type: 'bar',
+				barMaxWidth: 40,
+				itemStyle: {
+					normal: {
+						show: true,
+					}
+				},
+				barWidth: 15,
+				barGap: "0%",
+				barCategoryGap: "130px",
+				itemStyle: {
+					barBorderRadius: [2, 2, 0, 0]
+				},
+				data: valueList[k].aa
+			});
+		});
+		option = {
+			title: {
+				text: '二、每月各维度均值比较',
+				textStyle: {
+					color: '#111111',
+					fontSize: 18,
+					fontWeight: 100
+				},
+				top: 27
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'shadow'
+				}
+			},
+			legend: {
+				data: dateList,
+				right: 21,
+				itemWidth: 10,
+				itemHeight: 10,
+				top: 30,
+			},
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			grid: {
+				top: '20%',
+				left: '0%',
+				right: '0%',
+				containLabel: true
+			},
+			yAxis: {
+				type: 'value',
+				boundaryGap: [0, 0.01]
+			},
+			xAxis: {
+				type: 'category',
+				data: nameList
+			},
+			series: seriesList
+		};
+		myChart.setOption(option);
+	},
+	part3: function() {
+		var myChart = echarts.init($('.statistics-draw3').get(0));
+		var nameList = ['教学方案', '教师授课', '教学活动', '教学组织', '学员互动', '培训效果', '办学特色', '总体满意度'];
+		var dateList = ['2016年全年', '2016年11月', '2017年11月'];
+		var valueList = [{
+			aa: ['54', '95', '96', '54', '95', '96', '54', '95']
+		}, {
+			aa: ['31', '21', '88', '54', '95', '96', '54', '95']
+		}, {
+			aa: ['11', '58', '96', '54', '95', '96', '54', '95']
+		}];
+		var seriesList = [];
+		$.each(dateList, function(k, v) {
+			seriesList.push({
+				name: v,
+				type: 'bar',
+				barMaxWidth: 40,
+				itemStyle: {
+					normal: {
+						show: true,
+					}
+				},
+				barWidth: 15,
+				barGap: "0%",
+				barCategoryGap: "130px",
+				itemStyle: {
+					barBorderRadius: [2, 2, 0, 0]
+				},
+				data: valueList[k].aa
+			});
+		});
+		option = {
+			title: {
+				text: '三、当月各维度均值同比',
+				textStyle: {
+					color: '#111111',
+					fontSize: 18,
+					fontWeight: 100
+				},
+				top: 24
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'shadow'
+				}
+			},
+			legend: {
+				data: dateList,
+				right: 21,
+				itemWidth: 10,
+				itemHeight: 10,
+				top: 30,
+			},
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			grid: {
+				top: '20%',
+				left: '0%',
+				right: '0%',
+				containLabel: true
+			},
+			yAxis: {
+				type: 'value',
+				boundaryGap: [0, 0.01]
+			},
+			xAxis: {
+				type: 'category',
+				data: nameList
+			},
+			series: seriesList
+		};
+		myChart.setOption(option);
+	},
+	part4: function() {
+		var myChart = echarts.init($('.statistics-draw4').get(0));
+		var nameList = ['调训', '委托', '选学'];
+		var dateList = ['总体满意度2016年均值', '总统满意度11月均值'];
+		var valueList = [{
+			aa: ['54', '95', '96']
+		}, {
+			aa: ['31', '21', '88']
+		}];
+		var seriesList = [];
+		$.each(dateList, function(k, v) {
+			seriesList.push({
+				name: v,
+				type: 'bar',
+				barMaxWidth: 40,
+				itemStyle: {
+					normal: {
+						show: true,
+					}
+				},
+				barWidth: 15,
+				barGap: "0%",
+				barCategoryGap: "130px",
+				itemStyle: {
+					barBorderRadius: [2, 2, 0, 0]
+				},
+				data: valueList[k].aa
+			});
+		});
+		option = {
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'shadow'
+				}
+			},
+			legend: {
+				data: dateList,
+				right: 21,
+				itemWidth: 10,
+				itemHeight: 10,
+				top: 4,
+			},
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			grid: {
+				left: '4%',
+				right: '5%',
+				bottom: '0%',
+				containLabel: true
+			},
+			yAxis: {
+				type: 'value',
+				boundaryGap: [0, 0.01]
+			},
+			xAxis: {
+				type: 'category',
+				data: nameList
+			},
+			series: seriesList
+		};
+		myChart.setOption(option);
+	},
+	part5: function() {
+		var myChart = echarts.init($('.statistics-draw5').get(0));
+		option = {
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data: ['委托班次', '选学班次'],
+				right:25,
+				top:10
+			},
+			grid: {
+				left: '1%',
+				right: '1%',
+				bottom: '3%',
+				containLabel: true
+			},
+			color: ['#847ccf', '#df94e0', '#b8b3e2', '#f59700', '#6776ea', '#394b59', '#c554ff', '#30323d'],
+			xAxis: {
+				type: 'category',
+				boundaryGap: false,
+				data: ['3-4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [{
+					name: '委托班次',
+					type: 'line',
+					stack: '总量',
+					data: [120, 132, 101, 134, 90, 230, 210, 210, 210]
+				},
+				{
+					name: '选学班次',
+					type: 'line',
+					stack: '总量',
+					data: [220, 182, 191, 234, 290, 330, 310, 210, 210]
+				}
+			]
+		};
+
+		myChart.setOption(option);
+	}
+}
+
+$(document).ready(function() {
+	dateinit();
+	changedate($("#txtDate-yyyy").val());
+	statistics.part1();
+	statistics.part2();
+	statistics.part3();
+	statistics.part4();
+	statistics.part5();
+})

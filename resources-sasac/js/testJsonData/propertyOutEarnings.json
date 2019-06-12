@@ -1,0 +1,56 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 100,
+		"rows": [
+			{
+				"propertyOutEarningsId":"1",
+				"serialNumber":"2020-1",
+				"assetNumber": "",
+				"assetName": "",
+				"externalIncomeType":"对外投资",
+				"contractNumber":"HT-MM-2020-003",
+				"opposingUnit":"东风电脑学校",
+				"managementDate":"2020-3-7",
+				"totalReceivables":"",
+				"receivablesMoney":"1200.00",
+				"uncollectedMoney":"",
+				"receivablesDate":"2020-3-8",
+				"paidMoney":"1200.00",
+				"incomeApplyNumbers":"087900068941"
+			},
+			{
+				"propertyOutEarningsId":"2",
+				"serialNumber":"2020-1",
+				"assetNumber": "",
+				"assetName": "",
+				"externalIncomeType":"担保",
+				"contractNumber":"HT-ZL-2018-003",
+				"opposingUnit":"东风电脑学校",
+				"managementDate":"",
+				"totalReceivables":"",
+				"receivablesMoney":"",
+				"uncollectedMoney":"",
+				"receivablesDate":"2020-2-16",
+				"paidMoney":"200.00",
+				"incomeApplyNumbers":"087900068978"
+			},
+			{
+				"propertyOutEarningsId":"3",
+				"serialNumber":"",
+				"assetNumber": "",
+				"assetName": "",
+				"externalIncomeType":"出租出借",
+				"contractNumber":"",
+				"opposingUnit":"",
+				"managementDate":"2018年2月16日-2019年2月15日",
+				"totalReceivables":"",
+				"receivablesMoney":"200.00",
+				"uncollectedMoney":"",
+				"receivablesDate":"",
+				"paidMoney":"",
+				"incomeApplyNumbers":""
+			}
+		]
+	}
+}

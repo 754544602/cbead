@@ -1,0 +1,534 @@
+var teacherList = {
+	courseList:"",
+	//初始化方法
+	init: function() {
+		//点击返回
+		$(".btn-return").click(function(){
+			if(window.parent.document.getElementById("teacherName")==null){
+				window.history.back();
+			}else{
+				$(window.parent.document.getElementById("teacherName")).hide();
+				$(window.parent.document.getElementsByTagName("body")).css('overflow','auto');
+			}
+		});
+		$('#opintion').off('keydown').on('keydown',function(){
+			$('#opintion').blur();
+		})
+		teacherList.teacherProject();
+		teacherList.getTeacherInf();
+		$('.basicsStandardHalf,.floatStandardHalf,.customizedStandardHalf,.basicsStandardOne,.floatStandardOne,.customizedStandardOne').off('focus').on('focus',function(){
+			$(this).val($yt_baseElement.rmoney($(this).val()));
+		})
+		$('.basicsStandardHalf').off('blur').on('blur',function(){
+			$('.basicsStandardOne').val($yt_baseElement.fmMoney($(this).val()*2));
+			$(this).val($yt_baseElement.fmMoney($(this).val()));
+			allmoney('half')
+			})
+		$('.floatStandardHalf').off('blur').on('blur',function(){
+				$('.floatStandardOne').val($yt_baseElement.fmMoney($(this).val()*2));
+				$(this).val($yt_baseElement.fmMoney($(this).val()));
+				allmoney('half')
+		})
+		$('.customizedStandardHalf').off('blur').on('blur',function(){
+				$('.customizedStandardOne').val($yt_baseElement.fmMoney($(this).val()*2));
+				$(this).val($yt_baseElement.fmMoney($(this).val()));
+				allmoney('half')
+		})
+		$('.basicsStandardOne,.floatStandardOne,.customizedStandardOne').off('blur').on('blur',function(){
+				$(this).val($yt_baseElement.fmMoney($(this).val()));
+				allmoney('one')
+		})
+		function allmoney(type){
+				var half = $yt_baseElement.rmoney($('.basicsStandardHalf').val())+$yt_baseElement.rmoney($('.floatStandardHalf').val())+$yt_baseElement.rmoney($('.customizedStandardHalf').val());
+				var one = $yt_baseElement.rmoney($('.basicsStandardOne').val())+$yt_baseElement.rmoney($('.floatStandardOne').val())+$yt_baseElement.rmoney($('.customizedStandardOne').val());
+				if(type=='half'){
+					$('.teacherMoneyHalf').text($yt_baseElement.fmMoney(half));
+					$('.teacherMoneyOne').text($yt_baseElement.fmMoney(one));
+				}else if(type=='one'){
+					$('.teacherMoneyOne').text($yt_baseElement.fmMoney(one));
+				}
+		}
+		//审批意见提交
+		$('#last-submit').click(function(){
+			var teacherId = $yt_common.GetQueryString('pkId');
+			var processInstanceId = $yt_common.GetQueryString('processInstanceId');
+			//下一步操作人
+			var dealingWithPeople=$('#nextPeople').val();
+			//审批意见
+			var opintion=$('#opintion').val();
+			//判断同意和不同意
+			var nextCode = $('input[name="radioType"]:checked ').val();
+			var tastKey = $('#taskKey').val();
+			//拒绝,或流程节点值为activitiEndTask下一步操作人为空
+			if(nextCode=="returnedSubmit" || tastKey=="activitiEndTask"){
+				dealingWithPeople="";
+			}
+			//下一步操作人为no审批提交时没有选择下一步操作人
+			if (dealingWithPeople=="no") {
+				$yt_alert_Model.prompt("请选择下一步操作人！", 3000);
+			}else{
+				$.ajax({
+					type: "post",
+					url: $yt_option.base_path + "teacher/updateApply",
+					async: false,
+					data: {
+						teacherId: teacherId,
+						businessCode:"teacher",
+						processInstanceId:processInstanceId,
+						dealingWithPeople:dealingWithPeople,
+						opintion:opintion,
+						nextCode:nextCode
+					},
+					success: function(data) {
+						if(data.flag == 0) {
+							window.history.back();
+						}else{
+							$yt_alert_Model.prompt("审批提交失败!", 3000);
+						}
+					}
+				});
+				
+			}
+		});
+		//审批取消
+		$('#last-cancel').click(function(){
+			//跳转到审批列表页面
+			window.history.back();
+		});
+	},
+	teacherApproveNew:function(dataStates){
+		var me = this;
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path+"teacher/addOrApprovalTeacherNew",
+			async:true,
+			beforeSend:function(){
+				 //$yt_baseElement.showLoading();
+			},
+			data:{
+				dataStates:dataStates,
+				teacherId:$yt_common.GetQueryString('pkId'),
+				dollarsStandardHalf:me.teacherData.dollarsStandardHalf,
+				dollarsStandardOne:me.teacherData.dollarsStandardOne,
+				projectCode:$('.teacherProjectCode').val(),
+				courseId:$('.teacherCourse').val(),
+				dollarsStandardType:$('input[name=moneyType]:checked').val(),
+				basicsStandardHalf:$yt_baseElement.rmoney($('.basicsStandardHalf').val()),
+				basicsStandardOne:$yt_baseElement.rmoney($('.basicsStandardOne').val()),
+				floatStandardHalf:$yt_baseElement.rmoney($('.floatStandardHalf').val()),
+				floatStandardOne:$yt_baseElement.rmoney($('.floatStandardOne').val()),
+				customizedStandardHalf:$yt_baseElement.rmoney($('.customizedStandardHalf').val()),
+				customizedStandardOne:$yt_baseElement.rmoney($('.customizedStandardOne').val()),
+				businessCode:'teacher',
+				dealingWithPeople:$("#nextPeople").val(),
+				opintion:$('#opintion').val(),
+				processInstanceId:$yt_common.GetQueryString('processInstanceId'),
+				nextCode:'submited'
+			},
+			success:function(data){
+				if(data.flag==0){
+					$yt_baseElement.hideLoading(function(){
+						$yt_alert_Model.prompt('提交成功')
+						window.history.back();
+					});
+				}else{
+					$yt_baseElement.hideLoading(function(){
+						$yt_alert_Model.prompt('提交失败')
+					});
+				}
+			},
+			error:function(){
+				$yt_baseElement.hideLoading(function(){
+						$yt_alert_Model.prompt('网络异常，提交失败')
+					});
+			}
+		});
+	},
+	teacherData:'',
+	//师资管理获取一条数据
+	getTeacherInf: function() {
+		var me = this ;
+		//课酬审批也跳转
+		var urls
+		if(window.parent.document.getElementById("teacherName")==null){
+			urls =  'teacher/getTeacherBeanByIdByApproval'
+			var processInstanceId = $yt_common.GetQueryString('processInstanceId');
+		}else{
+			urls =  'finance/teacherExpense/getTeacherBeanByTeacherExpense'
+		}
+		 //$yt_baseElement.showLoading();
+		var pkId = $yt_common.GetQueryString('pkId');
+		var backPage = $yt_common.GetQueryString('backPage');
+		var indexNum = $yt_common.GetQueryString('indexNum');
+			$.ajax({
+				type: "post", //ajax访问方式 默认 "post"  
+				url: $yt_option.base_path + urls, //ajax访问路径  
+				data: {
+					pkId:pkId,
+					processInstanceId:processInstanceId
+				}, //ajax查询访问参数
+				async: true,
+				success: function(data) {
+					if(data.flag == 0){
+						var tastKey;
+						if(data.data.dollarsStandardType==1){
+							data.data.dollarsStandardTypeVal='长期课酬'
+						}else if(data.data.dollarsStandardType==2){
+							data.data.dollarsStandardTypeVal='并行课酬'
+						}else if(data.data.dollarsStandardType==3){
+							data.data.dollarsStandardTypeVal='单次课酬'
+						}
+						data.data.basicsStandardHalfVal = $yt_baseElement.fmMoney(data.data.basicsStandardHalf);
+						data.data.basicsStandardOneVal = $yt_baseElement.fmMoney(data.data.basicsStandardOne);
+						data.data.floatStandardHalfVal = $yt_baseElement.fmMoney(data.data.floatStandardHalf);
+						data.data.floatStandardOneVal = $yt_baseElement.fmMoney(data.data.floatStandardOne);
+						data.data.customizedStandardHalfVal = $yt_baseElement.fmMoney(data.data.customizedStandardHalf);
+						data.data.customizedStandardOneVal = $yt_baseElement.fmMoney(data.data.customizedStandardOne);
+						data.data.dollarsStandardHalfVal = $yt_baseElement.fmMoney(Number(data.data.basicsStandardHalf)+Number(data.data.floatStandardHalf)+Number(data.data.customizedStandardHalf))
+						data.data.dollarsStandardOneVal = $yt_baseElement.fmMoney(Number(data.data.basicsStandardOne)+Number(data.data.floatStandardOne)+Number(data.data.customizedStandardOne))
+						data.data.deptName = data.data.org+data.data.title;
+						$(".box-list").setDatas(data.data);
+						$('.teacherProjectCode').setSelectVal(data.data.projectCode);
+						me.teacherProjectCourse(data.data.projectCode);
+						$('.teacherCourse').setSelectVal(data.data.courseId);
+						me.teacherData=data.data;
+						$('input[name=moneyType][value='+data.data.dollarsStandardType+']').setRadioState('check');
+							//流程
+						if(data.data.flowLog  != ""){
+							$(".approve-content-box").show();
+							var flowLog = $.parseJSON(data.data.flowLog);
+							var middleStepHtml;
+							var length=flowLog.length;
+							$(".middle-box").remove();
+							$.each(flowLog, function(i,v) {
+								
+								//如果i等于0是最后一步流程数据
+								if(i==0){
+									if(v.tastKey == "activitiStartTask"){
+										tastKey = 'activitiStartTask';
+									}
+									if (v.tastKey == "activitiEndTask") {//审批最后一步隐藏下一步操作人
+										$(".next-operate-person-tr").hide();
+										if(v.deleteReason!='' || backPage !=2 ){//从我的申请和申请查询跳转查询详情不能审批
+											$(".btn-box").hide();
+											$('.last-box').hide();
+											var order=length-i;
+											middleStepHtml='<div class="middle-box">'+	
+																'<div style="height: 150; ">'+
+																	'<div class="number-name-box">'+
+																		'<span class="number-box-span middle-step-order middle-a-index" >'+order+'</span>'+
+																		'<span class="name-box-span middle-step-userName middle-a-index" >'+v.userName+'</span>'+
+																		'<img src="../../resources/images/open/openFlow.png" class="order-img" />'+
+																	'</div>'+
+																'</div>'+
+																'<div class="middle-step-box-div">'+
+																	'<ul class="middle-step-box-ul">'+
+																		'<li style="height: 30px;">'+
+																			'<span  class="middle-step-taskName view-taskName-span"  style="float: left;">'+v.operationState+'</span>'+
+																		'</li>'+
+																		'<li class="view-time-li middle-step-commentTime" style="text-align:right;">'+v.commentTime+'</li>'+
+																		'<li class="operate-view-box-li">'+
+																			'<div class="operate-view-title-li">操作意见：</div>'+
+																			'<div class="operate-view-text-li middle-step-comment">'+v.comment+'</div>'+
+																		'</li>'+
+																	'</ul>'+
+																'</div>'+
+															'</div>';
+											$('.last-step').append(middleStepHtml);	
+										}
+									}else if((v.tastKey == "activitiStartTask" && indexNum == "2") || backPage !=2){//indexNum=2表示审批记录页面列表跳转
+										$(".btn-box").hide();
+										$('.last-box').hide();
+										var order=length-i;
+										middleStepHtml='<div class="middle-box">'+	
+															'<div style="height: 150; ">'+
+																'<div class="number-name-box">'+
+																	'<span class="number-box-span middle-step-order middle-a-index" >'+order+'</span>'+
+																	'<span class="name-box-span middle-step-userName middle-a-index" >'+v.userName+'</span>'+
+																	'<img src="../../resources/images/open/openFlow.png" class="order-img" />'+
+																'</div>'+
+															'</div>'+
+															'<div class="middle-step-box-div">'+
+																'<ul class="middle-step-box-ul">'+
+																	'<li style="height: 30px;">'+
+																		'<span  class="middle-step-taskName view-taskName-span"  style="float: left;">'+v.operationState+'</span>'+
+																	'</li>'+
+																	'<li class="view-time-li middle-step-commentTime" style="text-align:right;">'+v.commentTime+'</li>'+
+																	'<li class="operate-view-box-li">'+
+																		'<div class="operate-view-title-li">操作意见：</div>'+
+																		'<div class="operate-view-text-li middle-step-comment">'+v.comment+'</div>'+
+																	'</li>'+
+																'</ul>'+
+															'</div>'+
+														'</div>';
+										$('.last-step').append(middleStepHtml);	
+									}
+									//隐藏数据，用来提交审批是判断是否需要下一步操作人
+									$('#taskKey').val(v.tastKey);
+									//流程编号
+									$('.last-step-order').text(length);
+									//操作人名
+									$('.last-step-operate-person-userName').text(v.userName);
+									//操作状态
+									$('.last-step-operationState').text(v.operationState);
+									//停滞时间							
+									$('.last-step-commentTime').text(v.commentTime);
+								};
+								//如果i等于length-1是流程的第一步
+								if(i==length-1){
+									//流程编号
+									$('.first-step-order').text(1);
+									//操作人名
+									$('.first-step-operate-person-userName').text(v.userName);
+									//当前审批节点名字
+									$('.first-step-taskName').text(v.operationState);
+									//时间
+									$('.first-step-commentTime').text(v.commentTime);
+									$(".first-step-comment").text(v.comment);
+								};
+								//如果i不等于且不等于length-1，是流程的中间步骤
+								if(i!=0 && i< length-1){
+									//流程序号
+									var order=length-i;
+									middleStepHtml='<div class="middle-box">'+	
+														'<div style="height: 150; ">'+
+															'<div class="number-name-box">'+
+																'<span class="number-box-span middle-step-order middle-a-index" >'+order+'</span>'+
+																'<span class="name-box-span middle-step-userName middle-a-index" >'+v.userName+'</span>'+
+																'<img src="../../resources/images/open/openFlow.png" class="order-img" />'+
+															'</div>'+
+														'</div>'+
+														'<div class="middle-step-box-div">'+
+															'<ul class="middle-step-box-ul">'+
+																'<li style="height: 30px;">'+
+																	'<span  class="middle-step-taskName view-taskName-span"  style="float: left;">'+v.operationState+'</span>'+
+																'</li>'+
+																'<li class="view-time-li middle-step-commentTime"  style="text-align:right;">'+v.commentTime+'</li>'+
+																'<li class="operate-view-box-li">'+
+																	'<div class="operate-view-title-li">操作意见：</div>'+
+																	'<div class="operate-view-text-li middle-step-comment">'+v.comment+'</div>'+
+																'</li>'+
+															'</ul>'+
+														'</div>'+
+													'</div>';
+									$('.last-step').append(middleStepHtml);	
+								};
+							});
+						};
+						var showBox='';
+							$.each(data.data.dollarsStandardHis,function(i,n){
+								if(n.dataStates==1){
+								showBox +='<div class="tip-box"><table class="tip-table"><tr><td class="tip-lable">变更时间：</td><td>'+n.updateTimeString+'</td></tr>' +
+								'<tr><td class="tip-lable">课酬标准：</td><td>' + n.dollarsStandardHalfBefore + '元/半天</td></tr>' +
+								'<tr><td class="tip-lable"></td><td>' + n.dollarsStandardOneBefore + '元/天</td></tr>' +
+								'<tr><td class="tip-lable">审批状态：</td><td>' + n.workFlawState + '</td></tr></table></div>';
+								}else if(n.dataStates==2){
+								showBox +='<div class="tip-box"><table class="tip-table"><tr style="border-top: 1px dashed #ffffff;"><td class="tip-lable">变更时间：</td><td>'+n.updateTimeString+'</td></tr>' +
+								'<tr><td class="tip-lable">课酬标准：</td><td>' + n.dollarsStandardHalfBefore + '元/半天</td></tr>' +
+								'<tr><td class="tip-lable"></td><td>' + n.dollarsStandardOneBefore + '元/天</td></tr>' +
+								'<tr><td class="tip-lable">变更原因：</td><td>' + n.changeReason + '</td></tr>' +
+								'<tr><td class="tip-lable">审批状态：</td><td>' + n.workFlawState + '</td></tr></table></div>';
+								}
+							})
+							if(data.data.dollarsStandardHis.length==0){
+								showBox +='<tr><td class="tip-lable">无变更记录</td></tr>'
+							}
+							showBox+='';
+						$('.changeRecord').tooltip({
+							position: 'right',
+							content: function() {
+								return showBox;
+							},
+							onShow: function() {
+								$(this).tooltip('tip').css({
+									backgroundColor: '#666',
+									borderColor: '#666',
+									color:'#fff'
+								});
+							}
+						})
+						//下一步操作人
+						var nextPersonList = teacherList.getworkFlowOperate();
+						if(nextPersonList != null) {
+							$("#nextPeople").empty();
+							$("#nextPeople").append('<option value="no">请选择下一步操作人</option>');
+							$.each(nextPersonList, function(g, p) {
+								$("#nextPeople").append('<option value="' + p.userCode + '">' + p.userName + '</option>');
+							});
+						};
+						$("#nextPeople").niceSelect();
+//						$yt_baseElement.hideLoading();
+						//流程被退回
+						if(tastKey=='activitiStartTask'){
+							$('.dollarsApproveTableDetail').hide();
+							$('.dollarsApproveTable').show();
+							//流程被退回
+							$(".btn-box").show();
+							$('.last-box').show();
+							$('.middle-box').eq(0).hide();
+							$('.agree-disagree').parents('tr').hide();
+							$('#last-submit').attr('id','lastsub');
+							$('#lastsub').click(function(){
+							if($yt_valid.validForm($(".dollarsApproveTable"))){
+								if($('#nextPeople').val()=='no'){
+									$yt_alert_Model.prompt('请选择下一步操作人');
+								}else{
+									teacherList.teacherApproveNew(data.data.dataStates);
+								}
+							}else{
+									$yt_alert_Model.prompt('请补全信息');
+							}
+							})
+						}
+					}else{
+						$yt_alert_Model.prompt(data.message);
+//						$yt_baseElement.hideLoading();
+					}
+				}
+			});
+	},
+	//获取下一步操作人
+	getworkFlowOperate: function() {
+		var processInstanceId = $yt_common.GetQueryString('processInstanceId');
+		var list = [];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "uniform/workFlowOperate/getSubmitPageData",
+			data: {
+				businessCode: "teacher",
+				processInstanceId:processInstanceId
+			},
+			async: false,
+			success: function(data) {
+				if (data.data != null) {
+					$.each(data.data, function(i, n) {
+						for(var k in n) {
+							list = n[k];
+						}
+					});
+				}
+			}
+		});
+		return list;
+	},
+	//课酬审批项目下拉框初始化
+	teacherProject:function(){
+		var me = this ;
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path+"teacher/lookForAllProjectByDollarsStandard",
+			async:true,
+			data:{
+				selectParam:'',
+				pkId:$yt_common.GetQueryString("pkId")
+			},
+			beforeSend:function(){
+				 //$yt_baseElement.showLoading();
+			},
+			success:function(data){
+				if(data.flag==0){
+//					$yt_baseElement.hideLoading();
+					$('select.teacherProjectCode').empty();
+					$('select.teacherProjectCode').append('<option value="">请选择</option>');
+					$.each(data.data, function(i,n) {
+						$('select.teacherProjectCode').append('<option value="'+n.projectCode+'">'+n.projectName+'</option>');
+					});
+					$('select.teacherProjectCode').niceSelect({
+				        search: true,  
+				        backFunction: function(text) {  
+				            //回调方法,可以执行模糊查询,也可自行添加操作  
+				           $('select.teacherProjectCode option').remove();  
+				            if(text == "") {  
+				               $('select.teacherProjectCode').append('<option value="">请选择</option>');  
+				            }  
+				            //遍历存储的全局用户名遍历,匹配数据,进行模糊查询操作  
+				            $.each(data.data, function(i, n) {  
+				                if(n.projectName.indexOf(text) != -1) { 
+				                   $('select.teacherProjectCode').append('<option value="' + n.projectCode + '">' + n.projectName + '</option>');  
+								}
+				            });  
+				        }  
+					});
+					$('select.teacherCourse').niceSelect()
+					$('.teacherProjectCode').off('change').on('change',function(){
+						if($(this).val()==''){
+							$('select.teacherCourse').empty();
+							$('select.teacherCourse').append('<option value="">请选择</option>');
+							$('select.teacherCourse').niceSelect()
+						}else{
+							$('.teacherProjectCode').removeClass('valid-hint');
+							me.teacherProjectCourse($(this).val());
+						}
+					})
+				}else{
+//					$yt_baseElement.hideLoading(function(){
+//						$yt_alert_Model.prompt('项目查询失败')
+//					})
+				}
+			},
+			error:function(){
+//				$yt_baseElement.hideLoading(function(){
+//					$yt_alert_Model.prompt('网络异常，请稍后重试');
+//				})
+			}
+		});
+	},
+	//项目课程下拉框初始化
+	teacherProjectCourse:function(projectCode){
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path+"teacher/lookForAllCourseByProject",
+			async:false,
+			data:{
+				selectParam:'',
+				projectCode:projectCode,
+				teacherId: $yt_common.GetQueryString('pkId')
+			},
+			beforeSend:function(){
+				 //$yt_baseElement.showLoading();
+			},
+			success:function(data){
+				if(data.flag==0){
+//					$yt_baseElement.hideLoading();
+					$('select.teacherCourse').empty();
+					$('select.teacherCourse').append('<option value="">请选择</option>');
+					$.each(data.data, function(i,n) {
+						$('select.teacherCourse').append('<option value="'+n.courseId+'">'+n.courseName+'</option>');
+					});
+					$('select.teacherCourse').niceSelect();
+					$('.teacherCourse').off('change').on('change',function(){
+						if($(this).val()!=''){
+							$('.teacherCourse').removeClass('valid-hint');
+						}
+					})
+				}else{
+//					$yt_baseElement.hideLoading(function(){
+//						$yt_alert_Model.prompt('项目查询失败')
+//					})
+				}
+			},
+			error:function(){
+//				$yt_baseElement.hideLoading(function(){
+//					$yt_alert_Model.prompt('网络异常，请稍后重试');
+//				})
+			}
+		});
+	},
+	pageToScroll: function(validObj) {
+		var scrollTopVal = 0;
+		$(validObj).each(function() {
+			if($(this).text() != "") {
+				if($(window).scrollTop() && ($(this).eq(0).parent().offset().top < $(window).scrollTop() || $(this).eq(0).parent().offset().top > $(window).height())) {
+					scrollTopVal = $(this).eq(0).parents().offset().top - 30;
+					$(window).scrollTop(scrollTopVal);
+				}
+				return false;
+			}
+		});
+	}
+}
+$(function() {
+	//初始化方法
+	teacherList.init();
+	
+});

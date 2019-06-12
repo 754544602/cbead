@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/meetingRoom/meetingRoom.min.css"/>
+		<title>会议室预约</title>
+	</head>
+	<body>
+		<div id="project-main" style="min-width: 1200px;">
+			<div class="page-title">
+				<div style="float: left;margin-left: 10px;">
+				<input type="text" id="query-date" value="" class="calendar-input" style="width: 110px;" />
+				</div>
+				<span class="prev-day"></span>
+				<span class="current-day"></span>
+				<span class="next-day"></span>
+			</div>
+			<div class="tab-title-list" style="overflow: hidden;"style="margin-top: 0px;padding-top:0px ;">
+				<div class="tab-title-box" style="width: 1440px;">
+					<button class="yt-option-btn active" types="3">• 会议室</button>
+					<button class="yt-option-btn" types="2">• 研讨室</button>
+					<button class="yt-option-btn" types="1">• 教室</button>
+				</div>
+			</div>
+			<div class="list-box">
+				<div class="box-list">
+					<div class="list-title" style="height: 40px;">
+						<span>会议室占用情况</span>
+						<button class="yt-option-btn fr appointment">
+							<img src="../../resources/images/button/meet-room.png">
+							会议室预约
+						</button>
+					</div>
+					<div class="content-box">
+						<div id="ganttChart" onselectstart="return false">
+							<table border="0" cellspacing="0" cellpadding="0" class="meeting-room">
+								<thead>
+									<tr>
+										<th></th>
+										<th width="1px" timeVal="00:00"><div></div><span></span></th>
+										<th width="1px" timeVal="08:00"><div></div><span style="width: 100px;left: -70px;">00:00-8:00</span></th>
+										<th width="1px" timeVal="08:30"><div></div><span>8:30</span></th>
+										<th width="1px" timeVal="09:00"><div></div><span>9:00</span></th>
+										<th width="1px" timeVal="09:30"><div></div><span>9:30</span></th>
+										<th width="1px" timeVal="10:00"><div></div><span>10:00</span></th>
+										<th width="1px" timeVal="10:30"><div></div><span>10:30</span></th>
+										<th width="1px" timeVal="11:00"><div></div><span>11:00</span></th>
+										<th width="1px" timeVal="11:30"><div></div><span>11:30</span></th>
+										<th width="1px" timeVal="12:00"><div></div><span>12:00</span></th>
+										<th width="1px" timeVal="12:30"><div></div><span>12:30</span></th>
+										<th width="1px" timeVal="13:00"><div></div><span>13:00</span></th>
+										<th width="1px" timeVal="13:30"><div></div><span>13:30</span></th>
+										<th width="1px" timeVal="14:00"><div></div><span>14:00</span></th>
+										<th width="1px" timeVal="14:30"><div></div><span>14:30</span></th>
+										<th width="1px" timeVal="15:00"><div></div><span>15:00</span></th>
+										<th width="1px" timeVal="15:30"><div></div><span>15:30</span></th>
+										<th width="1px" timeVal="16:00"><div></div><span>16:00</span></th>
+										<th width="1px" timeVal="16:30"><div></div><span>16:30</span></th>
+										<th width="1px" timeVal="17:00"><div></div><span>17:00</span></th>
+										<th width="1px" timeVal="17:30"><div></div><span>17:30</span></th>
+										<th width="1px" timeVal="18:00"><div></div><span>18:00</span></th>
+										<th width="1px" timeVal="18:30"><div></div><span>18:30</span></th>
+										<th width="1px" timeVal="19:00"><div></div><span>19:00</span></th>
+										<th width="60px" timeVal="19:30"><div></div><span style="width: 82px;left: -22px">19:30-00:00</span></th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--预约弹出框START-->  
+    	<div class="yt-pop-model yt-edit-alert add-appointment-box" style="width: 480px;">
+			<!--标题区域START-->
+			<div class="yt-edit-alert-title">
+				<span class="yt-edit-alert-title-msg">会议室预约</span>
+			</div>
+			<!--标题区域END-->
+			<!--主体内容部分START-->
+			<div class="yt-edit-alert-main cont-edit-test">
+				<table style="margin-top: 20px;width: 100%;">
+					<tr>
+						<td class="form-label">会议室主题：</td>
+						<td>
+							<input class="yt-input" type="text" name="titles" placeholder="请输入" validform="{isNull:true,blurFlag:true,size:20,msg:'请输入20个字符以内的会议室主题'}" style="width: 270px;"/>
+						 	<span class="valid-font"></span>  
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">会议室：</td>
+						<td>
+							<select name="" class="yt-select rooms" style="width: 276px;" data-val="courseTypeCode">
+							</select>
+							<span class="valid-font"></span>  
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">会议日期：</td>
+						<td>
+							<input id="txtDate" class="calendar-input" style="width: 266px;" validform="{isNull:true,msg:'请选择会议室日期'}" value="" placeholder="请选择日期" type="text" />
+							<span class="valid-font"></span>  
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">开始时间：</td>
+						<td>
+							<div style="display: inline-block;">
+								<select name="" class="yt-select meeting-time start-h" style="width: 130px;">
+									<option value="00">00</option>
+									<option value="01">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+								</select>
+							</div>
+							<span class="time-center">:</span>
+							<div style="display: inline-block;">
+								<select name="" class="yt-select meeting-time start-m" style="width: 130px;">
+									<option value="00">00</option>
+									<option value="30">30</option>
+								</select>	
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">结束时间：</td>
+						<td>
+							<div style="display: inline-block;">
+								<select name="" class="yt-select meeting-time end-h" style="width: 130px;">
+									<option value="00">00</option>
+									<option value="01">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">00</option>
+								</select>
+							</div>
+							<span class="time-center">:</span>
+							<div style="display: inline-block;">
+								<select name="" class="yt-select meeting-time end-m" style="width: 130px;">
+									<option value="00">00</option>
+									<option value="30">30</option>
+								</select>	
+							</div>
+							<span class="valid-font end-time-font"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">申请人：</td>
+						<td class="create-user-name">
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">联系方式：</td>
+						<td>
+							<input class="yt-input" type="text" name="phone" validform="{blurFlag:true,size:20,msg:'请输入15个字符以内的联系方式'}" placeholder="请输入联系方式" style="width: 274px;" data-val="courseName" />
+							<span class="valid-font"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">会议说明：</td>
+						<td>
+							<textarea class="yt-textarea" name="details" validform="{blurFlag:true,size:100,msg:'请输入100个字符以内的会议说明'}" style="width: 274px;" placeholder="请输入会议说明"></textarea>
+							<span class="valid-font" style="top: 90px;"></span>
+						</td>
+					</tr>
+					
+				</table>
+			</div>
+				<!--底部按钮START-->
+				<div class="yt-eidt-model-bottom">
+					<input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="确定" />
+					<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+				</div>
+			<!--主体内容部分END-->
+		</div>  
+		<!--预约弹出框END-->  
+		<!--预约弹出框START-->  
+    	<div class="yt-pop-model yt-edit-alert show-appointment-box" style="width: 480px;">
+			<!--标题区域START-->
+			<div class="yt-edit-alert-title">
+				<span class="yt-edit-alert-title-msg">会议室预约</span>
+			</div>
+			<!--标题区域END-->
+			<!--主体内容部分START-->
+			<div class="yt-edit-alert-main cont-edit-test" style="padding: 0 10px;">
+				<div class="tab-title-list tab-room-list" style="overflow: hidden;margin-top: 0px;">
+					<div class="tab-room-box">
+						<!--120排序-->
+					</div>
+					<div class="more-tab-btn-start room-tab-btn-start"></div>
+					<div class="more-tab-btn-end room-tab-btn-end"></div>
+				</div>
+				<table class="form-box" style="margin-top: 20px;width: 100%;">
+					<tr>
+						<td class="form-label">会议室主题：</td>
+						<td style="width: 300px;" data-text="titles"></td>
+					</tr>
+					<tr>
+						<td class="form-label">会议室：</td>
+						<td data-text="roomName"></td>
+					</tr>
+					<tr>
+						<td class="form-label">会议日期：</td>
+						<td data-text="useDate"></td>
+					</tr>
+					<tr>
+						<td class="form-label">开始时间：</td>
+						<td data-text="startDate"></td>
+					</tr>
+					<tr>
+						<td class="form-label">结束时间：</td>
+						<td data-text="endDate"></td>
+					</tr>
+					<tr>
+						<td class="form-label">联系方式：</td>
+						<td data-text="phone"></td>
+					</tr>
+					<tr>
+						<td class="form-label">会议说明：</td>
+						<td data-text="details"></td>
+					</tr>
+				</table>
+				<table border="0" cellspacing="0" cellpadding="0" class="form-table yt-table list-table dn" style="margin: 10px 0;">
+					<thead class="list-thead">
+						<tr>
+							<th>会议室主题</th>
+							<th>会议室</th>
+							<th>会议时间</th>
+							<th>联系方式</th>
+							<th>会议说明</th>
+						</tr>
+					</thead>
+					<tbody class="list-tbody">
+					</tbody>
+				</table>
+			</div>
+				<!--底部按钮START-->
+				<div class="yt-eidt-model-bottom">
+					<input style="margin: 0 20px;" class="yt-model-bot-btn yt-model-sure-btn" type="button" value="修改" />
+					<input style="margin: 0 20px;" class="yt-model-bot-btn yt-model-sure-btn" type="button" value="取消预约" />
+					<input style="margin: 0 20px;" class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+				</div>
+			<!--主体内容部分END-->
+		</div>  
+		<!--预约弹出框END-->  
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/meetingRoom/meetingRoom.js"></script>
+</html>

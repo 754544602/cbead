@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/administrator/administrator.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>资产管理</title>
+		<style type="text/css">
+
+		</style>
+	</head>
+
+	<body>
+
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;min-width: 830px;">
+				<div class="search-btn-slect">
+					<div class="btn-all" style="position: relative;">
+						<button class="yt-option-btn addList">
+							<img src="../../resources/images/button/add-icon.png">
+							新增
+						</button>
+						<button class="yt-option-btn updateList">
+							<img src="../../resources/images/button/update-icon.png" />
+							修改
+						</button>
+						<button class="yt-option-btn deleteList">
+							<img src="../../resources/images/button/del-icon.png" />
+							删除
+						</button>
+						<button class="yt-option-btn student-import-btn" style="width: 98px;">
+							<img src="../../resources/images/classStudent/guanli-daoru.png" />
+							批量导入
+						</button>
+						<button class="yt-option-btn disableList" style="display: none;">
+							<img class="ioc-img" src="../../resources/images/open/daochu.png" />
+							导出
+						</button>
+					</div>
+					<div class="key-word"style="margin-right: 2px;">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+						<input type="hidden" class="hid-pk-id" />
+					</div>
+				</div>
+			</div>
+
+			<!--数据展示区域START-->
+			<div class="list-box">
+				<div style="font-size: 16px;margin: 6px 0px 10px;">
+					资产信息
+				</div>
+				<table class="yt-table list-table check-all-tab">
+					<thead class="list-thead">
+						<tr>
+							<th style="width: 30px;">
+								<label class="check-label yt-checkbox">  
+                						<input class="check-box check-all" type="checkbox">
+      								</label>
+							</th>
+							<th style="width: 100px;">资产编号</th>
+							<th>资产名称</th>
+							<th style="width: 80px;">资产类别</th>
+							<th>品牌</th>
+							<th style="width: 90px;">取得日期</th>
+							<th style="width: 70px;">使用方向</th>
+							<th style="width: 70px;">使用状况</th>
+							<th style="width: 140px;">当前使用人</th>
+							<th style="width: 70px;">管理人</th>
+							<th>存放地点</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody class-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="11" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info table-page page1" onselectstart="return false"></div>
+			</div>
+			<!--数据展示区域END-->
+
+			<!--新增修改资产弹窗-->
+			<div class="yt-pop-model yt-edit-alert shuttle-box" style="width: 860px;height: 540px; overflow-y: auto;">
+				<div class="yt-edit-alert-title ">
+					<span class="ticket-title-span">新增资产</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test" style="width: 796px;margin: 22px auto;">
+					<table style="height: 520px; margin: 0 auto;" class="add-table" cellspacing="1px" cellpadding="1px" style="">
+						<tr>
+							<td class="td-style-right">资产类别：</td>
+							<td>
+								<select id="typeList" name="" class="yt-select couse-type input-width typeId" style="width: 286px;">
+									<option value="">请选择资产类别</option>
+								</select>
+							</td>
+							<td class="td-style-right"style="width: 122px;">资产分类代码：</td>
+							<td>
+								<select id="assetsCodeList" name="" class="yt-select couse-type input-width classifyCode" style="width: 286px;">
+									<option value="">请选择资产分类代码</option>
+								</select>
+							</td>
+						</tr>
+						<!--<tr>
+								<td style="width: 100px;"></td>
+								<td class="td-style-right">资产分类名称：</td>
+								<td>
+									<select id="classifyName" name="" class="yt-select couse-type input-width classifyName" style="width: 286px;">
+		                        		<option value="">请选择资产分类名称</option>
+		                        	</select>
+								</td>
+							</tr>-->
+						<tr>
+							<td class="td-style-right">取得日期：</td>
+							<td>
+								<input data-val="obtainDate" id="txtDate" class="calendar-input" style="width: 275px; background-position: 183px -25px;" value="" placeholder="请选择日期" type="text" />
+							</td>
+							<td style="text-align: right;">资金来源：</td>
+							<td>
+								<select name="" class="yt-select couse-type input-width sourceFunds" id="sourceFunds" style="width: 286px;">
+									<option value="">请选择资金来源</option>
+									<option value="1">财政</option>
+									<option value="2">自有</option>
+									<option value="3">财政&自有</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-style-right">资产编号：</td>
+							<td style="position: relative;">
+								<!--/^([0-9])\1{8}$/-->
+								<input class="yt-input input-width" id="assetsCode" validform="{isNull:true,size:9,blurFlag:true,msg:'请输入9位数字的资产编号',type:'^([0-9]){9}$'}" />
+								<span class="valid-font"></span>
+							</td>
+							<td style="text-align: right;">使用方向：</td>
+							<td>
+								<select name="" class="yt-select couse-type input-width directionUse" id="directionUse" style="width: 286px;">
+									<option value="">请选择使用方向</option>
+									<option value="1">自用</option>
+									<option value="2">出借</option>
+									<option value="3">出租</option>
+									<option value="4">其它</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-style-right">资产名称：</td>
+							<td>
+								<input class="yt-input input-width assetsName" type="text" placeholder="请输入" />
+							</td>
+							<td style="text-align: right;">使用状况：</td>
+							<td>
+								<select name="" class="yt-select couse-type input-width useStatus" id="useStatus" style="width: 286px;">
+									<option value="">请选择使用状况</option>
+									<option value="1">在用</option>
+									<option value="2">不能用</option>
+									<option value="3">闲置</option>
+									<option value="4">其它</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-style-right">资产品牌：</td>
+							<td>
+								<input data-val="assetsBrand" class="yt-input input-width assetsBrand" id="assetsBrand" type="text" placeholder="请输入" />
+							</td>
+							<td style="text-align: right;">使用部门：</td>
+							<td style="position: relative;">
+								<select id="deptList" name="" class="yt-select couse-type input-width deptId" id="deptName" style="width: 286px;">
+									<option value="">请选择使用部门</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-style-right">规格型号：</td>
+							<td>
+								<input data-val="assetsModel" class="yt-input input-width assetsModel" id="assetsModel" type="text" placeholder="请输入" />
+							</td>
+							<td style="text-align: right;">使用人：</td>
+							<td>
+								<select id="userName" name="" class="yt-select couse-type input-width userName" style="width: 286px;">
+									<option value="">请选择使用人</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-style-right">序列号：</td>
+							<td>
+								<input data-val="assetsModel" class="yt-input input-width serialNumber" id="serialNumber" type="text" placeholder="请输入" />
+							</td>
+							<td style="text-align: right;">管理人：</td>
+							<td>
+								<select id="administratorCode" name="" class="yt-select couse-type input-width administratorCode" style="width: 286px;">
+									<option value="">请选择管理人</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-style-right">资产数量：</td>
+							<td>
+								<input data-val="assetsCount" class="yt-input input-width assetsCount" id="assetsCount" type="text" placeholder="请输入" />
+							</td>
+							<td style="text-align: right;">存放地点：</td>
+							<td>
+								<input data-val="placeStorage" class="yt-input input-width placeStorage" id="placeStorage" type="text" placeholder="请输入" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td-style-right">资产价值：</td>
+							<td>
+								<input data-val="assetsWorth" class="yt-input input-width assetsWorth" id="assetsWorth" type="text" placeholder="请输入" />
+							</td>
+							<td style="text-align: right;">其他编号：</td>
+							<td>
+								<input data-val="otherCode" class="yt-input input-width otherCode" type="text" id="otherCode" placeholder="请输入" />
+							</td>
+						</tr>
+
+						<tr>
+							<td class="td-style-right"style="vertical-align: top;line-height: 30px;">
+								备注：
+							</td>
+							<td colspan="3">
+								<textarea remarks class="yt-textarea remark input-remarks" style="width: 704px;;height: 90px;" id="remarks" placeholder="请输入"></textarea>
+							</td>
+						</tr>
+
+					</table>
+					<div class="yt-eidt-model-bottom select-teacher-btn-div assets-info-btn">
+						<input class="yt-model-bot-btn yt-model-sure-btn select-ticket-sure-btn" type="button" value="确定" />
+						<input class="yt-model-bot-btn yt-model-canel-btn select-ticket-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+			</div>
+
+			<!--资产详情查看-->
+			<div class="yt-pop-model yt-edit-alert only-look-shuttle-box" style="width: 800px;max-height: 508px;">
+
+				<div class="yt-edit-alert-title ticket-title-div">
+					<span class="ticket-title-span">资产详情</span>
+				</div>
+				<div class="info-copy-btn" style="padding: 10px 20px;">
+					<input class="yt-model-bot-btn yt-model-sure-btn copy-btn" type="button" value="复制" />
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test cont-info-hide">
+						<div class="" style="height: 371px;overflow-y: auto;">
+						<table class="asset-table-details" cellspacing="1px" cellpadding="1px" style="height: 390px; width: 600px;margin: 0 auto;margin-top: 20px;">
+							<tr>
+								<td class="td-style-right" style="">资产类别：</td>
+								<td id="typeName-look" style="width: 160px;"></td>
+								<td style="width: 100px;"></td>
+								<td class=""style="width: 70px;">资产价值：</td>
+								<td id="assetsWorth-look"></td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td class="td-style-right" style="width: 125px;">资产分类代码：</td>
+								<td id="classifyCode-look"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">取得日期：</td>
+								<td id="txtDate-look"></td>
+								<td> </td>
+								<td>资金来源：</td>
+								<td id="sourceFunds-look"></td>
+							</tr>
+							<tr>
+								<td class="td-style-right">资产编号：</td>
+								<td id="assetsCode-look"></td>
+								<td> </td>
+								<td>使用方向：</td>
+								<td id="directionUse-look"></td>
+							</tr>
+							<tr>
+								<td class="td-style-right">资产名称：</td>
+								<td id="assetsName-look"></td>
+								<td> </td>
+								<td>使用状况：</td>
+								<td id="useStatus-look"></td>
+							</tr>
+							<tr>
+								<td class="td-style-right">品牌：</td>
+								<td id="assetsBrand-look"></td>
+								<td> </td>
+								<td>使用部门：</td>
+								<td id="deptName-look"></td>
+							</tr>
+							<tr>
+								<td class="td-style-right">规格型号：</td>
+								<td id="assetsModel-look"></td>
+								<td> </td>
+								<td>使用人：</td>
+								<td id="userName-look"></td>
+							</tr>
+							<tr>
+								<td class="td-style-right">序列号：</td>
+								<td id="serialNumber-look"></td>
+								<td> </td>
+								<td>管理人：</td>
+								<td id="administratorName-look"></td>
+							</tr>
+							<tr>
+								<td class="td-style-right">资产数量：</td>
+								<td id="assetsCount-look"></td>
+								<td> </td>
+								<td>存放地点：</td>
+								<td id="placeStorage-look"></td>
+							</tr>
+
+							<tr>
+								<td class="td-style-right">备注：</td>
+								<td colspan="4" id="remarks-look"></td>
+							</tr>
+
+						</table>
+						</div>
+					<div class="yt-eidt-model-bottom select-teacher-btn-div">
+						<input class="yt-model-bot-btn yt-model-sure-btn select-ticket-sure-btn" type="button" value="确定" />
+						<input class="yt-model-bot-btn yt-model-canel-btn select-ticket-canel-btn" type="button" value="取消" style="background: #de595a;border: #de595a;color: #FFF;"/>
+					</div>
+				</div>
+				<!--复制功能框-->
+				<div class="yt-edit-alert-title copy-alert-title-div" style="display: none;">
+					<span class="copy-alert-title">复制</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test cont-copy-hide" style="display: none;">
+					<table class="copy-table yt-table">
+						<tr>
+							<td style="width: 230px;height: 55px; text-align: right;">复制数量：</td>
+							<td colspan="3" style="position: relative;">
+								<input id="count" type="text" class="yt-input" validform="{isNull:true,blurFlag:true,type:'^[0-9]+$',msg:'请输入数量,只能是数字'}" />
+								<span class="valid-font"></span>
+							</td>
+						</tr>
+						<tr>
+							<td style="height: 55px; text-align: right;">资产编码范围：</td>
+							<td>
+								<input type="text" class="yt-input start-num" />
+							</td>
+							<td style="padding: 0px 10px;">至</td>
+							<td class="end-num"></td>
+						</tr>
+					</table>
+					<div class="yt-eidt-model-bottom cop-sur-div">
+						<input style="height:30px;background: #de595a;border: 1px solid #de595a;padding: 0px 20px;outline: none;border-radius: 2px;color: #FFFFFF;cursor: pointer;" class="cop-sur-btn" type="button" value="确定" />
+						<input style="height:30px;background: #de595a;border: 1px solid #de595a;padding: 0px 20px;outline: none;border-radius: 2px;color: #FFFFFF;cursor: pointer;margin-left: 10px;" class="cop-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+			</div>
+			<!--批量导入弹出框START-->
+			<div class="yt-pop-model yt-edit-alert batch-import-form" style="width: 499px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">批量导入资产</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<div class="leading-in" style="margin: 20px 0px 15px 22px;position: relative;">
+						<span>文件：</span>
+						<span style="color: #FFF;padding: 0px 5px;" class="batch-import-choose">
+							<img src="../../resources/images/icons/restore.png" /> 选择
+						</span>
+						<input type="file" name="file" id="fileName" style="left: 43px;" style="width: 67px; height: 30px;font-size: 0px !important;" />
+						<input class="yt-input import-file-name" placeholder="请选择文件" disabled="disabled" />
+						<button class="yt-model-bot-btn yt-model-canel-btn download-template" style="color: black;margin-left: 10px;    border: 1px solid #dfe6f3;">
+			   				<img src="../../resources/images/classStudent/dowload-ticket.png">下载模板
+			   			</button>
+					</div>
+
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom" style="border: none;margin-top: 42px;">
+						<input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="导入" />
+						<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--批量导入弹出框END-->
+
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--树形文件引用-->
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+
+	<!--文件上传js-->
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/administrator/assetsList.js"></script>
+	<!--字段验证js-->
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+
+</html>

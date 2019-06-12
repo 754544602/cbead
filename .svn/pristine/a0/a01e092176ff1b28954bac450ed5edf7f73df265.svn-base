@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css"/>
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>资料归档</title>
+		<style type="text/css">
+			
+			.tr-height {
+				height: 35px;
+			}
+			.tr-head{
+				width: 60px;
+			}
+			.alert-tr-td{
+				width: 170px;
+				text-align: right;
+			}
+			.yt-link{
+				margin: 0 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<button class="page-return-btn">
+							<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+							返回
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!--顶部条件查询END-->
+			<div class="class-info-div">第二期国企深化改革专题培训班</div>
+			<!--数据展示区域START-->
+			<div class="list-box">
+				<table class="yt-table list-table" style="margin-top: 0px;">
+					<thead class="list-thead">
+						<tr>
+							<th style="width: 50px;">序号</th>
+							<th style="">教学资料</th>
+							<th style="width: 80px;">必须</th>
+							<th style="width: 80px;">状态</th>
+							<th style="width: 100px;">操作</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody list-tbody open-class-tbody">
+						<tr>
+							<td colspan="5" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info list-page" onselectstart="return false"></div>
+			</div>
+			<!--导入机票/火车票差旅流水START-->
+			<div class="yt-pop-model yt-edit-alert reconciliations-import-form" style="width: 499px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">上传附件</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<div style="margin: 20px 0 0 0;position: relative;text-align: center;">
+						<span>文件：</span>
+						<span class="yt-option-btn batch-import-choose " style="position: relative;">
+						<img src="../../resources/images/classStudent/chose-icon.png" /> 选择<input type="file" name="file" id="fileName" style="left: 0;"/></span>
+						<input class="yt-input import-file-name" style="height: 30px;" placeholder="请选择文件" disabled="disabled" />
+					</div>
+
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom" style="border: none;margin-top: 30px;">
+						<input class="yt-model-bot-btn yt-model-sure-btn upFile" type="button" value="导入" />
+						<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--导入附件END-->
+			
+			<!--下载附件START-->
+			<div class="yt-pop-model yt-edit-alert downFile-alert" style="width: 500px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">查看附件</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test" style="padding: 10px;">
+					<table  class="downtable list-table">
+						<thead class="list-thead"><tr><th>附件名称</th><th width="70px">操作</th></tr></thead>
+						<tbody class="list-tbody">
+							
+						</tbody>
+					</table>
+
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom" style="border: none;margin-top: 30px;">
+						<input class="yt-model-bot-btn yt-model-canel-btn" style="margin: 0;" type="button" value="关闭" />
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--下载附件END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/distributionList/dataArchiving.js"></script>
+	<!--字段验证js-->
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	
+</html>

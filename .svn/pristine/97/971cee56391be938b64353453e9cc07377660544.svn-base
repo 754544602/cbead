@@ -1,0 +1,855 @@
+<link rel="stylesheet" href="../../../../../resources-sasac/css/system/expensesReim/module/beforehand/trainingFeeApplyF.min.css?YTVERSIONCODE=2018051703" />
+<!--基础信息区域START-->
+<div class="train-approval" style="padding-top: 20px;">
+	<div class="label-title item" style="margin-bottom: 10px;">
+		<div class="title-model-sty">
+			<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+			<span class="title-text">项目预算事项信息</span>
+		</div>
+		<div class="title-line">
+			<div></div>
+		</div>
+	</div>
+
+	<!--事前申请详情区域START-->
+	<div class="cost-apply-model" style="display: block;">
+
+		<!--培训信息START-->
+		<div>
+			<!--标题区域START-->
+			<!--<div class="secondary-title" style="">
+							<span class="secondary-text">培训信息</span>
+							<div class="secondary-line"></div>
+						</div>-->
+			<div class="secondary-back"></div>
+			<div class="secondary-title">培训信息</div>
+
+			<!--标题区域END-->
+			<!--BODY START-->
+			<div class="expenditure-matter-basic-information" style="padding-bottom: 15px;margin-left: 26px;">
+				<table class="from-table" border="" cellspacing="" cellpadding="" style="">
+					<tbody>
+						<tr>
+							<td style="padding-top: 10px;" colspan="2">
+								<span class="field-title"><span style="letter-spacing: 5px;">培训名</span>称：</span><span class="region-designation"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="field-title"><span style="letter-spacing: 5px;">培训分</span>类：</span><span class="train-type"></span>
+								<img class="risk-img" title="一类培训是指参训人员主要为省部级及相应人员的培训项目。
+二类培训是指参训人员主要为司局级人员的培训项目。
+三类培训是指参训人员主要为处级及以下人员的培训项目。
+以其他人员为主的培训项目参照上述标准分类执行
+" src="../../../../../resources-sasac/images/system/expensesReim/common/help.png">
+							</td>
+						</tr>
+						
+						<tr>
+							<td style="padding-top: 10px;" colspan="2">
+								<span class="field-title"><span style="letter-spacing: 5px;">培训地</span>点：</span><span class="region-name"></span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px;">
+								<span class="field-title">培训开始日期：</span><span class="report-time"></span>
+							</td>
+							<td style="padding-top: 10px;">
+								<span class="field-title">培训结束日期：</span><span class="end-time"></span>
+							</td>
+							<td style="padding-top: 10px;">
+								<span class="field-title">培训天数：</span><span class="train-days"></span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px;">
+								<span class="field-title"><span>预计学员人数：</span></span><span class="train-of-num"></span>
+							</td>
+							<td style="padding-top: 10px;" colspan="2">
+								<span class="field-title">工作人员人数：</span><span class="worker-num"></span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px;">
+								<span class="field-title"><span style="letter-spacing: 5px;">批准文</span>号：</span><span class="approva-num"></span>
+							</td>
+							<td style="padding-top: 10px;" colspan="2">
+								<span class="field-title">收费标准：</span><span class="charge-standard"></span>元
+							</td>
+						</tr>
+						<tr class="trainApply-reason-hide">
+							<td style="padding-top: 10px;">
+								<span class="field-title"><span style="letter-spacing: 5px;">调整原</span>因：</span><span id="trainApplyReason">--</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--BODY END-->
+		</div>
+		<!--培训信息END-->
+
+		<!--讲师信息START-->
+		<div>
+			<!--标题区域START-->
+			<div class="secondary-back"></div>
+			<div class="secondary-title">讲师信息</div>
+			<!--标题区域END-->
+			<!--BODY START-->
+			<div class="traffic-cost-model" id="lecturerTable">
+				<!--<div style="padding: 0 20px 20px 20px;">
+							<button class="yt-option-btn yt-common-btn" onclick="personnelFunds.lecturerPopModel()">新增</button>
+						</div>-->
+				<table class="yt-table" width="100%" style="width: 100%;table-layout: initial;margin-bottom: 15px;">
+					<thead class="yt-thead">
+						<tr>
+							<th>讲师姓名</th>
+							<th>讲师职称</th>
+							<th>讲师级别</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+
+					</tbody>
+				</table>
+				<div style="padding-top: 5px;padding-left: 40px;" class="teacher-reason">
+					<div style="float: left;"><span style="font-weight: bold;">讲师信息调整原因：</span></div>
+					<div><span id="teacherReason">--</span></div>
+				</div>
+			</div>
+			
+			<!--BODY END-->
+		</div>
+		<!--讲师信息END-->
+<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin-top: 20px;"></div>
+		<!--收入费用信息START-->
+			 <div class="label-title" style="margin-bottom: 10px;">
+				<div class="title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png"> 
+					<span class="title-text">收入费用信息</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+			</div>
+			
+			<!--标题区域START-->
+			<div class="secondary-back" style=""></div>
+			<div class="secondary-title" style="">收入费用明细</div>
+			<!--标题区域END-->
+			<!--BODY START-->
+			<div class="traffic-cost-model" id="predictCostTable">
+				<!--收入费用区域START-->
+					<!--标题START-->
+					<!--标题END-->
+					<table class="yt-table " id="predictCostTable" width="100%">
+						<thead class="yt-thead">
+							<tr>
+							<th>费用名称</th>
+								<th>标准(元)</th>
+								<th>人数</th>
+								<th>费用金额</th>
+								<th>特殊说明</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr class="last">
+								<td>合计</td>
+								<td></td>
+								<td></td>
+								<td  class="costTotal-after" style="text-align: right;display: none;">0.00</td>
+								<td class="costTotal" style="text-align: right;">0.00</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="padding-top: 5px;padding-left: 40px;" class="predictCost-reason">
+						<div style="float: left;"><span style="font-weight: bold;">调整原因：</span></div>
+						<div><span id="predictCostReason">--</span></div>
+					</div>
+					<!-- 收入费用区域END -->
+					</div>
+					<!--BODY END-->
+		<!--收入费用信息END-->
+		<!--费用申请明细START-->
+		<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin-bottom: 20px;margin-top: 20px;"></div>
+		<div class="label-title cost" style="margin-bottom: 20px;">
+			<div class="title-model-sty">
+				<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+				<span class="title-text">项目预算费用信息</span>
+			</div>
+			<div class="title-line">
+				<div></div>
+			</div>
+		</div>
+		<div>
+			<!--标题区域START-->
+			<div class="secondary-back"></div>
+			<div class="secondary-title">师资费费用明细</div>
+			<!--标题区域END-->
+			<!--BODY START-->
+			<div class="traffic-cost-model hide-div" style="padding-bottom: 0;margin-top: 0px;">
+				<!--师资费金额区域START-->
+				<div class="appDetails teacherFee" style="margin-top: 0px;">
+					<!--讲课费金额-->
+					<div class="cost-list-title lecture-title">
+						<label class="lecture-money" style="color: #111111;font-weight: bold;">师资费-课酬费</label>
+
+						<input type="hidden" class="hid-tab-id" value="">
+					</div>
+					<table class="yt-table lectureFeeTable" id="lectureFeeTable" width="100%">
+						<thead class="yt-thead">
+							<tr>
+								<th>讲师姓名</th>
+								<th>讲师职称</th>
+								<th>授课学时（小时）</th>
+								<th>课程名称</th>
+								<th>税前课酬金额（元）</th>
+								<th>税后课酬金额（元）</th>
+								<th>税后每学时金额（元）</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr class="end-tr">
+								<td>合计</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="moneyText costTotal"></td>
+								<td class="moneyText costTotal-after"></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="padding-top: 5px;padding-left: 40px; padding-bottom: 15px;" class="lecture-reason">
+						<div style="float: left;"><span style="font-weight: bold;">师资费-课酬费调整原因：</span></div>
+						<div><span id="costTrainApplyReason">--</span></div>
+					</div>
+					<!--住宿费金额-->
+					<div class="cost-list-title accommodation-title">
+						<label class="accommodation-money" style="color: #111111;font-weight: bold;">师资费-住宿费</label>
+						<input type="hidden" class="hid-tab-id" value="">
+					</div>
+					<table class="yt-table hotelFeeTable" id="hotelFeeTable" width="100%">
+						<thead class="yt-thead">
+							<tr>
+								<th>讲师姓名</th>
+								<th>入住日期</th>
+								<th>离开日期</th>
+								<th>人均花销（人/天）</th>
+								<th>住宿天数</th>
+								<th>住宿费（元）</th>
+								<th>特殊说明</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr class="end-tr">
+								<td>合计</td>
+								<td></td>
+								<td></td>
+								<td class="moneyText"></td>
+								<td></td>
+								<td class="moneyText costTotal"></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="padding-top: 5px;padding-left: 40px; padding-bottom: 15px;" class="accommodation-reason">
+						<div style="float: left;"><span style="font-weight: bold;">师资费-住宿费调整原因：</span></div>
+						<div><span id="hotelApplyReason">--</span></div>
+					</div>
+					<!--伙食费金额-->
+					<div class="cost-list-title food-title">
+						<label class="food-money" style="color: #111111;font-weight: bold;">师资费-伙食费</label>
+
+						<input type="hidden" class="hid-tab-id" value="">
+					</div>
+					<table class="yt-table dietFeeTable" id="dietFeeTable" width="100%">
+						<thead class="yt-thead">
+							<tr>
+								<th>讲师姓名</th>
+								<th>人均花销（人/天）</th>
+								<th>用餐天数</th>
+								<th>伙食费（元）</th>
+								<th>特殊说明</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr class="end-tr">
+								<td>合计</td>
+								<td></td>
+								<td></td>
+								<td class="moneyText costTotal"></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="padding-top: 5px;padding-left: 40px; padding-bottom: 15px;" class="food-reason">
+						<div style="float: left;"><span style="font-weight: bold;">师资费-伙食费调整原因：</span></div>
+						<div><span id="dietApplyReason">--</span></div>
+					</div>
+					<!--城市间交通费金额-->
+					<div class="cost-list-title traffic-title">
+						<label class="traffic-money" style="color: #111111;font-weight: bold;">师资费-城市间交通费</label>
+
+						<input type="hidden" class="hid-tab-id" value="">
+					</div>
+					<table class="yt-table carFeeTable" id="carFeeTable" width="100%">
+						<thead class="yt-thead">
+							<tr>
+								<th>讲师姓名</th>
+								<th>讲师级别</th>
+								<th>出发日期</th>
+								<th>到达日期</th>
+								<th>出发地点</th>
+								<th>到达地点</th>
+								<th>交通工具</th>
+								<th>城市间交通费</th>
+								<th>特殊说明</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr class="end-tr">
+								<td>合计</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="moneyText costTotal"></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="padding-top: 5px;padding-left: 40px; padding-bottom: 15px;" class="traffic-reason">
+						<div style="float: left;"><span style="font-weight: bold;">师资费-城市间交通费调整原因：</span></div>
+						<div><span id="carApplyReason">--</span></div>
+					</div>
+					<!--培训费其他-->
+					<!--<div class="cost-list-title other-title">
+						<label class="food-money" style="color: #111111;font-weight: bold;">培训费其他</label>
+
+						<input type="hidden" class="hid-tab-id" value="">
+					</div>-->
+					<div class="secondary-back cost-detail-back"></div>
+							<div class="secondary-title cost-detail-title">培训费其他费用明细</div>
+					<table class="yt-table trainingFeeTable" id="trainingFeeTable" width="100%" style="margin-top: 10px;">
+						<thead class="yt-thead">
+							<tr>
+								<th>费用名称</th>
+								<th>标准（元）</th>
+								<th>人数</th>
+								<th>天数</th>
+								<th>小计（元）</th>
+								<th>特殊说明</th>
+								<!--<th width="100px">操作</th>-->
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr class="last">
+								<td>合计</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="costTotal" style="text-align: right;">0.00</td>
+								<td></td>
+								<!--<td></td>-->
+							</tr>
+						</tbody>
+					</table>
+					<div style="padding-top: 5px;padding-left: 40px; padding-bottom: 15px;" class="other-reason">
+						<div style="float: left;"><span style="font-weight: bold;">培训费其他调整原因：</span></div>
+						<div><span id="trainingReason">--</span></div>
+					</div>
+				</div>
+				<!--师资费金额区域END-->
+			</div>
+			<!--BODY END-->
+		</div>
+		<!--费用申请明细END-->
+	</div>
+	<!--事前申请详情区域END-->
+
+	<!--填写培训信息弹窗START-->
+	<div id="trainingPopModel" class="yt-pop-model yt-edit-alert">
+		<!--标题区域START-->
+		<div class="yt-edit-alert-title" style="text-align: left;padding-left: 10px;">
+			<img src="../../../../../resources-sasac/images/common/title-edit.png" />
+			<span class="yt-edit-alert-title-msg">填写培训信息</span>
+		</div>
+		<!--标题区域END-->
+		<!--主体内容部分START-->
+		<div class="yt-edit-alert-main cont-edit-test" style="padding: 10px 30px;">
+			<table width="100%">
+				<tr>
+					<td width="115px">
+						<lable><span class="not-null">*</span><span style="letter-spacing:9px;">培训类</span>别：</lable>
+					</td>
+					<td>
+						<select class="yt-select" id="trainingClasses" validform="{isNull:true,changeFlag:true,msg:'请选择培训类别'}">
+							<option value="" selected="selected">请选择</option>
+							<option value="1">一类培训</option>
+							<option value="2">二类培训</option>
+							<option value="3">三类培训</option>
+						</select>
+						<div class="valid-font"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<lable><span class="not-null">*</span><span style="letter-spacing: 9px;">培训地</span>点：</lable>
+					</td>
+					<td>
+						<select class="yt-select trainingAddr" id="trainingAddr" validform="{isNull:true,msg:'请选择培训地点'}" placeholder="支持模糊搜索省/市/区">
+							<option value=""></option>
+						</select>
+						<div class="valid-font"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<lable><span class="not-null">*</span>培训报到日期：</lable>
+					</td>
+					<td>
+						<input class="yt-input calendar-input" id="trainingReportDate" type="text" placeholder="请选择日期" validform="{isNull:true,blurFlag:true,msg:'请选择报到日期'}" />
+						<div class="valid-font"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<lable><span class="not-null">*</span>培训结束日期：</lable>
+					</td>
+					<td>
+						<input class="yt-input calendar-input" id="trainingEndingDate" type="text" placeholder="请选择日期" validform="{isNull:true,blurFlag:true,msg:'请选择结束日期'}" />
+						<div class="valid-font"></div>
+					</td>
+				</tr>
+				<tr>
+					<td><label><span class="not-null">*</span><span style="letter-spacing: 9px;">培训天</span>数：</label></td>
+					<td><span id="trainingDay"></span>天</td>
+				</tr>
+				<tr>
+					<td><label><span class="not-null">*</span><span style="letter-spacing: 9px;">培训人</span>数：</label></td>
+					<td>
+						<input class="yt-input" id="trainingPerNumber" type="text" placeholder="请输入" onkeyup="value=value.replace(/[^\d]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入人数，只能是数字'}" />
+						<div class="valid-font"></div>
+					</td>
+				</tr>
+			</table>
+			<!--底部按钮START-->
+			<div class="yt-eidt-model-bottom">
+				<button class="yt-model-bot-btn yt-model-sure-btn">添加到列表</button>
+				<button class="yt-model-bot-btn yt-model-canel-btn">取消</button>
+			</div>
+		</div>
+		<!--主体内容部分END-->
+	</div>
+	<!--填写培训信息弹窗END-->
+
+	<!--填写讲师信息弹窗START-->
+	<div id="lecturerPopModel" class="yt-pop-model yt-edit-alert">
+		<!--标题区域START-->
+		<div class="yt-edit-alert-title" style="text-align: left;padding-left: 10px;">
+			<img src="../../../../../resources-sasac/images/common/title-edit.png" />
+			<span class="yt-edit-alert-title-msg">填写讲师信息</span>
+		</div>
+		<!--标题区域END-->
+		<!--主体内容部分START-->
+		<div class="yt-edit-alert-main cont-edit-test" style="padding: 10px 30px;">
+			<table width="100%">
+				<tr>
+					<td width="95px">
+						<lable><span class="not-null">*</span><span style="letter-spacing: 4px;">讲师姓</span>名：</lable>
+					</td>
+					<td>
+						<input class="yt-input" id="lecturerName" placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入讲师姓名'}" />
+						<div class="valid-font"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<lable><span class="not-null">*</span><span style="letter-spacing: 40px;">职</span>称：</lable>
+					</td>
+					<td>
+						<select class="yt-select" id="professional" validform="{isNull:true,changeFlag:true,msg:'请选择职称'}">
+							<option value="" selected="selected">请选择</option>
+							<option value="副高级技术职称专业人员及以下">副高级技术职称专业人员及以下</option>
+							<option value="正高级技术职称专业人员">正高级技术职称专业人员</option>
+							<option value="院士、全国知名专家">院士、全国知名专家</option>
+						</select>
+						<div class="valid-font"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<lable><span class="not-null">*</span><span style="letter-spacing: 40px;">级</span>别：</lable>
+					</td>
+					<td>
+						<select class="yt-select" id="level" validform="{isNull:true,changeFlag:true,msg:'请选择级别'}">
+							<option value="" selected="selected">请选择</option>
+							<option value="部级及相当职务人员">部级及相当职务人员</option>
+							<option value="司局级及相当职务人员">司局级及相当职务人员</option>
+							<option value="其余人员">其余人员</option>
+						</select>
+						<div class="valid-font"></div>
+					</td>
+				</tr>
+			</table>
+			<!--底部按钮START-->
+			<div class="yt-eidt-model-bottom">
+				<button class="yt-model-bot-btn yt-model-sure-btn">添加到列表</button>
+				<button class="yt-model-bot-btn yt-model-canel-btn">取消</button>
+			</div>
+		</div>
+		<!--主体内容部分END-->
+	</div>
+	<!--填写讲师信息弹窗END-->
+
+	<!--填写费用明细弹窗START-->
+	<div id="costPopModel" class="yt-pop-model yt-edit-alert cost-detail-info-model">
+		<!--标题区域START-->
+		<div class="yt-edit-alert-title" style="text-align: left;padding-left: 10px;">
+			<img src="../../../../../resources-sasac/images/common/title-edit.png" />
+			<span class="yt-edit-alert-title-msg">新增/修改费用明细</span>
+		</div>
+		<!--标题区域END-->
+		<!--主体内容部分START-->
+		<div class="">
+			<div class="cost-type-tab">
+				<ul>
+					<li class="tab-check">培训费</li>
+					<li>师资费-课酬费</li>
+					<li>师资费- 城市间交通费</li>
+					<li>师资费- 住宿费</li>
+					<li>师资费-伙食费</li>
+				</ul>
+				<div class="tab-top"></div>
+			</div>
+		</div>
+
+		<div class="yt-edit-alert-main cont-edit-test" style="padding: 0 10px;">
+			<!--培训费START-->
+			<div class="traffic-form tab-info" id="trainingFeePopM" style="display: block;">
+				<table width="100%">
+					<tr>
+						<td>
+							<span class="not-null">*</span>
+							<lable>培训费总金额：</lable>
+							<input class="yt-input moneyInput" id="trainingTotal" placeholder="请输入" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入培训金额'}" />元
+							<div class="valid-font" style="margin-left: 110px;"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="margin-right:50px;float: left;">
+								<lable>&nbsp;&nbsp;<span style="letter-spacing:9px;">培训天</span>数：</lable>
+								<span class="trainingDay"></span>天
+							</div>
+							<div style="margin-right:50px;float: left;">
+								<lable><span style="letter-spacing: 9px;">培训人</span>数：</lable>
+								<span class="trainingPerNumber"></span>人
+							</div>
+							<div style="float: left;padding-top: 5px;">
+								<lable><span style="letter-spacing: 9px;">培训分</span>类：</lable>
+								<span class="trainingClasses"></span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<lable>&nbsp;&nbsp;<span style="letter-spacing: 3px;">日人均消</span>费：</lable>
+							<span class="aupr moneyText"></span>元
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!--培训费END-->
+
+			<!--讲课费START-->
+			<div class="traffic-form tab-info" id="lectureFeePopM">
+				<table>
+					<tr>
+						<td width="350px">
+							<label><span class="not-null">*</span><span style="letter-spacing: 9px;">讲师姓</span>名：</label>
+							<select class="yt-select lecturerNameSel lecturerName" validform="{isNull:true,changeFlag:true,msg:'请选择讲师'}" placeholder="请选择">
+								<option value="">请选择</option>
+							</select>
+							<div class="valid-font" style="margin-left: 110px;"></div>
+						</td>
+						<td>
+							<label><span style="letter-spacing: 9px;">讲师职</span>称：</label>
+							<span class="professional lecturerProfessional"></span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label>&nbsp;&nbsp;<span style="letter-spacing: 9px;">课程名</span>称：</label>
+							<input type="text" class="yt-input courseName" placeholder="请输入" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label><span class="not-null">*</span><span style="letter-spacing: 9px;">授课学</span>时：</label>
+							<input type="text" class="yt-input teachingHours" onkeyup="value=value.replace(/[^\d]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入授课学时'}" placeholder="请输入" />小时
+							<div class="valid-font" style="margin-left: 110px;"></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label><span class="not-null">*</span>课酬金额（税前）：</label>
+							<input type="text" class="yt-input moneyInput preTaxPay" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入（税前）课酬金额'}" placeholder="请输入" />元
+							<div class="valid-font" style="margin-left: 145px;"></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label><span class="not-null">*</span>课酬金额（税后）：</label>
+							<input type="text" class="yt-input moneyInput afterTaxPay" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入（税后）课酬金额'}" placeholder="请输入" />元
+							<div class="valid-font" style="margin-left: 145px;"></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label>&nbsp;&nbsp;税后每学时金额：</label>
+							<span class="athPay moneyText"></span>元
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!--讲课费End-->
+
+			<!--交通费START-->
+			<div class="traffic-form tab-info" id="carFeePopM">
+				<table>
+					<tr>
+						<td width="330px">
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 9px;">讲师姓</span>名：</label>
+							</div>
+							<div style="float: left;">
+								<select class="yt-select lecturerNameSel lecturerName" validform="{isNull:true,changeFlag:true,msg:'请选择讲师'}" placeholder="请选择">
+									<option value="0">请选择</option>
+								</select>
+								<div class="valid-font"></div>
+							</div>
+						</td>
+						<td width="350px">
+							<label>&nbsp;&nbsp;<span style="letter-spacing: 9px;">讲师级</span>别：</label>
+							<span class="level lecturerlevel"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 9px;">出发日</span>期：</label>
+							</div>
+							<div style="float: left;">
+								<input type="text" class="calendar-input time-input startTime" id="startTime" validform="{isNull:true,blurFlag:true,msg:'请选择出发日期'}" placeholder="请选择日期" style="background-position: 170px -25px;" />
+								<div class="valid-font"></div>
+							</div>
+						</td>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 9px;">到达日</span>期：</label>
+							</div>
+							<div style="float: left;">
+								<input type="text" class="calendar-input time-input endTime" id="endTime" placeholder="请选择日期" validform="{isNull:true,blurFlag:true,msg:'请选择到达日期'}" />
+								<div class="valid-font"></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label><span class="not-null">*</span><span style="letter-spacing:9px;">出发地</span>点：</label>
+							<select class="yt-select fromAddr" id="fromAddr" validform="{isNull:true,changeFlag:true,msg:'请选择培训地点'}">
+								<option value=""></option>
+							</select>
+							<div class="valid-font"></div>
+						</td>
+						<td>
+							<label><span class="not-null">*</span><span style="letter-spacing: 9px;">到达地</span>点：</label>
+							<select class="yt-select endAddr" id="endAddr" validform="{isNull:true,changeFlag:true,msg:'请选择培训地点'}">
+								<option value=""></option>
+							</select>
+							<div class="valid-font"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 9px;">交通工</span>具：</label>
+							</div>
+							<div style="float: left;margin-right: 10px;">
+								<select class="yt-select vehicle1" id="vehicle1" validform="{isNull:true,changeFlag:true,msg:'请选择交通工具'}" placeholder="请选择">
+									<option value="">请选择</option>
+									<option value="1">火车</option>
+									<option value="2">动车</option>
+								</select>
+								<div class="valid-font"></div>
+							</div>
+							<div style="float: left;">
+								<select class="yt-select vehicle2" id="vehicle2" validform="{isNull:true,changeFlag:true,msg:'请选择交通工具'}" placeholder="请选择">
+									<option value="">请选择</option>
+								</select>
+								<div class="valid-font"></div>
+							</div>
+						</td>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span>城市间交通费：</label>
+							</div>
+							<div style="float: left;">
+								<input class="yt-input carFare moneyInput" type="text" placeholder="0.00" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入城市交通费总额'}" />元
+								<div class="valid-font"></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+							<div style="float: left;padding-top: 5px;">&nbsp;&nbsp;<label><span style="letter-spacing:9px;">特殊说</span>明：</label></div>
+							<div style="float: left;"><textarea class="yt-textarea specialInstruct" id="special-remark" placeholder="最多填写100字"></textarea></div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!--交通费END-->
+
+			<!--住宿费START-->
+			<div class="traffic-form tab-info" id="hotelFeePopM">
+				<table>
+					<tr>
+						<td width="330px">
+							<div style="float: left;padding-top: 5px;"><label><span class="not-null">*</span><span style="letter-spacing: 4px;">讲师姓</span>名：</label></div>
+							<div style="float: left;">
+								<select class="yt-select lecturerNameSel lecturerName" validform="{isNull:true,changeFlag:true,msg:'请选择讲师'}" placeholder="请选择">
+									<option value="">请选择</option>
+								</select>
+								<div class="valid-font"></div>
+							</div>
+						</td>
+						<td>
+							<label>&nbsp;&nbsp;<span style="letter-spacing: 4px;">讲师级</span>别：</label>
+							<span class="level"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 4px;">入住日</span>期：</label>
+							</div>
+							<div style="float: left;">
+								<input type="text" class="calendar-input time-input checkInDate" id="checkInDate" validform="{isNull:true,msg:'请选择入住日期'}" placeholder="请选择日期" style="background-position: 170px -25px;" />
+								<div class="valid-font"></div>
+							</div>
+						</td>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 4px;">离开日</span>期：</label>
+							</div>
+							<div style="float: left;"><input type="text" class="calendar-input time-input leaveDate" id="leaveDate" placeholder="请选择日期" validform="{isNull:true,msg:'请选择离开日期'}" placeholder="请选择日期" />
+								<div class="valid-font"></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>&nbsp;&nbsp;<span style="letter-spacing: 4px;">住宿天</span>数：</label>
+							<span class="stayDays" id="stayDays"></span>天
+						</td>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 13px;">住宿</span>费：</label>
+							</div>
+							<div style="float: left;"><input type="text" class="yt-input moneyInput stayCost" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入住宿费'}" placeholder="请输入" style="width: 180px;" />元
+								<div class="valid-font"></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label>&nbsp;&nbsp;<span style="letter-spacing: 4px;">人均花</span>销：</label>
+							<span class="moneyText avgCost"></span>元/天
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" colspan="2">
+							<div style="float: left;padding-top: 5px;">&nbsp;&nbsp;<label><span style="letter-spacing: 4px;">特殊说</span>明：</label></div>
+							<div style="float: left;"><textarea class="yt-textarea specialInstruct" id="" placeholder="最多填写100字"></textarea></div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!--住宿费END-->
+
+			<!--伙食费START-->
+			<div class="traffic-form tab-info" id="dietFeePopM">
+				<table width="100%">
+					<tr>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 4px;">讲师姓</span>名：</label>
+							</div>
+							<div style="float: left;">
+								<select class="yt-select lecturerNameSel lecturerName" validform="{isNull:true,changeFlag:true,msg:'请选择讲师'}" placeholder="请选择">
+									<option value="">请选择</option>
+								</select>
+								<div class="valid-font"></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 4px;">日均花</span>销：</label>
+							</div>
+							<div style="float: left;">
+								<input type="text" class="yt-input moneyInput avgCost" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入日均花销'}" placeholder="请输入" style="width: 180px;" />元/天
+								<div class="valid-font"></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="float: left;padding-top: 5px;">
+								<label><span class="not-null">*</span><span style="letter-spacing: 4px;">用餐天</span>数：</label>
+							</div>
+							<div style="float: left;">
+								<input type="text" class="yt-input mealDays" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入天数'}" placeholder="请输入" style="width: 180px;" />天
+								<div class="valid-font"></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>&nbsp;&nbsp;<span style="letter-spacing: 13px;">伙食</span>费：</label>
+							<span class="moneyText mealCost" id="mealCost"></span>元
+						</td>
+					</tr>
+					<tr>
+						<td valign="top">
+							<div style="float: left;padding-top: 5px;">
+								<label>&nbsp;&nbsp;<span style="letter-spacing: 4px;">特殊说</span>明：</label>
+							</div>
+							<div style="float: left; width: 80%;">
+								<textarea class="yt-textarea specialInstruct" id="" placeholder="最多填写100字" style="width: 90%;"></textarea>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!--伙食费END-->
+
+			<!--底部按钮START-->
+			<div class="yt-eidt-model-bottom">
+				<button class="yt-model-bot-btn yt-model-sure-btn" id="">添加到列表</button>
+				<button class="yt-model-bot-btn yt-model-canel-btn" id="model-canel-btn">取消</button>
+			</div>
+			<!--底部按钮END-->
+		</div>
+		<!--主体内容部分END-->
+	</div>
+	
+</div>
+<!--引用JS文件END-->
+<!--<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/beforehand/trainingFeeApply.js?YTVERSIONCODE=20180420" ></script>-->

@@ -1,0 +1,41 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 100,
+		"rows": [
+			{
+				"pmDemandId":"1",
+				"pmDemandNum":"CGSQ201802001",
+				"pmProject": "货车",
+				"applyUsers": "钱建科",
+				"applyDept":"基建处",
+				"applicantTime":"2018-02-06",
+				"expectUseDate":"2018-05-06",
+				"state":"已核入采购计划",
+				"pmPlanNum":"CGJH201802001"
+			},
+			{
+				"pmDemandId":"2",
+				"pmDemandNum":"CGSQ201802002",
+				"pmProject": "计算机软件服务",
+				"applyUsers": "钱建科",
+				"applyDept":"基建处",
+				"applicantTime":"2018-02-04",
+				"expectUseDate":"2018-08-07",
+				"state":"已核入采购计划",
+				"pmPlanNum":"CGJH201802001"
+			},
+			{
+				"pmDemandId":"3",
+				"pmDemandNum":"CGSQ201802003",
+				"pmProject": "服务器",
+				"applyUsers": "钱建科",
+				"applyDept":"基建处",
+				"applicantTime":"2018-02-01",
+				"expectUseDate":"2018-09-06",
+				"state":"未处理",
+				"pmPlanNum":""
+			}
+		]
+	}
+}

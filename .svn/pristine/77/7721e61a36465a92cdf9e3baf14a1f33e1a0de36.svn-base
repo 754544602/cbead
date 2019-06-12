@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classOccupy.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/ticketOpen/ticketOpenInfo.css" />
+		<title>项目开票</title>
+		<style type="text/css">
+			.list-td {
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main" style="min-width: 1250px;">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;height: 22px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<button class="page-return-btn">
+							<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+							返回
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!--顶部条件查询END-->
+			<div class="tab-title-list" style="overflow: hidden;">
+				<div class="tab-title-box" style="width: 1440px;">
+					<button class="yt-option-btn class-info-btn active cost-btn">• 项目开票</button>
+					<button class="yt-option-btn teacher-info-btn borrow-btn">• 班级信息</button>
+				</div>
+				<input type="hidden" id="operate-type" value="减免" />
+			</div>
+			<!--数据展示区域START-->
+			<div class="box-ticket-list">
+				<div class="content-box programme" style="border-bottom: 0px;height: 35px;">
+					<button class="yt-option-btn update-info-btn">
+						修改开票信息
+					</button>
+					<button class="yt-option-btn update-state-btn">
+						修改开票状态
+					</button>
+					<button class="yt-option-btn ">
+						开具发票
+					</button>
+					<button class="yt-option-btn ">
+						合并开票
+					</button>
+					<button class="yt-option-btn ">
+						备注
+					</button>
+					<button class="yt-option-btn ">
+						<img src="../../resources/images/icons/export.png" alt=""> 导出
+					</button>
+					<button class="yt-option-btn " style="float: right;">
+						日志
+					</button>
+				</div>
+				<div class="list-box content-box" style="margin: 0px 4px;">
+					<table class="yt-table list-table reduce-list">
+						<thead class="list-thead">
+							<tr>
+								<th class="check-box-th" style="width: 30px;">
+									<label class="check-label yt-checkbox parent-check"><input type="checkbox" class="check-all" name="test" value=""/>  </label>
+								</th>
+								<th>单位名称</th>
+								<th style="width: 110px;">培训费(元)</th>
+								<th style="width: 80px;">开票信息</th>
+								<th style="width: 100px;">对账状态</th>
+								<th style="width: 100px;">开票状态</th>
+								<th style="width: 90px;">备注</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody ticket-open-tbody">
+							<tr>
+								<td colspan="7" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info ticket-open-page" onselectstart="return false"></div>
+				</div>
+			</div>
+			<div class="box-class-list" style="margin-top: 20px;padding: 10px 0px;">
+				<div class="content-box programme" style="border-bottom: 0px;height: 35px;">
+					<div class="key-word">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+					<div style="float: right;margin: 5px 15px;">
+						<label class="check-label yt-checkbox">  
+                    		<input id="checkBox1" type="checkbox" name="test" value="0"/>已开票 
+          				</label>
+						<label class="check-label yt-checkbox">  
+                    		<input id="checkBox2" type="checkbox" name="test" value="1"/>未开票  
+                		</label>
+					</div>
+
+				</div>
+				<div class="list-box content-box" style="margin: 0px 4px;">
+					<table class="yt-table list-table borrow-list">
+						<thead class="list-thead">
+							<tr>
+								<th class="check-box-th" style="width: 30px;">
+									<label class="check-label yt-checkbox parent-check"><input type="checkbox" class="check-all" name="test" value=""/>  </label>
+								</th>
+								<th style="width: 60px;">分组</th>
+								<th style="width: 60px;">姓名</th>
+								<th style="width: 60px;">房间号</th>
+								<th style="width: 80px;">手机号</th>
+								<th style="">集团</th>
+								<th style="">单位</th>
+								<th style="width: 80px;">开票信息</th>
+								<th style="width: 85px;">报到状态</th>
+								<th style="width: 85px;">对账状态</th>
+								<th style="width: 75px;">开票状态</th>
+								<th style="width: 110px;">备注</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody class-tbody">
+							<tr>
+								<td colspan="12" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info class-page" onselectstart="return false"></div>
+				</div>
+			</div>
+			<!--数据展示区域END-->
+			<!--查询学员详情START-->
+			<div class="yt-pop-model yt-edit-alert student-details-form" style="width: 1020px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">学员详情</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+
+					<div style="height: 209px;position: relative;">
+						<table class="student-details-table">
+							<tr>
+								<td align="right">姓名：</td>
+								<td data-text="realName" style="width: 330px;"></td>
+								<td align="right">组号：</td>
+								<td data-text="groupNum"></td>
+							</tr>
+							<td align="right">性别：</td>
+							<td data-text="gender"></td>
+							<td align="right">电话：</td>
+							<td data-text="phone"></td>
+							</tr>
+							<td align="right">身份证号：</td>
+							<td data-text="idNumber"></td>
+							<td align="right">集团：</td>
+							<td data-text="groupName"></td>
+							</tr>
+							<td align="right">单位：</td>
+							<td data-text="groupOrgName"></td>
+							<td align="right">部门/职位：</td>
+							<td data-text="deptName"></td>
+							</tr>
+						</table>
+						<div style="display: inline-table; width: 102px;height: 136px;border:1px dashed #cdcdcd;position: absolute;top: 40px;">
+							<img class="student-details-img" src="../../resources/images/icons/loading123.gif" style="width: 32px;height:32px;margin: 50px 0px 0px 35px;" />
+						</div>
+					</div>
+					<div class="student-details-tecket">
+						<span class="ticket-open-msg">开票信息</span>
+						<table style="width: 960px;margin-top: 20px;">
+							<tr>
+								<td align="right" style="width: 85px;">发票类型：</td>
+								<td style="width: 200px;" data-text="invoiceType"></td>
+								<td align="right" style="width: 53px;">名称：</td>
+								<td data-text="orgName"></td>
+								<td align="right" style="width:60px">税号：</td>
+								<td data-text="taxNumber" style="width: 255px;"></td>
+							</tr>
+							<tr>
+								<td align="right" style="width: 43px;">电话：</td>
+								<td data-text="telephoneProject"></td>
+								<td align="right" width="43px">开户行：</td>
+								<td data-text="registeredBank" style="width: 255px;"></td>
+								<td align="right">账号：</td>
+								<td data-text="account" style="width: 200px;"></td>
+							</tr>
+						</table>
+					</div>
+					<div style="width: -webkit-fit-content;margin: 13px auto 0px;">
+						<div class="student-details-msgges" style="height: 175px;float: left;">
+							<span class="ticket-open-msg">报到信息</span>
+							<p><span>报到状态：</span><span data-text="checkInState"></span></p>
+							<p><span>报到时间：</span><span data-text="checkInDate"></span></p>
+						</div>
+						<div class="student-details-msgges" style="height: 175px;float: left;">
+							<span class="ticket-open-msg">缴费信息</span>
+							<p><span>缴费状态：</span><span data-text="paymentState"></span></p>
+							<p><span>缴费时间：</span><span data-text="paymentDate"></span></p>
+						</div>
+						<div class="student-details-msgges" style="height: 175px;float: left;">
+							<span class="ticket-open-msg">住宿信息</span>
+							<p><span>住宿房间：</span><span data-text="roomNumber"></span></p>
+							<p><span>入住时间：</span><span data-text="roomNumberDate"></span></p>
+						</div>
+						<div class="student-details-msgges" style="height: 175px;float: left;">
+							<span class="ticket-open-msg">开票信息</span>
+							<p><span>开票状态：</span><span data-text="isOrderNum"></span></p>
+							<p><span>发票号码：</span><span data-text="orderNum"></span></p>
+							<p><span>开票金额：</span><span data-text=""></span></p>
+						</div>
+					</div>
+				</div>
+
+				<!--底部按钮START-->
+				<div class="yt-eidt-model-bottom" style="border: none;">
+					<input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="关闭" />
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--查询学员详情END-->
+			<!--修改开票状态Start-->
+			<div class="teacher-select-div">
+				<div class="yt-pop-model yt-edit-alert select-teacher-div">
+					<div class="yt-edit-alert-title select-teacher-title-div">
+						<span class="select-teacher-title-span">修改开票状态</span>
+					</div>
+					<div class="yt-edit-alert-main cont-edit-test">
+						<table class="select-teacher-table" style="width: auto;margin: 0px auto;">
+							<tr style="">
+								<td align="right">
+									<span>开票学员：</span>
+								</td>
+								<td>
+									<span>姓名</span>
+									<span>小梁</span>
+								</td>
+							</tr>
+							<tr style="">
+								<td align="right">
+									<span>开票状态：</span>
+								</td>
+								<td>
+									<select class="yt-select type-select invoice-states" data-val="" style="width: 281px;">
+										<option value="1">培训费</option>
+										<option value="2">课程费</option>
+										<option value="3">住宿费</option>
+										<option value="4">餐费</option>
+										<option value="5">杂票</option>
+										<option value="6">场地使用费</option>
+										<option value="7">会务费</option>
+										<option value="8">其他</option>
+									</select>
+								</td>
+							</tr>
+							<tr style="">
+								<td align="right">
+									<span>发票号码：</span>
+								</td>
+								<td style="position: relative;">
+									<input class="yt-input invoice-number" data-val="" placeholder="请输入发票号" validform="{isNull:true,size:10,msg:'请输入发票号'}" type="number" style="width: 275px;" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr style="">
+								<td align="right">
+									<span>开票金额：</span>
+								</td>
+								<td style="position: relative;">
+									<input class="yt-input invoice-value" data-val="" placeholder="请输入开票金额" validform="{isNull:true,size:10,msg:'请输入开票金额'}" type="number" style="width: 275px;" />
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr style="height: 100px;">
+								<td align="right"style="line-height: 30px;vertical-align: top;">
+									<span style="width: 200px;">备注：</span>
+								</td>
+								<td>
+									<textarea class="yt-textarea invoice-remarks"  style="width: 275px;overflow: hidden;" ></textarea>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="yt-eidt-model-bottom select-teacher-btn-div">
+						<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-sure-btn sreduction-details-sure-btn" type="button" value="确定" />
+						<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-canel-btn sreduction-details-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+			</div>
+			<!--修改开票状态End-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/ticketOpen/ticketOpenInfo.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+
+</html>

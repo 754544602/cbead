@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>新闻稿审批列表</title>
+		<style type="text/css">
+			.appro-btn{
+				border-top: 4px solid #3C4687;
+				background-color: #EDEBEC;
+				height: 40px !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin: 0px;">
+				<div class="search-btn-slect">
+					<div class="key-word" style="margin-right: 0px;">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text"/>
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div style="position: relative;border: 1px solid #f3f3f3;">
+				<div class="tab-title-list" style="overflow: hidden;margin-top: 0px;">
+					<div class="tab-title-box" style="width: 1440px;">
+						<button class="yt-option-btn pending-btn active">• 待审批</button>
+						<button class="yt-option-btn approved-btn">• 审批记录</button>
+					</div>
+				</div>
+				<!--<div class="appro-type" style="height: 44px;border: 1px solid #E6E6E6; background-color: #F5F5F5;margin: 0px 8px;">
+					<p class="appro-btn fist-p" style="float: left;width: 120px; height: 44px;line-height: 44px;text-align: center;cursor: pointer;">待审批</p>	
+					<p class="seconed-p" style="float: left;width: 118px;height:44px;line-height: 44px;text-align: center; border-left:1px solid  #E6E6E6;border-right: 1px solid #E6E6E6;cursor: pointer;">审批记录</p>
+				</div>-->
+				<!--隐藏数据表示获取的是哪种数据，1  待审批，2审批记录-->
+				<input type="hidden" id="operate-type" value="" />
+			</div>
+			<!--数据展示区域START-->
+			<div class="list-box" style="padding: 8px; padding-top: 0px;">
+				<span class="approve-title" style="display:block;padding:12px 0px;font-size:  16px;">待审批列表</span>
+				<table class="yt-table list-table" style="margin-top: 0px;">
+					<thead class="list-thead">
+						<tr>
+							<th style="width: 35px;">序号</th>
+							<th>标题</th>
+							<th>所属班级</th>
+							<th style="width: 130px;">创建时间</th>
+							<th style="width: 80px;">提交人</th>
+							<th style="width: 80px;">审批人</th>
+						</tr>	
+					</thead>
+					<tbody class="yt-tbody list-tbody class-tbody">
+						<tr>
+							<td colspan="6" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info list-page" onselectstart="return false"></div>
+			</div>
+			<!--数据展示区域END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/news/lookForByBacklogList.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+</html>

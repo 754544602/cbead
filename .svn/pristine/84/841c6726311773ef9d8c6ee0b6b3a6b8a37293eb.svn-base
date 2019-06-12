@@ -1,0 +1,48 @@
+.calendar {
+	z-index: 10000 !important;
+}
+
+form table tr {
+	height: 40px;
+}
+
+.td-style-right {
+	width: 155px;
+	text-align: right;
+}
+
+.asset-table-details td{
+	height: 30px;
+}
+
+.input-width {
+	width: 280px;
+}
+
+.input-remarks {
+	width: 576px;
+	height: 38px;
+}
+
+.search-btn {
+	position: absolute;
+	top: 0px;
+}
+
+.tt-style {
+	position: absolute;
+	top: 11px;
+	left: 2px;
+	max-height: 180px;
+	overflow-y: auto;
+	background: #FFF;
+}
+
+.file-input {
+	width: 95px;
+	height: 30px;
+	position: absolute;
+	top: 0px;
+	left: 266px;
+	opacity: 0;
+}

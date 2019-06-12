@@ -1,0 +1,110 @@
+@charset "utf-8";
+.apply-main-model {
+	margin: 5px;
+	border: 1px solid #DFE6F3;
+	background-color: #FFFFFF;
+	min-width: 1093px;
+	min-height: 825px;
+}
+.nice-select {
+    display: inline-block;
+    float: none;
+    width: 200px;
+    vertical-align: middle;
+}
+.form-num-model {
+	float: right;
+	display: inline;
+	padding-right: 35px;
+	color: #384495;
+}
+
+.split-line {
+	height: 5px;
+	background-color: #f3f3f3;
+	border-top: 1px solid #dfe6f3;
+	border-bottom: 1px solid #dfe6f3;
+}
+.budget-info-model{
+	padding: 0px 0px 20px 8px;
+}
+.query-parm-model{
+	padding: 0px 0px 20px 8px;
+	color: #384495;
+    font-weight: bold;
+}
+.label-blod{
+	color: #384495;
+    font-weight: bold;
+}
+/**
+ * 
+ * 
+ * easyUI控制面板区域
+ * 
+ * 
+ */
+.tab-table-title {
+    text-align: center;
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: 15px;
+}
+#tableTemplate{
+	max-height: 450px;
+}
+#tableTemplate .rule-table-div{
+	overflow-y: scroll !important;
+}
+#tableTemplate .rule-table .img-def{
+	display: none;
+}
+.tab-table-title{
+	text-align: center;
+    font-weight: bold;
+    margin: 10px 0px;
+    font-size: 15px;
+}
+#tableTemplate .tabs li a.tabs-inner{
+    background: #6495bc !important;
+    border-color: #6495bc !important;
+    color: #FFFFFF !important;
+}
+#tableTemplate .tabs-header, .tabs-tool{
+	background-color: initial !important;
+	border: none !important;
+}
+.tabs-scroller-left,.tabs-scroller-right{
+	background-color: #FFFFFF;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+}
+#tableTemplate .tabs-panels,#tableTemplate  ul.tabs{
+    border-color: #DFE6F3 !important;
+}
+
+#tableTemplate .tabs li.tabs-selected a.tabs-inner .tabs-title{
+	color: #333333 !important;
+	font-size: 14px  !important;
+}
+.tabs-scroller-right{
+	right: 3px !important;
+}
+.select-title {
+    font-size: 28px;
+    padding: 20px;
+}
+.button-box {
+    padding-top: 10px;
+    text-align: center;
+}
+.button-box button {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 30px;
+    font-size: 18px;
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+}

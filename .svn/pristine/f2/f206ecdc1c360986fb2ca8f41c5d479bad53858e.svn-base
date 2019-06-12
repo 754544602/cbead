@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--提示信息控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" />
+
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/query/beforeApprivalListQuery.min.css?YTVERSIONCODE=2018052205" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+
+	<body>
+		<div class="pmPlanQuery" id="beforeApprListQuery">
+			<div class="heard-query-model">
+				<div>
+					<!--顶部查询区域START-->
+					<div class="heard-query">
+						<!--<div>
+							<span class="mf20" style="letter-spacing:0px;">关键字</span>：
+							<div style="display: inline-block;">
+								<input type="text" class="keyword-input yt-input" placeholder="请输入事前申请事由/编号/专项名称" />
+							</div>
+							
+							<span class="proposer-span mf20" style="letter-spacing:15px;">申请</span>人：
+							<div style="display: inline-block;">
+								<select class="yt-select user-name-sel">
+									<option value="">请选择</option>
+								</select>
+							</div>
+						</div>
+
+						<div> 
+							<span class="mf20" style="letter-spacing:0px;">基本信</span>息筛选：
+							<span class="mf20" style="letter-spacing:5px;">费用类</span>型：
+							<div style="display: inline-block;">
+								<select class="yt-select pm-type-sel" id="pmType" style="top: 10px;">
+									<option value="">请选择</option>
+								</select>
+							</div>
+							<span class="m20" style="letter-spacing:5px; margin-left: 46px;">经办部</span>门：
+							<div style="display: inline-block;">
+								<select class="yt-select org-way-sel" id="orgWay">
+									<option value="">请选择</option>
+								</select>
+							</div>
+							<div style="padding-top: 20px;padding-left: 130px;">
+								<span class="mf20" style="letter-spacing:5px;">申请金</span>额：
+								<input onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" class="yt-input top-money" placeholder="请输入" style="text-align: right;" />
+								<label class="separator">-</label>
+								<input onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" class="yt-input bottom-money" placeholder="请输入" style="text-align: right;" />
+							</div>
+							<div style="padding-top: 20px;padding-left: 161px;">
+								<span style="letter-spacing:5px;">申请日</span>期：<input class="calendar-input top-date" style="width: 195px;" id="startDate" type="text" placeholder="请选择日期" /><label class="separator">-</label>
+								<input class="calendar-input bottom-date" style="width: 195px;" id="endDate" type="text" placeholder="请选择日期" />
+								<button class="yt-option-btn yt-search-btn" onselectstart="return false " style="margin-left: 170px;" id="heardSearchBtn">查询 </button>
+								<button class="yt-option-btn yt-reset-btn" style="margin-left: 10px;" id="resetBtn">重置</button>
+							</div>
+						</div>-->
+						<div>
+							<span class="mf20" style="letter-spacing:5px;">关键</span>字：
+							<div style="display: inline-block;">
+								<input type="text" class="keyword-input yt-input query-text" placeholder="请输入申请人/申请事由/费用类型" />
+							</div>
+							<div style="display: inline-block;">
+								<span>申请日期：</span><input class="calendar-input top-date" style="width: 195px;" id="startDate" type="text" placeholder="请选择日期" /><label class="separator">-</label>
+								<input class="calendar-input bottom-date" style="width: 195px;" id="endDate" type="text" placeholder="请选择日期" />
+								<button class="yt-option-btn yt-search-btn" onselectstart="return false " style="margin-left: 10px;" id="heardSearchBtn">查询 </button>
+								<button class="yt-option-btn yt-reset-btn" style="margin-left: 10px;margin-right: 10px;" id="resetBtn">重置</button>
+							</div>
+						</div>
+					</div>
+					<!--顶部查询区域END-->
+					<!--拆分页面START-->
+					<div class="interval-div"></div>
+					<!--拆分页面END-->
+					<!--<div class="status-model" style="padding-top: 30px;padding-left: 30px;">
+						审批状态筛选:
+						<label class="check-label yt-checkbox" style="margin-left: 10px;">  
+		                     <input class="checkbox-state" type="checkbox" name="ongoing" value="WF_TOTAL_UBDERWAY_PARAMS"/>审批中
+		               	</label>
+						<label class="check-label yt-checkbox" style="margin-left: 10px;">  
+		                     <input class="checkbox-state" type="checkbox" name="already" value="WF_TOTAL_UNPASSED_PARAMS"/>未通过
+		               	</label>
+						<label class="check-label yt-checkbox" style="margin-left: 10px;">  
+		                     <input class="checkbox-state" type="checkbox" name="through" value="WF_TOTAL_PASSED_PARAMS"/>已完成
+		                </label>
+					</div>-->
+					<div class="sort-btn-list" style="padding-top: 15px;padding-left: 25px;">
+						<span style="font-size: 16px;">排序方式：</span>
+						<button class="yt-option-btn yt-search-btn applymoney-sort-btn" value="IFNULL(m.NEW_ADVANCE_AMOUNT,IFNULL(m.ADVANCE_AMOUNT,0.00))" style="margin-left: 10px;color: #fff;" id="">申请总金额倒序排列</button>
+						<button class="yt-option-btn yt-search-btn date-sort-btn" id="" value="IFNULL(DATE_FORMAT(m.NEW_ADVANCE_TIME,'%Y-%m-%d'),IFNULL(DATE_FORMAT(m.APPLICANT_TIME,'%Y-%m-%d'),''))" style="color: #fff;">申请日期倒序排列 </button>
+					</div>
+					<!-- <div style="padding-top: 20px;padding-left: 25px;" class="radio-input-list">
+						<span style="font-size: 16px;">筛选条件：</span>
+						<label class="check-label yt-radio">  
+						    <input id="radio1" type="radio" name="test"  value="1"/> 只看调整额度增加的  
+					    </label>  
+					    <label class="check-label yt-radio" style="margin-left: 40px;">  
+						    <input id="radio2" type="radio" name="test"  value="0"/> 只看额度未调整的  
+					    </label>  
+					    <label class="check-label yt-radio" style="margin-left: 40px;">  
+						    <input id="radio3" type="radio" name="test"  value=""/> 全部  
+					    </label> 
+					</div> -->
+				</div>
+				<!--<div class="total-div"><span style="color: #475c6d;font-weight: bold; margin-left: 30px;">申请金额合计：</span> <span id="allAmount" class="money-sum">-</span>元</div>-->
+				<div class="total-div" style="color: #333;">
+					<span>当前申请金额合计：</span> 
+					<span id="allAmount" class="money-sum" style="font-weight: bold;font-size: 18px;"></span>&nbsp;元
+				</div>
+
+				<!--列表显示区域START-->
+				<div class="plan-list-model" style="padding: 0 20px;">
+					<table class="yt-table before-apply-table" width="100%">
+						<thead class="yt-thead">
+							<!--<tr>
+								<th style="min-width: 110px;">申请时间<span class="sort-span" code="m.APPLICANT_TIME"><img class="applytime-img" src="../../../../../resources-sasac/images/module/order-desc.png"></span></th>
+								<th style="min-width: 115px;">单据编号</th>
+								<th style="min-width: 45px;">申请人</th>
+								<th style="min-width: 60px;">经办部门</th>
+								<th>申请事由</th>
+								<th style="min-width: 75px;">费用类型</th>
+								<th>所属预算项目</th>
+								<th style="min-width: 120px;">申请金额(元)<span class="sort-span" code="m.ADVANCE_AMOUNT"><img class="applymoney-img" src="../../../../../resources-sasac/images/module/order-def.png"></span></th>
+								<th style="min-width: 60px;">审批状态</th>
+								<th style="min-width: 60px;">流程日志</th>
+							</tr>-->
+							<tr>
+								<th>事前申请编号</th>
+								<th>申请事由</th>
+								<th>费用类型</th>
+								<th>申请总金额（元）</th>
+								<th>申请人</th>
+								<th>申请部门</th>
+								<th>申请日期</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<!--<tr style="">
+								<td>2018-4-18</td>
+								<td>AD2018418001</td>
+								<td>魏业科</td>
+								<td>业务处</td>
+								<td>招待人工智能科学宣讲团教授</td>
+								<td>公务接待费</td>
+								<td>-</td>
+								<td style="text-align: right;">1,000.00</td>
+								<td>已通过</td>
+								<td><a class="yt-link">查看</a></td>
+							</tr>
+							<tr style="">
+								<td>2018-4-18</td>
+								<td>AD2018418005</td>
+								<td>魏业科</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td style="text-align: right;">1,200,000.00</td>
+								<td>进行中</td>
+								<td><a class="yt-link">查看</a></td>
+							</tr>-->
+							<!--<tr>
+								<td><a class="yt-link">AD2018418001</a></td>
+								<td style="text-align: left;">招待人工智能科学宣讲团教授</td>
+								<td>公务接待费</td>
+								<td style="text-align: right;">1,100.00</td>
+								<td style="text-align: right;">1,200.00</td>
+								<td style="text-align: right;">100.00</td>
+								<td>1 次</td>
+								<td>魏业科</td>
+								<td>2018-05-16</td>
+							</tr>
+							<tr>
+								<td><a class="yt-link">AD2018418005</a></td>
+								<td style="text-align: left;"></td>
+								<td></td>
+								<td style="text-align: right;">1,200,000.00</td>
+								<td style="text-align: right;">1,200,000.00</td>
+								<td style="text-align: right;">0.00</td>
+								<td>0 次</td>
+								<td>魏业科</td>
+								<td>2018-05-14</td>
+							</tr>-->
+						</tbody>
+					</table>
+					<!--<div>大额度资金使用</div>-->
+					<!--分页START-->
+					<div class="page-info table-page before-table-page" onselectstart="return false"></div>
+					<!--分页END-->
+				</div>
+				<!--列表显示区域END-->
+			</div>
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/query/beforeApprivalListQuery.min.js?YTVERSIONCODE=20190401"></script>
+	<!--引用JS文件END-->
+
+</html>

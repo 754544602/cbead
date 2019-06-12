@@ -1,0 +1,116 @@
+var claimRecord = {
+
+	//初始化方法
+	init: function() {
+		claimRecord.getBillListInfo();
+		$(".bank-more-div").click(function () {
+			$(".bank-th-hide").show();
+			$(".bank-list-table").css("min-width", "3500px");
+			$(".bank-tbody-td").attr("colspan", "29");
+			$(".project-more-div").click(function () {
+				$(".bank-tbody-td").attr("colspan", "32");
+			});
+		});
+		$(".project-more-div").click(function () {
+			$(".project-th-hide").show();
+			$(".bank-tbody-td").attr("colspan", "21");
+			$(".bank-list-table").css("min-width", "3500px");
+			$(".bank-more-div").click(function () {
+				$(".bank-list-table").css("min-width", "3500px");
+				$(".bank-tbody-td").attr("colspan", "32");
+			});
+		});
+	},
+	/**
+	 * 对账单信息列表
+	 */
+	getBillListInfo: function() {
+		$yt_baseElement.showLoading();
+		var keyword = $('#keyword').val();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "class/lookForAllByDistribution", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							htmlTr = '<tr>' +
+								'<td style="text-align: center;">' +
+								'<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="select-teacher-pkId" value="' +v.projectCode + '"/></label>' + '</td>' +
+								'<td>' + i + '</td>' +
+								'<td>' + '2015-05-05' + '</td>' +
+								'<td class="bank-th-hide" style="text-align:right;display:none">' + '3400.00' + '</td>' +
+								'<td style="text-align:right">' + '3400.00' + '</td>' +
+								'<td class="bank-th-hide" style="text-align:right;display:none">' + '50000.00' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + '人名币元' + '</td>' +
+								'<td>' + '王娟云南锡业股份有限公司化工材料分公司' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + '6228543444345321' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + '建行大连栾金支行' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + '2015-12-12' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + '人民币卡消费款' + '</td>' +
+								'<td>' + '收单清算款105210282200085' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + '27130-21228008916TPTNITU0' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + '电汇凭证' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + '2284875' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + '21201501910059106618' + '</td>' +
+								'<td class="bank-th-hide" style="display:none">' + 'QAQ' + '</td>' +
+								'<td>' + '27130-21228008916TPTNITU0' + '</td>' +
+								'<td style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></td>'+
+								'<td>' + '梁斌' + '</td>' +
+								'<td>' + '2018-01-24' + '</td>' +
+								'<td>' + '第二期国企深化改革专题培训班' + '</td>' +
+								'<td class="project-th-hide" style="display: none;">' + '12.05--05.05' + '</td>' +
+								'<td>' + '胡斌' + '</td>' +
+								'<td class="project-th-hide" style="display: none;">' + '倚天机构' + '</td>' +
+								'<td style="text-align:right;">' + '4,000.00' + '</td>' +
+								'<td style="text-align:right;">' + '10,000.00' + '</td>' +
+								'<td style="text-align:right;">' + '10,000.00' + '</td>' +
+								'<td style="text-align:right;">' + '0.00' + '</td>' +
+								'<td>' + '已确认' + '</td>' +
+								'<td>' + '杨欣' + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					}
+
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//项目类型设置
+	projectTypeInfo: function(code) {
+		if(code == 1) {
+			return "计划";
+		} else if(code == 2) {
+			return "委托";
+		} else if(code == 3) {
+			return "选学";
+		} else if(code == 4) {
+			return "调训";
+		} else {
+			return '';
+		};
+	},
+
+}
+$(function() {
+	//初始化方法
+	claimRecord.init();
+});

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/projectQuality/questionMgTrue.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>满意度评分汇总（选学）</title>
+		<style type="text/css">
+			.div-button {
+				text-align: center;
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1000px;">
+			<div class="page-title">
+				<span class="project-name">第二期国企深化改革专题培训班</span>
+				<button class="page-return-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png"/>
+					返回
+				</button>
+			</div>
+			<div class="tab-title-list" style="overflow: hidden;">
+				<div class="tab-title-box" style="width: 1440px;">
+					<button class="yt-option-btn summary-info-btn active">• 评分汇总</button>
+					<button class="yt-option-btn details-info-btn">• 评分详情</button>
+					<button class="yt-option-btn original-info-btn">• 原始评分</button>
+				</div>
+			</div>
+			<!-- 评分汇总 start -->
+			<div class="summary-box">
+				<!--每一栏的divSTART-->
+				<div class="every-part">
+					<!-- 页面满意度的 DOM -->
+					<label>总体满意度：<span id="wholeSatisfaction"></span>人</label>
+					<div class="drawing-1" style="width: 100%;height: 100%;"></div>
+					<!--每一栏的divEND-->
+				</div>
+				<!--每一栏的divSTART-->
+				<div class="every-part">
+					<!-- 页面满意度的 DOM -->
+					<span>人数</span>
+					<div class="drawing-2" style="width: 100%;height: 100%;"></div>
+					<!--每一栏的divEND-->
+				</div>
+				<div class="clear-both"></div>
+				<!--每一栏的divSTART-->
+				<div class="every-part">
+					<!-- 页面满意度的 DOM -->
+					<div class="average"></div>
+					<div class="drawing-3" style="width: 100%;height:500px;"></div>
+					<!--每一栏的divEND-->
+				</div>
+				<!--每一栏的divSTART-->
+				<div class="every-part">
+					<!-- 页面满意度的 DOM -->
+					<div class="average"></div>
+					<div class="drawing-4" style="width: 100%;height:400px;"></div>
+					<!--每一栏的divEND-->
+				</div>
+				<!--每一栏的divSTART-->
+				<div class="every-part">
+					<!-- 页面满意度的 DOM -->
+					<div class="average"></div>
+					<div class="drawing-5" style="width: 100%;height:400px;"></div>
+					<!--每一栏的divEND-->
+				</div>
+				<!--每一栏的divSTART-->
+				<div class="every-part">
+					<!-- 页面满意度的 DOM -->
+					<div class="average"></div>
+					<div class="drawing-6" style="width: 100%;height:400px;"></div>
+					<!--每一栏的divEND-->
+				</div>
+				<!--每一栏的divSTART-->
+				<div class="every-part">
+					<!-- 页面满意度的 DOM -->
+					<div class="average"></div>
+					<div class="drawing-7" style="width: 100%;height:400px;"></div>
+					<!--每一栏的divEND-->
+				</div>
+				<!--每一栏的divSTART-->
+				<div class="every-part">
+					<!-- 页面满意度的 DOM -->
+					<div class="average"></div>
+					<div class="drawing-8" style="width: 100%;height:400px;"></div>
+					<div class="drawing-11" style="width: 100%;height:400px;"></div>
+					<!--每一栏的divEND-->
+				</div>
+				<!--每一栏的divSTART-->
+				<div class="every-part">
+					<!-- 页面满意度的 DOM -->
+					<div class="drawing-9" style="width: 100%;height:400px;"></div>
+					<div class="drawing-10" style="width: 100%;height:400px;"></div>
+					<!--每一栏的divEND-->
+				</div>
+			</div>
+			<!-- 评分汇总 end -->
+			<!-- 评分详情 start -->
+			<div class="details-box" style="display: none;">
+				<div class="search-btn-slect" style="width: 100%;">
+					<div class="btn-all tb1" style="position: relative;width:80%;">
+						<button class="yt-option-btn exportList">
+							<img src="../../resources/images/icons/export.png" alt="">
+								导出
+						</button>
+						<label class="check-label yt-checkbox check" style="margin-left: 60%;">  
+		                    <input id="checkBox1" type="checkbox" name="test" value="0"/>未评价 
+		                </label>
+						<label class="check-label yt-checkbox check">  
+		                    <input id="checkBox2" type="checkbox" name="test" value="1"/>已评价
+		                </label>
+					</div>
+					<div class="key-word">
+						<input class="yt-input" id="keyword1" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn" id="searchList">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+				<div class="list-box" style="border: none;">
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th style="width: 30px;">序号</th>
+								<th style="width: 70px;">姓名</th>
+								<th style="width: 120px;">培训设计与实施</th>
+								<th style="width: 70px;">授课效果</th>
+								<th style="width: 200px;">教学组织、学院院风、后勤服务</th>
+								<th style="width: 120px;">培训学习效果</th>
+								<th style="width: 70px;">办学特色</th>
+								<th>批评建议</th>
+								<th>优秀师资推荐</th>
+								<th style="width: 50px;">状态</th>
+								<th style="width: 50px;">详情</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody class-tbody list-tbody">
+							<tr class="class-tr">
+								<td colspan="10" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info table-page page1" onselectstart="return false"></div>
+				</div>
+			</div>
+			<!-- 评分详情 end -->
+			<!-- 原始评分 start -->
+			<div class="original-box" style="display: none;">
+				<div class="search-btn-slect" style="width: 100%;">
+					<div class="btn-all" style="position: relative;width:80%;">
+						<button class="yt-option-btn originalExportList">
+							<img src="../../resources/images/icons/export.png" alt="">
+								导出
+						</button>
+						<button class="yt-option-btn effective" value="1">
+							<img src="../../resources/images/icons/account-invalid.png" alt="">
+								有效
+						</button>
+						<button class="yt-option-btn invalid" value="0">
+							<img src="../../resources/images/icons/account-effective.png" alt="">
+								无效
+						</button>
+						<label class="check-label yt-checkbox check" style="margin-left: 45%;">  
+		                    <input id="checkBox1" type="checkbox" name="test2" value="0"/>未评价 
+		                </label>
+						<label class="check-label yt-checkbox check">  
+		                    <input id="checkBox2" type="checkbox" name="test2" value="1"/>已评价
+		                </label>
+					</div>
+					<div class="key-word">
+						<input class="yt-input" id="keyword2" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn" id="searchList2">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+				<div class="list-box" style="border: none;">
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th style="width: 30px;">序号</th>
+								<th style="width: 70px;">姓名</th>
+								<th style="width: 120px;">培训设计与实施</th>
+								<th style="width: 70px;">授课效果</th>
+								<th style="width: 200px;">教学组织、学院院风、后勤服务</th>
+								<th style="width: 120px;">培训学习效果</th>
+								<th style="width: 70px;">办学特色</th>
+								<th>批评建议</th>
+								<th>优秀师资推荐</th>
+								<th style="width: 50px;">状态</th>
+								<th style="width: 50px;">详情</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody class-tbody2 list-tbody">
+							<tr class="class-tr">
+								<td colspan="10" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info table-page page2" onselectstart="return false"></div>
+				</div>
+			</div>
+			<!-- 原始评分 end -->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--雷达图js-->
+	<script type="text/javascript" src="../../resources/js/echarts/echarts.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/projectQuality/questionMgTrue.js"></script>
+
+</html>

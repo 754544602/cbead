@@ -1,0 +1,162 @@
+var projectSelection = {
+	//初始化方法
+	init: function() {
+//		调用获取列表数据方法
+		projectSelection.getProjectSelectionInf();
+		projectSelection.getCompanyList();
+		$(".project-selection-more").click(function(){
+			debugger
+			$(".student-hide").show();
+			$(".project-student-td").attr("colspan","16");
+		});
+		$(".page-return-btn").click(function(){
+			window.location.href = "projectBillList.html";
+		})
+	},
+
+	/**
+	 * 单位支付信息
+	 */
+	getCompanyList: function() {
+		$yt_baseElement.showLoading();
+		var selectParam = "";
+		$.ajax({
+			async: true,
+			url: $yt_option.base_path + "finance/reduction/lookForAllProject", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-company-tbody');
+					var htmlTr = '';
+					var htmlPlan = '';
+					var should = 0;
+					var already = 0;
+					var account = 0;
+					$(htmlTbody).empty()
+					if(data.data.length > 0) {
+						$.each(data.data, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td>' + "中国核工业集团公司" + '</td>' +
+								'<td class="should" style="text-align:right;">' + "1000" + '</td>' +
+								'<td class="already" style="text-align:right;">' + "1005" + '</td>' +
+								'<td class="account" style="text-align:right;">' + "1010" + '</td>' +
+								'<td class="account" style="text-align:right;">' + "已确认" + '</td>' +
+								'</tr>';
+							should += 1000;
+							already += 1005;
+							account += 1010;
+						});
+						htmlTbody.html(htmlTr);
+						htmlPlan += '<tr>' +
+							'<td style="font-weight: bold;">' + "小计" + '</td>' +
+							'<td style="text-align:right;font-weight: bold;">' + should + '</td>' +
+							'<td style="text-align:right;font-weight: bold;">' + already + '</td>' +
+							'<td style="text-align:right;font-weight: bold;">' + account + '</td>' +
+							'<td class=""></td>' +
+							'</tr>';
+						htmlTbody.append(htmlPlan)
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+
+		});
+	},
+	/**
+	 * 学员费用详情
+	 */
+	getProjectSelectionInf: function() {
+		var selectParam = ""
+		$('.project-student-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/reduction/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+				userGender: "",
+				positionCode: "",
+				deptId: "",
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-student-tbody');
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td>' + i + '</td>' +
+								'<td><a style="color: #4169E1;">' + "王如冰" + '</a></td>' +
+								'<td style="text-align:left">' + "中国和工业集团公司" + '</td>' +
+								'<td>' + "1359367" + '</td>' +
+								'<td style="text-align:right">' + "98745646" + '</td>' +
+								'<td style="text-align:right">' + "98745646" + '</td>' +
+								'<td style="text-align:right">' + "98745646" + '</td>' +
+								'<td style="text-align:right">' + "98745646" + '</td>' +
+								'<td style="text-align:right">' + "98745646" + '</td>' +
+								'<td style="text-align:right">' + "98745646" + '</td>' +
+								'<td style="text-align:right">' + "98745646" + '</td>' +
+								'<td style="text-align:right">' + "--" + '</td>' +
+								'<td style="text-align:right">' + "--" + '</td>' +
+								'<td style="text-align:right">' + "--" + '</td>' +
+								'<td class="student-hide"style="text-align:right;display:none">' + "98745646" + '</td>' +
+								'<td class="student-hide" style="text-align:right;display:none">' + "98745646" + '</td>' +
+								'</tr>';
+						});
+					} else {
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td class="project-student-td" colspan="14" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//项目类型设置
+	projectTypeInfo: function(code) {
+		if(code == 1) {
+			return "计划";
+		} else if(code == 2) {
+			return "委托";
+		} else if(code == 3) {
+			return "选学";
+		} else if(code == 4) {
+			return"调训";
+		}else {
+			return '';
+		};
+	},
+}
+$(function() {
+	//初始化方法
+	projectSelection.init();
+
+});

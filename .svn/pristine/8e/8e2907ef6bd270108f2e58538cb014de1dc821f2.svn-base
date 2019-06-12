@@ -1,0 +1,127 @@
+var projectBillList = {
+	//初始化方法
+	init: function() {
+		//调用获取列表数据方法
+		projectBillList.getprojectBillListInf();
+		$(".project-bill-tbody").on("click",".project-name",function(){
+			var projectType = $(this).parents("tr").find("td.project-type").text();
+			var projectCode = $(this).parents("tr").find("td.project-code").text();
+			var projectName = encodeURI(encodeURI($(this).parents("tr").find("td.project-name-td").text()));
+			if(projectType == "选学" || projectType == "委托"){
+				var url = "projectSelection.html?projectCode=" + projectCode + "&" + "projectName=" + projectName+"&"+'backIndex='+2;
+				window.location.href = encodeURI(url);
+			}else{
+				var url = "projectBreak.html?projectCode=" + projectCode + "&" + "projectName=" + projectName+"&"+'backIndex='+2;
+				window.location.href = encodeURI(url);
+			}
+		})
+		//模糊查询
+		$(".search-btn").click(function(){
+			projectBillList.getprojectBillListInf();
+		})
+	},
+
+	/**
+	 * 获取列表数据
+	 */
+	getprojectBillListInf: function() {
+		var selectParam = $(".selectParam").val();
+		$('.project-bill-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/projectStatement/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+				startTimeStart: "",
+				startTimeEnd: "",
+				endTimeStart: "",
+				endTimeEnd: "",
+				projectType: "",
+				checkInCountStart: "",
+				checkInCountEnd: "",
+				notReconciliationStart: "",
+				notReconciliationEnd: "",
+				isUserProject: "1",
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				var startDate;
+				var endDate;
+				if(data.flag == 0) {
+					var projectHead = "";
+					var htmlTbody = $('.project-bill-tbody');
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							if(v.projectSell == null){
+								v.projectSell = "";
+							}
+							if(v.projectHead == null){
+								projectHead = "";
+							}else{
+								projectHead = v.projectHead;
+							}
+							
+							startDate = (v.startDate).split(" ");
+							startDate = startDate[0];
+							endDate = (v.endDate).split(" ");
+							endDate = endDate[0];
+							htmlTr += '<tr>' +
+								'<td class="project-code">' + v.projectCode + '</td>' +
+								'<td class="project-name-td" style="text-align:left;"><a style="color: #3c4687;" class="project-name">' + v.projectName + '</td>' +
+								'<td class="project-type">' + (projectBillList.projectTypeInfo(v.projectType)) + '</a></td>' +
+								'<td style="text-align:left;">' + v.projectSell + '</td>' +
+								'<td style="text-align:left;">' + projectHead + '</td>' +
+								'<td>' + startDate + '</td>' +
+								'<td>' + endDate + '</td>' +
+								'<td style="text-align:right;">' + v.checkInCount + '</td>' +
+								'<td style="text-align:right;">' + v.notReconciliationCount + '</td>' +
+								'</tr>';
+						});
+					} else {
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//项目类型设置
+	projectTypeInfo: function(code) {
+		if(code == 1) {
+			return "计划";
+		} else if(code == 2) {
+			return "委托";
+		} else if(code == 3) {
+			return "选学";
+		} else if(code == 4) {
+			return"调训";
+		}else {
+			return '';
+		};
+	},
+}
+$(function() {
+	//初始化方法
+	projectBillList.init();
+
+});

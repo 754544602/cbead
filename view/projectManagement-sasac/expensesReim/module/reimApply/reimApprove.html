@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css"/>
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/reimApply/reimApprove.min.css?YTVERSIONCODE" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style type="text/css">
+			.secondary-title {
+			    position: relative;
+			    padding: 10px;
+			    padding-left: 20px;
+			    margin: 10px 0;
+			}
+			.secondary-text {
+			    position: absolute;
+			    top: 0;
+			    left: 20px;
+			    color: #417095;
+			    font-size: 16px;
+			    background: #fff;
+			}
+			.secondary-line {
+			    border-bottom: 1px dashed #417095;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="reimApply">
+			<!--基础信息区域START-->
+			<div class="base-info-model">
+				<!--标题区域START-->
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/system/expensesReim/common/base-info-title-img.png" />
+					<div class="form-num-model">
+						<label><span style="letter-spacing: 4px;">单据编</span>号：</label><span id="form-num" data-text="reimAppNum"></span>
+					</div>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<!--标题区域END-->
+				<!--基础信息表单区域START-->
+				<div class="base-info-form-modle">
+					<div id="firstTr">
+						<div style="padding-left: 5px;" class="users-label"><label><span style="letter-spacing: 15px;">出差</span>人：</label><span id="busiUsers" data-text="busiTripUsers"></span></div>
+						<div class="dept-label"><label><span style="letter-spacing: 40px;">部</span>门：</label><span id="deptName" data-text="deptName"></span></div>
+						<div><label><span style="letter-spacing: 40px;">电</span>话：</label><span id="telPhone" data-text="telPhone"></span></div>
+					</div>
+					<div style="clear: both;"></div>
+					<table border="0" cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 6px;" id="reimBaseInfoTab">
+						<tr>
+							<td width="90px" style="padding-left: 4px;"><div style="width: 90px;"><label><span style="letter-spacing: 6px;">报销事</span>由：</label></div></td>
+							<td colspan="3"><span id="reimReson" data-text="reimAppName"></span></td>
+						</tr>
+						<tr>
+							<td style="padding-left: 4px;"><label><span style="letter-spacing: 1px;">出差审批</span>单：</label></td>
+							<td class="busi-appr-td">
+								<span style="font-weight: bold;" id="busiTripForm" data-text="travelAppNum"></span>
+								<span class="risk-model" style="position: absolute;bottom: 9px;">
+									<input type="hidden" value="busiAproForm" class="hid-risk-code">
+									<img src="../../../../../resources-sasac/images/common/risk-via.png" class="risk-img">
+								</span>
+							</td>
+						    <td width="90px"style="text-align: left;">
+						    	<div style="width:90px;">
+						    		<label><span style="letter-spacing: 6px;">出差事</span>由：</label>
+						    	</div>
+						    </td>
+						    <td><span data-text="travelAppName"></span></td>
+						</tr>
+						<tr>
+							<td style="padding-left: 4px;"><label><span style="letter-spacing:46px;">人</span>数：</label></td>
+							<td><span data-text="travelPersonnelNum"></span></td>
+						    <td align="left"><label><span style="letter-spacing: 1px;">接待方提</span>供：</label></td>
+							<td><span id="receptionCostItem">--</span></td>
+						</tr>
+						<tr>
+							<td colspan="4" style="padding-left: 3px;">
+								<label>所属预算项目：</label><span id="byPpsPrj" class="by-pps-prj" data-text="prjName">--</span>
+								<label>部门(预算来源)：</label><span id="deptBy" data-text="prjDeptName">--</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--基础信息表单区域END-->
+			</div>
+			<!--基础信息区域END-->
+			<!--费用申请区域START-->
+			<div class="cost-apply-model">
+				<!--标题区域START-->
+				<div class="title-model">
+					<div class="travel-plan-title title-model-sty">
+						<img src="../../../../../resources-sasac/images/system/expensesReim/common/reim-detail-title1.png" />
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<div class="secondary-title" style="">
+					<span class="secondary-text">行程明细</span>
+					<div class="secondary-line"></div>
+				</div>
+				<!--行程列表区域START-->
+				<div class="travel-list-model" style="margin-top: 20px;">
+					  <table class="yt-table" id="travelTab" style="width: 100%;">
+					  	      <thead class="yt-thead">
+					  	      	  <tr>
+					  	      	  	   <th width="180px">出差类型</th>
+					  	      	  	   <th width="100px">开始日期</th>
+					  	      	  	   <th width="100px">结束日期</th>
+					  	      	  	   <th width="60px">出差天数</th>
+					  	      	  	   <th>出差地点</th>
+					  	      	  	   <th>出差人</th>
+					  	      	  	   <th width="60px">出差人数</th>
+					  	      	  	   <th>接待方承担费用</th>
+					  	      	  </tr>
+					  	      </thead>
+					  	      <tbody class="yt-tbody">
+					  	      	 <tr>
+					  	      	 	<td>培训</td>
+					  	      	 	<td>2018-05-01</td>
+					  	      	 	<td>2018-04-20</td>
+					  	      	 	<td>5</td>
+					  	      	 	<td>TH市</td>
+					  	      	 	<td style="text-align: left;">吴一局、樊业处</td>
+					  	      	 	<td>3</td>
+					  	      	 	<td>无</td>
+					  	      	 </tr>
+					  	      </tbody>
+					  </table>
+				</div>
+				<!--行程列表区域END-->
+				<div class="secondary-title" style="">
+					<span class="secondary-text">费用明细</span>
+					<div class="secondary-line"></div>
+				</div>
+				<!--费用申请多个列表显示START-->
+				<div class="cost-list-model">
+					<!--交通费列表START-->
+					<div class="traffic-cost-model">
+						<div class="cost-list-title">
+							<label>城市间交通费</label>
+							<span class="risk-model">
+								<input type="hidden" value="trafficTab" class="hid-risk-code">
+								<img src="../../../../../resources-sasac/images/common/risk-war.png" class="risk-img">
+							</span>
+						</div>
+						<table class="yt-table" width="100%" id="traffic-list-info">
+							    <thead class="yt-thead">
+							    	   <tr>
+							    	   	    <th width="215px"><div style="width: 215px;">出差人</div></th>
+							    	   	    <th width="65px"><div style="width:65px;">级别</div></th>
+							    	   	    <th width="90px"><div style="width:90px;">出发日期</div></th>
+							    	   	    <th width="88px"><div style="width:88px;">出发地点</div></th>
+							    	   	    <th width="85px"><div style="width:85px;">到达日期</div></th>
+							    	   	    <th width="90px"><div style="width:90px;">到达地点</div></th>
+							    	   	    <th width="90px"><div style="width:90px;">交通工具</div></th>
+							    	   	    <th width="98px"><div style="width:98px;">城市间交通费</div></th>
+							    	   	    <th width=""><div>特殊说明</div></th>
+							    	   </tr>
+							    </thead>
+							    <tbody class="yt-tbody">
+							    	 
+							    </tbody>
+						</table>
+					</div>
+					<!--交通费列表END-->
+					<!--住宿费列表START-->
+					<div class="hotel-list-model">
+						<div class="cost-list-title">
+							<label>住宿费</label>
+							<span class="risk-model">
+								<input type="hidden" value="hotelDay" class="hid-risk-code">
+								<img src="../../../../../resources-sasac/images/common/risk-war.png" class="risk-img">
+							</span>
+						</div>
+						<table class="yt-table" width="100%" id="hotel-list-info">
+							   <thead class="yt-thead">
+							   	      <tr>
+							   	      	   <th width="215px"><div style="width: 215px;">出差人</div></th>
+							   	      	   <th width="65px"><div style="width:65px ;">级别</div></th>
+							   	      	   <th width="85px"><div style="width: 85px;">住宿日期</div></th>
+							   	      	   <th width="176px"><div style="width: 176px;">人均花销(人/晚)</div></th>
+							   	      	   <th width="85px"><div style="width:85px;">住宿天数</div></th>
+							   	      	   <th width="90px"><div style="width:90px;">住宿费(元)</div></th>
+							   	      	   <th width="125px"><div style="width:125px ;">住宿地点</div></th>
+							   	      	   <th width=""><div>特殊说明</div></th>
+							   	      </tr>
+							   </thead>
+							   <tbody class="yt-tbody">
+							   	     
+							   </tbody>
+						</table>
+					</div>
+					<!--住宿费列表END-->
+					<!--其他费用START-->
+					<div class="other-cost-model">
+						<div class="cost-list-title">
+							<label>其他费用</label>
+							<span class="risk-model">
+								<input type="hidden" value="" class="hid-risk-code">
+								<img src="../../../../../resources-sasac/images/common/risk-via.png" class="risk-img">
+							</span>
+						</div>
+						<table class="yt-table" width="100%" id="other-list-info">
+							   <thead class="yt-thead">
+							   	    <tr>
+							   	    	<th width="340px"><div style="width: 340px;">费用类型</div></th>
+							   	    	<th width="340px"><div style="width: 340px;">费用金额</div></th>
+							   	    	<th width=""><div>特殊说明</div></th>
+							   	    </tr>
+							   </thead>
+							   <tbody class="yt-tbody">
+							   	    
+							   </tbody>
+						</table> 
+					</div>
+					<!--其他费用END-->
+					<!--补助明细列表START-->
+					<div class="subsidy-model">
+						<div class="cost-list-title">
+							<label>补助明细</label>
+							<span class="risk-model">
+								<input type="hidden" value="subsidyDetail" class="hid-risk-code">
+								<img src="../../../../../resources-sasac/images/common/risk-war.png" class="risk-img">
+							</span>
+						</div>
+						<table class="yt-table" width="100%" id="subsidy-list-info">
+							   <thead class="yt-thead">
+							   	      <tr>
+							   	      	  <th width="215px"><div style="width: 215px;">出差人</div></th>
+							   	      	  <th width="130px"><div style="width:130px ;">级别</div></th>
+							   	      	  <th width="185px"><div style="width: 185px;">补助天数</div></th>
+							   	      	  <th width=""><div style="width: ;">伙食补助费</div></th>
+							   	      	  <th width=""><div style="width: ;">市内交通费</div></th>
+							   	      </tr>
+							   </thead>
+							   <tbody class="yt-tbody">
+							   	    
+							   </tbody>
+						</table>
+					</div>
+					<!--补助明细列表END-->
+					<!--申请预算总金额区域START-->
+					<div class="apply-cost-total-model">
+						<div class="cost-list-title"><label>报销合计</label></div>
+						<div class="cost-total-rmb">
+							  <div>
+							  	   <label>报销金额合计：</label><span id="applySumMoney"></span><span>元</span>
+							  </div>
+							  <div class="reim-total-lower-div">
+							  	   <label>人民币大写：</label><span id="applyMoneyLower"></span>
+							  </div>
+						</div>
+						<div style="padding-left: 6px;">
+							<table style="width: 100%;">
+								<tr>
+									<td width="85px" class="text-right-td" style="padding-left: 10px;">
+										<div style="width: 85px;"><label><span style="letter-spacing: 5px;">发票张</span>数：</label></div>
+									</td>
+									<td class="invoice-num-td"><span data-text="invoiceNum" id="invoiceNum">0</span>张</td>
+									<td class="text-right-td" width="80px"><div style="width: 80px;"><label><span style="letter-spacing: 12px;">借款</span>单：</label></div></td>
+									<td>
+										<span data-text="loanAppNum" id="loanAppNum">--</span>
+										<label class="loan-money-label"><span style="letter-spacing: 5px;">借款金</span>额：</label><span id="loanPrice" data-text="loanAmount"></span>0.00<span>元</span>
+									</td>
+								</tr>
+							  </table>
+						</div>
+						<div style="padding: 5px 10px 0px 10px;">
+							 <table width="100%" id="replacementTab">
+							  	   <tr>
+							  	   	   <th rowspan="3" width="120px"><div style="width: 120px;">报销金额</div></th>
+							  	   	   <th rowspan="3" width="152px"><div style="width: 152px;">冲销金额</div></th>
+							  	   	   <th rowspan="3" width="170px"><div style="width: 170px;">补领金额</div></th>
+							  	   </tr>
+							  	   <tr>
+							  	   	   <th colspan="5" style="background: #3f5465;">补领方式</th>
+							  	   </tr>
+							  	   <tr>
+							  	   	   <th width="120px"><div style="width: 120px;">公务卡</div></th>
+							  	   	   <th width="125px"><div style="width: 125px;">现金</div></th>
+							  	   	   <th width="130px"><div style="width: 130px;">支票</div></th>
+							  	   	   <th width="120px"><div style="width: 120px;">转账</div></th>
+							  	   	   <th>合计</th>
+							  	   </tr>
+							  	   <tr>
+							  	   	   <td><span id="reimMoney">0.00</span></td>
+							  	   	   <td><span id="writeOffMoney">0.00</span></td>
+							  	   	   <td><span id="replMoney">0.00</span></td>
+							  	   	   <td style="text-align: right;"><span id="officialCard">0.00</span></td>
+							  	   	   <td style="text-align: right;"><span id="cash">0.00</span></td>
+							  	   	   <td style="text-align: right;"><span id="check">0.00</span></td>
+							  	   	   <td style="text-align: right;"><span id="carryOver">0.00</span></td>
+							  	   	   <td><span id="payWaySum">0.00</span></td>
+							  	   </tr>
+							  </table>
+						</div>
+					</div>
+					<!--申请预算总金额区域END-->
+				</div>
+				<!--费用申请多个列表显示END-->
+			</div>
+			<!--费用申请区域END-->
+			<!--流程审批区域START-->
+			<div class="flow-approve-model">
+				<!--标题区域START-->
+				<div class="title-model">
+					<div class="travel-plan-title title-model-sty">
+						<img src="../../../../../resources-sasac/images/system/expensesReim/common/flow-approve-title.png" />
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<div style="padding-left: 2px;">
+					 <table width="100%" id="flow-approve-tab">
+					   <tr>
+					   	   <td width="113px" align="center"><span class="not-null">*</span><label>选择操作流程：</label></td>
+							<td width="232px">
+								<select class="yt-select operate-flow-sel" id="operate-flow" validform="{isNull:true,changeFlag:true,msg:'请选择操作流程'}">
+									<option value="">请选择</option>
+								</select>
+								<!--风险标识START-->
+							    <span class="risk-model">
+									<input type="hidden" class="hid-edit-risk" value="operFlow"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+								<!--风险标识END-->
+								<div class="valid-font" style="top:49px"></div>
+							</td>
+							<td align="right" class="approvel-users"><div><span class="not-null">*</span><label>选择审批人：</label></div></td>
+							<td>
+								<div>
+									<select class="yt-select approve-users-sel" id="approve-users">
+									<option value="">请选择</option>
+									</select>
+									<!--风险标识START-->
+								    <span class="risk-model">
+										<input type="hidden" class="hid-edit-risk" value="approveUsers"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+									</div>
+							</td>
+					   </tr>
+					   <tr>
+					   	   <td valign="top" align="right"><label style="padding-right: 2px;">操作意见：</label></td>
+					   	   <td colspan="3">
+					   	   	   <textarea class="yt-textarea" id="operate-msg" placeholder="请输入"></textarea>
+					   	   </td>
+					   </tr>
+					   <tr>
+					   	   <td colspan="4" align="center" style="padding-bottom: 20px;">
+					   	   	<button class="yt-option-btn yt-common-btn" id="subCreateFormBtn">提交</button>
+					   	   	<button class="yt-option-btn yt-common-btn yt-cancel-btn" id="apprCanelBtn">取消</button>
+					   	   </td>
+					   </tr>
+					</table>
+				</div>
+			</div>
+			<!--流程审批END-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<!--验证-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/reimApply/reimApprove.min.js?YTVERSIONCODE"></script>
+	<!--引用JS文件END-->
+
+</html>

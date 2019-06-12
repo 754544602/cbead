@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classOccupy.css" />
+		<title>申请查询</title>
+		<style type="text/css">
+			.list-td {
+				text-align: center;
+			}
+			.search-box1{
+				position: absolute;
+			    display: none;
+			    float: right;
+			    padding: 0px 0 15px 10px;
+			    right:13px;
+			    top:132px;
+			    margin-right: 5px;
+			    width: 390px;
+			    background-color: #ffffff;
+			    box-shadow: 0px 3px 7px 0px #d9d9d9;
+			    border: solid 1px #f5f5f5;
+			    z-index: 10;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="page-main">
+			<div class="head-div" style="height: 20px; margin-bottom: 0px;"></div>
+			<div class="tab-title-list" style="overflow: hidden;margin-top: 0px;">
+				<div class="tab-title-box" style="width: 1440px;">
+					<button class="yt-option-btn class-info-btn active cost-btn">• 费用减免</button>
+					<button class="yt-option-btn teacher-info-btn borrow-btn">• 借用发票</button>
+				</div>
+				<!--隐藏数据表示获取的是哪种数据，1  减免，2发票-->
+				<input type="hidden" id="operate-type" value="减免" />
+			</div>
+			<!--数据展示区域START-->
+			<div class="box-list">
+				<div class="content-box programme" style="border-bottom: 0px;height: 35px;">
+					<span style="display: inline-block;font-size: 16px;margin: 8px 0px;" class="listName">费用减免列表</span>
+					<button class="yt-option-btn senior-search-btn" clickstate="true" style="margin:7px 8px 0px 9px;float: right;">
+						更多
+						<img class="search-put" src="../../resources/images/icons/class-put.png">
+					</button>
+					<div class="key-word" style="margin-right: 0px;margin-top: 7px;">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+					<!--费用减免弹出START-->
+						<div class="search-box" style="width:390px;right:12px;top: 133px;">
+							<table class="search-table">
+								<tr>
+									<td>项目编号：</td>
+									<td>
+										<input class="yt-input project-code" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>项目名称：</td>
+									<td>
+										<input class="yt-input project-code" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>项目类型：</td>
+									<td>
+										<div class="base-form-model select-type">
+											<div class="project-state-box">
+												<select id="projectType" class="yt-select"  style="width: 310px;">
+													<option value="">请选择</option>
+													<option value="2">委托</option>
+													<option value="3">选学</option>
+													<option value="4">调训</option>
+												</select>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>项目主任：</td>
+									<td>
+										<input class="yt-input project-head" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>开班日期：</td>
+									<td>
+										<input class="calendar-input start-time-start" style="width: 134px;" value="" placeholder="请选择" type="text" />
+										<span class="date-line">—</span>
+										<input class="calendar-input start-time-end" style="width: 134px;" value="" placeholder="请选择" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<td>结束日期：</td>
+									<td>
+										<input class="calendar-input end-time-start" style="width: 134px;" value="" placeholder="请选择" type="text" />
+										<span class="date-line">—</span>
+										<input class="calendar-input end-time-end" style="width: 134px;" value="" placeholder="请选择" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<td>申请时间：</td>
+									<td>
+										<input class="calendar-input apply-time-start" style="width: 134px;" value="" placeholder="请选择" type="text" />
+										<span class="date-line">—</span>
+										<input class="calendar-input apply-time-end" style="width: 134px;" value="" placeholder="请选择" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<td>减免金额：</td>
+									<td>
+										<input class="yt-input expense-start" style="width: 138px;" value="" placeholder="请输入" type="text" />
+										<span class="date-line">—</span>
+										<input class="yt-input expense-end" style="width: 138px;" value="" placeholder="请输入" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<td>申请人：</td>
+									<td>
+										<input class="yt-input project-head" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>审批状态：</td>
+									<td>
+										<div class="base-form-model select-type">
+											<div class="project-state-box">
+												<select id="workFlawState" class="yt-select"  style="width: 311px;">
+													<option value="">请选择</option>
+													<option value="2">草稿</option>
+													<option value="3">审批中</option>
+													<option value="4">未通过</option>
+													<option value="5">已通过</option>
+												</select>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<!--底部按钮START-->
+							<div class="search-bottom-btn">
+								<button class="yt-model-bot-btn yt-model-sure-btn">
+									<img class="search-btn-img" src="../../resources/images/icons/class-search.png"/>
+								</button>
+								<button class="yt-model-bot-btn yt-model-reset-btn" style="outline: none;cursor: pointer;">
+									<img class="search-btn-img" src="../../resources/images/icons/class-reset.png"/>
+								</button>
+							</div>
+						</div>
+					<!--费用减免弹出END-->
+					<!--借用发票弹出START-->
+					<div class="search-box1" >
+							<table class="search-table">
+								<tr>
+									<td>单位名称：</td>
+									<td>
+										<input class="yt-input project-code" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>发票类型：</td>
+									<td>
+										<div class="base-form-model select-type">
+											<div class="project-state-box">
+												<select id="projectType" class="yt-select"  style="width: 310px;">
+													<option value="">请选择</option>
+													<option value="2">委托</option>
+													<option value="3">选学</option>
+													<option value="4">调训</option>
+												</select>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>申请时间：</td>
+									<td>
+										<input class="calendar-input apply-time-start" style="width: 134px;" value="" placeholder="请选择" type="text" />
+										<span class="date-line">—</span>
+										<input class="calendar-input apply-time-end" style="width: 134px;" value="" placeholder="请选择" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<td>开票金额：</td>
+									<td>
+										<input class="yt-input expense-start" style="width: 138px;" value="" placeholder="请输入" type="text" />
+										<span class="date-line">—</span>
+										<input class="yt-input expense-end" style="width: 138px;" value="" placeholder="请输入" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: right;">申请人：</td>
+									<td>
+										<input class="yt-input project-head" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>审批状态：</td>
+									<td>
+										<div class="base-form-model select-type">
+											<div class="project-state-box">
+												<select id="workFlawState" class="yt-select"  style="width: 311px;">
+													<option value="">请选择</option>
+													<option value="2">草稿</option>
+													<option value="3">审批中</option>
+													<option value="4">未通过</option>
+													<option value="5">已通过</option>
+												</select>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<!--底部按钮START-->
+							<div class="search-bottom-btn">
+								<button class="yt-model-bot-btn yt-model-sure-btn">
+									<img class="search-btn-img" src="../../resources/images/icons/class-search.png"/>
+								</button>
+								<button class="yt-model-bot-btn yt-model-reset-btn" style="outline: none;cursor: pointer;">
+									<img class="search-btn-img" src="../../resources/images/icons/class-reset.png"/>
+								</button>
+							</div>
+						</div>
+					<!--借用发票弹出END-->
+				</div>
+				<div class="list-box content-box" style="margin: 0px 4px;border-top: none;">
+					<!--减免列表STAR-->
+					<table class="yt-table list-table reduce-list">
+						<thead class="list-thead">
+							<tr>
+								<th style="width: 70px;">项目编号</th>
+								<th>项目名称</th>
+								<th class="list-td" style="width: 70px;">项目类型</th>
+								<th class="list-td" style="width: 85px;">项目主任</th>
+								<th class="list-td" style="width: 75px;">开班日期</th>
+								<th class="list-td" style="width: 110px;">结束日期</th>
+								<th class="list-td" style="width: 110px;">申请时间</th>
+								<th style="width: 110px;">减免金额（元）</th>
+								<th class="list-td" style="width: 80px;">申请人</th>
+								<th class="list-td" style="width: 60px;">状态</th>
+
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody curriculum-tbody cost-tbody">
+							<tr>
+								<td colspan="10" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--减免列表END-->
+
+					<!--发票借用列表STAR-->
+					<table class="yt-table list-table borrow-list">
+						<thead class="list-thead">
+							<tr>
+								<th style="width: 35px;">序号</th>
+								<th>发票开具单位名称</th>
+								<th style="width: 80px;">发票类型</th>
+								<th style="width: 95px;">申请时间</th>
+								<th style="width: 120px;">申请开票金额</th>
+								<th style="width: 80px;">申请人</th>
+								<th style="width: 80px;">状态</th>
+								<th style="width: 220px;">开票信息</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody curriculum-tbody borrow-list-tod">
+							<tr>
+								<td colspan="7" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--发票借用列表END-->
+
+					<div class="page-info curriculum-page" onselectstart="return false"></div>
+				</div>
+			</div>
+			<!--数据展示区域END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/finance/applyQueryList.js"></script>
+
+</html>

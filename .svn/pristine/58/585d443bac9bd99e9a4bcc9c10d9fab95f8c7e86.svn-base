@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherInf.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/dTree/yt-dtree.min.css" />
+		<title>班级管理</title>
+	</head>
+	<body style="min-width: 1000px;">
+		<div class="project-title-div">
+			<button class="yt-option-btn btn-return">
+				<img class="return-img" src="../../resources/images/icons/class-return.png"/>
+				返回
+			</button>
+		</div>
+		<div class="tab-title-list">
+			<button class="yt-option-btn teacher-inf active">• 教师信息</button>
+			<button class="yt-option-btn teach-records">• 授课记录</button>
+			<button class="yt-option-btn teach-courses">• 可授课程</button>
+			<button class="yt-option-btn courseware-file">• 课件文件</button>
+		</div>
+		<div class="box-list">
+			<div class="content-box" style="background: #FFFFFF;">
+				<div class="teacher-index-inf">
+					<!--<div class="head-title">
+						教师状态: 
+						<span></span>
+					</div>-->
+					<form style="margin-top: 15px;">
+						<span class="amendDetail" style="float: right;margin:10px 20px 0 0;text-decoration: underline;cursor: pointer;line-height: 20px;display: flex;justify-content: center;align-items: center;color: #2080bf;"><img src="../../resources/images/icons/amend.png" style="margin-right: 5px;"/>修改资料</span>
+						<table style="margin: 0 auto;width: 750px;">
+							<tr>
+								<td class="form-label" width="80px" align="right" ><span class="query-title">教师姓名：</span></td>
+								<td >
+									<span class="span-box  query-code realName"  data-text="realName" style="width: 63px;"></span>
+									<span class="valid-font actAdress" style="width: 135px;"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;" width="50px">性别:</td>
+								<td >
+								    <span class="gender"></span>  
+								</td>
+								<td align="right" width="150px" style="padding-right: 8px;">专业领域:</td>
+								<td>
+									<span class="span-box  query-code researchArea " data-text="researchArea"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right" ><span class="query-title">单位：</span></td>
+								<td colspan="3" style="width:40% ;">
+									<span class="span-box  query-code org " data-text="org"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">适用班次:</td>
+								<td>
+									<span class="span-box  query-code applyShift " data-text="applyShift"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right" ><span class="query-title">职务：</span></td>
+								<td colspan="3">
+									<span class="span-box  query-code title " data-text="title"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">秘书手机:</td>
+								<td>
+									<span class="span-box  query-code clerkPhone " data-text="clerkPhone"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right" ><span class="query-title">证件类型：</span></td>
+								<td colspan="3">
+									<div class="base-form-model">
+										<span class="papersType" data-text=""></span>
+									</div>
+								</td>
+								<td align="right" style="padding-right: 8px;">秘书电话:</td>
+								<td>
+									<span class="span-box  query-code clerkWorkPhone " data-text="clerkWorkPhone"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right" ><span class="query-title">证件号码：</span></td>
+								<td colspan="3">
+									<span class="span-box  query-code papersNumber " data-text="papersNumber"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">统筹人:</td>
+								<td>
+									<span class="span-box  query-code inspectingUserCode " data-text="inspectingUserName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right" ><span class="query-title">手机号：</span></td>
+								<td colspan="3">
+									<span class="span-box  query-code phone " data-text="phone"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">中间联系人:</td>
+								<td>
+									<span class="span-box  query-code intermediateUserCode " data-text="intermediateUserName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right" ><span class="query-title">办公电话：</span></td>
+								<td colspan="3">
+									<span class="span-box  query-code workPhone " data-text="workPhone"></span>
+								</td>
+								<td  align="right" style="padding-right: 8px;" ><span class="query-title">传真：</span></td>
+								<td>
+									<span class="span-box  query-code fax" data-text="fax"></span>
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="form-label" align="right"><span class="query-title">邮箱：</span></td>
+								<td colspan="3">
+									<span class="span-box  query-code email" data-text="email"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">开户行:</td>
+								<td >
+									<span class="span-box  query-code registeredBank "data-text="registeredBank"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right" ><span class="query-title">单位地址：</span></td>
+								<td colspan="3">
+									<span class="span-box  query-code orgAddress"  data-text="orgAddress"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">银行卡号:</td>
+								<td style="word-break: keep-all;white-space: nowrap;">
+									<span class="span-box  query-code account " data-text="account"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right" ><span class="query-title">课酬标准：</span></td>
+								<td colspan="5">
+									<span class="span-box  query-code " data-text="dollarsStandardHalf"></span>
+									<span>元/半天</span>
+									&emsp;
+									<span class="span-box  query-code " data-text="dollarsStandardOne"style="width: 100px;margin-right: 10px;"></span>
+									<span>元/天</span>
+									&emsp;
+									<a class="changeRecord" style="color: #2080bf;cursor: pointer;">变更记录>></a>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right" ><span class="query-title" >教师简介：</span></td>
+								<td colspan="5" >
+									<p class="teacherDetails"  data-text="teacherDetails" style="word-break: break-all;"></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="6"  style="height: 0px;">
+									<ul class="file-id" style="margin-left: 100px;padding-bottom: 10px;">
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right"  ><span class="query-title" >教师评价：</span></td>
+								<td colspan="5" >
+									<p class="teacherEvaluate" data-text="teacherEvaluate" style="word-break: break-all;"></p>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right"  ><span class="query-title" >备注：</span></td>
+								<td colspan="5" >
+									<p class="remarks" data-text="remarks" style="word-break: break-all;"></p>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" align="right"  ><span class="query-title" >标签：</span></td>
+								<td colspan="5" >
+									<p class="tableValue" data-text="tableValue" style="word-break: break-all;"></p>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			<!--标题区域END-->
+			<div class="content-box dn">
+				<div class="list-box">
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+								<tr>
+									<th width="50px">序号</th>
+									<th width="120px">授课日期</th>
+									<th width="120px" >授课班级</th>
+									<th width="120px" >项目主任</th>
+									<th >课程主题</th>
+									<th >课件</th>
+									<th width="70px" style="text-align: right;">学员评分</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody records-tbody list-tbody">
+								<tr>
+									<td colspan="7" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-info   record-info" onselectstart="return false"></div>
+					</div>
+				</div>
+			<div class="content-box dn">
+				<div>
+					<button class="yt-option-btn add-courses-list" style="margin-left: 20px;">
+						<img src="../../resources/images/icons/add-icons.png" alt="" />
+						新增
+					</button>
+				</div>
+				<div class="list-box">
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+								<tr>
+									<th width="50px">序号</th>
+									<th>课程主题</th>
+									<th>课程简介</th>
+									<th width="100px">操作</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody courses-tbody list-tbody">
+								<tr>
+									<td colspan="4" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-info   course-info" onselectstart="return false" style="display: none;"></div>
+				</div>
+			</div>
+			<div class="yt-pop-model yt-edit-alert lawyer-opinion-box add-course-alert alert-index">
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">新增课程</span>
+				</div>
+				<!--标题区域END-->
+				<div class="yt-edit-alert-main valid-tab">
+					<form style="overflow: auto;height: auto;">
+						<table>
+							<tr>
+								<td class="form-label" width="125px" align="right" style="height: 75px;"><span class="query-title">课程主题：</span><span style="color:red;font-weight:bold" data-qtip="Required">*</span></td>
+								<td colspan="">
+									<input class="yt-input input-box  query-code course-title " validform="{isNull:true,blurFlag:true,size:30,msg:'课程主题不可超过30个字，课程简介不可超过100个字'}" type="text"  placeholder="请输入" />
+									<span class="valid-font" style="top: 52px;"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" valign="top" align="right" ><span class="query-title">课程简介：</span><span style="color:red;font-weight:bold" data-qtip="Required">*</span></td>
+								<td>
+									<textarea class="yt-textarea course-details" style="resize: none;display: inline-block;" validform="{isNull:true,blurFlag:true,size:100}"  placeholder="请输入"></textarea>
+								</td>
+							</tr>
+						</table>
+					</form>
+					<div class="yt-eidt-model-bottom">
+						<input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="保存" />
+						<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+					</div>
+				</div>
+			</div>
+			<div class="content-box dn">
+				<div class="student-info-btn-list" style="padding-left: 5px;margin: 5px 0;">
+					<button class="yt-option-btn import-btn" style="margin: 0px 0px;">
+					<img src="../../resources/images/classStudent/guanli-daoru.png">
+						上传
+					</button>
+					<div class="key-word stu-key-word" style="width: 230px;">
+						<input class="yt-input keyword selectParam" placeholder="请输入关键字" type="text">
+						<button class="yt-option-btn search-btn">
+						<img class="search-img" src="../../resources/images/icons/class-search.png">
+					</button>
+					</div>
+				</div>
+				<div class="list-box">
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+								<tr>
+									<th width="50px">序号</th>
+									<th>文件名称</th>
+									<th width="95px">上传人</th>
+									<th width="175px">上传时间</th>
+									<th width="140px">文件大小</th>
+									<th width="80px">操作</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody courseware-tbody list-tbody">
+								<tr>
+									<td colspan="5" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-info   courseware-info" onselectstart="return false"></div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="yt-pop-model yt-edit-alert batch-import-form" style="width: 499px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title" style="cursor: move;">
+					<span class="yt-edit-alert-title-msg">上传文件</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<div style="margin: 20px auto;text-align:center;position: relative;">
+						<span>文件：</span>
+						<span class="yt-option-btn batch-import-choose" style="position: relative;">
+							<img src="../../resources/images/classStudent/chose-icon.png"> 选择
+						<input type="file" name="file" id="fileName" style="font-size: 16px;">
+						</span>
+						<input class="yt-input import-file-name" placeholder="请选择文件" disabled="disabled">
+					</div>
+
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom" style="border: none;">
+						<input class="yt-model-bot-btn yt-model-sure-btn import-sure" type="button" value="上传">
+						<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消">
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<div class="yt-pop-model yt-edit-alert alert-add-teacher add-teacher-table-alert" style="width: 974px;">
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">修改</span>
+				</div>
+				<!--标题区域END-->
+				<div class="yt-edit-alert-main valid-tab">
+					<form style="margin-top: 15px;" style="overflow: auto;">
+						<table style="margin: 0 auto;">
+							<tr><input type="hidden" name="" id="" value="" />
+								<td class="form-label" width="125px" align="right" ><span class="query-title"><span style="color:red;font-weight:bold" data-qtip="Required">*</span>教师姓名：</span><span class="sel-text" style="position: relative;"></span></td>
+								<td >
+									<input class="yt-input realName" data-val="realName" validform="{isNull:true,blurFlag:true,size:10,msg:'所填内容不可超过10个字'}"style="width: 130px;" type="text"  placeholder="请输入" />
+									<img src="../../resources/images/icons/pass.png" class="icon-pass" style="display: none;" title="已通过" width="15px" />
+									<img src="../../resources/images/icons/nopass.png" class="icon-nopass" style="display: none;" title="教师已存在" width="15px" />
+									<span class="valid-font actAdress" style="width: 135px;"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;" width="50px"><span style="color:red;font-weight:bold" data-qtip="Required">*</span>性别:</td>
+								<td >
+									<label class="check-label yt-radio check" >  
+									    <input id="radio1" class="gender" type="radio" name="test" value="1"/>  
+									   	 男  
+								    </label>  
+								    <label class="check-label yt-radio">  
+									    <input id="radio2" class="gender" type="radio" name="test" value="2"/>  
+									             女	  
+								    </label>
+								</td>
+								<td align="right" width="125px" style="padding-right: 8px;"><span style="color:red;font-weight:bold" data-qtip="Required">*</span>专业领域:</td>
+								<td class="research-area">
+									<div id="">
+										 <input id="textTree" class="tree-input" type="text" value=""validform="{isNull:true,blurFlag:true,msg:'请选择专业领域'}" placeholder="请选择专业领域" style="width: 276px;cursor: pointer;" /> 
+										<span class="valid-font actAdress"></span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" ><span class="query-title">单位：</span></td>
+								<td colspan="3">
+									<input class="yt-input org " data-val="org" validform="{blurFlag:true,size:100,msg:'所填内容不可超过100个字'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">适用班次:</td>
+								<td>
+									<input class="yt-input applyShift " data-val="applyShift" type="text"  placeholder="请输入" />
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" ><span class="query-title">职务：</span></td>
+								<td colspan="3">
+									<input class="yt-input title " data-val="title" validform="{blurFlag:true,size:100,msg:'所填内容不可超过100个字'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">秘书手机:</td>
+								<td>
+									<input class="yt-input clerkPhone " data-val="clerkPhone" validform="{blurFlag:true,type:'phone',msg:'填写正确手机号'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" ><span class="query-title">证件类型：</span></td>
+								<td colspan="3">
+									<div class="base-form-model">
+										<select id="project-states" class="yt-select papersTypeText" style="width: 286px;" >
+											<option value="1">居民身份证</option>
+											<option value="2">护照</option>
+											<option value="3">港澳通行证</option>
+											<option value="4">军官证</option>
+											<option value="5">其他</option>
+										</select>
+									</div>
+								</td>
+								<td align="right" style="padding-right: 8px;">秘书电话:</td>
+								<td>
+									<input class="yt-input    clerkWorkPhone " data-val="clerkWorkPhone" validform="{blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" ><span class="query-title">证件号码：</span></td>
+								<td colspan="3">
+									<input class="yt-input    papersNumber " data-val="papersNumber" validform="{blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">统筹人:</td>
+								<td>
+									<div class="base-form-model">
+										<select class="yt-select inspecting-user-code" data-val="inspectingUserCode" style="width: 286px;" >
+											<option value="">请选择</option>
+										</select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" ><span class="query-title"><span style="color:red;font-weight:bold" data-qtip="Required">*</span>手机号：</span></td>
+								<td colspan="3">
+									<input class="yt-input    phone " data-val="phone"  validform="{isNull:true,blurFlag:true,type:'phone',msg:'填写正确手机号'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">中间联系人:</td>
+								<td>
+									<div class="base-form-model">
+										<select class="yt-select intermediate-user-code" data-val="intermediateUserCode" style="width: 286px;" >
+											<option value="">请选择</option>
+										</select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" ><span class="query-title">办公电话：</span></td>
+								<td colspan="3">
+									<input class="yt-input    workPhone " data-val="workPhone" validform="{blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+								<td class="form-label" width="125px" align="right" ><span class="query-title">传真：</span></td>
+								<td colspan="3">
+									<input class="yt-input    fax" data-val="fax"   validform="{blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right" style="padding-right: 8px;"><span class="query-title"><span style="color:red;font-weight:bold" data-qtip="Required">*</span>课酬标准：</span></td>
+								<td colspan="3">
+									<span class="dollarsStandardHalfSpan" data-text="dollarsStandardHalf"></span>
+									<input class="yt-input dollarsStandardHalf" data-val="dollarsStandardHalf" validform="{isNull:true,blurFlag:true,size:20,msg:'所填内容不可超过20个字'}"style="width: 220px;margin-right: 15px;" type="text"  placeholder="请输入" />元/半天
+									<span class="valid-font actAdress"></span>
+								</td>
+								<td class="form-label" width="125px" align="right" ><span class="query-title"></span></td>
+								<td colspan="3">
+									<span class="dollarsStandardOneSpan" data-text="dollarsStandardOne"></span>
+									<input class="yt-input dollarsStandardOne" data-val="dollarsStandardOne" validform="{isNull:true,blurFlag:true,size:20,msg:'所填内容不可超过20个字'}" style="width: 220px;margin-right: 15px;" type="text"  placeholder="请输入" />元/天
+									<span class="valid-font actAdress"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" ><span class="query-title">邮箱：</span></td>
+								<td colspan="3">
+									<input class="yt-input    email" data-val="email" validform="{blurFlag:true,type:'email',msg:'请填写正确的邮箱格式'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">开户行:</td>
+								<td>
+									<input class="yt-input    registeredBank " data-val="registeredBank" validform="{blurFlag:true,size:50,msg:'所填内容不可超过50个字'}" type="text"  placeholder="开户行具体到支行" />
+									<span class="valid-font actAdress"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" ><span class="query-title">单位地址：</span></td>
+								<td colspan="3">
+									<input class="yt-input    orgAddress"  data-val="orgAddress" validform="{blurFlag:true,size:50,msg:'所填内容不可超过50个字'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+								<td align="right" style="padding-right: 8px;">银行卡号:</td>
+								<td>
+									<input class="yt-input    account " data-val="account" validform="{blurFlag:true,size:30,msg:'所填内容不可超过30个字'}" type="text"  placeholder="请输入" />
+									<span class="valid-font actAdress"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" valign="top" ><span class="query-title"style="line-height: 56px;">教师简介：</span></td>
+								<td colspan="5" >
+									<textarea class="yt-textarea teacherDetails"  data-val="teacherDetails" style="resize: none;margin-top:18px;width: 707px;height:50px;display: inline-block;"  placeholder="请输入"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="6" style="position: relative;" class="upload-td">
+									<button class="btn-file" style="background: #7b74c7;">
+										上传文件
+									</button>
+									<input type="file" id="addFile"  name="file" class="fileIds" style="overflow: hidden;line-height: 20px;font-size: 20px;top: 10px;left: 124px;width: 75px;" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="6"  style="height: 0px;">
+									<ul class="file-id-alert" style="margin-left: 125px;padding-bottom: 10px;">
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" valign="top" ><span class="query-title"style="line-height: 56px;">教师评价：</span></td>
+								<td colspan="5" >
+									<textarea class="yt-textarea teacherEva" data-val="teacherEvaluate" validform="{blurFlag:true,size:1000,msg:'所填内容不可超过1000个字'}" style="resize: none;margin-top:18px;width: 707px;height:50px;display: inline-block;"  placeholder="请输入"></textarea>
+									<span class="valid-font" style="top: auto;position: relative;display: block;"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" valign="top" ><span class="query-title">备注：</span></td>
+								<td colspan="5" >
+									<textarea class="yt-textarea remarks" data-val="remarks"  style="resize: none;margin-bottom: 10px; width: 707px;height:50px; display: inline-block;"  placeholder="请输入"></textarea>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-label" width="125px" align="right" valign="top" ><span class="query-title">标签：</span></td>
+								<td colspan="5" >
+									<textarea class="yt-textarea tableValue" data-val="tableValue"  style="resize: none;margin-bottom: 10px; width: 707px;height:50px; display: inline-block;"  placeholder="请输入标签，以‘，’分割"></textarea>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+						</table>
+					</form>
+					<div class="yt-eidt-model-bottom">
+						<button class="yt-model-bot-btn yt-model-sure-btn">保存</button>
+						<button class="yt-model-bot-btn yt-model-canel-btn">取消</button>
+					</div>
+				</div>
+			</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dTree/yt-dtree.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/teacher/teacherInf.js"></script>
+</html>

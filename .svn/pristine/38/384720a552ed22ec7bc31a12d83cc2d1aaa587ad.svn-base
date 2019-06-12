@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<title>查看审批详情</title>
+		<style type="text/css">
+			.details-textarea{
+				height: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<button class="page-return-btn">
+					<img class="class-return-img back-btn" src="../../resources/images/icons/class-return.png">
+					返回
+				</button>
+				<input type="hidden" value="" id="processInstanceId" />
+			</div>
+			<!--顶部条件查询END-->
+
+			<!--数据展示区域START-->
+			<div class="title-div-box">
+				<p class="title-p-style" style="margin: 10px 20px 0px 6px;" ></p>
+				<p class="title-text-p" style="margin-top: 0px;">新闻稿详情</p>
+			</div>
+
+			<!--班级STAR-->
+			<div class="content-div-box">
+				<table class="open-tb-style add-tab" cellspacing="1px" cellpadding="1px" style="height: 130px;margin: 0px auto;width: 900px;">
+					<tr>
+						<td class="td-right">班级：</td>
+						<td class="projectCode left-td" id="projectCode" style="width: 300px;"></td>
+						<td class="td-right">项目主任：</td>
+						<td class="left-td" id="projectUserName"></td>
+					</tr>
+					<tr>
+						<td class="td-right">标题：</td>
+						<td class="left-td" id="title"></td>
+						<td class="td-right">发布时间：</td>
+						<td class="left-td" id="issueDayeString"></td>
+					</tr>
+				</table>
+				<div class="details-box">
+					<p class="details-title">讲稿内容</p>
+					<p class="details-textarea details-approve" id="details"style="margin: 0 auto;width: 800px;"></p>
+				</div>
+			</div>
+			<!--班级END-->
+
+			<!--审批流程STAR-->
+			<!--审批流程STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p">审批流程</p>
+			</div>
+			<div class="content-div-box">
+				<div class="procedure-box" style="width: 970px;margin: 0px auto;">
+					<div class="last-step last-step-div"></div>
+					<!--审批第一步STAR-->
+					<div class="first-step">
+						<div style="height: 150; ">
+							<div class="number-name-box">
+								<span class="number-box-span first-step-order"></span>
+								<span class="name-box-span first-step-operate-person-userName"></span>
+								<img src="../../resources/images/open/openFlow.png" width="100%" height="100%" />
+							</div>
+						</div>
+						<div class="pad-pos" style="height: 89px;">
+							<ul class="first-step-ul">
+								<li style="height: 30px;">
+									<span class="first-step-taskName view-taskName-span" style="float: left;"></span>
+								</li>
+								<li class="view-time-li first-step-commentTime"></li>
+							</ul>
+						</div>
+					</div>
+					<!--审批第一步END-->
+				</div>
+			</div>
+			<!--审批流程END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+
+	<script type="text/javascript" src="../../resources/js/tabEdit/yt-tab-edit.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/news/lookOneInfoApprove.js"></script>
+	<script type="text/javascript" src="../../resources/js/sortable/yt-sortable.js"></script>
+
+</html>

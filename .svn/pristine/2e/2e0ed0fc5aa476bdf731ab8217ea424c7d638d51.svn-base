@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>用户详情</title>
+		<!--该页面是审批记录详情页面只能查看不可修改-->
+
+		<style type="text/css">
+			.td-style {
+				width: 300px;
+				height: 35px;
+				text-align: left;
+			}
+			
+			.tbody-records tr {
+				height: 35px;
+			}
+			
+			.tds-right {
+				text-align: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<button class="page-return-btn">
+					<img class="class-return-img back-btn" src="../../resources/images/icons/class-return.png">
+					返回
+				</button>
+			</div>
+			<!--数据展示区域START-->
+			<div class="title-div-box">
+				<p class="title-p-style" style="margin: 9px 20px 0px 6px;"></p>
+				<p class="title-text-p">用户详情</p>
+
+				<!--隐藏数据-->
+				<input type="hidden" class="trainee-id" value="" />
+			</div>
+			<!--个人详情STAR-->
+			<div class="content-div-box">
+				<table style="margin: 0px auto;">
+					<tr>
+						<td colspan="6" style="height: 35px;text-align: center;font-size: 18px;">
+							<div id="real-name" style="width: 237px;margin: 0px auto;">
+								<span></span>
+								<img src="../../resources/images/open/traineehead.png" width="100%" />
+
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="td-text-style" style="width: 260px;">性别：</td>
+						<td class="td-style" id="gender"></td>
+						<td class="td-text-style" style="width: 128px;">民族：</td>
+						<td class="td-style" id="nation-name"></td>
+						<td></td>
+						<td rowspan="4">
+							<div id="img-box-div" style="width: 82px;height: 126px;padding: 10px;border: 1px dashed #CDCDCD;">
+								<img class="student-details-img" src="../../resources/images/icons/loading123.gif">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="td-text-style">证件类型：</td>
+						<td class="td-style" id="id-type"></td>
+						<td class="td-text-style">证件号：</td>
+						<td class="td-style" id="id-number"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style">手机号：</td>
+						<td class="td-style" id="phone"></td>
+						<td class="td-text-style">出生年月：</td>
+						<td class="td-style" id="date-birth"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style">集团：</td>
+						<td class="td-style" id="group-name"></td>
+						<td class="td-text-style">单位：</td>
+						<td class="td-style" id="group-org-name"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style">单位类型：</td>
+						<td class="td-style" id="org-type"></td>
+						<td class="td-text-style">部门/职位：</td>
+						<td class="td-style" id="position-name"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style" style="height: 35px;">通信地址：</td>
+						<td class="td-style" id="mailing-address"></td>
+						<td class="td-text-style">邮编：</td>
+						<td class="td-style" id="postal-code"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style">电话：</td>
+						<td class="td-style" id="telephone"></td>
+						<td class="td-text-style">传真：</td>
+						<td class="td-style" id="fax"></td>
+						<td class="td-text-style">电子邮箱：</td>
+						<td class="td-style" id="email"></td>
+					</tr>
+					<tr>
+
+						<td class="td-text-style">入党时间：</td>
+						<td class="td-style" id="party-date"></td>
+						<td class="td-text-style">参加工时间：</td>
+						<td class="td-style" id="work-time"></td>
+						<td class="td-text-style">全职教育：</td>
+						<td class="td-style" id="education-time"></td>
+
+					</tr>
+					<tr>
+						<td style="width: 260px;text-align: right;">毕业院校及专业：</td>
+						<td class="td-style" id="education-time-class"></td>
+						<td class="td-text-style">在职教育：</td>
+						<td class="td-style" id="service-time"></td>
+						<td style="width: 160px; text-align: right;">毕业院校及专业：</td>
+						<td class="td-style" id="service-time-class"></td>
+						<td></td>
+						<td></td>
+
+					</tr>
+
+				</table>
+			</div>
+			<!--个人详情END-->
+
+			<!--发票抬头STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style" style="margin: 9px 20px 0px 6px;"></p>
+				<p class="title-text-p">发票抬头</p>
+			</div>
+			<div class="content-div-box">
+				<table class="yt-table list-table invoice-list">
+					<thead class="list-thead">
+						<tr>
+							<th class="th-center" style="width: 40px;">序号</th>
+							<th class="th-center" style="width: 170px;">名称</th>
+							<th class="th-center" style="width: 200px;">税号</th>
+							<th class="th-center" style="width: 274px;">公司地址</th>
+							<th class="th-center" style="width: 100px;">电话</th>
+							<th class="th-center" style="width: 80px;">开户行</th>
+							<th class="th-center" style="width: 200px;">银行账号</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody class-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="7" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--发票抬头END-->
+
+			<!--培训记录STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style" style="margin: 9px 20px 0px 6px;"></p>
+				<p class="title-text-p">培训记录</p>
+
+			</div>
+			<div class="content-div-box">
+				<table class="yt-table list-table train-list">
+					<thead class="list-thead">
+						<tr>
+							<th class="th-center" style="width: 40px;">序号</th>
+							<th class="th-center" style="width: 153px;">项目周期</th>
+							<th class="th-center" style="width: 100px;">项目代号</th>
+							<th class="th-center">项目名称</th>
+							<th class="th-center" style="width: 80px;">项目主任</th>
+							<th class="th-center" style="width: 80px;">当时单位</th>
+							<th class="th-center" style="width: 90px;">当时部门职务</th>
+							<th class="th-center" style="width: 70px;">报道状态</th>
+							<th class="th-center" style="width: 70px;">班级职务</th>
+							<th class="th-center" style="width: 60px;">评分</th>
+							<th class="th-center" style="width: 105px;">查看</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody class-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="11" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--培训记录END-->
+
+			<!--其他来往记录STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style" style="margin: 9px 20px 0px 6px;"></p>
+				<p class="title-text-p">其他来往记录</p>
+			</div>
+			<div class="content-div-box">
+				<div class="records-list">
+					<!--其他来往记录-->
+				</div>
+
+				<div style="text-align: center;">
+					<button class="yt-option-btn add-btn">
+					<img src="../../resources/images/button/add-icon.png">
+					新增记录
+				</button>
+				</div>
+			</div>
+			<!--其他来往记录END-->
+
+			<!--新增来往记录弹窗STAR-->
+			<div class="yt-pop-model yt-edit-alert add-shuttle-box" style="width: 712px;">
+				<div class="yt-edit-alert-title ">
+					<span class="main-title-span">新增来往记录</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test">
+					<table cellspacing="1px" cellpadding="1px" style="height: 320px;margin: 22px auto;">
+						<tr>
+							<td class="td-text-style">日期：</td>
+							<td>
+								<input style="width: 190px;" class="calendar-input" id="visit-date" value="" placeholder="请选择时间" type="text" validform="{isNull:true,size:20,msg:'时间不能为空！'}" />
+								<span class="valid-font" style="position: absolute;top:46px;"></span>
+							</td>
+							<td class="td-text-style">事由：</td>
+							<td style="text-align: left;">
+								<select class="yt-select add-cause" style="width: 200px;">
+									<option value="">请选择事由</option>
+									<option value="1">来访</option>
+									<option value="2">电话联络</option>
+									<option value="3">走访</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-text-style">对接负责人：</td>
+							<td class="" style="width: 300px; text-align: left;">
+								<select class="yt-select add-charge-person" style="width: 200px;">
+									<option value="">请选择负责人</option>
+								</select>
+							</td>
+							<td class="td-text-style">接待形式：</td>
+							<td>
+								<select class="yt-select add-reception-form" style="width: 200px;">
+									<option value="">请选择接待方式</option>
+									<option value="1">公务接待</option>
+									<option value="2">对方付费</option>
+								</select>
+							</td>
+
+						</tr>
+						<tr>
+							<td class="td-text-style">接待安排：</td>
+							<td>
+								<select class="yt-select add-reception-arrangement" style="width: 200px;">
+									<option value="">请选择接待安排</option>
+									<option value="1">用餐</option>
+									<option value="2">市内参观</option>
+									<option value="3">旅顺参观</option>
+									<option value="4">其他</option>
+								</select>
+							</td>
+							<td class="td-text-style">用餐安排：</td>
+							<td>
+								<input class="yt-input add-dining-arrangements" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td-text-style">出席人员：</td>
+							<td colspan="5">
+								<input class="yt-input add-attendees" style="width: 567px;" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td-text-style">对方馈赠：</td>
+							<td colspan="5">
+								<input class="yt-input add-gift-give" style="width: 567px;" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td-text-style">我院回赠：</td>
+							<td colspan="5">
+								<input class="yt-input add-courtyard-return" style="width: 567px;" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td-text-style" style="vertical-align: text-top;line-height: 30px;">备注：</td>
+							<td colspan="5">
+								<textarea class="add-remarks yt-textarea" style="resize: none;width: 567px;"></textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="yt-eidt-model-bottom select-teacher-btn-div">
+					<input class="yt-model-bot-btn yt-model-sure-btn" id="submit" type="button" value="确定" />
+					<input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="取消" style="margin-left: 20px;" />
+				</div>
+			</div>
+
+			<!--新增来往记录弹窗END-->
+
+			<!--学员详情弹窗STAR-->
+			<div class="yt-pop-model yt-edit-alert look-info" style="width: 1064px;">
+				<div class="yt-edit-alert-title ">
+					<span class="main-title-span">学员详情</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test" style="height: auto;overflow-y: auto; margin: 5px auto;">
+					<table class="look-info-tb" cellspacing="1px" cellpadding="1px" style="margin: 20px auto;border: 1px solid #DDDDDD;margin: 5px;">
+						<tr>
+							<td class="td-text-style">姓名：</td>
+							<td class="td-style" id="look-real-name"></td>
+							<td class="td-text-style" style="width: 130px;">分组：</td>
+							<td class="td-style" id="look-group-name" style="width: 200px;"></td>
+							<td></td>
+							<td rowspan="4">
+								<div id="look-img-box-div" style="width: 82px;height: 126px;padding: 10px;margin: 5px; border: 1px dashed #CDCDCD;">
+									<img class="look-student-details-img" src="../../resources/images/icons/loading123.gif">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-text-style" style="width: 123px;">性别：</td>
+							<td class="td-style" id="look-gender"></td>
+							<td class="td-text-style" style="width: 128px;">民族：</td>
+							<td class="td-style" id="look-nation-name"></td>
+						</tr>
+						<tr>
+							<td class="td-text-style">证件类型：</td>
+							<td class="td-style" id="look-id-type"></td>
+							<td class="td-text-style">证件号：</td>
+							<td class="td-style" id="look-id-number"></td>
+						</tr>
+						<tr>
+							<td class="td-text-style">手机号：</td>
+							<td class="td-style" id="look-phone"></td>
+							<td class="td-text-style">出生年月：</td>
+							<td class="td-style" id="look-date-birth"></td>
+						</tr>
+						<tr>
+							<td class="td-text-style">集团：</td>
+							<td class="td-style" id="look-group-name"></td>
+							<td class="td-text-style">单位：</td>
+							<td class="td-style" id="look-group-org-name"></td>
+							<td class="td-text-style">单位类型：</td>
+							<td class="td-style" id="look-org-type"></td>
+						</tr>
+						<tr>
+
+							<td class="td-text-style">部门/职位：</td>
+							<td class="td-style" id="look-position-name"></td>
+							<td class="td-text-style">邮编：</td>
+							<td class="td-style" id="look-postal-code"></td>
+							<td class="td-text-style">电话：</td>
+							<td class="td-style" id="look-telephone"></td>
+						</tr>
+						<tr>
+							<td class="td-text-style">通信地址：</td>
+							<td style="width: 137px;" colspan="4" class="td-style" id="look-mailing-address"></td>
+							<td></td>
+						</tr>
+
+						<tr>
+							<td class="td-text-style">传真：</td>
+							<td class="td-style" id="look-fax"></td>
+							<td class="td-text-style">电子邮箱：</td>
+							<td class="td-style" id="look-email"></td>
+							<td class="td-text-style">入党时间：</td>
+							<td class="td-style" id="look-party-date"></td>
+						</tr>
+						<tr>
+
+							<td class="td-text-style">参加工时间：</td>
+							<td class="td-style" id="look-work-time"></td>
+							<td class="td-text-style">全职教育：</td>
+							<td class="td-style" id="look-education-time"></td>
+							<td class="td-text-style" style="width: 150px;">毕业院校及专业：</td>
+							<td class="td-style" id="look-education-time-class"></td>
+						</tr>
+						<tr>
+							<td class="td-text-style">在职教育：</td>
+							<td class="td-style" id="look-service-time"></td>
+							<td class="td-text-style" style="width: 150px;">毕业院校及专业：</td>
+							<td class="td-style" id="look-service-time-class"></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+					<table class="invoice-tab" cellspacing="1px" cellpadding="1px" style="width: 1048px; margin: 20px auto;border: 1px solid #DDDDDD;margin: 5px;">
+						<tr>
+							<td colspan="6">
+								<span id="" style="float: left; width: 80px;height: 30px;line-height: 30px;text-align: center;background: #5B66AB;color: #FFF;">
+								开票信息
+							</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tds-right" style="width: 90px; height: 35px;">发票类型：</td>
+							<td class="invoice-type"></td>
+							<td class="tds-right" style="width: 150px;">名称：</td>
+							<td class="org-name"></td>
+							<td class="tds-right" style="width: 150px;">税号：</td>
+							<td class="tax-number" style="width: 259px;"></td>
+						</tr>
+						<tr>
+							<td class="tds-right" style="height: 35px;">地址：</td>
+							<td class="address"></td>
+							<td class="tds-right">电话：</td>
+							<td class="telephone-roject"></td>
+							<td class="tds-right">开户行：</td>
+							<td class="registered-bank"></td>
+						</tr>
+						<tr>
+							<td class="tds-right" style="height: 35px;">账号：</td>
+							<td colspan="4" class="account"></td>
+							<td></td>
+						</tr>
+					</table>
+					<table class="linkman-tab" cellspacing="1px" cellpadding="1px" style="width: 1048px;margin: 5px;border: 1px solid #DDD;">
+						<tr>
+							<td colspan="6">
+								<span id="" style="float: left; width: 80px;height: 30px;line-height: 30px;text-align: center;background: #5B66AB;color: #FFF;">
+								联系人信息
+							</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tds-right" style="width: 90px;height: 35px;">联系人姓名：</td>
+							<td class="linkman" style="width: 200px;"></td>
+							<td class="tds-right" style="width: 157px;">手机号：</td>
+							<td class="linkman-phone"></td>
+							<td class="tds-right" style="width: 100px;">电话：</td>
+							<td class="linkman-telephone"></td>
+						</tr>
+						<tr>
+							<td class="tds-right" style="height: 35px;">传真：</td>
+							<td class="linkman-fax"></td>
+							<td class="tds-right">邮箱：</td>
+							<td colspan="2" class="linkman-email" colspan="2"></td>
+						</tr>
+						<tr>
+							<td class="tds-right" style="height: 35px;>单位地址：</td>
+						<td colspan="4" class="inkman-address-email "></td>
+						<td></td>
+					</tr>
+				</table>
+				</div>
+				<div class="yt-eidt-model-bottom select-teacher-btn-div ">
+					<input class="yt-model-bot-btn yt-model-sure-btn " type="button" value="关闭 " style="margin-left: 20px;width: 72px;" />
+				</div>
+			</div>
+			
+			<!--学员详情弹窗END-->
+			
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript " src="../../resources/js/common/jquery.min.js "></script>
+	<script type="text/javascript " src="../../resources/js/common/yt-option.js "></script>
+	<script type="text/javascript " src="../../resources/js/common/yt-common.js "></script>
+	<script type="text/javascript " src="../../resources/js/common/yt-frame.min.js "></script>
+	<script type="text/javascript " src="../../resources/js/page/yt-page.min.js "></script>
+	<!--滚动条js-->
+	<script type="text/javascript " src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js "></script>
+	<script type="text/javascript " src="../../resources/js/modules/trainee/traineeInfo.js "></script>
+	<!--图片样式文件-->
+	<script type="text/javascript " src="../../resources/js/jqthumb/jqthumb.min.js "></script>
+	<!--日期控件js-->
+	<script type="text/javascript " src="../../resources/js/calendar/yt-calendar.min.js "></script>
+
+</html>

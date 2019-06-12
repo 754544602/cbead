@@ -1,0 +1,527 @@
+var printFormObj = {
+	getDataList:[],
+	init : function() {
+		var appId = $yt_common.GetQueryString('expenditureAppId');
+		var costType = $yt_common.GetQueryString('costType');
+		printFormObj.events();
+		printFormObj.downloadFileAppId(appId);
+		switch (costType) {
+		case 'TRAIN_APPLY':
+			//printFormObj.printFormBaseInfo(appId);
+			printFormObj.getPrintTrainInfo(appId);
+			$(".meet-detailed-table-one").hide();
+			$(".meet-detailed-table-two").hide();
+			$("#teachersCostList").show();
+			$("#teachersCostListFrist").show();
+			$(".reception-table").hide();
+			$(".reception-table-two").hide();
+			$(".travel-detailed-table").hide();
+			$(".bot-signature-model").show();
+			break;
+		case 'MEETING_APPLY':
+			printFormObj.getprintMeetingInfo(appId);
+			$(".meet-detailed-table-one").show();
+			$(".meet-detailed-table-two").show();
+			$("#teachersCostList").hide();
+			$("#teachersCostListFrist").hide();
+			$(".reception-table").hide();
+			$(".reception-table-two").hide();
+			$(".travel-detailed-table").hide();
+			break;
+		case 'BH_APPLY':
+			printFormObj.getprintReceptionInfo(appId);
+			$(".meet-detailed-table-one").hide();
+			$(".meet-detailed-table-two").hide();
+			$("#teachersCostList").hide();
+			$("#teachersCostListFrist").hide();
+			$(".reception-table").show();
+			$(".reception-table-two").show();
+			$(".travel-detailed-table").hide();
+			break;
+		case 'TRAVEL_APPLY':
+			printFormObj.getprintTravelInfo(appId);
+			$(".meet-detailed-table-one").hide();
+			$(".meet-detailed-table-two").hide();
+			$("#teachersCostList").hide();
+			$("#teachersCostListFrist").hide();
+			$(".reception-table").hide();
+			$(".reception-table-two").hide();
+			$(".travel-detailed-table").show();
+			$(".bot-travel-model").show();
+			break;
+		case 'NORMAL_APPLY':
+			break
+		}
+		;
+		$("input.code-inpu").startListen({
+			letter : true,
+			check : false,
+			show : function(code) {
+				if (code != "" && code && code != undefined && code != null) {
+					var subStr = code.substring(0, 7);
+					if (subStr == "http://") {
+						window.open(code)
+					} else {
+						$yt_alert_Model.prompt("二维码识别不成功,请联系管理员!")
+					}
+				} else {
+					$yt_alert_Model.prompt("二维码识别不成功,请联系管理员!")
+				}
+			}
+		})
+	},
+	events : function() {
+		$("#printBtn").off().on("click", function() {
+			printFormObj.doPrint()
+		});
+		$("#closeBtn").off().on("click", function() {
+			if (window != top) {
+				parent.closeWindow()
+			} else {
+				window.close()
+			}
+		});
+		if ($('.before-cause,.train-name').innerHeight() > 50) {
+			$('.before-cause,.train-name').css('padding', '0px')
+		}
+		;
+		if ($('.before-cause,.train-name').innerHeight() > 55) {
+			$('.before-cause,.train-name').css('font-size', '12px')
+		}
+	},
+	printFormBaseInfo : function(expenditureAppId) {
+		$
+				.ajax({
+					type : "post",
+					url : "sz/expenditureApp/printSpendingFormDetailsByExpenditureAppId",
+					async : true,
+					data : {
+						expenditureAppId : expenditureAppId
+					},
+					success : function(data) {
+						var datas = data.data;
+						if (data.flag == 0) {
+						}
+					}
+				})
+	},
+	getPrintTrainInfo : function(advanceAppId) {
+		$.ajax({
+			type : "post",
+			url : "sz/advanceApp/printTrainFormDetailsByAdvanceAppId",
+			async : true,
+			data : {
+				advanceAppId : advanceAppId
+			},
+			success : function(data) {
+				var datas = data.data;
+				if (data.flag == 0) {
+					printFormObj.getDataList = datas;
+					printFormObj.printInvoiceTrain(datas)
+				}
+			}
+		})
+	},
+	getprintMeetingInfo : function(advanceAppId) {
+		$.ajax({
+			type : "post",
+			url : "sz/advanceApp/printMeetingByAdvanceAppId",
+			async : true,
+			data : {
+				advanceAppId : advanceAppId
+			},
+			success : function(data) {
+				var datas = data.data;
+				if (data.flag == 0) {
+					$('.meeting-total-amount').text(
+							$yt_baseElement.fmMoney(datas.advanceAmount));
+					printFormObj.printInvoiceMeeting(datas)
+				}
+			}
+		})
+	},
+	getprintReceptionInfo : function(advanceAppId) {
+		$.ajax({
+			type : "post",
+			url : "sz/advanceApp/printReceptionByAdvanceAppId",
+			async : true,
+			data : {
+				advanceAppId : advanceAppId
+			},
+			success : function(data) {
+				var datas = data.data;
+				if (data.flag == 0) {
+					$('.reception-total-amount').text(
+							$yt_baseElement.fmMoney(datas.advanceAmount));
+					printFormObj.printInvoiceRe(datas)
+				}
+			}
+		})
+	},
+	getprintTravelInfo : function(advanceAppId) {
+		$.ajax({
+			type : "post",
+			url : "sz/advanceApp/printTravelExpensesByAdvanceAppId",
+			async : true,
+			data : {
+				advanceAppId : advanceAppId
+			},
+			success : function(data) {
+				var datas = data.data;
+				if (data.flag == 0) {
+					printFormObj.printInvoiceTravel(datas)
+				}
+			}
+		})
+	},
+	downloadFileAppId : function(expenditureAppId) {
+		var imgSrc = '';
+		$.ajax({
+			type : "post",
+			url : "fileUpDownload/createQrCode",
+			async : true,
+			data : {
+				context : $yt_option.websit_path
+						+ 'barCode/beforDetail.html?appId=' + expenditureAppId
+			},
+			success : function(data) {
+				imgSrc = data.data;
+				$('.qr-code').attr(
+						'src',
+						$yt_option.base_path
+								+ 'fileUpDownload/downloadFile?storePath='
+								+ imgSrc + '&isDownload=false')
+			}
+		})
+	},
+	printInvoiceTravel : function(data) {
+		var me = this;
+		$(".year").text(data.printYear);
+		$(".month").text(data.printMonth);
+		$(".day").text(data.printDay);
+		$("#expenditureAppNum").text(data.advanceAppNum);
+		$(".before-cause").text(data.advanceAppName);
+		$(".apply-users").text(data.applicantUserName);
+		$(".users-job").text(data.applicantUserPositionName);
+		$(".users-dept").text(data.applicantUserDeptName);
+		$(".users-tel").text(data.applicantUserPhone);
+		$(".cost-type").text(data.advanceCostTypeName);
+		$(".apply-money").text($yt_baseElement.fmMoney(data.advanceAmount));
+		$(".apply-money-upper").text(arabiaToChinese(data.advanceAmount));
+		$(".by-budget-prj").text(
+				data.specialName
+						+ (data.prjName ? '-' + data.prjName : data.prjName));
+		$(".dept-money").text(
+				$yt_baseElement.fmMoney(data.deptBudgetBalanceAmount));
+		$(".unit-money")
+				.text($yt_baseElement.fmMoney(data.budgetBalanceAmount));
+		$(".travel-total-amount").text(
+				$yt_baseElement.fmMoney(data.advanceAmount));
+		$("#hotelAmount").text(
+				$yt_baseElement.fmMoney(data.travelInfo.hotelAmount));
+		$("#cityFare").text($yt_baseElement.fmMoney(data.travelInfo.cityFare));
+		$("#postFee").text($yt_baseElement.fmMoney(data.travelInfo.postFee));
+		$("#officeSupplies").text(
+				$yt_baseElement.fmMoney(data.travelInfo.officeSupplies));
+		$("#unSleeperSubsidy").text(
+				$yt_baseElement.fmMoney(data.travelInfo.unSleeperSubsidy));
+		$("#other").text($yt_baseElement.fmMoney(data.travelInfo.other));
+		$(".travel-people").text(data.travelPersonnelsName);
+		$(".subsidy-money").text(
+				$yt_baseElement.fmMoney(data.travelInfo.travelSubsidyAmount));
+		me.setTravelCostList(data.travelInfo.travelCostList);
+		me.setTravelInfoList(data.travelInfo.travelInfoList);
+		me.setRecordOfApprovalListList(data.recordOfApprovalList)
+	},
+	printInvoiceRe : function(data) {
+		var me = this;
+		$(".year").text(data.printYear);
+		$(".month").text(data.printMonth);
+		$(".day").text(data.printDay);
+		$("#expenditureAppNum").text(data.advanceAppNum);
+		$(".before-cause").text(data.advanceAppName);
+		$(".apply-users").text(data.applicantUserName);
+		$(".users-job").text(data.applicantUserPositionName);
+		$(".users-dept").text(data.applicantUserDeptName);
+		$(".users-tel").text(data.applicantUserPhone);
+		$(".cost-type").text(data.advanceCostTypeName);
+		$(".apply-money").text($yt_baseElement.fmMoney(data.advanceAmount));
+		$(".apply-money-upper").text(arabiaToChinese(data.advanceAmount));
+		$(".by-budget-prj").text(
+				data.specialName
+						+ (data.prjName ? '-' + data.prjName : data.prjName));
+		$(".dept-money").text(
+				$yt_baseElement.fmMoney(data.deptBudgetBalanceAmount));
+		$(".unit-money")
+				.text($yt_baseElement.fmMoney(data.budgetBalanceAmount));
+		me.printInvoiceBh(data.applicationFee);
+		me.printInvoiceBec(data.applicationMatters);
+		me.setRecordOfApprovalListList(data.recordOfApprovalList)
+	},
+	setTravelInfoList : function(list) {
+		var html = '';
+		var total = 0;
+		$
+				.each(
+						list,
+						function(i, n) {
+							html += '<div><span class="startTime" style="margin-right: 15px;">'
+									+ n.startTime
+									+ '</span>至<span style="margin-left: 15px;margin-right: 20px;" class="endTime">'
+									+ n.endTime
+									+ '</span>出差地点：<span style="margin-right: 20px;" class="travelAddressName">'
+									+ n.travelAddressName
+									+ '</span>出差人：<span class="travelPersonnelsName">'
+									+ n.travelPersonnelsName + '</span></div>'
+						});
+		$('.travel-detailed-td').html(html)
+	},
+	setTravelCostList : function(list) {
+		var thisTr = $(".travel-detailed-first-tr");
+		var listLen = $(list).length;
+		$(list)
+				.each(
+						function(i, n) {
+							thisTr.find(".start-place").text(n.goAddressName);
+							thisTr.find(".end-place")
+									.text(n.arrivalAddressName);
+							thisTr.find(".travel-num").text(n.personNum);
+							thisTr.find(".traffic-money").text(
+									$yt_baseElement.fmMoney(n.crafare));
+							if (i >= 5 && (listLen - 1) > i) {
+								thisTr
+										.after('<tr style=""><td class="start-place"></td><td class="end-place"></td><td class="travel-num"></td><td style="text-align: right;" class="traffic-money"></td><td style="text-align: right;" class="subsidy-money"></td><td class=""></td><td class=""></td></tr>')
+							}
+							thisTr = thisTr.next()
+						})
+	},
+	printInvoiceBec : function(list) {
+		var html = '';
+		var total = 0;
+		var i = 0;
+		$.each(list, function(i, n) {
+			html += '<tr><td>' + (i + 1) + '</td><td>' + n.receptionName
+					+ '</td><td>' + n.receptionJobName
+					+ '</td><td>'
+					+ n.receptionUnitName + '</td></tr>'
+		});
+		var len = list.length + 2;
+		$('.expenditure-rowspan').attr("rowspan", len);
+		$('.reception-table-two tbody').append(html)
+	},
+	printInvoiceBh : function(list) {
+		var html = '';
+		var total = 0;
+		$.each(list, function(i, n) {
+			html += '<tr><td>' + n.publicServiceProName + '</td><td>'
+					+ n.activityDate + '</td><td>'
+					+ n.placeName + '</td><td>' + n.costTypeName
+					+ '</td><td>'
+					+ $yt_baseElement.fmMoney(n.activityAmount) + '</td><td>'
+					+ n.peopleNum + '</td></tr>'
+		});
+		var len = list.length + 1;
+		$('.expenditure-receivables-detailed').attr("rowspan", len);
+		$('.reception-table tbody').append(html)
+	},
+	printInvoiceMeeting : function(data) {
+		var me = this;
+		$(".year").text(data.printYear);
+		$(".month").text(data.printMonth);
+		$(".day").text(data.printDay);
+		$("#expenditureAppNum").text(data.advanceAppNum);
+		$(".before-cause").text(data.advanceAppName);
+		$(".apply-users").text(data.applicantUserName);
+		$(".users-job").text(data.applicantUserPositionName);
+		$(".users-dept").text(data.applicantUserDeptName);
+		$(".users-tel").text(data.applicantUserPhone);
+		$(".cost-type").text(data.advanceCostTypeName);
+		$(".apply-money").text($yt_baseElement.fmMoney(data.advanceAmount));
+		$(".apply-money-upper").text(arabiaToChinese(data.advanceAmount));
+		$(".by-budget-prj").text(
+				data.specialName
+						+ (data.prjName ? '-' + data.prjName : data.prjName));
+		$(".dept-money").text(
+				$yt_baseElement.fmMoney(data.deptBudgetBalanceAmount));
+		$(".unit-money")
+				.text($yt_baseElement.fmMoney(data.budgetBalanceAmount));
+		var datas = data.applicationMatters;
+		$(".meet-name").text(datas.meetName);
+		$(".meet-addres").text(datas.meetTypeName);
+		$(".meet-start-time").text(datas.meetStartTime);
+		$(".meet-end-time").text(datas.meetEndTime);
+		$(".meet-place").text(datas.meetAddress);
+		$(".meet-people").text(datas.meetOfNum);
+		$(".job-num").text(datas.meetWorkerNum);
+		var dataT = data.applicationFee;
+		$(".meet-hotel").text($yt_baseElement.fmMoney(dataT.meetHotel));
+		$(".meet-food").text($yt_baseElement.fmMoney(dataT.meetFood));
+		$(".meet-other").text($yt_baseElement.fmMoney(dataT.meetOther));
+		$(".average-expense").text($yt_baseElement.fmMoney(dataT.meetAverage));
+		me.setRecordOfApprovalListList(data.recordOfApprovalList)
+	},
+	printInvoiceTrain : function(data) {
+		var me = this;
+		$(".year").text(data.printYear);
+		$(".month").text(data.printMonth);
+		$(".day").text(data.printDay);
+		$("#expenditureAppNum").text(data.advanceAppNum);
+		$(".before-cause").text(data.advanceAppName);
+		$(".apply-users").text(data.applicantUserName);
+		$(".users-job").text(data.applicantUserPositionName);
+		$(".users-dept").text(data.applicantUserDeptName);
+		$(".users-tel").text(data.applicantUserPhone);
+		$(".cost-type").text(data.advanceCostTypeName);
+		$(".apply-money").text($yt_baseElement.fmMoney(data.advanceAmount));
+		$(".apply-money-upper").text(arabiaToChinese(data.advanceAmount));
+		$(".by-budget-prj").text(
+				data.specialName
+						+ (data.prjName ? '-' + data.prjName : data.prjName));
+		$(".dept-money").text(
+				$yt_baseElement.fmMoney(data.deptBudgetBalanceAmount));
+		$(".unit-money")
+				.text($yt_baseElement.fmMoney(data.budgetBalanceAmount));
+		$(".train-name").text(data.applicationMatters.regionDesignation);
+		$(".train-addres").text(data.applicationMatters.regionName);
+		$(".train-approva-num").text(data.applicationMatters.approvaNum);
+		$(".train-charge-standard").text($yt_baseElement.fmMoney(data.applicationMatters.chargeStandard));
+		$(".train-start-time").text(data.applicationMatters.reportTime);
+		$(".train-end-time").text(data.applicationMatters.endTime);
+		$(".train-per-num").text(data.applicationMatters.trainOfNum);
+		$(".train-work-num").text(data.applicationMatters.workerNum);
+		$(".advance-amount").text($yt_baseElement.fmMoney(data.advanceAmount));
+		$(".teachers-amount").text(
+				$yt_baseElement.fmMoney(data.applicationFee.teachersAmount));
+		$(".train-other-amount").text(
+				$yt_baseElement.fmMoney(data.applicationFee.trainOtherAmount));
+		$(".train-name").text(data.applicationFee.regionDesignation);
+		$(".train-sum-money").text($yt_baseElement.fmMoney(data.advanceAmount));
+		me.setPredictCostList(data.applicationFee.predictCostList);
+		me.setTeachersCostList(data.applicationFee.teachersCostList);
+		me.setTrainOtherList(data.applicationFee.trainOtherList);
+		me.setRecordOfApprovalListList(data.recordOfApprovalList)
+	},
+	setPredictCostList : function(list) {
+		var me = this;
+		var predictHtml = '';
+		$
+				.each(
+						list,
+						function(i, n) {
+							predictHtml += '<td class="font-bold">预计收费情况</td>'
+								+'<td>'+n.predictStandardMoney+'</td><td>'
+								+n.predictPeopleNum+'</td><td></td><td style="text-align: right;" class="font-bold"><span>'
+									+ $yt_baseElement.fmMoney(n.amount)
+									+ '</span></td><td><div class="yt-table-br">收费标准*预计学员人数/(1+3%)</div></td>'
+						});
+		$('#teachersCostList tbody .predict-tr').before(predictHtml)
+	},
+	setTeachersCostList : function(list) {
+		var me = this;
+		var receHtml = '';
+		$
+				.each(
+						list,
+						function(i, n) {
+							var amount='';
+							if(n.amount){
+								amount=$yt_baseElement.fmMoney(n.amount);
+							}
+							receHtml += '<tr class="small-td"><td>'
+									+ n.costTypeName
+									+ '</td><td></td><td></td><td></td><td style="text-align: right;"><span>'
+									+ amount
+									+ '</span></td><td></td></tr>'
+						});
+		$('#teachersCostList tbody .train-other-tr').before(receHtml)
+	},
+	setTrainOtherList : function(list) {
+		var me = this;
+		var receHtml = '';
+		$.each(list, function(i, n) {
+			var standard="";
+			if(n.standard){
+				standard=$yt_baseElement.fmMoney(n.standard);
+			}
+			receHtml += '<tr class="small-td"><td>' + n.costTypeName
+					+ '</td><td style="text-align: right;"><span>'
+					+ standard + '</span></td><td>'
+					+ n.trainOfNum + '</td><td>' + n.trainDays
+					+ '</td><td style="text-align: right;"><span>'
+					+ $yt_baseElement.fmMoney(n.amount)
+					+ '</span></td><td style="text-align: left;">' + n.remark
+					+ '</td></tr>'
+		});
+		var len = 0;
+		if( printFormObj.getDataList.applicationFee.hasOwnProperty('predictCostList') && printFormObj.getDataList.applicationFee.predictCostList.length > 0){
+			len = list.length + 11;
+		}else{
+			len = list.length + 10;
+		}
+		$('.detail-tby').attr("rowspan", len);
+		$('#teachersCostList tbody .train-sum-tr').before(receHtml)
+	},
+	setRecordOfApprovalListList : function(list) {
+		var html = '';
+		var total = 0;
+		var i = 0;
+		$
+				.each(
+						list,
+						function(i, n) {
+							html += '<tr><td>'
+									+ (i + 1)
+									+ '</td><td style="text-align: left;"><span class="nodeName">【'
+									+ n.nodeName
+									+ '】</span>——<span class="nodeUserName">'
+									+ n.nodeUserName
+									+ '</span></td><td class="" style="text-align: left;padding-left: 15px;">';
+							$
+									.each(
+											n.approvaInfoList,
+											function(v, j) {
+												html += '<div style="'
+														+ (v == n.approvaInfoList.length - 1 ? 'font-weight: bold;'
+																: '')
+														+ '"><span class="approvaDate">'
+														+ j.approvaDate
+														+ '</span><span class="approvaState" style="padding-left: 10px;">'
+														+ j.approvaState
+														+ '</span>，意见：<span class="approvaRemarks">'
+														+ (j.approvaRemarks || '')
+														+ '</span></div>'
+											});
+							html += '</td></tr>'
+						});
+		var len = list.length + 1;
+		$('.approval-record').attr("rowspan", len);
+		$('.approval-record-table tbody').append(html)
+	},
+	doPrint : function() {
+		bdhtml = window.document.body.innerHTML;
+		startInvoicePasting = "<!--startInvoicePasting-->";
+		endInvoicePasting = "<!--endInvoicePasting-->";
+		prnhtml = bdhtml.substr(bdhtml.indexOf(startInvoicePasting));
+		prnhtml = prnhtml.substring(0, prnhtml.indexOf(endInvoicePasting));
+		window.document.body.innerHTML = prnhtml;
+		window.focus();
+		if (printFormObj.isIE()) {
+			document.body.className += ' ext-ie';
+			document.execCommand('print', false, null)
+		} else {
+			window.print()
+		}
+		window.document.body.innerHTML = bdhtml;
+		window.location.reload()
+	},
+	isIE : function() {
+		if (!!window.ActiveXObject || "ActiveXObject" in window) {
+			return true
+		} else {
+			return false
+		}
+	}
+};
+$(function() {
+	printFormObj.init()
+});

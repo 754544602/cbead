@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<link rel="stylesheet" href="../../resources/css/modules/teacher/teacherInf.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/printing/printingList.css"/>
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>文印单详情</title>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1200px;">
+			<div class="box-list">
+				<div class="project-title-div">
+					<button class="yt-option-btn btn-return">
+						<img class="return-img" src="../../resources/images/icons/class-return.png">
+						返回
+					</button>
+				</div>
+				<!--学员手册文印单-->
+				<div class="content-box class-div">
+					<div class="class-info-div">
+						文印单详情
+					</div>
+					<div class="tab-content class-info get-project-inf printing-details">
+						<div class="class-info-centent">
+							<table class="class-info-table">
+								<tr>
+									<td align="right">
+										<span>编号：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input project-code" data-val="projectCode" placeholder=""/>
+									</td>
+									<td align="right" width="156px">
+										<span>所属班级：</span>
+									</td>
+									<td >
+										<input type="text" class="yt-input project-name" data-val="projectName" placeholder=""/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>项目主任：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input project-user-name" data-val="projectUserName" placeholder=""/>
+									</td>
+									<td align="right" width="156px">
+										<span>开班日期：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input start-date" data-val="startDate" placeholder=""/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>结束日期：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input end-date" data-val="endDate" placeholder=""/>
+									</td>
+									<td align="right" width="156px">
+										<span>打印类型：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input file-type" data-val="" placeholder=""/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>提交人：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input create-user" data-val="createUser" placeholder=""/>
+									</td>
+									<td align="right" width="156px">
+										<span>提交时间：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input create-time-string" data-val="createTimeString" placeholder=""/>
+									</td>
+								</tr>
+							</table>
+							<table class="yt-table list-table print-matter-tab">
+								<thead class="list-thead">
+									<tr align="left"> 
+										<th colspan="2">文印内容</th>
+									</tr>
+									
+								</thead>
+								<tbody class="yt-tbody list-tbody">
+									<tr>
+										<td>
+											<span>文件</span>
+										</td>
+										<td align="right">
+											<span>份数</span>
+										</td>
+									</tr>	
+									<tr>
+										<td>
+											<span>
+												<a href="" class="file-name" style="color: #3c4687;"></a>
+											</span>
+										</td>
+										<td align="right">
+											<input class="yt-input printer-count" data-val="printerCount"style="width: 20px;">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--文印状态-->
+					<div class="class-info-div">
+						文印状态
+					</div>
+					<div class="tab-content class-info">
+						<div class="class-info-centent">
+							<div class="current-state">
+								<span>当前状态：</span>
+								<span class="current-state-text"></span>
+							</div>
+							<div class="btn-all" style="width: 300px;">
+								<button class="yt-option-btn btn-sub print-sub" style="width: 200px;">打印完成并通知提交人</button>
+								<button class="yt-option-btn btn-off">取消</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/printing/printingDetails.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+
+</html>

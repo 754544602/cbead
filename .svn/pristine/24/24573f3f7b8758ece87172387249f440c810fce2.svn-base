@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherInf.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/discussRecordList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<!--审批样式引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>班级管理</title>
+	</head>
+	<body>
+		<div id="project-main" style="min-width: 1100px;">
+			<div class="project-title-div">
+				<button class="yt-option-btn btn-return">
+					<img class="return-img" src="../../resources/images/icons/class-return.png"/>
+					返回
+				</button>
+				<!--隐藏数据登录人信息-->
+				<input type="hidden" class="project-sell-name" value=""/>
+				<input type="hidden" class="project-head" value=""/>
+				<input type="hidden" class="user-real-name" value=""/>
+			</div>
+			
+			<div class="box-list">
+				<!--教学方案-->
+				
+					<div class="class-info-div">
+						教学方案设计需求
+					</div>
+					<div class=" class-info get-teach-plan-inf">
+						<!--教学方案设计需求填写-->
+						<div class="class-info-centent" style="min-height: 424px;">
+							<table class="teach-plan-table" style="display: none;">
+								<tr>
+									<td align="right">
+										<span>学员层次：</span>
+										<input type="hidden" class="pk-id" data-val="pkId" />
+									</td>
+									<td>
+										<label class="check-label yt-checkbox trainee-level">
+											<input type="checkbox" name="test" value="1"/>
+											一级经理
+										</label>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox trainee-level">
+											<input type="checkbox" name="test" value="2"/>
+											二级经理
+										</label>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox trainee-level">
+											<input type="checkbox" name="test" value="3"/>
+											三级经理
+										</label>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox trainee-level">
+											<input type="checkbox" name="test" value="4"/>
+											其他
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>预计成交价：</span>
+									</td>
+									<td colspan="4">
+										<select class="yt-select type-select estimated-transaction-price" data-val="estimatedTransactionPrice">
+											<option value="1">较高</option>
+					  	    	       	    <option value="2">一般</option>
+					  	    	       	    <option value="3">较低</option>
+				  	    	      		</select>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>收到时间：</span>
+									</td>
+									<td colspan="2">
+										<input class="calendar-input time-receipt" data-val="timeReceipt" placeholder="请输入" type="text"/>
+									</td>
+									<td align="right">
+										<span>要求反馈时间：</span>
+									</td>
+									<td>
+										<input class="calendar-input feedback-time" data-val="feedbackTime" placeholder="请输入" type="text"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>方案要求：</span>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox scheme-requirement">
+											<input type="checkbox" name="test" value="1"/>
+											方案设计思路
+										</label>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox scheme-requirement">
+											<input type="checkbox" name="test" value="2"/>
+											教学日程
+										</label>
+									</td>
+									<td colspan="2">
+										<label class="check-label yt-checkbox scheme-requirement">
+											<input type="checkbox" name="test" value="3"/>
+											师资简介
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>联系人：</span>
+									</td>
+									<td colspan="2">
+										<input type="text" class="yt-input linkman" data-val="linkman"/>
+									</td>
+									<td align="right">
+										<span>手机号：</span>
+									</td>
+									<td>
+										<input type="text" class="yt-input phone" data-val="phone"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top" height="156px">
+										<span style="position: relative;top: 10px;">教务部意见：</span>
+									</td>
+									<td colspan="4">
+										<textarea type="text" class="yt-textarea ad-details" data-val="adDetails" placeholder="请输入教务部意见"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>方案审批级别：</span>
+									</td>
+									<td colspan="4">
+										<select class="yt-select type-select teachings-scheme-level" data-val="teachingsSchemeLevel">
+											<option value="teachingSchemeDept">部门级别</option>
+					  	    	       	    <option value="teachingSchemeExpert">专家组</option>
+					  	    	       	    <option value="teachingSchemeLeader">院领导</option>
+				  	    	      		</select>
+									</td>
+								</tr>
+							</table>
+							<!--教学方案设计需求详情-->
+							<table class="teach-plan-table-info" style="display: none;">
+								<tr>
+									<td align="right">
+										<span>学员层次：</span>
+										<input type="hidden" class="pk-id" data-val="pkId" />
+									</td>
+									<td>
+										<label class="check-label yt-checkbox trainee-level-info">
+											<input type="checkbox" name="test" value="1"/>
+											一级经理
+										</label>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox trainee-level-info">
+											<input type="checkbox" name="test" value="2"/>
+											二级经理
+										</label>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox trainee-level-info">
+											<input type="checkbox" name="test" value="3"/>
+											三级经理
+										</label>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox trainee-level-info">
+											<input type="checkbox" name="test" value="4"/>
+											其他
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>预计成交价：</span>
+									</td>
+									<td colspan="4" class="estimated-transaction-price"></td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>收到时间：</span>
+									</td>
+									<td colspan="2" class="time-receipt"></td>
+									<td align="right">
+										<span>要求反馈时间：</span>
+									</td>
+									<td class="feedback-time"></td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>方案要求：</span>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox scheme-requirement-info">
+											<input type="checkbox" name="test" value="1"/>
+											方案设计思路
+										</label>
+									</td>
+									<td>
+										<label class="check-label yt-checkbox scheme-requirement-info">
+											<input type="checkbox" name="test" value="2"/>
+											教学日程
+										</label>
+									</td>
+									<td colspan="2">
+										<label class="check-label yt-checkbox scheme-requirement-info">
+											<input type="checkbox" name="test" value="3"/>
+											师资简介
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>联系人：</span>
+									</td>
+									<td colspan="2" class="linkman"></td>
+									<td align="right">
+										<span>手机号：</span>
+									</td>
+									<td class="phone"></td>
+								</tr>
+								<tr>
+									<td align="right" valign="top" height="156px">
+										<span style="position: relative;top: 10px;">教务部意见：</span>
+									</td>
+									<td colspan="4" class="ad-details"></td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>方案审批级别：</span>
+									</td>
+									<td colspan="4" class="teachings-scheme-level"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!--教学方案初稿-->
+					<div class="first-draft" style="display: none;">
+						<div class="class-info-div">
+							教学方案初稿
+						</div>
+						<div class=" class-info get-project-inf">
+							<div class="class-info-centent first-draft-inf">
+								<div class="first-draft-btn">
+									<span>教学方案附件</span>
+									<button class="yt-option-btn file-upload" style="background: #7b74c7;position: relative;">
+									<input type="file" class="fileIds" id="addFile" name="file"  value="" />
+										<img src="../../resources/images/button/upload-icon.png" alt="" />
+										上传
+									</button>
+									<button class="yt-option-btn down-load-template" style="background: #7b74c7;">
+										<img src="../../resources/images/icons/down-load.png" alt="" />
+										下载模版
+									</button>
+								</div>
+								<p>本项目教学方案要求提供：1、方案设计思路 2、教学日程 3、师资简介，请按需求反馈方案</p>
+								<div class="file-id">
+									
+								</div>
+								<div>
+									<span>上传时间：</span>
+									<span class="upload-time"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+		            <!--审批流程STAR-->
+						<div class="approval-process-module" style="display: none;">
+							<div class="title-div-box">
+								<p class="title-p-style" ></p>
+								<p class="title-text-p">审批流程</p>
+								<!--隐藏数据流程实例id-->
+								<input type="hidden" class="hid-process-instance-id-teach" value="" />
+							</div>
+							<!--隐藏部分start-->
+								<input type="hidden"  id="tast-key-teach" />
+							<!--隐藏部分end-->
+							<!-------------------------------------------------------------------------------------------->
+							<div class="content-div-box">
+								<div class="procedure-box" style="width: 970px;margin: 0px auto;">
+									<!--审批流程最后一步STAR-->
+									<div class="last-step last-step-div-teach ">
+										<div class="number-name-box">
+											<span class="number-box-span last-step-order-teach" >3</span>
+											<span class="name-box-span last-step-operate-person-userName-teach" >王大勇</span>
+											<img src="../../resources/images/open/open-sp.png" width="100%" height="100%" />
+										</div>
+										<div class="view-box-div" style="height: 210px;">
+											<span class="last-step-commentTime-span last-step-commentTime-teach" style="width: auto;">2018-07-01 12:00</span>
+											<form>
+												<table class="add-new-tab" cellspacing="1px" cellpadding="1px" style=" ">
+													<tr>
+														<td class="operate-state-title-td">操作状态：</td>
+														<td  class="sp-state last-step-operationState-teach" style="">
+															待教务部主任审批
+														</td>
+													</tr>
+													<tr>
+														<td style="text-align: right; ">是否同意：</td>
+														<td style="text-align: left; ">
+															<label class="check-label yt-radio check">
+																<input class="agree-disagree" type="radio" class="radio" name="radioType" value="completed"/>同意
+															</label>
+															<label class="check-label yt-radio" style="margin-left: 20px;">
+															 	<input class="agree-disagree" type="radio" class="radio" name="radioType" value="returnedSubmit"/>拒绝
+															</label>
+														</td>
+													</tr>
+													<tr class="next-operate-person-teach-tr hid-input">
+														<td style="text-align: right; ">下一步操作人：</td>
+														<td>
+															<div>
+																<span>下一步操作人</span>
+																<select class="yt-select type-select type next-people-teach" style="width: 200px;float: left;"></select>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td style="text-align: right; ">操作人意见：</td>
+														<td>
+															<input id="opintion-teach" class="yt-input" type="text" validform="{isNull:true,size:20,msg:'请输入内容,不要超过20个字'}" style="width: 719px;float: left;"/>  
+					    									<span class="valid-font"></span> 
+														</td>
+													</tr>
+												</table>
+											</form>
+										</div>
+									</div>
+									<!--审批流程最后一步END-->
+										<div class="last-step-add-teach">
+											
+										</div>
+									<!--审批第一步STAR-->	
+									<div class="first-step">
+										<div style="height: 150; ">
+											<div class="number-name-box">
+												<span class="number-box-span first-step-order-teach">1</span>
+												<span class="name-box-span first-step-operate-person-username-teach"></span>
+												<img src="../../resources/images/open/openFlow.png" width="100%" height="100%" />
+											</div>
+										</div>
+										<div class="pad-pos" style="height: 89px;">
+											<ul class="first-step-ul">
+												<li style="height: 30px;">
+													<span class="first-step-taskName-teach view-taskName-span" style="float: left;">sdasfd</span>
+												</li>
+												<li class="view-time-li first-step-commentTime-teach">2018-01-01 12:00</li>
+												<!--<li class="operate-view-box-li">
+													<div class="operate-view-title-li">备注：</div>
+													<div class="operate-view-text-li first-step-comment"></div>
+												</li>-->
+											</ul>
+										</div>
+									</div>
+								<!--审批第一步END-->
+								</div>
+							</div>	
+							<!--审批流程END-->
+							<div class="yt-eidt-model-bottom" style="text-align: center;margin: 10px 0px;">
+								<input class="yt-model-bot-btn yt-model-sure-btn appro-submit-teach" type="button" value="确定" />
+								<input class="yt-model-bot-btn yt-model-canel-btn appro-cancel-teach" type="button" value="取消" style="margin-left: 20px;" />
+							</div>
+					</div>
+						<!--教学方案终稿-->
+					<div class="final-version" style="display: none;">
+						<div class="class-info-div">
+							教训方案终稿
+						</div>
+						<div class=" class-info get-project-inf">
+							<div class="class-info-centent first-draft-inf">
+								<div class="first-draft-btn">
+									<span>教学方案附件</span>
+									<button class="yt-option-btn file-upload" style="background: #7b74c7;position: relative;">
+									<input type="file" class="fileIds" id="addFile" name="file"  value="" />
+										<img src="../../resources/images/button/upload-icon.png" alt="" />
+										上传
+									</button>
+								</div>
+								<div class="file-id">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="yt-eidt-model-bottom plan-btn" style="margin: 12px auto;text-align: center;">  
+		                <button class="yt-option-btn btn-teach-plan-save">提交</button>  
+		                <button class="yt-option-btn btn-teach-plan-cancel">取消</button> 
+		            </div>
+				</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/project/teachingDesign.js"></script>
+</html>

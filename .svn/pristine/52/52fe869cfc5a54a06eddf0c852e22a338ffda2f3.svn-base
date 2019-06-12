@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--提示信息控件-->
+        <link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" />  	
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/query/paymentRequest.css?YTVERSIONCODE" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style>
+			.suspension{
+				padding: 10px;
+			}
+			.yt-table {
+				table-layout: auto;
+			}
+			.total-div{
+				margin-bottom: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="body-div"  style="min-width: 2000px;">
+			<div class="search-div">
+				<table border="0" cellspacing="0" cellpadding="0" class="form-table" style="width: 1110px;">
+					<tr>
+						<td style="width: 580px">
+							<label>关键字：</label><input type="text" id="" value="" class="yt-input keyword-input" placeholder="请输入申请事由/编号/专项名称/收款方关键字"/>
+						</td>
+						<td style=""></td>
+						<td class="proposer-td" style="width: 500px;padding-left: 200px;">
+							<label><span class="letter-three">申请</span>人：</label>
+							<select class="yt-select user-name-sel">  
+                      			  <option value="">请选择</option>
+                    		</select>  
+						</td>
+						
+					</tr>
+					
+				</table>
+				<table border="0" cellspacing="0" cellpadding="0" class="form-table">
+					<tr>
+						<td style="width: 100px;">
+							<label>基本信息筛选：</label>
+						</td>
+						<td style="width: 269px;">
+							<label><span class="letter-four">费用类</span>型：</label><select class="yt-select cost-types">
+								<option value="">请选择</option>
+							</select>
+						</td>
+						<td style="width: 355px;">
+							<label>支付申请类型：</label><select class="yt-select apply-types">
+								<option value="">请选择</option>
+								<option value="REIM_APP">现金、公务卡支付报销</option>
+								<option value="PAYMENT_APP">银行转账付款</option>
+							</select>
+						</td>
+						<td>
+							<label><span class="letter-four">经办部</span>门：</label>
+							<select class="yt-select department">
+								<option value="">请选择</option>
+							</select>
+						</td>
+						
+
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="3">申请支付金额：
+							<input onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" class="yt-input top-money" placeholder="请输入" style="text-align: right;"/>
+							<label class="separator">-</label><input onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" class="yt-input bottom-money" placeholder="请输入" style="text-align: right;"/>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="2">
+							<label><span class="letter-four">申请日</span>期：</label><input class="calendar-input" id="startDate" type="text" placeholder="请选择日期" readonly="readonly" style="width: 190px;" /><span style="padding: 0 10px;">到</span><input class="calendar-input" id="endDate" type="text" placeholder="请选择日期" readonly="readonly"  style="width: 190px;" />
+						</td>
+						<td style="padding-left: 127px;"><button class="yt-option-btn yt-search-btn" onselectstart="return false" id="heardSearchBtn">查询 </button><button style="margin-left: 10px;" class="yt-option-btn yt-reset-btn" onselectstart="return false" id="">重置</button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="interval-div">
+				
+			</div>
+			<div class="table-div" style="width: 1400;">
+				<div class="state-div">
+					<label>审批状态筛选：</label>
+					<label class="check-label yt-checkbox" style="margin-left: 10px;">  
+	                     <input class="checkbox-state" type="checkbox" name="ongoing" value="WF_TOTAL_UBDERWAY_PARAMS"/>审批中
+	               	</label>
+					<label class="check-label yt-checkbox" style="margin-left: 10px;">  
+	                     <input class="checkbox-state" type="checkbox" name="already" value="WF_TOTAL_UNPASSED_PARAMS"/>未通过
+	               	</label>
+					<label class="check-label yt-checkbox" style="margin-left: 10px;">  
+	                     <input class="checkbox-state" type="checkbox" name="through" value="WF_TOTAL_PASSED_PARAMS"/>已完成
+	               	</label>
+				</div>
+
+				<div class="total-div" ><span style="color: #475c6d;font-weight: bold;">应支付金额合计：</span><span id="totalAllAmount">--</span> 元<span style="color: #475c6d;font-weight: bold; margin-left: 30px;">其中合同应支付金额合计：</span> <span id="contractAllAmount">--</span>元<span style="color: #475c6d;font-weight: bold; margin-left: 30px;">已支付金额合计：</span><span id="paymentAllAmount">--</span>元</div>
+
+				<table border="0" cellspacing="0" cellpadding="0" class="yt-table" id="dataListTable">
+					<thead class="yt-thead">
+						<tr>
+							<th style="min-width: 110px;">申请日期<span class="sort-span" code="applicateTime"><img class="applytime-img" src="../../../../../resources-sasac/images/module/order-desc.png"></span></th>
+							<th style="min-width: 115px;">支付单据编号</th>
+							<th style="min-width: 115px;">事前申请编号</th>
+							<th style="min-width: 145px;">支付申请类型</th>
+							<th style="min-width: 45px;">申请人</th>
+							<th style="min-width: 60px;">经办部门</th>
+							<th>支付事由</th>
+							<th>收款方</th>
+							<th style="min-width: 75px;">费用类型</th>
+							<th style="min-width: 115px;">所属预算项目</th>
+							<th style="min-width: 140px;">申请支付金额(元)<span class="sort-span" code="totalAmount"><img class="payable-img" src="../../../../../resources-sasac/images/module/order-def.png"></span></th>
+							<th>申请支付中涉及合同金额<span class="sort-span" code="contractAmount"><img class="contract-img" src="../../../../../resources-sasac/images/module/order-def.png"></span></th>
+							<th>已支付金额(元)<span class="sort-span" code="paymentAmount"><img class="already-img" src="../../../../../resources-sasac/images/module/order-def.png"></span></th>
+							<th>已支付比例(%)<span class="sort-span" code="percentPay"><img class="percentage-img" src="../../../../../resources-sasac/images/module/order-def.png"></span></th>
+							<th style="min-width: 60px;">审批状态</th>
+							<th style="min-width: 60px;">流程日志</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<!--<tr>
+							<td>2017-12-30</td>
+							<td>RM20180417001</td>
+							<td>AD2018401001</td>
+							<td>现金、公务卡支付报销</td>
+							<td>陈财科</td>
+							<td>财务部门</td>
+							<td>报销参加财政部举办的行政事业单位内部控制培训的差旅费</td>
+							<td>陈财科</td>
+							<td>差旅费</td>
+							<td>基本支出-日常公用支出-差旅费</td>
+							<td style="text-align: right;">15,483.00</td>
+							<td style="text-align: right;">0</td>
+							<td style="text-align: right;">15,483.00</td>
+							<td style="text-align: right;">100%</td>
+							<td><a class="yt-link">已付款</a></td>
+							<td><a class="yt-link">查看</a></td>
+						</tr>
+						<tr>
+							<td>2018-03-08</td>
+							<td>PA20180308001</td>
+							<td>-</td>
+							<td>银行转账付款</td>
+							<td>魏业科</td>
+							<td>业务部门</td>
+							<td>采购计划CGSQ001中付给广州福田机械制造有限公司的第一期款</td>
+							<td>广州福田机械制造有限公司...</td>
+							<td>固定资产购置</td>
+							<td>基本支出-日常公用支出-固定资产购置</td>
+							<td style="text-align: right;">1,490,000.00</td>
+							<td style="text-align: right;">1,490,000.00</td>
+							<td style="text-align: right;">1,000,000.00</td>
+							<td style="text-align: right;">67.11%</td>
+							<td><a class="yt-link">进行中</a></td>
+							<td><a class="yt-link">查看</a></td>
+						</tr>
+						<tr>
+							<td>2018-03-15</td>
+							<td>PA20180315003</td>
+							<td></td>
+							<td>银行转账付款</td>
+							<td>伊人科</td>
+							<td>人事部门</td>
+							<td>2018年2月基本工资发放</td>
+							<td>吴一局...</td>
+							<td>人员支出</td>
+							<td>基本支出-人员支出</td>
+							<td style="text-align: right;">3,240,000.00</td>
+							<td style="text-align: right;"></td>
+							<td style="text-align: right;">3,240,000.00</td>
+							<td style="text-align: right;">100%</td>
+							<td><a class="yt-link">已付款</a></td>
+							<td><a class="yt-link">查看</a></td>
+						</tr>-->
+					</tbody>
+				</table>
+				<!--<div>大额度资金使用</div>-->
+				<div class="page-info table-page" onselectstart="return false"></div>
+			</div>
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script> 
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--上传-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/ajaxfile/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/query/paymentRequest.min.js"></script><!--?YTVERSIONCODE=2018042802-->
+	<!--引用JS文件END-->
+
+</html>

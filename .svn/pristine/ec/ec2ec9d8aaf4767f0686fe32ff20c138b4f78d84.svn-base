@@ -1,0 +1,1027 @@
+/*头部*/
+.projectName{
+	color:#384495 !important;
+}
+.projectName:hover{
+	text-decoration: underline;
+}
+.moneyIndex .index-top {
+	width: 100%;
+	min-width: 1130px;
+	background-color: #363845;
+	box-shadow: inset 0px -1px 0px 0px #5c607a;
+	padding: 15px 0px;
+}
+
+.moneyIndex .index-top-middle {
+	text-align: center;
+}
+
+.moneyIndex .index-top-model {
+	width: 32%;
+	min-width: 360px;
+	height: 124px;
+	background-color: #ffffff;
+	box-shadow: 0px 3px 7px 0px rgba(147, 152, 187, 0.35);
+	border-radius: 2px;
+	border: solid 1px #f5f5f5;
+	display: inline-block;
+}
+
+.moneyIndex .index-top-model img {
+	width: 74px;
+	margin: 25px 0 0 16px;
+}
+
+.moneyIndex .index-top-model div {
+	width: 55%;
+	float: right;
+	text-align: right;
+	padding-right: 24px;
+}
+
+.moneyIndex .index-top-model div {
+	margin-top: 33px;
+}
+
+.moneyIndex .index-top-model h5 {
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #777777;
+}
+
+.moneyIndex .index-top-model span {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 24px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.moneyIndex .index-top-model label {
+	font: "微软雅黑" 18px;
+	color: #777777;
+}
+
+.moneyIndex .index-top-model:not(:first-child) {
+	margin-left: 12px;
+}
+
+
+/*表格*/
+
+.moneyIndex .yt-tbody td {
+	padding: 0;
+}
+
+.moneyIndex .index-two {
+	border: 5px solid #edebec;
+	min-width: 1120px;
+	background-color: #FFFFFF
+}
+
+
+/*对账未完成表*/
+
+.moneyIndex .reconciliation-table {
+	width: 50%;
+	height: 270px;
+	overflow: hidden;
+	padding: 0 8px 8px 8px;
+	background-color: #FFFFFF;
+	border-right: 5px solid #f5f5f5;
+	border-bottom: 5px solid #f5f5f5;
+	float: left;
+	box-sizing: border-box;
+}
+
+.moneyIndex .index-two-reconciliation {
+	width: 100%;
+	background-color: #FFFFFF;
+}
+
+.moneyIndex .index-two-reconciliation caption {
+	height: 45px;
+	line-height: 60px;
+	text-align: left;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+	background-color: #FFFFFF;
+}
+
+.moneyIndex .index-two-reconciliation tr {
+	height: 42px;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+}
+
+.moneyIndex .index-two-reconciliation th {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+}
+
+.moneyIndex .index-two-reconciliation td {
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.moneyIndex .index-two-reconciliation td:nth-child(2),
+.moneyIndex .index-two-reconciliation td:nth-child(3),
+.moneyIndex .index-two-reconciliation td:nth-child(4),
+.moneyIndex .index-two-reconciliation th:nth-child(2),
+.moneyIndex .index-two-reconciliation th:nth-child(3),
+.moneyIndex .index-two-reconciliation th:nth-child(4) {
+	text-align: center;
+}
+
+.moneyIndex .index-two-reconciliation td:nth-child(4) span {
+	color: #7b73c7;
+}
+
+.moneyIndex .index-two-reconciliation th:nth-child(1),
+.moneyIndex .index-two-reconciliation td:nth-child(1) {
+	text-align: left;
+	padding-left: 7px;
+}
+
+.moneyIndex .index-two-reconciliation td:nth-child(5),
+.moneyIndex .index-two-reconciliation th:nth-child(5) {
+	text-align: right;
+}
+
+.moneyIndex .index-two-reconciliation td:nth-child(5) {
+	color: #384495;
+}
+
+
+/*未处理流水*/
+
+.moneyIndex .waste-table {
+	width: 50%;
+	min-width: 544px;
+	height: 540px;
+	float: right;
+	padding: 8px;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+}
+
+.moneyIndex .index-two-waste {
+	width: 100%;
+}
+
+.moneyIndex .index-two-waste h4,
+.moneyIndex .index-two-waste h3 {
+	display: inline-block;
+}
+
+.moneyIndex .index-two-waste caption {
+	text-align: left;
+	height: 75px;
+	position: relative;
+}
+
+.moneyIndex .index-two-waste caption h3 {
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+	margin-top: 10px;
+}
+
+.moneyIndex .index-two-waste caption h4 {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+	margin: 15px 0 0 5px;
+}
+
+.moneyIndex .index-two-waste caption h4 span {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #e90000;
+}
+
+.moneyIndex .index-two-waste caption .waste-table-caption {
+	width: 60%;
+	text-align: right;
+	position: absolute;
+	right: 0;
+	top: 10px;
+}
+
+.moneyIndex .index-two-waste caption .waste-table-caption>span {
+	font-family: MicrosoftYaHei;
+	font-size: 16px;
+	letter-spacing: 0px;
+	color: #7b74c7;
+	margin-left: 35px;
+	cursor: pointer;
+}
+
+.moneyIndex .index-two-waste caption .waste-table-caption div {
+	display: inline-block;
+	width: 49px;
+	height: 21px;
+	background-color: #7b74c7;
+	border-radius: 3px;
+	padding: 0px 12px;
+	box-sizing: border-box;
+	vertical-align: middle;
+	margin-top: 15px;
+	cursor: pointer;
+}
+
+.moneyIndex .index-two-waste caption .waste-table-caption div>span {
+	color: white;
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	line-height: 12px;
+	letter-spacing: 0px;
+	color: #ffffff;
+}
+
+.moneyIndex .index-two-waste tr {
+	height: 40px;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}
+
+.moneyIndex .index-two-waste th {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+}
+
+.moneyIndex .index-two-waste td {
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.moneyIndex .index-two-waste td:nth-child(1),
+.moneyIndex .index-two-waste td:nth-child(2),
+.moneyIndex .index-two-waste td:nth-child(3),
+.moneyIndex .index-two-waste td:nth-child(5),
+.moneyIndex .index-two-waste td:nth-child(6) {
+	text-align: center;
+}
+
+.moneyIndex .index-two-waste td:nth-child(4),
+.moneyIndex .index-two-waste th:nth-child(4) {
+	text-align: right;
+}
+
+.moneyIndex .index-two-waste td:nth-child(4) {
+	color: #3c4687;
+}
+
+
+/*报销*/
+
+.moneyIndex .index-rates {
+	width: 100%;
+	min-width: 1130px;
+	border: 5px solid #f5f5f5;
+	padding: 8px;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+	border-top: none;
+}
+
+.moneyIndex .rates-table {
+	width: 100%;
+}
+
+.moneyIndex .rates-table caption {
+	height: 45px;
+	text-align: left;
+	padding-left: 10px;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+}
+
+.moneyIndex .rates-table tr {
+	height: 42px;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}
+
+.moneyIndex .rates-table th {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+}
+
+.moneyIndex .rates-table td {
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.moneyIndex .rates-table td:nth-child(1),
+.moneyIndex .rates-table td:nth-child(7) {
+	color: #384495;
+}
+
+.moneyIndex .rates-table td:nth-child(1),
+.moneyIndex .rates-table td:nth-child(3),
+.moneyIndex .rates-table td:nth-child(4),
+.moneyIndex .rates-table th:nth-child(1),
+.moneyIndex .rates-table th:nth-child(3),
+.moneyIndex .rates-table th:nth-child(4){
+	text-align: left;
+}
+
+.moneyIndex .rates-table td:nth-child(2),
+.moneyIndex .rates-table td:nth-child(5),
+.moneyIndex .rates-table td:nth-child(8) {
+	text-align: center;
+}
+.moneyIndex .rates-table td:nth-child(6),
+.moneyIndex .rates-table th:nth-child(6),
+.moneyIndex .rates-table td:nth-child(7),
+.moneyIndex .rates-table th:nth-child(7) {
+	text-align: right;
+}
+.moneyIndex .loadingrates{
+	color: #ffa91c !important;
+}
+.moneyIndex #echartsone,#echartstwo{
+	width: 100%;
+	height: 383px;
+	border: 5px solid #EDEDED;
+	border-top: none;
+	box-sizing: border-box;
+	padding-top:20px ;
+	background-color: #FFFFFF
+}
+
+
+
+/*教务*/
+/*头部*/
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.educationIndex .index-top {
+	width: 100%;
+	min-width: 1130px;
+	background-color: #363845;
+	box-shadow: inset 0px -1px 0px 0px #5c607a;
+	padding: 15px 0px;
+}
+
+.educationIndex .index-top-middle {
+	text-align: center;
+}
+
+.educationIndex .index-top-model {
+	width: 23%;
+	min-width: 260px;
+	height: 124px;
+	background-color: #ffffff;
+	box-shadow: 0px 3px 7px 0px rgba(147, 152, 187, 0.35);
+	border-radius: 2px;
+	border: solid 1px #f5f5f5;
+	display: inline-block;
+}
+
+.educationIndex .index-top-model img {
+	width: 74px;
+	margin: 25px 0 0 16px;
+}
+
+.educationIndex .index-top-model div {
+	width: 55%;
+	float: right;
+	text-align: right;
+	padding-right: 24px;
+}
+
+.educationIndex .index-top-model div {
+	margin-top: 33px;
+}
+
+.educationIndex .index-top-model h5 {
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #777777;
+}
+
+.educationIndex .index-top-model span {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 24px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.educationIndex .index-top-model label {
+	font: "微软雅黑" 18px;
+	color: #777777;
+}
+
+.educationIndex .index-top-model:not(:first-child) {
+	margin-left: 12px;
+}
+
+
+/**/
+.educationIndex .index-rates-yes,.index-rates-no{
+	display: none;
+}
+.educationIndex .index-rates {
+	width: 100%;
+	min-width: 1130px;
+	border: 5px solid #f5f5f5;
+	padding: 8px;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+	border-radius: 10px;
+}
+
+.educationIndex .index-rates thead {
+	border-top: 1px solid #E6E6E6;
+}
+
+.educationIndex .rates-table {
+	width: 100%;
+	position: relative;
+}
+
+.educationIndex .rates-table caption {
+	height: 58px;
+	text-align: left;
+	padding-left: 10px;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+	position: relative;
+	padding-top: 12px;
+}
+
+.educationIndex .rates-table caption ul {
+	margin-left: -10px;
+	position: absolute;
+	bottom: 0;
+}
+
+.educationIndex .rates-table caption li {
+	width: 78px;
+	height: 28px;
+	text-align: center;
+	float: left;
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #333333;
+	line-height: 28px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.educationIndex .rates-table caption li.active {
+	border-bottom: 1px solid #3c4687;
+	color: #3c4687;
+}
+
+.educationIndex .rates-table tr {
+	height: 42px;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}
+
+.educationIndex .rates-table th {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+}
+
+.educationIndex .rates-table td {
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #333333;
+	padding: 0;
+}
+
+.educationIndex .rates-table td:nth-child(1),
+.educationIndex .rates-table td:nth-child(2),
+.educationIndex .rates-table th:nth-child(1),
+.educationIndex .rates-table th:nth-child(2),
+.educationIndex .rates-table td:nth-child(4),
+.educationIndex .rates-table th:nth-child(4){
+	text-align: left;
+}
+.educationIndex .rates-table td:nth-child(5),
+.educationIndex .rates-table td:nth-child(6),
+.educationIndex .rates-table th:nth-child(5),
+.educationIndex .rates-table th:nth-child(6){
+	text-align: right;
+}
+.educationIndex .rates-table td:nth-child(3),
+.educationIndex .rates-table td:nth-child(7) {
+	text-align: center;
+}
+
+.educationIndex .rates-table td:nth-child(1),
+.educationIndex .rates-table th:nth-child(1) {
+	padding-left: 6px;
+}
+
+
+/*日程表*/
+.educationIndex .tip-table td.tip-lable {
+    text-align: right;
+}
+.educationIndex .tip-table td{
+	color: #fff;
+	padding: 5px 0;
+}
+.educationIndex .tip-box{
+	border-top: 1px dashed #ffffff;
+    color: #fff;
+    padding: 0 12px;
+    position: relative;
+}
+.educationIndex .tip-box:first-child{
+	border: none;
+}
+.educationIndex .tip-box table td.tip-lable{
+	color: #FFF;
+}
+.educationIndex .tip-box:before{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    height: 12px;
+    width: 5px;
+    background: #968deb;
+    top: 9px;
+    left: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.educationIndex .calendar .calMain .calContent .enabled{
+	height:auto
+}
+.educationIndex .calendar .calMain .calContent .enabled td{
+	border: none;
+}
+.educationIndex .index-plan {
+	width: 100%;
+	min-width: 1130px;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+	padding: 8px;
+	border: 5px solid #f5f5f5;
+	border-top: none;
+	border-radius: 10px;
+}
+
+.educationIndex .plan-table {
+	width: 100%;
+}
+
+.educationIndex .plan-table th {
+	border: 1px solid #e2e9ef;
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+	cursor: pointer;
+}
+.educationIndex .plan-table tr{
+	border: none;
+}
+.educationIndex .plan-table td {
+	position: relative;
+	padding: 0;
+	border: 1px solid #E2E9EF;
+}
+.educationIndex .plan-table th:nth-child(1),
+.educationIndex .plan-table td:nth-child(1){
+	padding-left: 3px;
+	text-align: left;
+}
+.educationIndex .index-plan caption {
+	width: 100%;
+	height: 37px;
+	text-align: left;
+	padding-left: 10px;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+	position: relative;
+	padding-top: 12px;
+}
+
+.educationIndex .index-plan caption .calendar-box {
+	background-color: #ffffff;
+	border-radius: 3px;
+	border: solid 1px #f5f5f5;
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #888888;
+	margin-left: 39px;
+}
+
+.educationIndex .index-plan caption li {
+	float: left;
+	font-family: MicrosoftYaHeiLight;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #555555;
+	margin-right: 20px;
+}
+
+.educationIndex .index-plan caption li label {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 4px;
+	margin-right: 10px;
+}
+/*
+.educationIndex .index-plan caption li:nth-child(1) label {
+	background-color: #b8b3e2;
+}
+
+.educationIndex .index-plan caption li:nth-child(2) label {
+	background-color: #847ccf;
+}
+
+.educationIndex .index-plan caption li:nth-child(3) label {
+	background-color: #df94e0;
+}*/
+.educationIndex .index-plan caption li:nth-child(1) label {
+	background-color: #DBDBDB;
+}
+
+.educationIndex .index-plan caption li:nth-child(2) label {
+	background-color: #847CCF;
+}
+
+.educationIndex .index-plan caption li:nth-child(3) label {
+	background-color: #DF94E0;
+}
+
+.educationIndex .index-plan caption li:nth-child(4) label {
+	background-color: #F6E7CD;
+}
+/*.educationIndex .index-plan caption li:nth-child(1) label {
+	background-color: #847ccf;
+}
+
+.educationIndex .index-plan caption li:nth-child(2) label {
+	background-color: #b8b3e2;
+}
+
+.educationIndex .index-plan caption li:nth-child(3) label {
+	background-color: #df94e0;
+}
+
+.educationIndex .index-plan caption li:nth-child(4) label {
+	background-color: #f59700;
+}*/
+
+.educationIndex .index-plan caption ul {
+	margin: 0 auto;
+	width: 320px;
+	height: 20px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 17px;
+}
+
+.educationIndex .index-plan caption div.right {
+	float: right;
+	margin-right: 11px;
+}
+
+.educationIndex .index-plan caption div.right span {
+	font-family: MicrosoftYaHei;
+	font-size: 16px;
+	letter-spacing: 0px;
+	color: #7b74c7;
+	margin-left: 35px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.educationIndex .state-day {
+	width: 30px;
+	height: 30px;
+}
+
+.educationIndex .state-day.all-use:after,
+.educationIndex .state-day.sub-use:after,
+.educationIndex .state-day.no-use:after,
+.educationIndex .state-day.alr-use:after {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	top: auto;
+	margin: auto;
+	margin-top: -11px;
+	width: 100%;
+	height: 22px;
+	padding: 0 1px;
+	
+}
+/*未立项*/
+.educationIndex .state-day.sub-use:after{
+	background-color: #DBDBDB;
+}
+/*已立项*/
+.educationIndex .state-day.all-use:after {
+	background-color: #847CCF;
+}
+/*已运行*/
+.educationIndex .state-day.no-use:after {
+	background-color: #DF94E0;
+}
+/*已结项*/
+.educationIndex .state-day.alr-use:after {
+	background-color: #F6E7CD;
+}
+
+.educationIndex .state-day.all-use.start-state:after,
+.educationIndex .state-day.sub-use.start-state:after,
+.educationIndex .state-day.no-use.start-state:after,
+.educationIndex .state-day.alr-use.start-state:after {
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+}
+
+.educationIndex .state-day.all-use.end-state:after,
+.educationIndex .state-day.sub-use.end-state:after,
+.educationIndex .state-day.no-use.end-state:after,
+.educationIndex .state-day.alr-use.end-state:after {
+	-webkit-border-radius: 0 5px 5px 0;
+	-moz-border-radius: 0 5px 5px 0;
+	border-radius: 0 5px 5px 0;
+}
+
+.educationIndex .state-day.all-use.end-state.start-state:after,
+.educationIndex .state-day.sub-use.end-state.start-state:after,
+.educationIndex .state-day.no-use.end-state.start-state:after,
+.educationIndex .state-day.alr-use.end-state.start-state:after {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.educationIndex .sun-head {
+	background: url(../../../resources/images/img/sun-icon.png) no-repeat;
+}
+
+.educationIndex .sat-head {
+	background: url(../../../resources/images/img/sat-icon.png) no-repeat;
+}
+.educationIndex .sat{
+	background: url(../../../resources/images/img/sat.png) no-repeat;
+}
+.educationIndex .sun{
+	background: url(../../../resources/images/img/sun.png) no-repeat;
+}
+/**/
+
+.educationIndex .index-ready {
+	border-top: none;
+}
+
+.educationIndex .index-ready caption {
+	height: 40px;
+}
+
+.educationIndex .index-ready caption span,
+.educationIndex .index-scend caption span {
+	float: right;
+	font-family: MicrosoftYaHei;
+	font-size: 16px;
+	letter-spacing: 0px;
+	color: #7b74c7;
+}
+
+.educationIndex .index-ready th:nth-child(1),
+.educationIndex .index-ready td:nth-child(1) {
+	padding: 0;
+}
+/*项目主任首页*/
+
+.projectIndex .index-top {
+	width: 100%;
+	min-width: 1130px;
+	background-color: #363845;
+	box-shadow: inset 0px -1px 0px 0px #5c607a;
+	padding: 15px 0px;
+}
+
+.projectIndex .index-top-middle {
+	text-align: center;
+}
+
+.projectIndex .index-top-model {
+	width: 23%;
+	min-width: 260px;
+	height: 124px;
+	background-color: #ffffff;
+	box-shadow: 0px 3px 7px 0px rgba(147, 152, 187, 0.35);
+	border-radius: 2px;
+	border: solid 1px #f5f5f5;
+	display: inline-block;
+}
+
+.projectIndex .index-top-model img {
+	width: 74px;
+	margin: 25px 0 0 16px;
+}
+
+.projectIndex .index-top-model div {
+	width: 55%;
+	float: right;
+	text-align: right;
+	padding-right: 24px;
+}
+
+.projectIndex .index-top-model div {
+	margin-top: 33px;
+}
+
+.projectIndex .index-top-model h5 {
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #777777;
+}
+
+.projectIndex .index-top-model span {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 24px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.projectIndex .index-top-model label {
+	font: "微软雅黑" 18px;
+	color: #777777;
+}
+
+.projectIndex .index-top-model:not(:first-child) {
+	margin-left: 12px;
+}
+
+.projectIndex .index-rates {
+	width: 100%;
+	min-width: 1130px;
+	border: 5px solid #f5f5f5;
+	padding: 8px;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+	border-top: none;
+}
+
+.projectIndex .rates-table {
+	width: 100%;
+}
+
+.projectIndex .rates-table caption {
+	height: 45px;
+	text-align: left;
+	padding-left: 10px;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+}
+
+.projectIndex .rates-table tr {
+	height: 42px;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}
+
+.projectIndex .rates-table th {
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	letter-spacing: 0px;
+	color: #888888;
+}
+
+.projectIndex .rates-table td {
+	font-family: MicrosoftYaHei;
+	font-size: 12px;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+
+.projectIndex .rates-table td:nth-child(1),
+.projectIndex .rates-table td:nth-child(3),
+.projectIndex .rates-table td:nth-child(4),
+.projectIndex .rates-table th:nth-child(1),
+.projectIndex .rates-table th:nth-child(3),
+.projectIndex .rates-table th:nth-child(4){
+	text-align: left;
+}
+
+.projectIndex .rates-table td:nth-child(2),
+.projectIndex .rates-table td:nth-child(5),
+.projectIndex .rates-table td:nth-child(8) {
+	text-align: center;
+}
+.projectIndex .rates-table td:nth-child(6),
+.projectIndex .rates-table th:nth-child(6),
+.projectIndex .rates-table td:nth-child(7),
+.projectIndex .rates-table th:nth-child(7) {
+	text-align: right;
+}
+.projectIndex .loadingrates{
+	color: #ffa91c !important;
+}
+.projectIndex .drawsclass,
+.projectIndex #echartsthree{
+	width: 100%;
+	height: 383px;
+	border: 5px solid #EDEDED;
+	border-top: none;
+	box-sizing: border-box;
+	padding-top:20px ;
+	background-color: #FFFFFF
+}
+.projectIndex .title{
+	height: 45px;
+	text-align: left;
+	padding-left: 10px;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	letter-spacing: 1px;
+	color: #111111;
+}
+.more-tab-btn-end{
+	background: #FFFFFF url(../../images/img/index-more-btn-right.png) no-repeat 50%;	
+}
+.more-tab-btn-start{
+	background: #FFFFFF url(../../images/img/index-more-btn-left.png) no-repeat 50%;
+}
+.tab-title-list{
+	background:#fafafa;
+}
+.tab-title-list button.active{
+	background: #ffffff;
+	border: solid 1px #f0f0f0;
+	color: #7b73c7;
+	border-bottom: 4px solid #837bca;
+}
+.class-info-btn{
+	height: 40px !important;
+	box-sizing: border-box;
+}
+.tab-title-list{
+	height: 40px !important;
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--窗口小图标-->
+		<link rel="icon" href="/cbead/website/resources/images/icons/ICO.png" type="image/x-icon">
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE=20180420" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/approve/loanApproval.min.css?YTVERSIONCODE=20180420" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style type="text/css">
+			.dept-label,.job-label,.tel-label{
+				padding-left: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="loanApply">
+			<!--基本信息区域START-->
+			<div class="base-info-model">
+				<!--标题区域START-->
+				<div style="padding: 0px 10px;">
+					 <div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+						<span class="title-text">基本信息</span>
+						<div class="form-num-model">
+							<label><span style="letter-spacing: 4px;">单据编</span>号：</label><span id="formNum"></span>
+							<label style="margin-left: 30px;"><span style="letter-spacing: 4px;">申请日</span>期：</label>
+							<span id="applyDate"></span>
+						</div>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<!--基础信息表单区START-->
+				<div class="base-form-info" style="padding: 10px 10px 0;">
+					<table id="firstTr" style="accelerator: 100%;">
+						<tr>
+							<td style="width: 25%;"><label><span style="letter-spacing: 15px;">申请</span>人：</label><span id="busiUsers"></span></td>
+							<td style="width: 25%;"><label class="dept-label"><span style="letter-spacing: 40px;">部</span>门：</label><span id="deptName"></span></td>
+							<td style="width: 25%;"><label class="job-label"><span style="letter-spacing: 40px;">职</span>务：</label><span id="jobName"></span></td>
+							<td style="width: 25%;"><label class="tel-label"><span style="letter-spacing: 40px;">电</span>话：</label><span id="telPhone"></span></td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<label><span style="letter-spacing: 5px;">借款事</span>由：</label>
+								<span id="loanAppName"></span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="width: 50%;">
+								<label>是否有未清账借款单：</label>
+								<span id="noCloseOut">--</span>
+							</td>
+							<td class="is-special" colspan="2">
+								<label>未清账借款单编号：</label>
+								<span id="loanAppNumStr">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>已借款：</label><span id="borrowedMoney">200.00</span><span>元</span>
+							</td>
+							<td>
+								<label>剩余额度：</label><span id="surplusAmount">100.00</span><span>元</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--基础信息表单区END-->
+			</div>
+			<!--基本信息区域END-->
+			<div style="height: 5px;background-color: #f3f3f3;margin-top: 15px;margin-bottom:10px;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+			<!--借款明细区域START-->
+			<div class="base-info-model">
+				<!--标题区域START-->
+				<div style="padding:10px 10px 0">
+					<div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+						<span class="title-text">借款明细</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				
+				<!--基础信息表单区START-->
+				<div class="base-form-info" style="padding: 10px 10px 0;">
+					<!--借款明细信息展示区域START-->
+					<div  id="firstTr">
+						<table width="100%" style="margin-top: 6px;">
+							<thead>
+								<tr>
+									<th width="36%"></th><th width="30%"></th><th></th>
+								</tr>
+							</thead>
+							<tr>
+								<td>
+									<label><span style="letter-spacing: 5px;">借款金</span>额：</label>
+									<span><span class="moneyText" id="lonMon"></span>元 </span>
+								</td>
+								<td colspan="2">
+									<label><span style="letter-spacing: 1px;">人民币大</span>写：</label>
+									<span id="moneyUpper"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label><span style="letter-spacing: 5px;">借款期</span>限：</label>
+									<span id="loanTerm"></span>
+								</td>
+								<td colspan="2">
+									<label><span style="letter-spacing: 1px;">预计还款日</span>期：</label>
+									<span id="expectRepaymentTime">--</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<label><span style="letter-spacing: 5px;">付款方</span>式：</label>
+									<span id="paymentMethod"></span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!--借款明细信息展示区域END-->
+				
+				</div>
+				<!--基础信息表单区END-->
+			</div>
+			<!--借款明细区域START-->
+			<!--还款记录区域START-->
+			<div class="base-info-model payment-history">
+			<div style="height: 5px;background-color: #f3f3f3;margin-top: 15px;margin-bottom:10px;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				<!--标题区域START-->
+				<div style="padding:10px 10px 0">
+					<div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+						<span class="title-text">还款记录</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				
+				<!--表格区START-->
+				<div class="base-form-info">
+					<table width="100%">
+						<tr>
+							<!--
+								借款总金额、已冻结借款金额、已使用借款金额、借款单可用余额
+								loanSumAmount  
+								frozenLoanAmount 
+								haveBeenLoanAmount 
+								loanBillAvailableBalance>>>loanBillAB
+							-->
+							<td><span>借款总金额：</span><span class="moneyText" id="loanSumAmount"></span>元</td>
+							<td><span>已冻结借款金额：</span><span class="moneyText" id="frozenLoanAmount"></span>元</td>
+							<td><span>已使用借款金额：</span><span class="moneyText" id="haveBeenLoanAmount"></span>元</td>
+							<td><span>借款单可用余额：</span><span class="moneyText" id="loanBillAB"></span>元</td>
+						</tr>
+					</table>
+					
+					<table class="yt-table paymentHistory" style="margin-bottom: 20px;margin-top: 10px;" width="100%">
+						<thead class="yt-thead">
+							<tr>
+								<th rowspan="2">还款日期</th><th rowspan="2">还款金额（元）</th><th colspan="4">还款方式</th>
+							</tr>
+							<tr>
+								<th>报销单冲销</th><th>现金</th><th>支票</th><th>转账</th>
+							</tr>
+						</thead>
+						<!--
+							还款金额  repaymentAmount
+						-->
+						<tbody class="yt-tbody">
+						</tbody>
+					</table>
+					
+				</div>
+				<!--表格区END-->
+			</div>
+			<!--还款记录区域END-->
+			
+			<div style="height: 5px;background-color: #f3f3f3;margin-top: 15px;margin-bottom:10px;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				
+			<!--审批流程日志START-->
+			<div class="flow-approve-model appr-flow-log">
+				<!--标题区域START-->
+				<div>
+					<div class="base-info-title-model title-model-sty">
+						<!--<img src="../../../../../resources-sasac/images/common/flow-log-title.png">-->
+							<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+								<span class="title-text">流程日志</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<div class="flow-log-div">
+				</div>
+			</div>
+			<!--审批流程日志END-->	
+			<!---按钮组区域START-->
+			<div class="bottom-btn" style="width: 100%;text-align: center;margin: 20px;">
+				<!--<button class="yt-model-bot-btn yt-model-sure-btn" id="confirmedPayment">确认已还款</button>-->
+				<button class="yt-option-btn yt-cancel-btn" id="closeBtn" style="min-width: 100px;height: 40px;line-height: 38px;font-size: 18px;">关闭</button>
+			</div>
+			<!---按钮组区域END-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js?YTVERSIONCODE=20180420"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE=20180420"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/loanApply/loanApplyDetail.min.js?YTVERSIONCODE=20180706"></script>
+	<!--引用JS文件END-->
+
+</html>

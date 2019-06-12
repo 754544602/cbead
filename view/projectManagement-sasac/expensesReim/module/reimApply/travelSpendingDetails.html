@@ -1,0 +1,202 @@
+<style>
+	.checkbox-div{
+		display: none;
+	}
+</style>
+<div class="mod-div travel-div" style="padding-top: 20px;display: block;">
+	<div class="label-title" style="padding-bottom: 10px;padding-left: 10px;">
+		<div class="title-model-sty">
+			<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+			<span class="title-text">项目预算事项信息</span>
+		</div>
+		<div class="title-line">
+			<div></div>
+		</div>
+	</div>
+	<div class="secondary-back" style="top: 1px;"></div>
+	<div class="secondary-title">行程明细</div>
+	<table class="yt-table" style="margin: 10px 0 15px;" id="tripList">
+		<thead class="yt-thead">
+			<tr>
+				<th>出差类型</th>
+				<th style="width: 100px;">开始日期</th>
+				<th style="width: 100px;">结束日期</th>
+				<th style="width: 70px;">出差天数</th>
+				<th>出差地点</th>
+				<th>出差人</th>
+				<th style="width: 70px;">出差人数</th>
+				<th>接待方承担费用项</th>
+			</tr>
+		</thead>
+		<tbody class="yt-tbody"></tbody>
+	</table>
+	<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin: 10px 0;"></div>
+
+	<div class="label-title" style="padding: 10px;">
+		<div class="title-model-sty">
+			<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+			<span class="title-text">项目预算费用信息</span>
+		</div>
+		<div class="title-line">
+			<div></div>
+		</div>
+	</div>
+	<div class="secondary-back" style="top: 1px;"></div>
+	<div class="secondary-title">费用明细</div>
+	<!--费用申请多个列表显示START-->
+	<div class="cost-list-model">
+		<!--交通费列表START-->
+		<div class="traffic-cost-model traffic-cost-div">
+			<div class="cost-list-title traffic-title">
+				<label style="color: #111111;font-weight: bold;">城市间交通费</label>
+				<span class="risk-model"><input type="hidden" value="trafficTab" class="hid-risk-code"/><img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/></span>
+				<input type="hidden" class="hid-tab-id" value="" />
+			</div>
+			<table class="yt-table" width="100%" id="traffic-list-info">
+				<thead class="yt-thead">
+					<tr>
+						<th width="180px">
+							<div style="width: 180px;">出差人</div>
+						</th>
+						<th width="65px">
+							<div style="width:65px;">级别</div>
+						</th>
+						<th width="90px">
+							<div style="width:90px;">出发日期</div>
+						</th>
+						<th width="88px">
+							<div style="width:88px;">出发地点</div>
+						</th>
+						<th width="85px">
+							<div style="width:85px;">到达日期</div>
+						</th>
+						<th width="90px">
+							<div style="width:90px;">到达地点</div>
+						</th>
+						<th width="90px">
+							<div style="width:90px;">交通工具</div>
+						</th>
+						<th width="98px">
+							<div style="width:98px;">城市间交通费</div>
+						</th>
+						<th width="">
+							<div>特殊说明</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody"></tbody>
+			</table>
+		<!--	<div style="text-align: right;padding: 20px 20px 10px 20px;" class="checkbox-div">
+				<label class="check-label yt-checkbox"><input id="" type="checkbox" class="checkbox-input" name="" value="0">公务卡结算</label>
+			</div>-->
+		</div>
+		<!--交通费列表END-->
+		<!--住宿费列表START-->
+		<div class="hotel-list-model">
+			<div class="cost-list-title accommodation-title">
+				<label style="color: #111111;font-weight: bold;">住宿费</label>
+				<span class="risk-model"><input type="hidden" value="hotelDay" class="hid-risk-code"/><img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/></span>
+				<input type="hidden" class="hid-tab-id" value="" />
+			</div>
+			<table class="yt-table" width="100%" id="hotel-list-info">
+				<thead class="yt-thead">
+					<tr>
+						<th style="width: 100px;">
+							<div>出差人</div>
+						</th>
+						<th width="">
+							<div>级别</div>
+						</th>
+						<th width="">
+							<div>人均花销(人/晚)</div>
+						</th>
+						<th style="width: 100px;">
+							<div>入住日期</div>
+						</th>
+						<th style="width: 100px;">
+							<div>离开日期</div>
+						</th>
+						<th style="width: 80px;">
+							<div>住宿天数</div>
+						</th>
+						<th width="">
+							<div>住宿费(元)</div>
+						</th>
+						<th width="">
+							<div>住宿地点</div>
+						</th>
+						<th width="">
+							<div>特殊说明</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody"></tbody>
+			</table>
+			<!--<div style="text-align: right;padding: 20px 20px 10px 20px;" class="checkbox-div">
+				<label class="check-label yt-checkbox"><input id="" type="checkbox" class="checkbox-input" name="" value="0">公务卡结算</label>
+			</div>-->
+		</div>
+		<!--住宿费列表END-->
+		<!--其他费用START-->
+		<div class="other-cost-model">
+			<div class="cost-list-title other-title-hide">
+				<label style="color: #111111;font-weight: bold;">其他费用</label>
+				<!--风险区域START-->
+				<span class="risk-model"><input  type="hidden" class="hid-risk-code" value=""/><img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/></span>
+				<!--风险区域END-->
+				<input type="hidden" class="hid-tab-id" value="" />
+			</div>
+			<table class="yt-table" width="100%" id="other-list-info">
+				<thead class="yt-thead">
+					<tr>
+						<th width="340px">
+							<div style="width: 340px;">其他费用明细</div>
+						</th>
+						<th width="340px">
+							<div style="width: 340px;">费用金额</div>
+						</th>
+						<th width="">
+							<div>特殊说明</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody"></tbody>
+			</table>
+			<!--<div style="text-align: right;padding: 20px 20px 10px 20px;" class="checkbox-div">
+				<label class="check-label yt-checkbox"><input id="" type="checkbox" class="checkbox-input" name="test" value="0">公务卡结算</label>
+			</div>-->
+		</div>
+		<!--其他费用END-->
+		<!--补助明细列表START-->
+		<div class="subsidy-model">
+			<div class="cost-list-title subsidy-title">
+				<label style="color: #111111;font-weight: bold;">补助明细</label>
+				<span class="risk-model"><input type="hidden" value="subsidyDetail" class="hid-risk-code"/><img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/></span>
+				<input type="hidden" class="hid-tab-id" value="" />
+			</div>
+			<table class="yt-table" width="100%" id="subsidy-list-info" style="margin-bottom: 20px;">
+				<thead class="yt-thead">
+					<tr>
+						<th width="180px">
+							<div style="width: 180px;">出差人</div>
+						</th>
+						<th width="130px">
+							<div style="width:130px ;">级别</div>
+						</th>
+						<th width="185px">
+							<div style="width: 185px;">补助天数</div>
+						</th>
+						<th width="">
+							<div style="width: ;">伙食补助费</div>
+						</th>
+						<th width="">
+							<div style="width: ;">市内交通费</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody"></tbody>
+			</table>
+		</div>
+		<!--补助明细列表END-->
+	</div>
+</div>

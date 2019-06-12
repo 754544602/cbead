@@ -1,0 +1,752 @@
+var teacherList = {
+	//初始化方法
+	init: function() {
+		$("select").niceSelect(); //下拉框刷新  
+
+		//日期控件
+		$(".startAttendClassStart").calendar({
+			controlId: "startDate",
+			nowData: false, //默认选中当前时间,默认true  
+			upperLimit: $(".startAttendClassEnd") //开始日期最大为结束日期  
+		});
+		$(".startAttendClassEnd").calendar({
+			controlId: "endDate",
+			nowData: false, //默认选中当前时间,默认true  
+			lowerLimit: $(".startAttendClassStart") //结束日期最小为开始日期  
+		});
+		$(".endAttendClassStart").calendar({
+			controlId: "startDate",
+			nowData: false, //默认选中当前时间,默认true  
+			upperLimit: $(".end-time-end") //开始日期最大为结束日期  
+		});
+		$(".endAttendClassEnd").calendar({
+			controlId: "endDate",
+			nowData: false, //默认选中当前时间,默认true  
+			lowerLimit: $(".endAttendClassStart") //结束日期最小为开始日期  
+		});
+		//点击新增
+		$(".addList").on('click', function() {
+			//设置标题名称
+			$(".yt-edit-alert-title-msg").text("新增教师");
+			//调用弹出框方法  显示弹出框
+			teacherList.legalAdd();
+			//点击弹出框确定按钮
+			$('.alert-add-teacher .yt-model-sure-btn').off('click').on('click', function() {
+				if($yt_valid.validForm($('body'))) {
+					teacherList.addTeacherList();
+					$(".lawyer-opinion-box").hide();
+				} else {
+					teacherList.pageToScroll($('body .valid-font'));
+					$yt_alert_Model.prompt("请将标红必填项填写完整", 3000);
+
+				}
+			});
+		});
+		//点击修改
+		//点击修改按钮  
+		$(".updateList").on('click', function() {
+			//判断是否有选中行
+			if($("tr.yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择要修改的数据");
+				return false;
+			}
+			//获取被选中行的详细信息
+			teacherList.getTeacherInf();
+			//设置标题内容
+			$(".yt-edit-alert-title-msg").text("修改");
+
+			//显示弹出框
+			teacherList.legalAdd();
+			//点击弹出框确定按钮
+			$('.alert-add-teacher .yt-model-sure-btn').off('click').on('click', function() {
+				//调动修改方法  修改数据
+				teacherList.amendTeacherList();
+				//隐藏弹出框
+				$(".lawyer-opinion-box").hide();
+
+			});
+		});
+		//点击删除
+		$(".deleteList").on('click', function() {
+			//判断是否有选中行
+			if($("tr.yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择要删除的数据");
+				return false;
+			}
+			//调用删除方法  删除被选中的数据
+			teacherList.delTeacherList();
+		});
+		//点击启用
+		$(".enableList").on('click', function() {
+			//判断是否有选中行
+			if($("tr.yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择要操作的数据");
+				return false;
+			}
+			//调用启用方法   启用被选中的数据
+			teacherList.startUsing();
+		});
+		//点击停用
+		$(".disableList").on('click', function() {
+			//判断是否有选中行
+			if($("tr.yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择要操作的数据");
+				return false;
+			}
+			//调用停用方法  停用被选中的数据
+			teacherList.endUsing();
+		});
+		//点击导出
+		$(".exportList").on("click", function() {
+			//判断是否有选中行
+			if($("tr.yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择要操作的数据");
+				return false;
+			}
+			//获取被选中行的数据
+			var pkId = $(".yt-table-active .pkId").val();
+			var realName = $('.yt-table-active').data("legalData").realName;
+			var org = $('.yt-table-active').data("legalData").org;
+			var isFormal = $('.yt-table-active').data("legalData").isFormal;
+			var title = $('.yt-table-active').data("legalData").title;
+			var researchArea = $('.yt-table-active').data("legalData").researchArea;
+			var states = $('.yt-table-active').data("legalData").states;
+			var startAttendClassStart = $('.yt-table-active').data("legalData").startAttendClassStart;
+			var startAttendClassEnd = $('.yt-table-active').data("legalData").startAttendClassEnd;
+			var endAttendClassStart = $('.yt-table-active').data("legalData").endAttendClassStart;
+			var endAttendClassEnd = $('.yt-table-active').data("legalData").endAttendClassEnd;
+			var gradeStart = $('.yt-table-active').data("legalData").gradeStart;
+			var gradeEnd = $('.yt-table-active').data("legalData").gradeEnd;
+			var downUrl = $yt_option.base_path + "teacher/exportTeacher";
+			$.ajaxDownloadFile({
+				url: downUrl,
+				data: {
+					pkId: pkId,
+					realName: realName,
+					org: org,
+					isFormal: isFormal,
+					title: title,
+					researchArea: researchArea,
+					states: states,
+					startAttendClassStart: startAttendClassStart,
+					startAttendClassEnd: startAttendClassEnd,
+					endAttendClassStart: endAttendClassStart,
+					endAttendClassEnd: endAttendClassEnd,
+					gradeStart: gradeStart,
+					gradeEnd: gradeEnd,
+					isDownload: true
+				}
+			});
+		});
+		//查看详情
+		$(".list-tbody").on('click', '.real-name-inf', function() {
+			window.location.href = "teacherInf.html?pkId=" + $(this).parent().parent().find('.pkId').val();
+		});
+
+		//头像附件上传
+		$(".btn-file").undelegate().delegate("input", "change", function() {
+			$(".btn-file").next().text("");
+
+			var addFile = $(this).attr("id");
+			$yt_baseElement.showLoading();
+			var url = $yt_option.acl_path + "api/tAscPortraitInfo/addFile?modelCode=caFile";
+
+			$.ajaxFileUpload({
+				url: url,
+				type: "post",
+				dataType: 'json',
+				fileElementId: addFile,
+				success: function(data, textStatus) {
+					var resultData = $.parseJSON(data);
+					if(resultData.success == 0) {
+						$yt_alert_Model.prompt("附件上传成功");
+						$(".file-id").append('<li>' +
+							'<span class="file-name" style="margin-right: 50px;color:blue;cursor: pointer"><input type="hidden" class="file-span-id" value="' + resultData.obj.pkId + '" >' + resultData.obj.naming + '</span><span class="cancal" style="cursor: pointer;">x</span>' +
+							'</li>');
+
+					} else {
+						$yt_alert_Model.prompt("附件上传失败");
+					}
+					$yt_baseElement.hideLoading();
+				},
+				error: function(data, status, e) { //服务器响应失败处理函数  
+					$yt_alert_Model.prompt("附件上传失败");
+					$yt_baseElement.hideLoading();
+				}
+			});
+		});
+		//下载附件
+		$(".file-id").on("click", "li .file-name", function() {
+			var pkId = $(this).find(".file-span-id").val();
+			var downUrl = $yt_option.acl_path + "api/tAscPortraitInfo/download";
+			$.ajaxDownloadFile({
+				url: downUrl,
+				data: {
+					pkId: pkId,
+					isDownload: true
+				}
+			});
+		});
+		//删除附件
+		$(".file-id").on("click", "li .cancal", function() {
+			$(this).parent().remove();
+		});
+
+		//调用获取列表数据方法
+		teacherList.getPlanListInfo();
+
+		//点击更多
+		var clickNumber = 0;
+		$('.search-more').off().on('click', function() {
+			//显示窗口
+
+			if(clickNumber % 2 == 0) {
+				$('.search-box').show();
+				$('.search-put').addClass('flipy');
+			} else {
+				$('.search-box').hide();
+				$('.realName').val("");
+				$('.org').val("");
+				$('.isFormal').setSelectVal("1");
+				$('.title').val("");
+				$('.researchArea').val("");
+				$('.states').setSelectVal("1");
+				$('.startAttendClassStart').val("");
+				$('.startAttendClassEnd').val("");
+				$('.endAttendClassStart').val("");
+				$('.endAttendClassEnd').val("");
+				$('.gradeStart').val("");
+				$('.gradeEnd').val("");
+				$('.search-put').removeClass('flipy');
+			}
+			clickNumber++;
+		});
+		//重置按钮
+		$('.yt-model-reset-btn').off().on("click", function() {
+
+			$('.realName').val("");
+			$('.org').val("");
+			$('.isFormal').setSelectVal("1");
+			$('.title').val("");
+			$('.researchArea').val("");
+			$('.states').setSelectVal("1");
+			$('.startAttendClassStart').val("");
+			$('.startAttendClassEnd').val("");
+			$('.endAttendClassStart').val("");
+			$('.endAttendClassEnd').val("");
+			$('.gradeStart').val("");
+			$('.gradeEnd').val("");
+		});
+		//条件搜索
+		$('.search-more-button').click(function() {
+			var realName = $('.search-box .realName').val();
+			var org = $('.search-box .org').val();
+			var title = $('.search-box .title').val();
+			var researchArea = $('.search-box .researchArea').val();
+			teacherList.getPlanListInfo(realName, org, title, researchArea);
+		});
+
+		$('.search-btn').click(function() {
+			//调用获取列表数据方法查询
+			var realName = $('.keyword').val();
+			teacherList.getPlanListInfo(realName);
+
+		});
+		$(".research-area").click(function() {
+			$(this).find(".research-area-list").show();
+		});
+		$(".research-area").mouseleave(function() {
+			$(this).find(".research-area-list").hide();
+		});
+		$(".research-area-list").on("click", "li", function() {
+			$(this).toggleClass("active");
+			var researchAreaVal = "";
+			$(".research-area-list li.active").each(function(i, n) {
+				if(researchAreaVal == "") {
+					researchAreaVal = $(n).text();
+				} else {
+					researchAreaVal += "," + $(n).text();
+				}
+			});
+			$(".researchArea").val(researchAreaVal);
+		});
+		//获取专业领域下拉列表
+		var groupList = teacherList.getListSelectGroup();
+		console.log(groupList)
+		/*if (groupList !=null){
+			$.each(groupList,function (i,n){
+				$(".research-area-list ul").append('<li value="'+n.pkId+'">'+n.researchAreaName+'</li>');
+			});
+		}*/
+
+		$('#textTree').createTree({
+			controlId: 'treeDiv', // 必选 弹出的树列表控件ID，默认: $(this).attr("id") + "Tree" 
+			dataList: groupList, // 必选 对象数组 树列表数据 
+			listConfig: { // 必选 树列表节点参数名称 设置为传入的数据对象参数名称 
+				id: 'pkId', //参数ID 
+				pid: 'parentId', //上一级ID 
+				name: 'researchAreaName' //参数名称 
+			},
+			speed: 200, // 可选 下拉树列表显示速度 参数"slow","normal","fast"，或毫秒数值，默认：200 
+			readonly: true, //可选 目标对象是否设为只读，默认：true 
+			checked: true, //可选 是否显示多选框 默认：false 
+			callback: {
+				onCheckClick: getCheckNode //可选 点击复选框回调函数 
+			},
+			rootConfig: { //必选 设置根目录的 默认信息 
+				id: 0, //根目录ID 
+				pid: -1, // 根目录上一级ID 固定值为-1 
+				name: "专业领域" //根目录名称 
+			}
+		});
+		/** 
+		 * 点击复选框触发事件 
+		 * @param {Object} checkNode 选中的对象list 
+		 */
+		function getCheckNode(checkNode) {
+			var check = '';
+			$.each(checkNode, function(i, n) {
+				if(n.pid != 0) {
+					check += n.name + ';';
+				}
+			});
+			$('#textTree').val(check);
+		}
+		//获取考察人,中间联系人下拉列表
+		var treeAllPersonal = teacherList.getTreeAllPersonnel();
+		if(treeAllPersonal != null) {
+			$.each(treeAllPersonal, function(i, n) {
+				if(n.type == 3) {
+					$(".inspecting-user-code,.intermediate-user-code").append('<option value="' + n.textName + '">' + n.text + '</option>');
+				}
+			});
+		}
+		$(".inspecting-user-code,.intermediate-user-code").niceSelect();
+
+	},
+
+	/**
+	 * 师资管理列表获取专业领域
+	 */
+	getListSelectGroup: function() {
+		var list = [];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "teacher/getResearchArea",
+			data: {
+
+			},
+			async: false,
+			success: function(data) {
+				list = data.data || [];
+			}
+		});
+		return list;
+	},
+	/**
+	 * 获取树形结构所有人员
+	 */
+	getTreeAllPersonnel: function() {
+		var list = [];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "uniform/user/getUsers",
+			data: {
+
+			},
+			async: false,
+			success: function(data) {
+				list = data.data || [];
+			}
+		});
+		return list;
+	},
+	/**
+	 * 获取列表数据
+	 */
+	getPlanListInfo: function(realName, org, title, researchArea) {
+		$yt_baseElement.showLoading();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "teacher/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				realName: realName,
+				org: org,
+				isFormal: "",
+				title: title,
+				researchArea: researchArea,
+				states: "",
+				startAttendClassStart: "",
+				startAttendClassEnd: "",
+				endAttendClassStart: "",
+				endAttendClassEnd: "",
+				gradeStart: "",
+				gradeEnd: ""
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.list-table .list-tbody');
+					var htmlTr = '';
+					var num = 1;
+					$(htmlTbody).empty();
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							htmlTr = '<tr>' +
+								'<td><input type="hidden" value="' + v.pkId + '" class="pkId">' + num++ + '</td>' +
+								'<td style="text-align: left;"><a href="#" class="real-name-inf" style=" color:blue">' + v.realName + '</a></td>' +
+								'<td style="text-align: left;">' + v.org + '</td>' +
+								'<td style="text-align: left;">' + v.title + '</td>' +
+								'<td>' + v.startAttendClassStart + '</td>' +
+								'<td>' + v.endAttendClassStart + '</td>' +
+								'<td style="text-align: center;">' + v.grade + '</td>' +
+								'<td style="text-align: center;">' + v.researchArea + '</td>' +
+								'<td>' + (v.states == 1 ? "可用" : (v.states == 2 ? "已用" : "停用")) + '</td>' +
+								'</tr>';
+							$('.page-info').show();
+							htmlTbody.append($(htmlTr).data("legalData", v));
+						});
+					} else {
+						$('.page-info').hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.html(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+
+				} else {
+					$yt_alert_Model.prompt("查询失败");
+					$yt_baseElement.hideLoading();
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//新增教师
+	addTeacherList: function() {
+		var validFlag = $yt_valid.validForm($(".valid-tab"));
+		if(validFlag) {
+
+		} else {
+
+		}
+		var realName = $(".alert-add-teacher .realName").val();
+		var gender = $(".alert-add-teacher .gender").val();
+		var researchArea = $(".tree-input").val();
+		var org = $(".alert-add-teacher .org").val();
+		var applyShift = $(".alert-add-teacher .applyShift").val();
+		var title = $(".alert-add-teacher .title").val();
+		var clerkPhone = $(".alert-add-teacher .clerkPhone").val();
+		var papersType = $(".alert-add-teacher .papersType").val();
+		var clerkWorkPhone = $(".alert-add-teacher .clerkWorkPhone").val();
+		var papersNumber = $(".alert-add-teacher .papersNumber").val();
+		var inspectingUserCode = $(".alert-add-teacher .inspecting-user-code").val();
+		var phone = $(".alert-add-teacher .phone").val();
+		var intermediateUserCode = $(".alert-add-teacher .intermediate-user-code").val();
+		var workPhone = $(".alert-add-teacher .workPhone").val();
+		var dollarsStandardHalf = $(".alert-add-teacher .dollarsStandardHalf").val();
+		var dollarsStandardOne = $(".alert-add-teacher .dollarsStandardOne").val();
+		var fax = $(".alert-add-teacher .fax").val();
+		var email = $(".alert-add-teacher .email").val();
+		var registeredBank = $(".alert-add-teacher .registeredBank").val();
+		var orgAddress = $(".alert-add-teacher .orgAddress").val();
+		var account = $(".alert-add-teacher .account").val();
+		var teacherDetails = $(".alert-add-teacher .teacherDetails").val();
+		var fileIds = "";
+		var remarks = $(".alert-add-teacher .remarks").val();
+
+		var fileIdsJsonArr = [];
+		$(".file-id li").each(function(i, n) {
+			fileName = $(n).find(".file-name").text();
+			fileId = $(n).find(".file-name .file-span-id").val();
+			var fileIds = {
+				fileName: fileName,
+				fileId: fileId
+			}
+			fileIdsJsonArr.push(fileIds);
+		});
+		var fileIdsJson = JSON.stringify(fileIdsJsonArr);
+
+		$.ajax({
+			type: "post", //ajax访问方式 默认 "post"  
+			url: $yt_option.base_path + "teacher/addOrUpdateBean", //ajax访问路径  
+			data: {
+				realName: realName,
+				gender: gender,
+				researchArea: researchArea,
+				org: org,
+				applyShift: applyShift,
+				title: title,
+				clerkPhone: clerkPhone,
+				papersType: papersType,
+				clerkWorkPhone: clerkWorkPhone,
+				papersNumber: papersNumber,
+				inspectingUserCode: inspectingUserCode,
+				phone: phone,
+				intermediateUserCode: intermediateUserCode,
+				workPhone: workPhone,
+				dollarsStandardHalf: dollarsStandardHalf,
+				dollarsStandardOne: dollarsStandardOne,
+				fax: fax,
+				email: email,
+				registeredBank: registeredBank,
+				orgAddress: orgAddress,
+				account: account,
+				teacherDetails: teacherDetails,
+				fileIds: fileIdsJson,
+				remarks: remarks
+
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_alert_Model.prompt("新增成功");
+					$(".yt-edit-alert").hide();
+					$('.page-info').pageInfo("refresh");
+				} else {
+					$yt_alert_Model.prompt("新增失败");
+				}
+			}
+		});
+	},
+	//修改
+	amendTeacherList: function() {
+		var pkId = $(".yt-table-active .pkId").val();
+		var realName = $(".alert-add-teacher .realName").val();
+		var gender = $(".alert-add-teacher .gender").val();
+		var researchArea = $(".tree-input").val();
+		var org = $(".alert-add-teacher .org").val();
+		var applyShift = $(".alert-add-teacher .applyShift").val();
+		var title = $(".alert-add-teacher .title").val();
+		var isFormal = "";
+		var clerkPhone = $(".alert-add-teacher .clerkPhone").val();
+		var papersType = $(".alert-add-teacher .papersType").val();
+		var clerkWorkPhone = $(".alert-add-teacher .clerkWorkPhone").val();
+		var papersNumber = $(".alert-add-teacher .papersNumber").val();
+		var inspectingUserCode = $(".alert-add-teacher .inspecting-user-code").val();
+		var phone = $(".alert-add-teacher .phone").val();
+		var intermediateUserCode = $(".alert-add-teacher .intermediate-user-code").val();
+		var workPhone = $(".alert-add-teacher .workPhone").val();
+		var dollarsStandardHalf = $(".alert-add-teacher .dollarsStandardHalf").val();
+		var dollarsStandardOne = $(".alert-add-teacher .dollarsStandardOne").val();
+		var fax = $(".alert-add-teacher .fax").val();
+		var email = $(".alert-add-teacher .email").val();
+		var registeredBank = $(".alert-add-teacher .registeredBank").val();
+		var orgAddress = $(".alert-add-teacher .orgAddress").val();
+		var account = $(".alert-add-teacher .account").val();
+		var teacherDetails = $(".alert-add-teacher .teacherDetails").val();
+		var fileIds = "";
+		var remarks = $(".alert-add-teacher .remarks").val();
+
+		var fileIdsJsonArr = [];
+		$(".file-id li").each(function(i, n) {
+			fileName = $(n).find(".file-name").text();
+			fileId = $(n).find(".file-name .file-span-id").val();
+			var fileIds = {
+				fileName: fileName,
+				fileId: fileId
+			}
+			fileIdsJsonArr.push(fileIds);
+		});
+		var fileIdsJson = JSON.stringify(fileIdsJsonArr);
+
+		$.ajax({
+			type: "post", //ajax访问方式 默认 "post"  
+			url: $yt_option.base_path + "teacher/addOrUpdateBean", //ajax访问路径  
+			data: {
+				pkId: pkId,
+				realName: realName,
+				gender: gender,
+				researchArea: researchArea,
+				org: org,
+				applyShift: applyShift,
+				title: title,
+				isFormal: "",
+				clerkPhone: clerkPhone,
+				papersType: papersType,
+				clerkWorkPhone: clerkWorkPhone,
+				papersNumber: papersNumber,
+				inspectingUserCode: inspectingUserCode,
+				phone: phone,
+				intermediateUserCode: intermediateUserCode,
+				workPhone: workPhone,
+				dollarsStandardHalf: dollarsStandardHalf,
+				dollarsStandardOne: dollarsStandardOne,
+				fax: fax,
+				email: email,
+				registeredBank: registeredBank,
+				orgAddress: orgAddress,
+				account: account,
+				teacherDetails: teacherDetails,
+				fileIds: fileIdsJson,
+				remarks: remarks
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_alert_Model.prompt("修改成功");
+					$('.page-info').pageInfo("refresh");
+				} else {
+					$yt_alert_Model.prompt("修改失败");
+				}
+			}
+		});
+	},
+	//删除
+	delTeacherList: function() {
+		var pkId = $('.yt-table-active .pkId').val();
+		$yt_alert_Model.alertOne({
+			haveCloseIcon: false, //是否带有关闭图标  
+			closeIconUrl: "", //关闭图标路径  
+			leftBtnName: "确定", //左侧按钮名称,默认确定  
+			rightBtnName: "取消", //右侧按钮名称,默认取消  
+			cancelFunction: "", //取消按钮操作方法*/  
+			alertMsg: "数据删除将无法恢复,确认删除吗?", //提示信息  
+			confirmFunction: function() { //点击确定按钮执行方法  
+				$.ajax({
+					type: "post",
+					url: $yt_option.base_path + "teacher/deleteById",
+					data: {
+						pkId: pkId
+					},
+					success: function(data) {
+						if(data.flag == 0) {
+							$yt_alert_Model.prompt("删除成功");
+							$('.page-info').pageInfo("refresh");
+						} else {
+							$yt_alert_Model.prompt("不能删除");
+						}
+
+					}
+
+				});
+
+			}
+		});
+	},
+	//启用
+	startUsing: function() {
+		var pkId = $(".yt-table-active .pkId").val();
+		$.ajax({
+			type: "post", //ajax访问方式 默认 "post"  
+			url: $yt_option.base_path + "teacher/updateDataStatesById", //ajax访问路径  
+			data: {
+				pkId: pkId,
+				dataStates: 3
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_alert_Model.prompt("已启用");
+					$(".yt-edit-alert").hide();
+					$('.page-info').pageInfo("refresh");
+				} else {
+					$yt_alert_Model.prompt("操作失败");
+				}
+			}
+		});
+	},
+	//停用
+	endUsing: function() {
+		var pkId = $(".yt-table-active .pkId").val();
+		$.ajax({
+			type: "post", //ajax访问方式 默认 "post"  
+			url: $yt_option.base_path + "teacher/updateDataStatesById", //ajax访问路径  
+			data: {
+				pkId: pkId,
+				dataStates: 2
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_alert_Model.prompt("已停用");
+					$('.page-info').pageInfo("refresh");
+				} else {
+					$yt_alert_Model.prompt("操作失败");
+				}
+			}
+		});
+	},
+	//获取一条数据
+	getTeacherInf: function() {
+		var pkId = $(".yt-table-active .pkId").val();
+
+		$.ajax({
+			type: "post", //ajax访问方式 默认 "post"  
+			url: $yt_option.base_path + "teacher/getBeanById", //ajax访问路径  
+			data: {
+				pkId: pkId
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					$(".alert-add-teacher").setDatas(data.data);
+					var teacherUl = $(".file-id");
+					var teacherLi = "";
+					var fileIdsArr = $.parseJSON(data.data.fileIds);
+					if(fileIdsArr.length > 0) {
+						$.each(fileIdsArr, function(i, v) {
+							teacherLi += '<li>' +
+								'<span class="file-name" style="margin-right: 50px;color:blue;cursor: pointer"><input type="hidden" class="file-span-id" value="' + v.pkId + '" >' + v.fileName + '</span><span class="cancal" style="cursor: pointer;">x</span>' +
+								'</li>';
+							teacherUl.html(teacherLi);
+						});
+					}
+				} else {
+					$yt_alert_Model.prompt("获取失败");
+				}
+			}
+		});
+	},
+	//带有顶部标题栏的弹出框  
+	legalAdd: function() {
+		/** 
+		 * 显示编辑弹出框和显示顶部隐藏蒙层 
+		 */
+		$(".lawyer-opinion-box").show();
+		/** 
+		 * 调用算取div显示位置方法 
+		 */
+		$yt_alert_Model.getDivPosition($(".lawyer-opinion-box"));
+		$yt_alert_Model.setFiexBoxHeight($(".alert-add-teacher form"));
+		/* 
+		 * 调用支持拖拽的方法 
+		 */
+		$yt_model_drag.modelDragEvent($(".lawyer-opinion-box .yt-edit-alert-title"));
+		/** 
+		 * 点击取消方法 
+		 */
+		$('.lawyer-opinion-box .yt-eidt-model-bottom .yt-model-canel-btn').off().on("click", function() {
+			//隐藏页面中自定义的表单内容  
+			$(".lawyer-opinion-box").hide();
+			//隐藏蒙层  
+			$("#pop-modle-alert").hide();
+		});
+	},
+	/**
+	 * 字段验证设置滚动条滚动到验证错误信息位置
+	 * @param {Object} validObj 验证区域对象
+	 */
+	pageToScroll: function(validObj) {
+		var scrollTopVal = 0;
+		$(validObj).each(function() {
+			if($(this).text() != "") {
+				if($(window).scrollTop() && ($(this).eq(0).parent().offset().top < $(window).scrollTop() || $(this).eq(0).parent().offset().top > $(window).height())) {
+					scrollTopVal = $(this).eq(0).parents().offset().top - 30;
+					$(window).scrollTop(scrollTopVal);
+				}
+				return false;
+			}
+		});
+	}
+
+}
+$(function() {
+	//初始化方法
+	teacherList.init();
+
+});

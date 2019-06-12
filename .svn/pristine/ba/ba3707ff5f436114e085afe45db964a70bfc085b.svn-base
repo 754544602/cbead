@@ -1,0 +1,17 @@
+.title-div-box {
+    line-height: 45px;
+    margin-left: 3px;
+}
+.title-text-p {
+    float: left;
+    font-size: 16px;
+    color: #DE595A;
+}
+.title-p-style {
+    width: 6px;
+    height: 25px;
+    float: left;
+    border-radius: 3px;
+    background-color: #DE595A;
+    margin: 10px 20px 0px 6px;
+}

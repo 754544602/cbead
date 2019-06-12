@@ -1,0 +1,164 @@
+var reconciliationsInfo = {
+	//初始化方法
+	init: function () {
+		reconciliationsInfo.getPlaneListInfo();
+		$(".plane-open-tbody").on('click', ".reconciliations-plane-href", function () {
+			window.location.href = "reconciliationsPlane.html";
+		});
+		$(".train-open-tbody").on('click', ".reconciliations-Train-href", function () {
+			window.location.href = "reconciliationsTrain.html";
+		});
+		//页签跳转
+		$(".tab-title-list button").click(function () {
+			$(this).addClass("active").siblings().removeClass("active");
+			operate = $(this).text();
+			if (operate == "• 机票") {
+				$('.box-plane').show();
+				$('.box-train').hide();
+				reconciliationsInfo.getPlaneListInfo();
+			}
+			//operate为2查询发票列表，
+			if (operate == "• 火车票") {
+				$('.box-plane').hide();
+				$('.box-train').show();
+				reconciliationsInfo.getTrainListInfo();
+			}
+		});
+		//点击上传附件
+		$(".reconciliations-import-form").undelegate().delegate("input[type='file']", "change", function () {
+			console.log($(this)[0].files[0].name);
+			$('.reconciliations-import-form .import-file-name').val($(this)[0].files[0].name);
+		});
+		//点击导入按钮
+		$('.reconciliations-import').on('click', function () {
+			$(".import-file-name").val("");
+			/** 
+			 * 显示编辑弹出框和显示顶部隐藏蒙层 
+			 */
+			$(".reconciliations-import-form").show();
+			/** 
+			 * 调用算取div显示位置方法 
+			 */
+			$yt_alert_Model.getDivPosition($(".reconciliations-import-form"));
+			/* 
+			 * 调用支持拖拽的方法 
+			 */
+			$yt_model_drag.modelDragEvent($(".reconciliations-import-form .yt-edit-alert-title"));
+			/** 
+			 * 点击取消方法 
+			 */
+			$('.reconciliations-import-form .yt-eidt-model-bottom .yt-model-canel-btn').off().on("click", function () {
+				//隐藏页面中自定义的表单内容  
+				$(".reconciliations-import-form").hide();
+				//隐藏蒙层  
+				$("#pop-modle-alert").hide();
+			});
+		});
+	},
+	/* 飞机票 */
+	getPlaneListInfo: function () {
+		var keyword = $('#keyword').val();
+		$('.plane-open-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/reduction/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function () {
+				//showLoading方法
+				$yt_baseElement.showLoading();
+			},
+			success: function (data) {
+				if (data.flag == 0) {
+					var htmlTbody = $('.plane-open-tbody');
+					var htmlTr = '';
+					var projectType;
+					if (data.data.rows.length > 0) {
+						$(htmlTbody).empty()
+						$.each(data.data.rows, function (i, v) {
+							htmlTr = '<tr>' +
+								'<td class="projectCode list-td"><a style="color: #4169E1;" class="reconciliations-plane-href">' + v.projectCode + '</a></td>' +
+								'<td class="projectType list-td" >' + "1" + '</td>' +
+								'<td class="projectHead list-td" style="text-align:right">' + v.projectHead + '</td>' +
+								'<td class="postRemissionMoney">' + v.postRemissionMoney + '</td>' +
+								'<td class="createUser list-td" >' + v.createUser + '</td>' +
+								'<td class="workFlawState list-td">' + v.workFlawState + '</td>' +
+								'</tr>';
+							// htmlTbody.append($(htmlTr).data("legalData", v));
+							htmlTbody.append(htmlTr);
+						});
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function () {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 火车票
+	 */
+	getTrainListInfo: function () {
+		var keyword = $('#keyword').val();
+		$('.train-open-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/reduction/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: keyword
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function () {
+				//showLoading方法
+				$yt_baseElement.showLoading();
+			},
+			success: function (data) {
+				if (data.flag == 0) {
+					var htmlTbody = $('.train-open-tbody');
+					var htmlTr = '';
+					var projectType;
+					if (data.data.rows.length > 0) {
+						$(htmlTbody).empty()
+						$.each(data.data.rows, function (i, v) {
+							htmlTr = '<tr>' +
+								'<td class="projectCode list-td"><a style="color: #4169E1;" class="reconciliations-Train-href">' + v.projectCode + '</a></td>' +
+								'<td class="projectType list-td" >' + "1" + '</td>' +
+								'<td class="projectHead list-td" style="text-align:right">' + v.projectHead + '</td>' +
+								'<td class="postRemissionMoney">' + v.postRemissionMoney + '</td>' +
+								'<td class="createUser list-td" >' + v.createUser + '</td>' +
+								'<td class="workFlawState list-td">' + v.workFlawState + '</td>' +
+								'</tr>';
+							// htmlTbody.append($(htmlTr).data("legalData", v));
+							htmlTbody.append(htmlTr);
+						});
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function () {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+};
+
+$(function () {
+	//初始化方法
+	reconciliationsInfo.init();
+
+});

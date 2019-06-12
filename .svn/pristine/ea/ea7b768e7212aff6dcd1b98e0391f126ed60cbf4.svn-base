@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<title>开结业式待审批列表</title>
+		<!--该页面是审批记录详情页面只能查看不可修改-->
+		
+		<style type="text/css">
+			.td-style{
+				width: 300px; 
+				text-align: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<button class="page-return-btn">
+					<img class="class-return-img back-btn" src="../../resources/images/icons/class-return.png">
+					返回
+				</button>
+			</div>
+			<!--数据展示区域START-->
+			<div class="title-div-box">
+				<p class="title-p-style" style="margin-top: 10px;" ></p>
+				<p class="title-text-p class-title" style="margin-top: 0px;">开班式</p>
+				<!--流程实例id-->
+				<input type="hidden" value="" id="processInstanceId" />
+				<!--开班式，结业式标识-->
+				<input type="hidden" value="" id="types" />
+				<!--当前记录（主表）id-->
+				<input type="hidden" value="" id="pkId" />
+				<!--流程定义-->
+				<input type="hidden" value="" id="businessCode" />
+			</div>
+			<!--班级STAR-->
+			<div class="content-div-box">
+				<table class="open-tb-style" cellspacing="1px" cellpadding="1px" style="height: 130px;margin: 0px auto;">
+					<tr>
+						<td class="td-text-style" style="width: 123px;">班级：</td>
+						<td class="td-style" id="projectCode"></td>
+						<td class="td-text-style" style="width: 128px;">项目主任：</td>
+						<td class="td-style" id="projectUserName"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style">召开时间：</td>
+						<td class="td-style" id="startTime"></td>
+						<td class="td-text-style">学员数量：</td>
+						<td class="td-style" id="traineeCount"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style">提交时间：</td>
+						<td class="td-style" id="createTimeString"></td>
+						<td class="td-text-style">提交人：</td>
+						<td class="td-style" id="createUser"></td>
+					</tr>
+				</table>
+			</div>
+			<!--班级END-->
+			<!--开班式会序STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p order-title">开班式会序</p>
+				<button style="float: right;margin: 7px;" class="yt-option-btn btn-bg-color" onclick="projectList.getOutOpenHonors()">
+					<img class="ioc-img" src="../../resources/images/open/daochu.png" />
+					导出excel
+				</button>
+			</div>
+			<div class="content-div-box">
+				<table class="add-order-tb valid-tab" cellspacing="1px" cellpadding="1px" style="width: 1070px;margin: 0px auto;">
+					<thead style="background: #F5F5F5;">
+						<th class="order-th-style">步骤</th>
+						<th style="text-align: left; ">内容</th>
+						<th colspan="2px" style="width: 120px;">时间长度（分钟）</th>
+					</thead>
+					<tbody>
+						<!--会序列表部分-->
+					</tbody>
+				</table>
+			</div>
+			<!--开班式会序END-->
+			
+			<!--开班式讲稿STAR	-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p file-title">开班式讲稿</p>
+				
+				<div class="up-btn-div-box">
+					<input type="file" id="addFile" name="file" class="up-fileIds" />
+					<button class="yt-option-btn btn-bg-color btn-up-file" style="float: right;margin: 7px;">
+					<img class="ioc-img" src="../../resources/images/open/daochu.png"/>
+					上传
+				</button>
+				</div>
+				
+			</div>
+			<div class="content-div-box">
+				<table class="only-look-lecture-tb" cellspacing="1px" cellpadding="1px" style="width: 950px;margin: 0px auto;">
+					<tbody>
+						<!--讲稿列表-->
+					</tbody>
+				</table>
+			</div>	
+			<!--开班式讲稿END-->
+			
+			<!--审批流程STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style"></p>
+				<p class="title-text-p approve-title">开班式审批流程</p>
+			</div>
+			<div class="content-div-box">
+				<div class="procedure-box" style="width: 970px;margin: 0px auto;">
+					<div class="last-step"></div>
+					<!--审批第一步STAR-->	
+					<div class="first-step">
+						<div style="height: 150; ">
+							<div class="number-name-box">
+								<span class="number-box-span first-step-order"></span>
+								<span class="name-box-span first-step-operate-person-userName"></span>
+								<img src="../../resources/images/open/openFlow.png" width="100%" height="100%" />
+							</div>
+						</div>
+						<div class="pad-pos" style="height: 89px;">
+							<ul class="first-step-ul">
+								<li style="height: 30px;">
+									<span class="first-step-taskName view-taskName-span" style="float: left;">sdasfd</span>
+								</li>
+								<li class="view-time-li middle-step-commentTime">2018-01-01 12:00</li>
+							</ul>
+						</div>
+					</div>
+				<!--审批第一步END-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/open/onlyLookApprove.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	
+
+</html>

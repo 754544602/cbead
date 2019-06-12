@@ -1,0 +1,74 @@
+var caList = {
+	
+	//初始化方法
+	init: function() {
+		//调用初始化页面方法
+		caList.clearAlertBox();
+		//获取班级详情
+		caList.getPlanListInfo();
+		//点击返回
+		$('.page-return-btn').click(function() {
+			caList.backNewsListPage();
+		});
+	},
+	//返回新闻稿列表
+	backNewsListPage:function(){
+		window.location.href = "newList.html";
+	},
+	//初始化页面
+	clearAlertBox:function(){
+		//班级名
+		$('#projectCode').text("");
+		//项目主任
+		$('#projectUserName').text("");
+		//标题
+		$('#title').text("");
+		//发布时间
+		$('#issueDayeString').text("");
+		//新闻稿内容
+		$('#details').val("");
+		//下一步操作人
+		$('#dealingWithPeople').text("");
+	},
+	
+	//获取新闻稿信息
+	getPlanListInfo: function() {
+		$yt_baseElement.showLoading();
+		var pkId = $yt_common.GetQueryString("pkId");
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "class/news/getBeanById",
+			async: false,
+			data: {
+				pkId: pkId
+			},
+			objName: 'data',
+			success: function(data) {
+				$yt_baseElement.showLoading();
+				if(data.flag == 0) {
+					//班级名
+					$('#projectCode').text(data.data.projectName);
+					//项目主任
+					$('#projectUserName').text(data.data.projectUserName);
+					//标题
+					$('#title').text(data.data.title);
+					//发布时间
+					$('#issueDayeString').text(data.data.issueDayeString);
+					//新闻稿内容
+					$('#details').html(data.data.details);
+				
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+			}
+		});
+	},
+};
+$(function() {
+	//初始化方法
+	caList.init();
+	
+});

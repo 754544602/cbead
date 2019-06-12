@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>教师课酬报销支付反馈</title>
+		<style type="text/css">
+			.small1 {
+				width: 30%;
+				float: left;
+				margin-bottom: 30px;
+			}
+			
+			.small2 {
+				width: 30%;
+				float: right;
+				margin-bottom: 30px;
+				text-align: left;
+			}
+			
+			.small3 {
+				width: 20%;
+				float: right;
+				margin-bottom: 30px;
+				text-align: right;
+			}
+			
+			.typeface-size {
+				padding-left: 20px;
+			}
+			
+			.typeface-weight {
+				font-size: 15px;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<!--该页面仅申请人修改班级详情，审批流程不能改动-->
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;width: 99%">
+				<div class="small1">
+					<span style="color: white;font-size: 20px;">教师课酬报销支付反馈详情</span>
+				</div>
+				<div class="small2">
+					<span class="project-name" style="color: white;font-size: 20px;">状态：</span>
+					<span class="state-type typeface-weight" style="color: white;font-size: 25px;margin-right: 15px"></span>
+				</div>
+				<button class="page-return-btn back-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+					<a href="#" onclick="javascript:history.back(-1);" style="color: white;">返回</a>
+				</button>
+			</div>
+			<!--数据展示区域START-->
+			<!--班级STAR-->
+			<div class="content-div-box">
+				<table class="open-tb-style" cellspacing="1px" cellpadding="1px" style="height: 130px;margin: 0px auto;">
+					<tr>
+						<td class="td-text-style typeface-weight" style="width: 200px;">班级： </td>
+						<td class="typeface-size" id="projectName"></td>
+						<td class="td-text-style typeface-weight" style="width: 200px;">班级编号：</td>
+						<td class="td-style typeface-size" id="projectCode"></td>
+						<td class="td-text-style typeface-weight" style="width: 200px;">流水号： </td>
+						<td class="td-style typeface-size" id="flowNumber"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style typeface-weight" style="width: 200px;">项目主任： </td>
+						<td class="td-style typeface-size" id="projectHead"></td>
+						<td class="td-text-style typeface-weight" style="width: 200px;">申请人： </td>
+						<td class="td-style typeface-size" id="createUser"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style typeface-weight" style="width: 200px;">申请时间： </td>
+						<td class="td-style typeface-size" id="createTimeString"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="list-box" style="border: none;">
+				<table class=" list-table">
+					<thead class="list-thead">
+						<tr>
+							<th>序号</th>
+							<th>教师</th>
+							<th>证件类型</th>
+							<th style="width:150px;">证件号</th>
+							<th>开户行</th>
+							<th style="width:150px;">账号</th>
+							<th>授课日期</th>
+							<th>税后金额</th>
+							<th>代缴个税</th>
+							<th>报销金额</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody class-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="9" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<table class="class-info-table" style="background-color: #FFFFFF;width: 100%;height: 100px;">
+				<tr>
+					<td style="width: 100px;" align="right" valign="middle">
+						<span class="typeface-weight">备注：</span>
+					</td>
+					<td colspan="3">
+							<p type="text" class="details" data-val="details" style="word-break:break-all;line-height: 30px;font-size: 14px;color: #4d4d4d;"></p>
+						</td>
+				</tr>
+			</table>
+			<!--审批流程STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style"></p>
+				<p class="title-text-p">审批流程</p>
+			</div>
+			<div class="approval-process-module">
+				<div class="content-div-box">
+					<div class="procedure-box" style="width: 970px;margin: 0px auto;">
+						<div class="last-step last-step-div"></div>
+						<!--审批第一步STAR-->
+						<div class="first-step">
+							<div style="height: 150; ">
+								<div class="number-name-box">
+									<span class="number-box-span first-step-order">1</span>
+									<span class="name-box-span first-step-operate-person-userName"></span>
+									<img src="../../resources/images/open/open-sp.png" width="100%" height="100%" />
+								</div>
+							</div>
+							<div class="pad-pos" style="height: 89px;">
+								<ul class="first-step-ul">
+									<li style="height: 30px;">
+										<span class="first-step-taskName view-taskName-span" style="float: left;">loading</span>
+									</li>
+									<li class="view-time-li middle-step-commentTime first-step-commentTime">2018-01-01 12:00</li>
+									<li class="operate-view-box-li">
+										<div class="operate-view-title-li">备注：</div>
+										<div class="operate-view-text-li first-step-comment"></div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!--审批第一步END-->
+					</div>
+				</div>
+				<!--审批流程END-->
+			</div>
+			<!--审批流程END-->
+			<table class="open-tb-style" cellspacing="1px" cellpadding="1px" style="height: 130px;width:50%;margin: 0px auto;">
+				<tr>
+					<td class="typeface-weight" align="right">支票号： </td>
+					<td class="typeface-size" id="cheque-number" align="left"><input type="text" name="" id="chequeNumber" value="" /></td>
+					<td class="typeface-weight" align="right">金额： </td>
+					<td class="typeface-size" id="amount-money" align="left"><input type="text" name="" id="chequeNumberMoney" value="" /></td>
+				</tr>
+			</table>
+			<div class="yt-eidt-model-bottom" style="text-align: center;margin: 10px 0px;">
+				<input class="yt-model-bot-btn yt-model-sure-btn ok-button" id="ok-submit" type="button" value="付款完成" />
+				<input class="yt-model-bot-btn yt-model-canel-btn " id="no-cancel" type="button" value="取消" style="margin-left: 20px;" />
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--拖拽排序控件js-->
+	<script type="text/javascript" src="../../resources/js/sortable/yt-sortable.js"></script>
+	<!--字段验证js-->
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!-- 获取数据的js -->
+	<script type="text/javascript" src="../../resources/js/modules/finance/reimburDetailPayment.js"></script>
+
+</html>

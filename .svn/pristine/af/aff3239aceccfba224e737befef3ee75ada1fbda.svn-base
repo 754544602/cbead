@@ -1,0 +1,464 @@
+var trainingProgramsList = {
+	//初始化方法
+	init: function() {
+		$(".yt-select").niceSelect(); //下拉框刷新  
+
+		//日期控件
+		$(".chose-year").calendar({
+			speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+			complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+			readonly: true, // 目标对象是否设为只读，默认：true     
+			lowerLimit: "NaN", // 日期下限，默认：NaN(不限制)     
+			nowData: true, //默认选中当前时间,默认true  
+			dateFmt: "yyyy",
+			callback: function() { // 点击选择日期后的回调函数  
+				trainingProgramsList.getTrainingProgramsList();
+				trainingProgramsList.getAnnualTarget();
+			}
+		});
+		var judgeList = 2;
+		//点击新增
+		$(".addList").on('click', function() {
+			window.location.href = $yt_option.base_path + "website/view/project/addProjectList.html?judgeList=2";
+		});
+		//点击修改
+		$(".updateList").on('click', function() {
+			if($("tr.yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择要修改的数据");
+				return false;
+			}
+			var projectType = $("tr.yt-table-active").find(".hid-project-type").val();
+			window.location.href = $yt_option.base_path + "website/view/project/addProjectList.html?pkId=" + $('.yt-table-active .pkId').val() + "&judgeList=2"+"&"+"projectType="+projectType;
+		});
+		//点击项目名称  查看详情
+		$(".train-tbody").on('click', ".real-name-inf", function() {
+			var projectType = $("tr.yt-table-active").find(".hid-project-type").val();
+			var projectState = $(this).parents('tr').find(".project-state-step").val();
+			window.location.href = $yt_option.base_path + "website/view/project/projectDetails.html?pkId=" + $('.yt-table-active .pkId').val() + "&" + "projectCode=" + $('.yt-table-active .project-code-list').text() + "&judgeList=2&projectState="+projectState+"&"+"projectType="+projectType;
+		});
+		//点击设置负责人
+		$(".set-principal-btn").off().on('click', function() {
+			if($("tr.yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择要操作的数据");
+				return false;
+			}
+			var num = Number($('tr.none-tr').index())
+			//清空项目主任
+			if($('select.project-director').length>1){
+				var length = $('select.project-director').length;
+				$.each($('select.project-director'), function(x,y) {
+					if(x!=length-1){
+						if($(y).parents('tr').find('.project-head')[0] == undefined) {
+							$(y).parents('tr').remove();
+						} else {
+							$(y).parents('tr').next().find('td').eq(0).text($(this).parents('tr').find('.project-head').text());
+							$(y).parents('tr').next().find('td').eq(0).addClass('project-head')
+							$(y).parents('tr').remove();
+						}
+					}
+				});
+			}
+			//清空班主任
+			if($('select.teacher-head').length>1){
+				var length = $('select.teacher-head').length;
+				$.each($('select.teacher-head'), function(x,y) {
+					if(x!=length-1){
+						if($(y).parents('tr').find('.projectHeadmaster')[0] == undefined) {
+							$(y).parents('tr').remove();
+						} else {
+							$(y).parents('tr').next().find('td').eq(0).text($(this).parents('tr').find('.projectHeadmaster').text());
+							$(y).parents('tr').next().find('td').eq(0).addClass('projectHeadmaster')
+							$(y).parents('tr').remove();
+						}
+					}
+				});
+			};
+			//
+			$('.none-tr').parents('tbody').find('tr').eq(2).find('select').val('');
+			var name = $(".yt-table-active").find('.real-name-inf').text();
+			var projectType = $(".yt-table-active").find('.projectType').text();
+			var principalInf = $(".yt-table-active").data('legalData').projectHeadCode;
+			var principalArr = principalInf.split(",");
+			var teacherHead = $(".yt-table-active").data('legalData').projectHeadmasterCode;
+			var teacherHeadArr = teacherHead.split(",");
+			$('.project-name').text(name);
+			$('.project-type').text(projectType);
+			var selectVal = "";
+			$('.project-assistant').setSelectVal( $(".yt-table-active").data('legalData').projectAidCode);
+			//项目主任赋值
+			$.each(principalArr, function(i, n) {
+				if(i == 0) {
+					$('select.project-director:eq(0)').setSelectVal(n);
+					$(".set-principal-alert").find("select.project-director").eq(0).hide();
+				} else {
+					addProjectHead();
+					$.each(trainingProgramsList.getTreeAllPersonnel(), function(j, m) {
+						selectVal = "";
+						if(m.type == 3) {
+							console.log(m.textName)
+							if(n == m.textName) {
+								selectVal = 'selected="selected"';
+							}
+							$(".none-tr").prev().find(".project-director").append('<option ' + selectVal + ' value="' + m.textName + '" types="2" realName="' + m.text + '" >' + m.text + '</option>');
+						}
+					});
+					$(".none-tr").prev().find(".project-director").niceSelect();
+				}
+			});
+			//班主任赋值
+			$.each(teacherHeadArr, function(i, n) {
+				if(i == 0) {
+					$('select.teacher-head:eq(0)').setSelectVal(n);
+					$(".set-principal-alert").find("select.teacher-head").eq(0).hide();
+				} else {
+					addTeacherHead();
+					$.each(trainingProgramsList.getTreeAllPersonnel(), function(j, m) {
+						selectVal = "";
+						if(m.type == 3) {
+							if(n == m.textName) {
+								selectVal = 'selected="selected"';
+							}
+							$(".projectAidTr").prev().find(".teacher-head").append('<option ' + selectVal + ' value="' + m.textName + '" types="3" realName="' + m.text + '" >' + m.text + '</option>');
+						}
+					});
+					$(".projectAidTr").prev().find(".teacher-head").niceSelect();
+				}
+			});
+			
+			trainingProgramsList.setPrincipal();
+			$(".set-principal-alert").off().on('click', '.add-project-director', function() {
+				addProjectHead();
+				//获取项目主任,班主任,项目助理下拉列表
+				var treeAllPersonal = trainingProgramsList.getTreeAllPersonnel();
+				if(treeAllPersonal != null) {
+					$.each(treeAllPersonal, function(i, n) {
+						if(n.type == 3) {
+							$(".project-director").append('<option value="' + n.textName + '" types="2" realName="' + n.text + '" >' + n.text + '</option>');
+						}
+					});
+				}
+				$(".project-director").niceSelect();
+			});
+			//项目主任新增
+			function addProjectHead(){
+				$(".none-tr").before('<tr>' +
+					'<td align="right"></td>' +
+					'<td>' +
+					'<div class="set-principal-alert-select">' +
+					'<select class="yt-select project-director types" data-val="" style="width: 201px;" >' +
+					'<option value="">请选择</option>' +
+					'</select>' +
+					'</div>' +
+					'</td>' +
+					'<td width="100px" style="padding-left: 10px;color: lightskyblue;cursor: pointer;">' +
+					'<span class="add-project-director">新增</span>' +
+					'</td>' +
+					'</tr>');
+				$(".none-tr").prev().prev().find('.add-project-director').text('删除');
+				$(".none-tr").prev().prev().find('.add-project-director').attr('class', 'delete-project-director');
+				$('.delete-project-director').off().click(function() {
+					if($(this).parents('tr').find('.project-head')[0] == undefined) {
+						$(this).parents('tr').remove();
+					} else {
+						$(this).parents('tr').next().find('td').eq(0).text($(this).parents('tr').find('.project-head').text());
+						$(this).parents('tr').next().find('td').eq(0).addClass('project-head')
+						$(this).parents('tr').remove();
+					}
+				})
+			}
+			$(".set-principal-alert").on('click', '.add-teacher-head', function() {
+				$(this).text("");
+				addTeacherHead();
+				//获取项目主任,班主任,项目助理下拉列表
+				var treeAllPersonal = trainingProgramsList.getTreeAllPersonnel();
+				if(treeAllPersonal != null) {
+					$.each(treeAllPersonal, function(i, n) {
+						if(n.type == 3) {
+							$(".teacher-head").append('<option value="' + n.textName + '" types=3 >' + n.text + '</option>');
+						}
+					});
+				}
+				$(".teacher-head").niceSelect();
+			});
+			//班主任新增
+			function addTeacherHead(){
+				$(".project-assistant").parent().parent().parent().before('<tr>' +
+					'<td align="right"></td>' +
+					'<td>' +
+					'<div class="set-principal-alert-select">' +
+					'<select class="yt-select teacher-head types" data-val="" style="width: 201px;" >' +
+					'<option value="">请选择</option>' +
+					'</select>' +
+					'</div>' +
+					'</td>' +
+					'<td width="100px" style="padding-left: 10px;color: lightskyblue;cursor: pointer;">' +
+					'<span class="add-teacher-head">新增</span>' +
+					'</td>' +
+					'</tr>');
+				$(".project-assistant").parent().parent().parent().prev().prev().find('.add-teacher-head').text('删除');
+				$(".project-assistant").parent().parent().parent().prev().prev().find('.add-teacher-head').attr('class', 'delete-teacher-director');
+				$('.delete-teacher-director').off().click(function() {
+					if($(this).parents('tr').find('.projectHeadmaster')[0] == undefined) {
+						$(this).parents('tr').remove();
+					} else {
+						$(this).parents('tr').next().find('td').eq(0).text($(this).parents('tr').find('.projectHeadmaster').text());
+						$(this).parents('tr').next().find('td').eq(0).addClass('projectHeadmaster')
+						$(this).parents('tr').remove();
+					}
+				})
+			}
+			$(".set-principal-alert .yt-model-sure-btn").off().on('click', function() {
+				trainingProgramsList.setHeadAlert();
+			});
+		});
+
+		//调用获取列表数据方法
+		trainingProgramsList.getTrainingProgramsList();
+		//获取年度班次目标
+		trainingProgramsList.getAnnualTarget();
+		//点击修改本年度班次目标
+		$(".amend-annual-target").click(function() {
+			$(this).hide();
+			$(".annual-target-span").hide();
+			$(".annual-target-inf").show();
+			$(".save-annual-target").show();
+			//点击保存,保存本年度班次目标
+			$(".save-annual-target").click(function() {
+				trainingProgramsList.saveAnnualTarget();
+				$(this).hide();
+				$(".amend-annual-target").show();
+				$(".annual-target-span").show();
+				$(".annual-target-inf").hide();
+				trainingProgramsList.getAnnualTarget();
+			});
+		});
+		//搜索关键字
+		$('.search-btn').click(function() {
+			//调用获取列表数据方法查询
+			trainingProgramsList.getTrainingProgramsList();
+		});
+		//获取项目主任,班主任,项目助理下拉列表
+		var treeAllPersonal = trainingProgramsList.getTreeAllPersonnel();
+		if(treeAllPersonal != null) {
+			$.each(treeAllPersonal, function(i, n) {
+				if(n.type == 3) {
+					$(".project-director").append('<option value="' + n.textName + '" types=2 realName="' + n.text + '">' + n.text + '</option>');
+					$(".teacher-head").append('<option value="' + n.textName + '" types=3 >' + n.text + '</option>');
+					$(".project-assistant").append('<option value="' + n.textName + '" types=4 >' + n.text + '</option>');
+				}
+			});
+		}
+		$(".project-director,.teacher-head,.project-assistant").niceSelect();
+
+	},
+	/**
+	 * 获取树形结构所有人员
+	 */
+	getTreeAllPersonnel: function() {
+		var list = [];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "uniform/user/getUsers",
+			beforeSend:function(){
+				$yt_baseElement.showLoading();
+			},
+			data: {
+
+			},
+			async: false,
+			success: function(data) {
+				list = data.data || [];
+				$yt_baseElement.hideLoading();
+			}
+		});
+		return list;
+	},
+	/**
+	 * 获取列表数据
+	 */
+	getTrainingProgramsList: function() {
+		$yt_baseElement.showLoading();
+		var selectParam = $(".selectParam").val();
+		var years = $(".chose-year").val();
+		$('.train-page').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "project/lookForAllByTrainClass", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+				years: years
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.list-table .train-tbody');
+					var htmlTr = '';
+					var projectType = "";
+					if(data.data.rows.length > 0) {
+						$(htmlTbody).empty()
+						$.each(data.data.rows, function(i, v) {
+							if(v.projectType == 1) {
+								projectType = "计划"
+							} else if(v.projectType == 2) {
+								projectType = "委托"
+							} else if(v.projectType == 3) {
+								projectType = "选学"
+							} else if(v.projectType == 4) {
+								projectType = "调训"
+							}
+							htmlTr = '<tr>' +
+								'<td class="project-code-list"><input type="hidden" value="' + v.pkId + '" class="pkId">' + v.projectCode + '</td>' +
+								'<td style="text-align: left;"><a href="#" class="real-name-inf" style=" color:#3c4687">' + v.projectName + '</a></td>' +
+								'<td class="projectType"><input type="hidden" value="' + v.projectType + '" class="hid-project-type">' + projectType + '</td>' +
+								'<td>' + v.startDate + '</td>' +
+								'<td style="text-align: right;">' + v.trainDateCount + '</td>' +
+								'<td style="text-align: left;">' + v.projectSell + '</td>' +
+								'<td style="text-align: left;" class="project-head-text">' + v.projectHead + '</td>' +
+								'<td style="text-align: right;">' + v.traineeCount + '</td>' +
+								'<td><input type="hidden" value="' + v.projectStates + '" class="project-state-step">' + (v.projectStates == 4 ? "已立项" : (v.projectStates == 5 ? "培训中" : (v.projectStates == 6 ? "未结项" : "已结项"))) + '</td>' +
+								'</tr>';
+							$(".train-page").show();
+							htmlTbody.append($(htmlTr).data("legalData", v));
+						});
+					} else {
+						$(".train-page").hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.html(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+
+				} else {
+					$yt_baseElement.hideLoading();
+					$yt_alert_Model.prompt("查询失败");
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//设置负责人
+	setHeadAlert: function() {
+		$yt_baseElement.showLoading();
+		var projectCode = $('.yt-table-active').data("legalData").projectCode;
+		var userList = "";
+		var userListArr = [];
+		var array = [];
+		$(".set-principal-alert .set-principal-alert-select").each(function(i, n) {
+			types = $(n).find("select.types option:selected").attr("types");
+			typesData = $(n).find("select.types option:selected").val();
+			var arrUserList = {
+				types: types,
+				typesData: typesData,
+			}
+			userListArr.push(arrUserList);
+		});
+		var userList = JSON.stringify(userListArr);
+		$.ajax({
+			type: "post", //ajax访问方式 默认 "post"  
+			url: $yt_option.base_path + "project/updateProjectPrincipal", //ajax访问路径  
+			data: {
+				projectCode: projectCode,
+				userList: userList
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_baseElement.hideLoading();
+					$yt_alert_Model.prompt("操作成功");
+					trainingProgramsList.getTrainingProgramsList();
+					$('.train-page').pageInfo("refresh");
+					$(".set-principal-alert").hide();
+				} else {
+					$yt_baseElement.hideLoading();
+					$yt_alert_Model.prompt("操作失败");
+					$('.train-page').pageInfo("refresh");
+					$(".set-principal-alert").hide();
+				}
+			}
+		});
+	},
+	//设置负责人弹出框
+	setPrincipal: function() {
+		/** 
+		 * 显示编辑弹出框和显示顶部隐藏蒙层 
+		 */
+		$(".set-principal-alert").show();
+		/** 
+		 * 调用算取div显示位置方法 
+		 */
+		$yt_alert_Model.getDivPosition($(".set-principal-alert"));
+		$yt_alert_Model.setFiexBoxHeight($(".cont-edit-test"));
+		/* 
+		 * 调用支持拖拽的方法 
+		 */
+		$yt_model_drag.modelDragEvent($(".set-principal-alert .yt-edit-alert-title"));
+		/** 
+		 * 点击取消方法 
+		 */
+		$('.set-principal-alert .yt-eidt-model-bottom .yt-model-canel-btn').off().on("click", function() {
+			//隐藏页面中自定义的表单内容  
+			$(".set-principal-alert").hide();
+			//隐藏蒙层  
+			$("#pop-modle-alert").hide();
+		});
+	},
+	//获取本年度班次目标
+	getAnnualTarget: function() {
+
+		var yearData = $(".chose-year").val();
+
+		$.ajax({
+			type: "post", //ajax访问方式 默认 "post"  
+			url: $yt_option.base_path + "class/trainee/getTrainPlanByTear", //ajax访问路径  
+			data: {
+				yearData: yearData
+
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					$(".annual-target").setDatas(data.data);
+					$(".annual-target-span").text(data.data.trainCount);
+				} else {
+					$yt_alert_Model.prompt("本年度班次目标操作失败");
+				}
+			}
+		});
+	},
+	//保存本年度班次目标
+	saveAnnualTarget: function() {
+
+		var yearData = $(".chose-year").val();
+		var trainCount = $(".annual-target-inf").val();
+
+		$.ajax({
+			type: "post", //ajax访问方式 默认 "post"  
+			async: false,
+			url: $yt_option.base_path + "class/trainee/updateTrainPlanByTear", //ajax访问路径  
+			data: {
+				yearData: yearData,
+				trainCount: trainCount
+
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_alert_Model.prompt("本年度班次目标保存成功");
+				} else {
+					$yt_alert_Model.prompt("本年度班次目标保存失败");
+				}
+			}
+		});
+	}
+
+}
+$(function() {
+	//初始化方法
+	trainingProgramsList.init();
+
+});

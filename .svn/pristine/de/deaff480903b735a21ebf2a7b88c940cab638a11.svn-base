@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/administrator/administrator.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>教室列列表</title>
+		<style type="text/css">
+			.td-text-rigth {
+				text-align: right;
+			}
+			
+			.tr-height {
+				height: 50px;
+			}
+			.del-img{
+				width: 15px;
+				height: 15px; 
+				margin-left: 28px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="project-main" style="min-width: 900px;">
+			<!--顶部条件查询START-->
+			
+				<div class="head-div" style="margin-bottom: 0px;">
+					<div class="search-btn-slect">
+						<div class="btn-all" style="position: relative;">
+							<button class="yt-option-btn addList">
+								<img src="../../resources/images/button/add-icon.png">
+								新增
+							</button>
+							<button class="yt-option-btn updateList">
+								<img src="../../resources/images/button/update-icon.png" />
+								修改
+							</button>
+							<button class="yt-option-btn deleteList">
+								<img src="../../resources/images/button/del-icon.png" />
+								删除
+							</button>
+							<button class="yt-option-btn add-class-roomtype-btn" style="width: 104px;">
+								教室类型管理
+							</button>
+						</div>
+						<div class="key-word">
+							<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+							<button class="yt-option-btn search-btn">
+								<img class="search-img" src="../../resources/images/icons/class-search.png" />
+							</button>
+						</div>
+					</div>
+				</div>
+				<!--数据展示区域START-->
+				<div class="list-box">
+					<div class="list-title">
+						<span>教室列表</span>
+					</div>
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th style="width: 50px;">序号</th>
+								<th style="widows: 200px;">教室名称</th>
+								<th style="width: 80px;">类型</th>
+								<th style="width: 50px;">楼号</th>
+								<th style="width: 80px;">教室房号</th>
+								<th style="width: 100px;">可容纳人数</th>
+								<th>基础设施</th>
+								<th>备注</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody">
+							<tr class="class-tr">
+								<td colspan="8" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info table-page page1" onselectstart="return false"></div>
+				</div>
+				<!--数据展示区域END-->
+
+				<!--新增弹窗-->
+
+				<div class="yt-pop-model yt-edit-alert add-shuttle-box" style="width: 480px;">
+					<div class="yt-edit-alert-title ">
+						<span class="ticket-class-title-span">新增</span>
+					</div>
+					<div class="yt-edit-alert-main cont-edit-test">
+						<form>
+							<table class="repair-tab" cellspacing="1px" cellpadding="1px" style="">
+								<tr class="tr-height">
+									<td style="width: 170px;text-align: right;">教室名称：</td>
+									<td>
+										<input class="yt-input input-style classroom-name" placeholder="请输入" type="text" validform="{isNull:true,size:20,msg:'请输入教室名称,不要超过20个字'}" />
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr class="tr-height">
+									<td style="width: 170px;text-align: right;">类型：</td>
+									<td>
+										<select class="yt-select type-name-select" style="width: 200px;">
+											<option value="">请选择教室类</option>
+										</select>
+									</td>
+								</tr>
+								<tr class="tr-height">
+									<td style="width: 170px;text-align: right;">所在楼号：</td>
+									<td>
+										<select class="yt-select building-no" style="width: 200px;">
+											<option value="1">A座</option>
+											<option value="2">B座</option>
+										</select>
+									</td>
+								</tr>
+								<tr class="tr-height">
+									<td style="width: 170px;text-align: right;">教室房号：</td>
+									<td>
+										<input class="yt-input input-style classroom-num" placeholder="请输入" type="text" validform="{isNull:true,size:10,msg:'请输入教室房号,不要超过10个字'}" />
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr class="tr-height">
+									<td style="width: 170px;text-align: right;">容纳人数：</td>
+									<td>
+										<input class="yt-input input-style classroom-person-num" placeholder="请输入" type="text" validform="{isNull:true,size:20,msg:'请输入教室容纳人数,不要超过20个字'}" />
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr class="tr-height tr-checkbox">
+									<td class="" style="width: 170px;text-align: right;vertical-align: text-top;">基础设施：</td>
+									<td>
+										<label class="check-label yt-checkbox equipment-checkbox">  
+					                    	<input class="blank equipment" type="checkbox" name="test" value="1"/>白板 
+					                	</label>
+										<label class="check-label yt-checkbox equipment-checkbox">  
+					                    	<input class="projector equipment" type="checkbox" name="test" value="2"/>投影 
+					               	 	</label>
+										<label class="check-label yt-checkbox equipment-checkbox">  
+					                    	<input class="megaphone equipment" type="checkbox" name="test" value="3"/>扩音器 
+					                	</label>
+										<div class="" style="margin: 5px 0px;">
+											<label class="check-label yt-checkbox equipment-checkbox">  
+					                    		<input class="baseFacilityOther equipment" type="checkbox" name="test" value="4"/>其他 
+											</label>
+											<input class="yt-input input-style " id="baseFacilityOtherText" style="width: 139px;" placeholder="请输入" type="text" />
+										</div>
+									</td>
+								</tr>
+								<tr class="tr-height">
+									<td class="remark" style="width: 170px;text-align: right;">备注：</td>
+									<td>
+										<input class="yt-input input-style" id="remarks" placeholder="请输入" type="text" validform="{isNull:true,size:10,msg:'请输入教室房号,不要超过10个字'}" />
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+							</table>
+						</form>
+						<div class="yt-eidt-model-bottom add-btn-div">
+							<input class="yt-model-bot-btn yt-model-sure-btn add-class-btn" type="button" value="确定" />
+							<input class="yt-model-bot-btn yt-model-canel-btn select-ticket-canel-btn" type="button" value="取消" />
+						</div>
+					</div>
+				</div>
+				<!--教室类型弹窗-->
+				<div class="yt-pop-model yt-edit-alert class-room-tye-shuttle-box" style="width: 480px;">
+					<div class="yt-edit-alert-title ">
+						<span class="ticket-teacher-title-span">新增教室类型</span>
+					</div>
+					<div class="yt-edit-alert-main cont-edit-test">
+						<form>
+							<div style="max-height: 380px; overflow-y: auto;">
+								<table class="add-one-line-tab" style="width: 430px; margin: 5px auto;">
+									<thead>
+										<tr>
+											<th style="width: 60px;text-align: center;">编号</th>
+											<th style="width: 300px;">类型名称</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody class="add-one-line-tbody">
+										
+									</tbody>
+								</table>
+							</div>
+						</form>
+						<div class="add-one-line" style="border: 1px dashed #DDD;width: 430px;margin: 0px auto;cursor: pointer;">
+							<table class="yt-table">
+								<tr>
+									<td style="text-align: right;width: 205px;height: 30px;">+</td>
+									<td style="text-align: left;">新增</td>
+								</tr>
+							</table>
+						</div>
+						<div class="yt-eidt-model-bottom class-btn-div">
+							<input class="yt-model-bot-btn yt-model-sure-btn class-room-btn" type="button" value="确定" />
+							<input class="yt-model-bot-btn yt-model-canel-btn select-ticket-canel-btn" type="button" value="取消" />
+						</div>
+					</div>
+				</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--树形文件引用-->
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/classroom/classRoomList.js"></script>
+
+</html>

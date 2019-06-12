@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--城市控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/city/city.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/busiTripApply/projectServeApply.css" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style>
+			.qtip-default {
+				display: none;
+			}
+			
+			.file-box {
+				width: 350px;
+				padding-left: 0px;
+				position: relative;
+				left: -10px;
+			}
+			
+			.yt-edit-alert-title {
+				cursor: default;
+			}
+			
+			.cost-detailed {
+				padding: 0 10px;
+			}
+			
+			.label-title {
+				padding-bottom: 10px;
+			}
+			
+			.title-line {
+				padding-bottom: 0 !important;
+			}
+			
+			.operation {
+				padding-top: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="" class="ordinary-div" riskPageCode="reimApplyRiskPage">
+			<div id="" class="">
+				<!--基础信息区域START-->
+				<div class="base-info-model">
+					<!--标题区域START-->
+					<div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+						<span class="title-text">基本信息</span>
+						<div class="form-num-model">
+							<label><span style="letter-spacing: 4px;">单据编</span>号：</label><span id="formNum" class="form-num">提交后自动生成</span>
+							<label style="margin-left: 20px;"><span style="letter-spacing: 4px;">申请日</span>期：</label><span id="applicantTime">--</span>
+							<input type="hidden" name="advanceAppId" id="advanceAppId" value="" placeholder="事前申请id" />
+							<input type="hidden" name="advanceAppIdUpdate" id="advanceAppIdUpdate" value="" placeholder="事前申请变更ID" />
+							<input type="hidden" name="specialCode" id="specialCode" value="" placeholder="所属预算项目code" />
+							<input type="hidden" name="prjCode" id="prjCode" value="" placeholder="项目名称code" />
+							<input type="hidden" name="reimAppNum" id="reimAppNum" value="" placeholder="报销单号" />
+							<input type="hidden" name="processInstanceId" id="processInstanceId" value="" placeholder="流程实例Id" />
+							<input type="hidden" id="applicantUser" placeholder="申请人code" />
+						</div>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+					<!--标题区域END-->
+					<!--基础信息表单区域START-->
+					<div class="base-info-form-modle">
+						<div class="essen-info" style="margin-bottom: 10px;">
+							<div class="field-label" style="">
+								<label class="field-title"><span style="letter-spacing:16px;">申请</span>人：</label><span id="busiUsers" class="field-cont"></span>
+							</div>
+							<div class="field-label">
+								<label class="field-title"><span style="letter-spacing: 40px;">部</span>门：</label><span id="deptName" class="field-cont"></span>
+							</div>
+							<!--<div class="field-label">
+								<label class="field-title"><span style="letter-spacing: 40px;">职</span>务：</label><span id="jobName" class="field-cont"></span>
+							</div>-->
+							<div class="field-label">
+								<label class="field-title"><span style="letter-spacing: 40px;">电</span>话：</label><span id="telPhone" class="field-cont"></span>
+							</div>
+						</div>
+
+						<table class="from-table" border="" cellspacing="" cellpadding="" style="padding-top: 10px;margin-left: 0px;">
+							<!--<tr>
+								<td colspan="" style="width: 33%;">
+									<label><span class="not-null">*</span><span class="letter-four">费用类</span>型：</label>
+									<select class="yt-select expense-type" validform="{isNull:true,msg:'请选择费用类型'}">
+										<option value="">请选择</option>
+									</select>
+									<div class="valid-font" style="left: 92px;"></div>
+									<span class="risk-model">
+										<input type="hidden"  risk-code-val="reimApplyCostType"  value="reimApplyCostType" class="hid-risk-code">
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img">
+									</span>
+								</td>
+								<td style="width: 33%;">
+									<label>事前申请单：</label><input risk-code-val="beforeApplyForm" class="yt-input prior-approval" readonly="readonly" placeholder="请选择" />
+									<span class="risk-model">
+										<input type="hidden" value="beforeApplyForm" class="hid-risk-code">
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img">
+									</span>
+								</td>
+								<td class="advance-relevance" style="display: none;">
+									<label>事前申请单可用余额：</label><span id="advanceAppBalance">--</span>
+								</td>
+							</tr>-->
+
+							<tr>
+								<td style="width: 33%;">
+									<label>项目预算表：</label><input class="yt-input prior-approval" readonly="readonly" placeholder="请选择" />
+									<img class="clear-prior-approval" src="../../../../../resources-sasac/images/system/expensesReim/common/sc_ret.png" />
+								</td>
+								<td class="advance-relevance" style="width: 33%;display: none;">
+									<!--<label>事前申请单可用余额：</label><span id="advanceAppBalance">--</span>-->
+								</td>
+								<td></td>
+							</tr>
+							<tr class="pro-dis">
+								<td class="tl" colspan="3">
+									<label>事前申请事由：</label>
+									<span id="advanceAppName" class="qtip-text-div"></span>
+								</td>
+							</tr>
+							<tr class="pro-dis">
+								<td class="docu-style-box">
+									<label><span class="letter-four">单据样</span>式：</label>
+									<!--<label class="check-label yt-radio"><input id="" fun="showGeneralFun" class="docu-style" name="style" value="PERSONNEL_APPLY" type="radio">通用支出</label>-->
+									<!--<label class="check-label yt-radio"><input id="" fun="showTravelFun" class="docu-style" name="style" value="TRAVEL_APPLY" type="radio">差旅费支出</label>-->
+									<!--<label class="check-label yt-radio check">--><label><!--<input id="" fun="showTrainFun" class="docu-style" name="style" value="TRAIN_APPLY" type="radio">-->培训费支出</label>
+									<!--<label class="check-label yt-radio"><input id="" fun="showMettingFun" class="docu-style" name="style" value="MEETING_APPLY" type="radio">会议费支出</label>-->
+									<!--<label class="check-label yt-radio"><input id="" fun="showBusinessFun" class="docu-style" name="style" value="BH_APPLY" type="radio">公务接待费支出</label>-->
+								</td>
+							</tr>
+
+						</table>
+					</div>
+					<!--基础信息表单区域END-->
+				</div>
+				<!--基础信息区域END-->
+				<!--付款明细Start -->
+				<div class="ser-bars" style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				<div class="payment-detail">
+
+					<!-- 页面加载区域 Start -->
+					<div id="indexMainDiv" class="index-main-div">
+
+					</div>
+					<!-- 页面加载区域 End -->
+
+					<!-- 其他信息区域 Start -->
+					<div class="else-div" style="display: none;">
+						<div class="count-div total-money-div">
+							<div class="division-div">
+								<div class="secondary-back" style="margin-top: 6px;"></div>
+								<div class="secondary-title" style="">
+									<span class="secondary-text" style="font-size: 16px; font-weight: bold;">预算申请总金额</span>
+								</div>
+							</div>
+							<div class="count-box" style="margin-top: 10px;">
+								<div class="form-label">
+									<label class="count-title">预算申请总金额：</label>
+									<span class="count-val count-val-num" id="serveAllMoney" num="0" risk-code-val="reimTotalMoney">0.00</span><span>元</span>
+									<!--风险区域START-->
+									<span class="risk-model">
+										<input type="hidden" value="reimTotalMoney" class="hid-risk-code"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险区域END-->
+								</div>
+								<div class="form-label">
+									<label class="count-title">人民币大写：</label><span class="count-val" id="TotalMoneyUpper">--</span>
+								</div>
+							</div>
+						</div>
+						<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin: 10px 0;"></div>
+						<div class="label-title" style="padding: 10px;">
+							<div class="title-model-sty">
+								<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+								<span class="title-text">相关附件</span>
+							</div>
+							<div class="title-line">
+								<div></div>
+							</div>
+						</div>
+						<div class="count-div apply-file-div" style="padding-top: 10px;">
+							<div class="division-div">
+								<div class="secondary-back" style="margin-top: 6px;"></div>
+								<div class="secondary-title" style="">
+									<span class="secondary-text" style="font-size: 16px; font-weight: bold;">项目预算相关附件</span>
+								</div>
+							</div>
+							<div class="count-box">
+								<table border="0" cellspacing="0" cellpadding="0" class="from-table" style="margin-left: 0px;">
+									<tr>
+										<td style="width: 130px;vertical-align: text-top;padding-top: 15px;">项目预算相关附件：</td>
+										<td>
+											<div class="file-up-div" style="display: block;">
+												<div class="yt-input dib" style="vertical-align: middle;">
+													<span class="file-msg" style="color: rgb(51, 51, 51);"></span>
+												</div>
+												<div style="display: inline-block; margin-left: 15px;position: relative;vertical-align: middle;">
+													<input name="file" risk-code-val="reimCorrelationFile" class="cont-file" id="reimFile" type="file">
+													<input type="hidden" id="" value="">
+													<button class="yt-option-btn yt-common-btn file-upload-btn" id="" style="margin: 0;">请上传</button>
+													<span class="risk-model"> <input type="hidden" value="busiTripFile" class="hid-risk-code"> 
+															<img src="" class="risk-img"> </span>
+															<!--<span style="color:#417095;padding-left: 5px;">【请上传课程表（日程表）文件】</span>-->
+												</div>
+											</div>
+											<!--风险区域START-->
+											<span class="risk-model">
+												<input type="hidden" value="reimCorrelationFile" class="hid-risk-code"/>
+												<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+											</span>
+											<!--风险区域END-->
+											<div class="file-box" id="attIdStr">
+												<!--<div class="li-div"><span>业务工作座谈会议人员签到表</span><span class="del-file">x</span></div>-->
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- 其他信息区域 End -->
+				</div>
+				<!--付款明细End -->
+
+				<!-- 流程审批 Start -->
+				<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				<div class="qtip-text-div cost-hide" style="padding: 10px 20px;">请选择项目预算表</div>
+				<div class="ordinar-div approve-div" style="display: none;">
+					<div class="label-title" style="">
+						<div class="title-model-sty">
+							<img src="../../../../../resources-sasac/images/icons/flow-title-icon.png">
+							<span class="title-text">流程审批</span>
+						</div>
+						<div class="title-line">
+							<div></div>
+						</div>
+					</div>
+					<div class="operation">
+						<div class="count-box" style="margin-left: 0px;padding-left: 0px;">
+							<div class="form-label">
+								<label><span class="not-null">*</span>选择操作流程：</label>
+								<select name="" id="operate-flow" risk-code-val="reimApplyOperFlow" class="oper-select" validform="{isNull:true,msg:'请选择操作流程'}">
+									<option value="">请选择</option>
+								</select>
+								<div class="valid-font" style="left: 105px;"></div>
+								<!--风险区域START-->
+								<span class="risk-model">
+									<input type="hidden"  value="reimApplyOperFlow" class="hid-risk-code"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+								<!--风险区域END-->
+							</div>
+							<div class="form-label">
+								<label><span class="not-null">*</span>选择审批人：</label>
+								<select name="" risk-code-val="reimApplyApproveUsers" id="approve-users" class="oper-select" validform="{isNull:true,msg:'请选择审批人'}">
+									<option value="">请选择</option>
+								</select>
+								<div class="valid-font" style="left: 92px;"></div>
+								<!--风险区域START-->
+								<span class="risk-model">
+									<input type="hidden" value="reimApplyApproveUsers" class="hid-risk-code"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+								<!--风险区域END-->
+							</div>
+						</div>
+						<div class="count-box" style="margin-left: 0px;padding-left: 0px;">
+							<div class="left">
+								<span class="letter-four">操作意</span>见：
+							</div>
+							<div class="right">
+								<textarea id="opintion" risk-code-val="reimApplyFlowOperSug" class="yt-textarea" placeholder="请输入" style="resize: none;width: 98%;"></textarea>
+							</div>
+							<!--风险区域START-->
+							<span class="risk-model">
+									<input type="hidden" value="reimApplyFlowOperSug" class="hid-risk-code"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+							<!--风险区域END-->
+						</div>
+					</div>
+					<div class="button-box">
+						<button class="yt-option-btn yt-common-btn" style="margin-left: 35px;" id="savePayment">保存</button>
+						<!--<button class="yt-option-btn yt-common-btn" style="margin-left: 35px;" id="previewPayment">预览报销申请单</button>-->
+						<button class="yt-option-btn yt-common-btn" style="margin-left: 35px;" id="submitPayment">提交</button>
+						<button class="yt-option-btn yt-cancel-btn" style="margin-left: 35px;" id="cancelBtn">取消</button>
+					</div>
+				</div>
+				<!-- 流程审批 End -->
+			</div>
+
+		</div>
+		<!-- 选择事前申请单 Start -->
+		<div class="alert-div prior-alert">
+			<div class="model-title">
+				<img src="../../../../../resources-sasac/images/common/title-edit.png"><span>选择项目预算表</span>
+				<span class="closed-span">
+					<img src="../../../../../resources-sasac/images/common/close-btn.png" />
+				</span>
+			</div>
+			<div class="model-content">
+				<div class="search-box">
+					<label>申请人/申请事由：</label><input type="text" id="" value="" class="yt-input prior-approval-val" placeholder="请输入" />
+					<button class="yt-option-btn yt-search-btn prior-approval-search" id="">查询</button>
+					<button class="yt-option-btn yt-reset-btn prior-approval-reset" id="">重置</button>
+				</div>
+				<table border="0" cellspacing="0" cellpadding="0" class="yt-table prior-approval-list">
+					<thead class="yt-thead">
+						<tr>
+							<th>单据编号</th>
+							<th style="width: 80px;">申请人</th>
+							<th>所属部门</th>
+							<th>申请事由</th>
+							<th>单据样式</th>
+							<th style="width: 100px;">申请日期</th>
+							<!--<th>专项名称</th>-->
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+					</tbody>
+				</table>
+				<!--分页START-->
+				<div class="page-info prior-page" onselectstart="return false"></div>
+				<!--分页END-->
+				<div class="button-box min-but">
+					<button class="yt-option-btn yt-common-btn prior-common">确定</button>
+					<button class="yt-option-btn yt-cancel-btn prior-cancel" style="margin-left: 20px;">取消</button>
+				</div>
+			</div>
+		</div>
+		<!-- 选择事前申请单 End -->
+
+		<!-- 选择借款单 Start -->
+		<div class="alert-div borrow-alert">
+			<div class="model-title">
+				<img src="../../../../../resources-sasac/images/common/title-edit.png"><span>选择借款单</span>
+			</div>
+			<div class="model-content">
+				<div class="search-box">
+					<label>借款事由：</label><input type="text" id="" value="" class="yt-input borrow-val" placeholder="请输入" />
+					<button class="yt-option-btn yt-search-btn borrow-search" id="">查询</button>
+					<button class="yt-option-btn yt-reset-btn borrow-reset" id="">重置</button>
+				</div>
+				<table border="0" cellspacing="0" cellpadding="0" class="yt-table borrow-list">
+					<thead class="yt-thead">
+						<tr>
+							<th>单据编号</th>
+							<th style="width: 80px;">申请人</th>
+							<th>所在部门</th>
+							<th>借款事由</th>
+							<th style="width: 100px;">申请日期</th>
+							<th>借款单欠款金额（元）</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<!--<tr code="JKZD20180408">
+							<td>JKZD20180408</td>
+							<td>魏业科</td>
+							<td>业务处</td>
+							<td>招待TF市科技局张兰</td>
+							<td>2018-4-8</td>
+							<td style="text-align: right;">200.00</td>
+						</tr>-->
+					</tbody>
+				</table>
+				<!--分页START-->
+				<div class="page-info borrow-page" onselectstart="return false"></div>
+				<!--分页END-->
+				<div class="button-box min-but">
+					<button class="yt-option-btn yt-common-btn borrow-common">确定</button>
+					<button class="yt-option-btn yt-cancel-btn borrow-cancel" style="margin-left: 20px;">取消</button>
+				</div>
+			</div>
+		</div>
+		<!-- 选择借款单 End -->
+
+		<!-- 选择所属专项名称 Start -->
+		<div class="alert-div special-alert">
+			<div class="model-title">
+				<img src="../../../../../resources-sasac/images/common/title-edit.png"><span>选择所属专项名称</span>
+			</div>
+			<div class="model-content">
+				<div class="search-box">
+					<label>所属专项名称：</label><input type="text" id="" value="" class="yt-input special-val" placeholder="请输入" />
+					<button class="yt-option-btn yt-search-btn special-search" id="">查询</button>
+					<button class="yt-option-btn yt-reset-btn special-reset" id="">重置</button>
+				</div>
+				<table border="0" cellspacing="0" cellpadding="0" class="yt-table special-list">
+					<thead class="yt-thead">
+						<tr>
+							<th>专项编号</th>
+							<th>专项名称</th>
+							<th>预算金额</th>
+							<th>可用金额</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<tr code="ZX201804011">
+							<td>ZX201804011</td>
+							<td>人工智能研发</td>
+							<td style="text-align:right;">10,000.00</td>
+							<td style="text-align:right;">8,500.00</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<!--分页START-->
+				<div class="page-info special-page" onselectstart="return false"></div>
+				<!--分页END-->
+				<div class="button-box min-but">
+					<button class="yt-option-btn yt-common-btn special-common">确定</button>
+					<button class="yt-option-btn yt-cancel-btn special-cancel" style="margin-left: 20px;">取消</button>
+				</div>
+			</div>
+		</div>
+		<!-- 选择借款单 End -->
+
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--城市控件-->
+	<!--<script type="text/javascript" src="../../../../../resources-sasac/js/city/city.min.js"></script>-->
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.js"></script>
+	<!--上传-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/ajaxfile/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/projectManagement/expensesReim/module/busiTripApply/projectServeApply.js?YTVERSIONCODE=20180709"></script>
+	<!--引用JS文件END-->
+
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>开结业式列表</title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<div class="search-btn-slect">
+					<div class="add-release-btn key-word" style="float: left;">
+						<button class="yt-option-btn add-class">
+							<img src="../../resources/images/button/add-icon.png">
+							新增开班式
+						</button>
+						<button class="yt-option-btn winding-up" style="margin-left: 10px;">
+							<img src="../../resources/images/button/add-icon.png">
+							新增结业式
+						</button>
+						<!--流程id-->
+						<input type="hidden" value="" id="processInstanceId" />
+						<!--流程定义key-->
+						<input type="hidden" value="" id="businessCode" />
+						<!--开结业式标识符-->
+						<input type="hidden" value="" id="types" />
+							<!--流程定义key-->
+						<input type="hidden" value="" id="pkId" />
+						<!--隐藏数据，开结业式类型标识-->
+						<input type="hidden" value="" id="alert-type" />
+						<!--隐藏数据，pkId-->
+						<input type="hidden" value="" class="hid-pk-id" />
+						
+					</div>
+					<div class="key-word">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!--顶部条件查询END-->
+
+			<!--数据展示区域START-->
+			<div class="list-box">
+				<div class="list-title">
+					<span>开班式</span>
+				</div>
+				<table class="yt-table list-table" style="margin-top: 0px;">
+					<thead class="list-thead">
+						<tr>
+							<th style="width: 50px; text-align: center;">序号</th>
+							<th style="text-align: center;">班级名称</th>
+							<th style="width: 100px;text-align: center;">类型</th>
+							<th style="width: 150px;text-align: center;">项目主任</th>
+							<th style="width: 120px;text-align: center;">召开时间</th>
+							<th style="width: 120px;text-align: center;">创建时间</th>
+							<th style="width: 80px;text-align: center;">状态</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody list-tbody open-class-tbody">
+						<tr>
+							<td colspan="7" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info list-page" onselectstart="return false"></div>
+			</div>
+
+			<!--弹窗-->
+
+			<!--可变编辑新增修改弹窗-->
+
+			<div class="yt-pop-model yt-edit-alert add-shuttle-box" style="width: 995px;">
+				<div class="yt-edit-alert-title ">
+					<span class="main-title-span">新增开班式</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test">
+
+						<div class="tab-content" style="max-height: 425px;overflow-y:auto ;" >
+							<div style="border-bottom: 1px dashed #d9d9d9;">
+							<table class="open-tb-style" cellspacing="1px" cellpadding="1px">
+								<tr style="height:30px">
+									<td colspan="4" style="text-align: left; position: relative;">
+										<p class="cylinder-p"></p>
+										<p class="p-title cal-title-p">开班式</p>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 230px;text-align: right;">班级：</td>
+									<td class="projectCode" style="width: 300px; text-align: left;">
+										<select class="yt-select projectName"  id="project-code-edit" style="width: 275px;">
+											<option value="">请选择班级</option>
+										</select>
+									</td>
+									<td style="width: 128px;text-align: right;">项目主任：</td>
+									<td style="text-align: left;" id="project-user-name-edit"></td>
+								</tr>
+								<tr>
+									<td class="offer-course-time" style="text-align: right;">开班式时间：</td>
+									<td style="text-align: left;">
+										<input style="width: 265px;background-position: 252px -25px;" class="calendar-input startTime star-date-input" id="txtDate" value="" placeholder="请选择开班时间" type="text" validform="{isNull:true,size:20,msg:'时间不能为空！'}" />
+										<span class="valid-font" style="position: absolute;top:46px;"></span>
+									</td>
+									<td style="text-align: right;">学员数量：</td>
+									<td style="text-align: left;" id="trainee-count-edit"></td>
+
+								</tr>
+							</table>
+							</div>
+							<!--开班式会序-->
+							<div class="order-div-box" style="border-bottom: 1px dashed #d9d9d9;padding-bottom: 20px;">
+							<div>
+								<div class="" style="height: 35px;position: relative;">
+									<p class="cylinder-p"></p>
+									<p class="p-title order-title-p">开班式会序</p>
+									<button class="yt-option-btn btn-bg-color out-order" onclick="projectList.getOutOpenHonors()">
+										<img class="ioc-img" src="../../resources/images/open/daochu.png" />
+										导出excel
+									</button>
+								</div>
+								<div>
+									<table class="add-order-tb valid-tab" cellspacing="0px" cellpadding="0px" style="width: 913px;margin: 0px auto;">
+										<thead class="" style="background: #F5F5F5;">
+											<th class="order-th-style">步骤</th>
+											<th style="text-align: left; ">内容</th>
+											<th style="width: 150px; text-align: left; ">时间长度（分钟）</th>
+											<th style="width: 60px;text-align: center; ">调序</td>
+											<th style="width: 60px;text-align: center; ">操作</th>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="add-btn-div add-one-line" style="border: dashed 1px #e6e6e6;">+新增</div>
+							</div>
+							</div>
+							<!--开班式讲稿	-->
+							<div style="border-bottom: 1px dashed #d9d9d9;">
+								<div class="order-div-box">
+									<div class="operate-file-box" style="height: 35px;position: relative; cursor: pointer;">
+										<input type="file" id="addFile" name="file" class="up-fileIds" style="position:absolute;top: 0px;opacity: 0;font-size: 0px;cursor: pointer;" />
+										<p class="cylinder-p"></p>
+										<p class="p-title file-title-p">开班式讲稿</p>
+										<button class="yt-option-btn btn-bg-color btn-up-file" >
+											<img class="ioc-img" src="../../resources/images/open/daochu.png"/>
+											上传
+										</button>
+										<button class="yt-option-btn btn-bg-color down-modle-file" style="margin: 0px 10px;">
+											<img class="ioc-img" src="../../resources/images/open/xiazai.png" />
+											下载模板
+										</button>
+									</div>
+									<div>
+										<table class="add-lecture-tb down-files" cellspacing="1px" cellpadding="1px" style="width: 910px;margin: 0px auto;">
+											<tbody>
+	
+											</tbody>
+										</table>
+									</div>
+								</div>	
+							</div>
+								<div class="order-div-box">
+									<table>
+										<tr>
+											<td style="width: 130px;height: 60px;">下一步操作人：</td>
+											<td>
+												<select class="yt-select type-select type" id="nextPeople" style="width: 200px;">
+													
+												</select>
+											</td>
+										</tr>
+									</table>
+								</div>
+						</div>
+
+					
+					<div class="yt-eidt-model-bottom btn-div">
+						<input class="yt-model-bot-btn yt-model-sure-btn submit-btn" type="button" value="提交" />
+						<input class="yt-model-bot-btn yt-model-sure-btn " id="save" type="button" value="保存" style="margin-left: 20px;" />
+						<input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="取消" style="margin-left: 20px;" />
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			<!--只可查看弹窗-->
+			<div class="yt-pop-model yt-edit-alert only-look" style="width: 995px;">
+				<div class="yt-edit-alert-title ">
+					<span class="main-title-span">新增开班式</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test">
+						<div class="tab-content">
+							<table class="open-tb-style" cellspacing="1px" cellpadding="1px">
+								<tr style="height:30px">
+									<td colspan="4" style="text-align: left; position: relative;">
+										<p class="cylinder-p"></p>
+										<p class="p-title cal-title-p">开班式</p>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 230px;text-align: right;">班级：</td>
+									<td class="alert-td-style" id="project-name-info">
+									</td>
+									<td style="width: 128px;text-align: right;">项目主任：</td>
+									<td class="alert-td-style" id="project-user-name-info"></td>
+								</tr>
+								<tr>
+									<td style="text-align: right;">召开时间：</td>
+									<td class="alert-td-style" id="start-time-info"></td>
+									<td style="text-align: right;">学员数量：</td>
+									<td class="alert-td-style" id="trainee-count-info"></td>
+								</tr>
+								<tr>
+									<td style="text-align: right;">提交时间：</td>
+									<td class="alert-td-style" id="create-time-string-info"></td>
+									<td style="text-align: right;">提交人：</td>
+									<td class="alert-td-style" id="create-user-info"></td>
+								</tr>
+							</table>
+							<!--开班式会序-->
+							<div class="order-div-box">
+								<div class="" style="height: 35px;position: relative;">
+									<p class="cylinder-p"></p>
+									<p class="p-title order-title-p">开班式会序</p>
+									<button class="yt-option-btn btn-bg-color" onclick="projectList.getOutOpenHonors()">
+									<img class="ioc-img" src="../../resources/images/open/daochu.png" />
+									导出excel
+								</button>
+								</div>
+								<div>
+									<table class="only-look-order-tb valid-tab" cellspacing="1px" cellpadding="1px" style="width: 913px;margin: 0px auto;">
+										<thead style="background: #F5F5F5;">
+											<th class="order-th-style">步骤</th>
+											<th style="text-align: left; ">内容</th>
+											<th colspan="2px" style="width: 120px;">时间长度（分钟）</th>
+										</thead>
+										<tbody>
+											
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+							<!--开班式讲稿	-->
+
+							<div class="order-div-box">
+								<div class="operate-file-box" style="height: 35px;position: relative; cursor: pointer;">
+									<p class="cylinder-p"></p>
+									<p class="p-title file-title-p">开班式讲稿</p>
+								</div>
+								<div>
+									<table class="only-look-lecture-tb down-files" cellspacing="1px" cellpadding="1px" style="width: 910px;margin: 0px auto;">
+										<tbody>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					<div class="yt-eidt-model-bottom select-teacher-btn-div">
+						<input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="关闭" style="margin-left: 20px;color: #FFF;background: #de595a;" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/open/openHonorsList.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--拖拽排序控件js-->
+	<script type="text/javascript" src="../../resources/js/sortable/yt-sortable.min.js"></script>
+	<!--文件上传js-->
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.min.js"></script>
+	<!--字段验证js-->
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	
+</html>

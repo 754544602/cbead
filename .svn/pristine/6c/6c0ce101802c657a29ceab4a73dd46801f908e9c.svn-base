@@ -1,0 +1,278 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+	background: #f3f3f3;
+	color: #333333;
+	font-size: 14px;
+	font-family: Microsoft YaHei,Verdana, Arial, Helvetica, sans-serif;
+}
+
+.head {
+	width:100%;
+  min-width: 1200px;
+  height: 105px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  background: #fff url(../../images/main/top.png) no-repeat;
+  background-size: 100% 100%;
+  font-size: 16px;
+}
+
+.head-nav {
+  width: 1200px;
+  left: 0;
+  right: 0;
+  height: 105px;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+}
+
+.head-logo {
+  float: left;
+  width: 50%;
+  height: 100%;
+  line-height: 105px;
+  text-align: left;
+  color: #fff;
+  font-size: 30px;
+}
+#yt-index-head-logo{
+	float: left;
+	width: 50%;
+	height: 100%;
+	line-height: 105px;
+	color: #fff;
+	font-size: 30px;
+}
+#yt-index-head-logo img {
+	margin-top: 20px;
+}
+#yt-index-head-user-info {
+	float: right;
+	height: 70px;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+#yt-index-head-user-info .user-name {
+	height: 44px;
+	line-height: 44px;
+	text-align: right;
+}
+.user-setting span {
+	margin-left: 20px;
+	cursor: pointer;
+}
+.user-setting span img {
+	margin-right: 2px;
+	margin-bottom: -3px;
+}
+
+.body {
+  width: 1200px;
+	margin: 0 auto;
+  margin-top: 115px;
+}
+
+.top-border {
+  border-top: 2px solid #df0129;
+}
+.shortcut {
+  background: #fff;
+  padding: 20px;
+}
+.lable-title {
+  padding-left: 20px;
+  border-left: 5px solid #df0129;
+  font-size: 20px;
+  height: 19px;
+  line-height: 17px;
+}
+.shortcut-list {
+  margin-top: 20px;
+}
+.shortcut-div {
+  display: inline-block;
+  width: 210px;
+  height: 80px;
+  padding: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #f3f3f3;
+  margin-left: 98px;
+  box-shadow: 0px 1px 5px #888888;
+  cursor:pointer;
+}
+.shortcut-div:first-child {
+  margin-left: 0;
+}
+.shortcut-div .contrat {
+	position: relative;
+	display: block;
+  border-left: 2px solid #86bdf3;
+  height: 100%;
+  vertical-align: middle;
+  line-height: 80px;
+}
+.shortcut-div .backlog-num {
+	position:absolute;
+	color: #fff;
+	right:5px;
+	top:15px;
+	line-height:normal;
+}
+.shortcut-div .shortcut-img, .shortcut-div .shortcut-name{
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 16px;
+  margin-left: 30px;
+}
+.shortcut-img {
+  width: 50px;
+  height: 50px;
+}
+.shortcut-img img{
+  width: 100%;
+  height: 100%;
+}
+.memu-div {
+  margin-top: 25px;
+}
+.memu-div > div {
+  width: 530px;
+  height: 500px;
+  background: #fff;
+}
+.clear {
+  clear: both;
+  display: none;
+  height: 0;
+}
+.menu-train {
+  float: left;
+  padding: 25px 30px;
+}
+.menu-finance {
+  float: right;
+  padding: 25px 30px;
+}
+.menu-list {
+}
+.menu-lable {
+  display: inline-block;
+  width: 70px;
+  margin: 0 50px;
+  margin-top: 35px;
+  cursor: pointer;
+}
+.menu-img {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+.menu-name {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 16px;
+}
+#change-password-box {
+	width: 492px;
+	height: 300px;
+	border: none;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	display: none;
+	border-radius: 4px;
+	z-index: 10001;
+}
+.add-lecturer-alert {
+	width: 493px;
+	margin: 0 auto;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+.alert-top {
+	text-align: left;
+	height: 46px;
+	line-height: 46px;
+	font-size: 18px;
+	background-color: #6e6568;
+	color: #fff;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	padding-left: 7px;
+}
+#change-password-box table td {
+	position: relative;
+	font-size: 14px;
+}
+.pwd-lable {
+	text-align: right;
+	padding-right: 8px;
+}
+#change-password-box table input {
+	width: 199px;
+	height: 30px;
+	border: 1px solid #c8c8c8;
+	padding: 0 10px;
+	margin: 8px 0;
+	font-size: 14px;
+}
+#change-password-box table .error-text {
+	position: absolute;
+	top: 39px;
+	left: 1px;
+	font-size: 12px;
+	color: #df0129;
+	display: none;
+}
+.add-lecturer-but {
+	width: 236px;
+	overflow: hidden;
+	zoom: 1;
+	margin: 13px auto 0;
+	padding-bottom: 26px;
+}
+.confirm-buttton {
+	float: left;
+	width: 101px;
+	height: 34px;
+	font-size: 16px;
+	background-color: #df0129;
+	color: #fff;
+	outline: none;
+	border: none;
+	border-radius: 2px;
+}
+.close-button {
+	float:right;
+	width: 101px;
+	height: 34px;
+	font-size: 16px;
+	background: none;
+	color: #333;
+	outline: none;
+	border-radius: 2px;
+	border: 1px solid #999;
+}
+#pop-modle-alert{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    background-color: #000000;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    display: none;
+}

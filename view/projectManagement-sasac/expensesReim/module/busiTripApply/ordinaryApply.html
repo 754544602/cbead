@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/busiTripApply/ordinaryApply.css?YTVERSIONCODE" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style>
+			.qtip-default {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="" class="ordinary-div">
+			<div id="" class="">
+				<!--基础信息区域START-->
+				<div class="base-info-model">
+					<!--标题区域START-->
+					<div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/system/expensesReim/common/base-info-title-img.png" />
+						<div class="form-num-model">
+							<label><span style="letter-spacing: 4px;">单据编</span>号：</label><span id="form-num" class="form-num">提交后自动生成</span>
+						</div>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+					<!--标题区域END-->
+					<!--基础信息表单区域START-->
+					<div class="base-info-form-modle">
+						<div class="essen-info" style="margin-bottom: 10px;">
+							<div class="field-label" style="">
+								<label class="field-title"><span style="letter-spacing:16px;">申请</span>人：</label><span id="" class="field-cont">魏业科</span>
+							</div>
+							<div class="field-label">
+								<label class="field-title"><span style="letter-spacing: 40px;">部</span>门：</label><span id="" class="field-cont">业务部门</span>
+							</div>
+							<!--<div class="field-label">
+								<label class="field-title"><span style="letter-spacing: 40px;">职</span>务：</label><span id="" class="field-cont">科员</span>
+							</div>-->
+							<div class="field-label">
+								<label class="field-title"><span style="letter-spacing: 40px;">电</span>话：</label><span id="" class="field-cont">022-68551115</span>
+							</div>
+						</div>
+
+						<table class="from-table" border="" cellspacing="" cellpadding="" style="padding-top: 10px;">
+							<tr>
+								<td class="tl" style="width: 60%;vertical-align: text-top;padding-bottom: 0;"><label><span class="not-null">*</span>事前申请事由：</label><input type="text" class="yt-input" placeholder="请输入" validform="{isNull:true,msg:'请输入事前申请事由'}" style="width: 80%;"><div class="valid-font" style="left: 103px;"></div>
+								</td>
+								<td style="padding-bottom: 0;">
+									<label style="">事前申请相关附件：</label><div class="file-up-div"> <div class="yt-input dib" style="vertical-align: middle;"> <span class="file-msg" style="color: rgb(51, 51, 51);"></span> </div> <div style="display: inline-block; margin-left: 15px;position: relative;vertical-align: middle;"> <input name="file" class="cont-file" id="invoiceFile" type="file"> <input type="hidden" id="fileId" value=""> <button class="yt-option-btn yt-common-btn file-upload-btn" id="" style="margin: 0;">请上传</button> <span class="risk-model"> <input type="hidden" value="busiTripFile" class="hid-risk-code"> <img src="../../../../../resources-sasac/images/common/risk-via.png" class="risk-img"> </span> </div> </div><div class="file-name-list" style="width: 60%;"> <div class="file-li"><span class="file-name">劳务费发放表.pdf</span><span class="del-file">x</span></div> </div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="padding-top: 0;height: 30px;">
+									<div class="form-label">
+										<label>是否属于专项：</label><label class="check-label yt-radio check"><input id="radio1" class="special-type" type="radio" name="test"  value="0"/>是</label><label class="check-label yt-radio" style="margin-left: 20px;"><input id="radio2" class="special-type" type="radio" name="test"  value="1"/>否</label>
+									</div>
+									<div class="form-label" id="prjNumBox">
+										<label><span class="letter-four">项目编</span> 号：</label>
+										<select class="yt-select prj-num">
+											<option value="">请选择</option>
+											<option value="1">选项一</option>
+										</select>
+									</div>
+									<div class="form-label" id="prjMoneyBox">
+										<label>项目累计付费金额：</label><span>--</span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!--基础信息表单区域END-->
+				</div>
+				<!--基础信息区域END-->
+				<!--付款明细Start -->
+				<div class="payment-detail">
+					<div class="label-title">
+						<div class="title-model-sty">
+							<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+							<span class="title-text">费用申请</span>
+						</div>
+						<div class="title-line">
+							<div></div>
+						</div>
+						<div class="button-box min-but" style="text-align: left;">
+							<button class="yt-option-btn yt-common-btn" id="addProcuList">新增</button>
+						</div>
+					</div>
+					<table class="yt-table" id="paymentList" style="width: 100%;table-layout: initial;margin-top: 20px;">  
+					    <thead class="yt-thead">  
+					        <tr>
+					            <th>所属预算项目</th>  
+					            <th>付款金额</th>  
+					            <th>专项项目编号</th>  
+					            <th style="width: 100px;">操作</th>  
+					        </tr>  
+					    </thead>  
+					    <tbody class="yt-tbody">  
+					       <tr>
+					       	<td>劳务费</td>
+					       	<td style="text-align: right;">5,000.00</td>
+					       	<td>--</td>
+					       	<td><span class="operate-update"><img src="../../../../../resources-sasac/images/common/edit-icon.png"></span><span class="operate-del"><img src="../../../../../resources-sasac/images/common/del-icon.png"></span></td>
+					       </tr>
+					    </tbody>  
+					</table>
+					<div class="count-div">
+						<div class="division-div">
+							申请预算总金额
+						</div>
+						<div class="count-box">
+							<div class="form-label">
+								<label class="count-title">申请预算总金额：</label><span class="count-val">5,000</span><span>元</span>
+							</div>
+							<div class="form-label">
+								<label class="count-title">人民币大写：</label><span class="count-val">伍仟元整</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--付款明细End -->
+				<!-- 流程审批 Start -->
+		<div class="ordinar-div">
+			<div class="label-title">
+				<div class="title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png"><span class="title-text">流程审批</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+			</div>
+			<div class="operation">
+				<div class="count-box">
+					<div class="form-label">
+						<label>选择操作流程：</label><select name="" class="oper-select">
+							<option value="">请选择</option>
+							<option value="">提交到业务部门负责人审批</option>
+						</select>
+					</div>
+					<div class="form-label">
+						<label>选择审批人：</label><select name="" class="oper-select">
+							<option value="">请选择</option>
+							<option value="">业务部门负责人-樊业处</option>
+						</select>
+					</div>
+				</div>
+				<div class="count-box">
+					<div class="left">
+						<span class="letter-four">操作意</span>见：
+					</div>
+					<div class="right">
+						<textarea class='yt-textarea' placeholder='请输入' style='resize: none;width: 98%;'></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="button-box">
+				<button class="yt-option-btn yt-common-btn" id="savePayment">保存</button>
+					<button class="yt-option-btn yt-common-btn" style="margin-left: 35px;" id="getPayment">提交并生成事前申请单</button>
+					<button class="yt-option-btn yt-cancel-btn" style="margin-left: 35px;" id="">取消</button>
+				</div>
+		</div>
+		<!-- 流程审批 End -->
+			</div>
+			
+		</div>
+		
+		<!-- 付款明细填写弹出窗口 -->
+		<div id="createDetali" class="create-detali">
+			<div class="model-title">
+				<img src="../../../../../resources-sasac/images/common/title-edit.png"><span>付款明细填写</span>
+			</div>
+			<div class="model-content">
+				<table border="0"  cellspacing="0" cellpadding="0" class="from-table">
+					<tr>
+						<td>
+							<label>所属预算项目：</label><select name="" class="project-select" id="budgetProject">
+								<option value="0">请选择</option>
+								<option value="1">劳务费</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label><span class="letter-two">金</span>额：</label><input id="budgetMoney" type="text" class="yt-input" placeholder="请输入">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>专项项目编号：</label><span class="" id="specialNum">--</span>
+						</td>
+					</tr>
+				</table>
+				<div class="button-box">
+					<button class="yt-option-btn yt-common-btn" id="paymentAddBtn">添加到列表</button>
+					<button class="yt-option-btn yt-cancel-btn" style="margin-left: 20px;" id="paymentCanelBtn">取消</button>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--上传-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/ajaxfile/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/busiTripApply/ordinaryApply.js?YTVERSIONCODE"></script>
+	<!--引用JS文件END-->
+
+</html>

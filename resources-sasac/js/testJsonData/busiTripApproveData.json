@@ -1,0 +1,18 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 50,
+		"rows": [
+			{
+				"travelAppId":"1",
+				"travelAppNum": "CCSP20171216",
+				"travelAppName": "参加财政部举办的行政事业单位内部控制培训",
+				"travelPersonnelNum":"3",
+				"receptionCostItem":"",
+				"prjId":"1",
+				"prjName":"日常公用经费",
+				"prjDeptName":"财务处"
+			}
+		]
+	}
+}

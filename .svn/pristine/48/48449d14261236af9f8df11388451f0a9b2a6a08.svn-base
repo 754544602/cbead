@@ -1,0 +1,146 @@
+/**
+ * 项目管理列表
+ */
+var caList = {
+	//初始化方法
+	init: function() {
+		$("#start-time").calendar({  
+		    controlId: "startDate",  
+		    nowData:false,//默认选中当前时间,默认true  
+		    upperLimit:$("#end-time") //开始日期最大为结束日期  
+		});  
+		$("#end-time").calendar({  
+		    controlId: "endDate",  
+		    nowData:false,//默认选中当前时间,默认true  
+		    lowerLimit:$("#start-time") //结束日期最小为开始日期  
+		});  
+		//调用获取列表数据方法
+		caList.getPlanListInfo();
+		//跳转页面传参
+		$('.list-table').on("click",".projectName",function(){
+			var projectCode = $(this).parents("tr").find('.projectCode').text();//获取班级编号
+			var projectType =$(".yt-table-active .projectType").val();
+			if (projectType ==1 || projectType ==2 || projectType ==4){
+				window.location.href="nonsatisfiedScore.html?projectCode=" + projectCode;
+			}
+			if (projectType ==3){
+				window.location.href="nonsatisfiedScoreTrue.html?projectCode=" + projectCode;
+			}
+			
+		});
+		//条件搜索
+		$('.search-button').click(function() {
+			//调用获取列表数据方法查询
+			caList.getPlanListInfo();
+		});
+	},
+		
+	/**
+	 * 获取列表数据
+	 */
+	getPlanListInfo: function() {
+		var selectParam =$('#keyword').val();
+		var endTimeStart = $('#start-time').val();
+		var endTimeEnd = $('#end-time').val();
+		$('.list-page').pageInfo({
+			async:true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "class/questionnaire/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam:selectParam,
+				endTimeStart: endTimeStart,
+				endTimeEnd: endTimeEnd
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before:function(){
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.class-tbody');
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							var projectType =v.projectType;
+							switch (projectType){
+								case '1':
+									projectType = '计划';
+									break;
+								case '2':
+									projectType = '委托';
+									break;
+								case '3':
+									projectType = '选学';
+									break;
+								case '4':
+									projectType = '调训';
+									break;
+								default:
+									projectType = '';
+									break;
+							}
+							var questionnaireStates=v.questionnaireStates;
+							switch (questionnaireStates){
+								case '1':
+									v.questionnaireStates = '未结束';
+									break;
+								case '2':
+									v.questionnaireStates = '已结束';
+									break;
+								case '3':
+									v.questionnaireStates = '已发送';
+									break;
+								default:
+									v.questionnaireStates = '';
+									break;
+							}
+							if(projectType != "委托"){
+								htmlTr += '<tr>' +
+									'<td class="projectCode">' + v.projectCode + '</td>' +
+									'<input type="hidden" value="' + v.pkId + '" class="pkId">' +
+									'<td style="text-align:left;"><a style="color: #4169E1;" class="projectName">'+v.projectName+'</a></td>' +
+									'<input type="hidden" value="' + v.projectType + '" class="projectType">' +
+									'<td>' + projectType + '</td>' +
+									'<td class="text-overflow">' + v.projectHead + '</td>' +
+									'<td>' + v.endTime + '</td>' +
+									'<td>' + v.checkCount + '</td>' +
+									'<td>' + v.questionnaireCount + '</td>' +
+									'<td>' + questionnaireStates + '</td>' +
+									'<td>' + v.populationQuestionnaire + '</td>' +
+									'</tr>';
+							}
+							
+						});
+						$('.list-page').show();
+					} else {
+						$('.list-page').hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="10" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	
+};
+$(function() {
+	//初始化方法
+	caList.init();
+	
+});

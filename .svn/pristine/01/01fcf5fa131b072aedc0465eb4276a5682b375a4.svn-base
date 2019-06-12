@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<!--树形列表-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<title>师资费用报销管理列表</title>
+		<style type="text/css">
+			.td-style{
+				text-align: left;
+			}
+			#treeDiv .easyui-panel.panel-body.panel-body-noheader{
+				width: 228px !important;
+			}
+			#treeDiv1 .easyui-panel.panel-body.panel-body-noheader{
+				width: 257px !important;
+			}
+			#treeDiv2 .easyui-panel.panel-body.panel-body-noheader{
+				width: 232px !important;
+			}
+			/*树形图标*/
+			.tree-icon.tree-file{
+			    background:url(../../resources/images/tree/tree-man.png) no-repeat center center !important;
+			}
+			.tree-icon.tree-folder.tree-folder-open {
+			    background:url(../../resources/images/tree/tree-.png) no-repeat center center !important;
+			}
+			.tree-icon.tree-folder{
+			    background:url(../../resources/images/tree/tree+.png) no-repeat center center !important;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main" style="min-width: 1005px;">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				
+			</div>
+			<!--顶部条件查询END-->
+			<!--页签START-->
+			<div class="tab-title-list" style="margin-top: 0px;">
+				<div class="tab-title-box">
+					<button senior="0" class="yt-option-btn class-info-btn active cost-btn">• 列表查询</button>
+					<button senior="1" class="yt-option-btn teacher-info-btn borrow-btn">• 自定义查询</button>
+				</div>
+			</div>
+			<!--页签END-->
+			<!--列表查询数据展示区域START-->
+			<div class="content-div">
+				<!--<div class="content-box programme" style="border-bottom: 0px;height: 35px;padding-left: 10px;background: none;">
+						
+					</div>			-->
+					<!--数据展示区域START-->
+					<div class="list-box">
+						<div class="search-btn-slect">
+							<span style="margin-bottom: 10px;font-size: 16px;">支付反馈列表</span>
+							<button class="yt-option-btn senior-search-btn" clickstate="true" style="margin:0px 8px 0px 0px;float: right;">
+								更多
+								<img class="search-put" src="../../resources/images/icons/class-put.png">
+							</button>
+							<div class="key-word">
+								<input class="yt-input" id="keyword" placeholder="流水号，班级编号，班级名称" type="text" />
+								<button class="yt-option-btn search-btn">
+									<img class="search-img" src="../../resources/images/icons/class-search.png" />
+								</button>
+							</div>
+							<!--弹出START-->
+							<div class="search-box" style="width:390px;right:10px;top: 135px;">
+							<table class="search-table">
+								<tr>
+									<td>流水号：</td>
+									<td>
+										<input class="yt-input project-code" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>报销类型：</td>
+									<td>
+										<div class="base-form-model select-type">
+											<div class="project-state-box">
+												<select id="expenseType" class="yt-select"  style="width: 311px;">
+													<option value="">请选择</option>
+													<option value="2">教师差旅报销</option>
+													<option value="1">教师课酬报销</option>
+												</select>
+											</div>
+										</div>
+									</td>
+								</tr>
+									<tr>
+									<td>班级编号：</td>
+									<td>
+										<input class="yt-input project-head" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>所属班级：</td>
+									<td>
+										<input class="yt-input project-head" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>项目主任：</td>
+									<td>
+										<input class="yt-input project-head" style="width: 304px;" type="text" placeholder="请输入" />
+									</td>
+								</tr>
+								<tr>
+									<td>申请时间：</td>
+									<td>
+										<input class="calendar-input apply-time-start" style="width: 134px;" value="" placeholder="请选择" type="text" />
+										<span class="date-line">—</span>
+										<input class="calendar-input apply-time-end" style="width: 134px;" value="" placeholder="请选择" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<td>教师人数：</td>
+									<td>
+										<input class="yt-input teacher-start" style="width: 138px;text-align: right;" value="" placeholder="请输入" type="number" />
+										<span class="date-line">—</span>
+										<input class="yt-input teacher-end" style="width: 138px;text-align: right;" value="" placeholder="请输入" type="number" />
+									</td>
+								</tr>
+								<tr>
+									<td>报销金额：</td>
+									<td>
+										<input class="yt-input expense-start" style="width: 138px;text-align: right;" value="" placeholder="请输入" type="number" />
+										<span class="date-line">—</span>
+										<input class="yt-input expense-end" style="width: 138px;text-align:right;" value="" placeholder="请输入" type="number" />
+									</td>
+								</tr>
+								<tr>
+									<td>审批状态：</td>
+									<td>
+										<div class="base-form-model select-type">
+											<div class="project-state-box">
+												<select id="workFlawState" class="yt-select"  style="width: 311px;">
+													<option value="">请选择</option>
+													<option value="2">草稿</option>
+													<option value="3">审批中</option>
+													<option value="4">未通过</option>
+													<option value="5">已通过</option>
+												</select>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<!--底部按钮START-->
+							<div class="search-bottom-btn">
+								<button class="yt-model-bot-btn yt-model-sure-btn">
+									<img class="search-btn-img" src="../../resources/images/icons/class-search.png"/>
+								</button>
+								<button class="yt-model-bot-btn yt-model-reset-btn" style="outline: none;cursor: pointer;">
+									<img class="search-btn-img" src="../../resources/images/icons/class-reset.png"/>
+								</button>
+							</div>
+						</div>
+						<!--弹出END-->
+						</div>
+					<table class="yt-table list-table" style="margin-top: 0px;">
+						<thead class="list-thead">
+							<tr>
+								<th style="width: 200px;">流水号</th>
+								<th>报销类型</th>
+								<th>班级编号</th>
+								<th style="width: 200px;">所属班级</th>
+								<th>项目主任</th>
+								<th>申请时间</th>
+								<th>教师人数</th>
+								<th>报销金额</th>
+								<th>状态</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody open-class-tbody">
+							<tr>
+								<td colspan="9" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info list-page" onselectstart="return false"></div>
+				</div>
+			</div>
+			<!--列表查询数据展示区域END-->
+			<!--自定义列表START-->
+			<div class="content-div" style="background: #FFFFFF;display: none;">
+				<!--搜索条件START-->
+				<div class="search-form" style="margin: 0px 30px;display: block;padding-bottom: 1px;">
+				<table class="search-table">
+					<tr>
+						<td style="width: 117px;">报销类型：</td>
+						<td>
+							<div class="base-form-model select-type">
+								<div class="project-state-box">
+									<label class="check-label yt-radio check">  
+									    <input id="radio1" type="radio" name="test"  value="2"/>  
+									  	教师课酬报销
+								    </label>  
+								    <label class="check-label yt-radio" style="margin-left: 16px;">  
+									    <input id="radio2" type="radio" name="test"  value="1"/>  
+									            教师差旅报销  
+								    </label> 
+								</div>
+							</div>
+						</td>
+					</tr>
+						<tr>
+						<td>开班日期：</td>
+						<td>
+							<input class="calendar-input start-time-start" style="width: 97px;" value="" placeholder="请选择" type="text" />
+							<span class="date-line">—</span>
+							<input class="calendar-input start-time-end" style="width: 97px;" value="" placeholder="请选择" type="text" />
+						</td>
+						<td style="width: 113px;text-align: right;">结束日期：</td>
+						<td>
+							<input class="calendar-input end-time-start" style="width: 97px;" value="" placeholder="请选择" type="text" />
+							<span class="date-line">—</span>
+							<input class="calendar-input end-time-end" style="width: 97px;" value="" placeholder="请选择" type="text" />
+						</td> 	
+						<td style="width: 112px;text-align: right;">所属班级：</td>
+						<td>
+							<select class="yt-select belong-class-select"  style="width: 268px;">  
+                           	 	<option value="">请选择</option>  
+                        	</select> 
+						</td>
+					</tr>
+					<tr>
+						<td>教师姓名：</td>
+						<td>
+							<select class="yt-select class-teacher-name"  style="width: 237px;">  
+                           	 	<option value="">请选择</option>  
+                        	</select> 
+						</td>
+						<td style="text-align: right;vertical-align:middle;padding-top: 5px">申请人：</td>
+						<td style="position: relative;">
+							<div class="yt-input apply-man" style="width: 234px;display: inline-block;text-align: left;height: 30px;overflow: hidden;"/></div>
+								<div id="treeDiv" style="display: none;">
+									<div class="easyui-panel" style="padding:5px ;width: 237px;border: none;position: absolute;z-index: 9999;">
+										<ul id="tt" class="easyui-tree" style="height: 280px;"></ul>
+									</div>
+								</div>
+						</td>
+						<td style="text-align: right;">项目主任：</td>
+						<td style="position: relative;">
+							<div class="yt-input project-dir" style="width: 262px;display: inline-block;text-align: left;height: 30px;overflow: hidden;" /></div>
+								<div id="treeDiv1" style="display: none;">
+									<div class="easyui-panel" style="padding:5px ;width: 237px;border: none;position: absolute;">
+										<ul id="aa" class="easyui-tree" style="height: 280px;"></ul>
+									</div>
+								</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">班主任：</td>
+						<td style="position: relative;">
+							<div class="yt-input project-class-dir" style="width: 232px;display: inline-block;text-align: left;height: 30px;overflow: hidden;"/></div>
+								<div id="treeDiv2" style="display: none;">
+									<div class="easyui-panel" style="padding:5px ;width: 237px;border: none;position: absolute;">
+										<ul id="cc" class="easyui-tree" style="height: 280px;"></ul>
+									</div>
+								</div>
+						</td>
+					</tr>
+				</table>
+				<!--底部按钮START-->
+				<div class="bottom-btn-div" style="margin: 10px 0px;text-align: center;">
+					<button class="yt-option-btn senior-query-btn" clickstate="true" style="margin:0px 8px 0px 0px;">
+						查询
+						<img class="search-btn-img" src="../../resources/images/icons/class-search.png" style="vertical-align: top;"/>
+					</button>
+					<button class="yt-option-btn resert-btn" clickstate="true" style="margin:0px 8px 0px 0px;">
+						重置
+						<img class="search-btn-img" src="../../resources/images/icons/class-reset.png" style="vertical-align: top;"/>
+					</button>
+					<button class="yt-option-btn export-excel-btn" clickstate="true" style="margin:0px 8px 0px 0px;">
+						导出
+						<img class="search-put" src="../../resources/images/icons/export.png">
+					</button>
+				</div>
+				<!--底部按钮END-->
+			</div>
+			<!--搜索条件END-->
+			<!--自定义列表展示部分START-->
+			<div class="custom-div">
+				<!--教师课酬列表START-->
+				<div class="class-rem-div" style="display: none;">
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th width="30px">序号</th>
+								<th>教师</th>
+								<th width="75px">证件类型</th>
+								<th  width="145px">证件号</th>
+								<th>开户行</th>
+								<th  width="115px">账号</th>
+								<th>授课日期</th>
+								<th width="70px">报销金额</th>
+								<th width="70px">代缴个税</th>
+								<th width="70px">税后金额</th>
+								<th width="70px">班级编号</th>
+								<th>所属班级</th>
+								<th>项目主任</th>
+								<th>班主任</th>
+								<th width="70px">申请人</th>
+								<th>申请时间</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody">
+							<tr>
+								<td colspan="16" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--分页START-->  
+					<div class="page-info class-page" onselectstart="return false"></div>  
+					<!--分页END-->  
+				</div>
+				<!--教师课酬列表END-->
+				<!--教师差旅列表START-->
+				<div class="travel-div"  style="display: none;">
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								
+								<th width="30px">序号</th>
+								<th>教师</th>
+								<th width="75px">证件类型</th>
+								<th width="145px">证件号</th>
+								<th>开户行</th>
+								<th width="115px">账号</th>
+								<th>航班/车次</th>
+								<th>出发地</th>
+								<th>目的地</th>
+								<th width="75px">仓位/座位</th>
+								<th>仓位/座位说明</th>
+								<th>起止日期</th>
+								<th width="70px">票价（元）</th>
+								<th width="70px">保险（元）</th>
+								<th width="98px">退改签费（元）</th>
+								<th width="112px">报销总金额（元）</th>
+								<th>付款方式</th>
+								<th>关联订票记录</th>
+								<th width="70px">班级编号</th>
+								<th>所属班级</th>
+								<th>项目主任</th>
+								<th>班主任</th>
+								<th width="70px">申请人</th>
+								<th>申请时间</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody">
+							<tr>
+								<td colspan="24" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--分页START-->  
+					<div class="page-info travel-page" onselectstart="return false"></div>  
+					<!--分页END-->  
+				</div>
+				<!--教师差旅列表END-->
+			</div>
+			<!--自定义列表展示部分END-->
+			</div>
+			<!--自定义列表END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--树形图-->
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<!-- 获取数据的js -->
+	<script type="text/javascript" src="../../resources/js/modules/finance/reimbursementPayment.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--拖拽排序控件js-->
+	<script type="text/javascript" src="../../resources/js/sortable/yt-sortable.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--字段验证js-->
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+</html>

@@ -1,0 +1,6 @@
+/*
+ *
+ *C(05)分页 
+ * 
+ * */
+.pointer{cursor:pointer}.page-info{color:#333333;font-size:14px;margin-top:20px}.change-btn,.last-page,.next-page{border:1px solid #E5E5E5;border-radius:2px;margin:5px;background:#FFFFFF;font-size:14px;color:#333333}.last-page,.next-page{color:#b8b8b8}.end-page,.frist-page{color:#417095}.end-page.pointer,.frist-page.pointer,.last-page.pointer,.next-page.pointer{color:#333;padding:0 6px;height:23px;line-height:21px;text-align:center}.page-info table{margin:0 auto}.page-info table td > div{font-size:14px;padding:0 7px;height:23px;line-height:23px;text-align:center}.page-info table td div.data-count{cursor:auto}.page-info table td div.active,.page-info table td div.change-btn:hover{color:#fff;border:1px solid #417095;background:#417095}.page-info table td div.frist-page.pointer:hover{color:#666666}.page-info table td div.end-page.pointer:hover{color:#666666}.page-info .nice-select{height:26px;line-height:24px}.page-info .page-num-list-sel{width:90px}.page-info .nice-select .current{color:#333333}.page-info .nice-select:hover{border-color:#de595a !important}.page-info .nice-select .option.focus{color:#FFFFFF;background:#de595a}.page-info .nice-select ul.list{top:inherit;bottom:27px}

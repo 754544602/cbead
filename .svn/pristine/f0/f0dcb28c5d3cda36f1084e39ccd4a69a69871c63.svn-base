@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/newRuleTable.min.css"/>
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/budget/module/expenditure/addTable.min.css?YTVERSIONCODE=20180515" />
+		<!--引用CSS文件END-->
+		<title></title>
+	</head>
+
+	<body>
+		<div id="addTable">
+			<!--表样式基本信息区域START-->
+			<!--标题区域START-->
+			<div class="base-info-title-model title-model-sty">
+				<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+				<span class="title-text">表样式基本信息</span>
+			</div>
+			<div class="title-line">
+				<div></div>
+			</div>
+			<!--标题区域END-->
+			<div class="start-name">
+				<div class="table-style" style="float: left;">
+					<label><span class="not-null">*</span>预算表名称：</label>
+					<input id="budgetTableName" type="text" class="yt-input" placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入预算表名称'}" style="width: 200px;">
+					<div class="valid-font" style="left: 110px;"></div>
+				</div>
+				<div class="table-style" style="float: left;">
+					<label style="margin-left: 178px;"><span class="not-null">*</span>预算表类型：</label>
+					<select class="yt-select" id="budType" validform="{isNull:true,msg:'请选择预算表类型'}" style="">
+					</select>
+					<div class="valid-font" style="left: 648px;"></div>
+				</div>
+				<div id="" style="clear: both;"></div>
+			</div>
+			
+			<div class="table-style" style="min-width: 1093px;margin-left: 8px;">
+				<div style="float: left;">
+					<label style="">预算表描述：</label>
+				</div>
+				<div style="overflow: hidden;">
+					<textarea id="budgetTableDescribe" class="yt-textarea" placeholder="请输入" style="width: 94%; float: left; resize: none;"></textarea>
+				</div>
+			</div>
+			
+			<div class="bud-total" style="min-width: 1093px;margin-left: 10px;">
+				<div class="table-style" style="float: left;">
+					<label>标注：</label>
+					<input id="budgetCalibration" type="text" class="yt-input" placeholder="请输入"  style="width: 200px;">
+				</div>
+				<div class="table-style" style="float: left;margin-left: 2%;">
+					<label style=""><span class="not-null">*</span>总列数：</label>
+					<input id="budgetCols" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" class="yt-input" placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入总列数'}" style="width: 120px;">
+					<div class="valid-font" style="left: 65px;position: relative;"></div>
+				</div>
+				<div class="table-style" style="float: left;margin-left: 2%;">
+					<label style=""><span class="not-null">*</span>表头总行数：</label>
+					<input id="budgetRows" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" class="yt-input" placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入表头总行数'}" style="width: 120px;">
+					<div class="valid-font" style="left: 92px;position: relative;"></div>
+				</div>
+				<div class="table-style" style="float: left;margin-left: 2%;">
+					<label style=""><span class="not-null">*</span>表身总行数：</label>
+					<input id="budgetBodyCols" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" class="yt-input" placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入表身总行数'}" style="width: 120px;">
+					<div class="valid-font" style="left: 94px;position: relative;"></div>
+				</div>
+				<div id="" style="clear: both;"></div>
+			</div>
+			<!--表样式基本信息区域END-->
+			<!--按钮区域START-->
+			<div class="table-style" style=" text-align: center;">
+				<button class="yt-option-btn yt-common-btn generate-btn" id="generateBtn">生成</button>
+			</div>
+			<!--表生成区域 START-->
+			<div class="new-table-div">
+				<div class="" id="createTable"></div>
+			</div>
+			<!--表生成区域 END-->
+			<div class="table-style" style=" text-align: center;">
+				<button class="yt-option-btn yt-common-btn save-btn" id="saveBtn">保存</button>
+				<button class="yt-option-btn yt-cancel-btn" id="approveCanelBtn">取消</button>
+				<input type="text" id="draw" value="" style="display: none;"/>
+			</div>
+			<!--按钮区域END-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<!--上传-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/ajaxfile/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<script src="../../../../../resources-sasac/js/common/newTable.js" type="text/javascript" charset="utf-8"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/budget/module/expenditure/addTable.min.js?YTVERSIONCODE=2018052802"></script>
+	<!--引用JS文件END-->
+
+</html>

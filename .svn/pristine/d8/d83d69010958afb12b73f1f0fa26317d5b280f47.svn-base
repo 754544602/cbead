@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" >
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge	" />
+		<link rel="icon" href="./resources/images/icons/ICO.png" type="image/x-icon">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="./resources/js/scroll/jquery.mCustomScrollbar.css?v=20171208" />
+		<link rel="stylesheet" type="text/css" href="./resources/css/common/yt-common.min.css?v=20171208" />
+		<link rel="stylesheet" type="text/css" href="./resources/css/common/yt-frame-base.min.css?v=20171208" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="./resources/css/common/yt-common-ie.min.css"/><![endif]-->
+		<script type="text/javascript" src="./resources/js/common/jquery.min.js"></script>
+		<!--滚动条js-->
+		<script type="text/javascript" defer="defer" src="./resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script type="text/javascript" defer="defer" src="./resources/js/common/yt-option.js?v=20171208"></script>
+		<script type="text/javascript" defer="defer" src="./resources/js/common/yt-common.min.js?v=20171208"></script>
+		<script type="text/javascript" defer="defer" src="./resources/js/common/yt-frame.min.js?v=20171208"></script>
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+	<style>
+		.qtip-default {
+			display: none;
+		}
+	</style>
+
+	<body>
+		<div id="yt-index-head-nav">
+			<!--<img class="top-img" src="resources/images/top-img.jpg" />-->
+			<div class="head-top-nav">
+				<img src="./resources/images/common/nav-logo.png" class="heard-top-img">
+			</div>
+			<div class="nav-right-model">
+				<ul id="nav-fun-list">
+					<li>
+						<div class="home-model">
+							<img class="nav-fun-icon" src="./resources/images/common/index-icon1.png" style="margin-bottom: 5px;" /><span>首页</span>
+							<input type="hidden" class="nav-fun-hid" value="index" />
+						</div>
+					</li>
+					<li>
+						<div class="logout-model">
+							<img class="nav-fun-icon" src="./resources/images/common/logo-out-icon1.png" /><span>注销</span>
+							<input type="hidden" class="nav-fun-hid" value="out" />
+						</div>
+					</li>
+					<li class="users-info-li"><!-- <img src="resources/images/common/user-photo-def.png" /> --><span class="logo-user-name"></span></li>
+					<li class="li-bak" style="display: none;"></li>
+				</ul>
+				<div style="clear: both;"></div>
+			</div>
+			<div id="heard-nav-bak"></div>
+		</div>
+		<div id="yt-index-bottom-nav">
+			<!--左侧菜单START-->
+			<div id="yt-index-left-nav">
+				<div id="left-menu-cnt">
+					<div id="nav-resource">
+						
+					</div>
+				</div>
+			</div>
+			<!--左侧菜单END-->
+			<!--右侧子页面内容START-->
+			<div id="frame-right-model">
+				<div id="yt-index-main-nav">
+				</div>
+			</div>
+			<!--右侧子页面内容END-->
+
+		</div>
+	</body>
+
+</html>
+<script>
+	$(function() {
+		$left_menu.init();
+		var divMinHei = $(window).height() - 80;
+		$(".web-criterion-model").css("min-height", divMinHei);
+		//给滚动条设置高度
+		$("#left-menu-cnt").css("height", divMinHei);
+		//左菜单调用滚动条方法
+		$(window).load(function() {
+			$("#left-menu-cnt").mCustomScrollbar({
+				autoHideScrollbar: true,
+				theme: "square"
+			});
+		});
+	});
+	/**
+	 * 关闭窗体方法
+	 */
+	function closeWindow(){
+		window.opener=null;
+		window.open('','_self');
+		window.close();
+	}
+</script>

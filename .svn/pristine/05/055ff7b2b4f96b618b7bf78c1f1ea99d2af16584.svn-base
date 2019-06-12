@@ -1,0 +1,19 @@
+{
+ "flag":0,
+ "data":{
+		"rows": [
+			{
+				"costTypeCode":"1",
+				"costTypeName": "快递费"
+			},
+			{
+				"costTypeCode":"2",
+				"costTypeName": "交通意外费"
+			},
+			{
+				"costTypeCode":"3",
+				"costTypeName": "办公费"
+			}
+		]
+	}
+}

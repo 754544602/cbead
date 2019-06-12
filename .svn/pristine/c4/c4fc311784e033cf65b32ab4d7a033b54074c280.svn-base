@@ -1,0 +1,176 @@
+var datesTable = {
+	dates: '',
+	year: '',
+	month: '',
+	days: '',
+	addtable: function() {
+		this.dates = $("#txtDate").val().split('-');
+		this.year = datesTable.dates[0];
+		this.month = datesTable.dates[1];
+		this.days = new Date(datesTable.year, datesTable.month, 0);
+		this.days = datesTable.days.getDate();
+		$('.plan-table thead tr').empty();
+		$('.plan-table tbody').empty();
+		$('.plan-table thead tr').append("<th>培训主题</th>");
+		for(let i = 0; i < 9; i++) {
+			$('.plan-table tbody').append('<tr><td>国企深化改革专题培训班</td></tr>');
+		}
+		for(let i = 0; i < this.days; i++) {
+			$('.plan-table thead tr').append("<th class='state-day'>" + (i + 1) + "</th>");
+			$('.plan-table tbody tr').append("<td class='state-day'></td>");
+		};
+		$('.plan-table tbody tr').eq(0).children('td').eq(4).addClass('start-state');
+		$('.plan-table tbody tr').eq(0).children('td').eq(6).addClass('end-state');
+		$('.plan-table tbody tr').eq(1).children('td').eq(4).addClass('start-state');
+		$('.plan-table tbody tr').eq(1).children('td').eq(6).addClass('end-state');
+		$('.plan-table tbody tr').eq(2).children('td').eq(4).addClass('start-state');
+		$('.plan-table tbody tr').eq(2).children('td').eq(6).addClass('end-state');
+		for(let i = 4; i < 7; i++) {
+			$('.plan-table tbody tr').eq(0).children('td').eq(i).addClass('sub-use');
+			$('.plan-table tbody tr').eq(1).children('td').eq(i).addClass('all-use');
+			$('.plan-table tbody tr').eq(2).children('td').eq(i).addClass('no-use');
+		}
+	}
+}
+
+var educationindex = {
+	init: function() {
+		var me = this;
+		me.indexData();
+
+	},
+	indexData: function() {
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "index/getIndexDataByRegistrar",
+			async: true,
+			data: {
+
+			},
+			success: function(data) {
+
+			},
+			error: function(data) {
+				console.log(data.status);
+			}
+		});
+	}
+}
+
+function dateinit() {
+	$("#txtDate").calendar({
+		speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+		complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+		readonly: true, // 目标对象是否设为只读，默认：true     
+		lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+		nowData: true, //默认选中当前时间,默认true  
+		dateFmt: "yyyy-MM",
+		callback: function() { // 点击选择日期后的回调函数  
+			//        alert("您选择的日期是：" + $("#txtDate").val());  
+
+			datesTable.addtable();
+			$('.plan-table tbody tr').eq(10).children('td').eq(4).addClass('start-state');
+			$('.plan-table tbody tr').eq(10).children('td').eq(6).addClass('end-state');
+			for(let i = 4; i < 7; i++) {
+				$('.plan-table tbody tr').eq(10).children('td').eq(i).addClass('sub-use');
+			}
+		}
+	});
+}
+$(document).ready(function() {
+	//月份选择
+
+	$(".plan-table caption div.right span").click(function() {
+		var currentData = $("#txtDate").val();
+		if($(this).index() == 0) {
+			currentData = getPreMonth(currentData);
+		} else if($(this).index() == 1) {
+			currentData = new Date();
+			var y = new Date().getFullYear(); //年
+			var m = new Date().getMonth() + 1; //月
+			var day = new Date().getDate(); //日
+			currentData = y + "-" + (m < 10 ? "0" + m : m);
+		} else {
+			currentData = getNextMonth(currentData);
+		}
+		//初始化数据
+		$("#txtDate").val(currentData);
+		datesTable.addtable();
+	});
+
+	dateinit();
+	datesTable.addtable();
+	educationindex.init();
+});
+/** 
+ * 调用分页方法 
+ * $('页面分页区域自定义的类名或ID'); 
+ */
+$('.table-page1').pageInfo({
+	pageIndex: 1,
+	pageNum: 15, //每页显示条数  
+	pageSize: 10, //显示...的规律  
+	total: 100 //总数量  
+});
+/**
+ * 获取上一个月
+ *
+ * @date 格式为yyyy-mm-dd的日期，如：2014-01-25
+ */
+function getPreMonth(date) {
+	var arr = date.split('-');
+	var year = arr[0]; //获取当前日期的年份
+	var month = arr[1]; //获取当前日期的月份
+	var day = arr[2]; //获取当前日期的日
+	var days = new Date(year, month, 0);
+	days = days.getDate(); //获取当前日期中月的天数
+	var year2 = year;
+	var month2 = parseInt(month) - 1;
+	if(month2 == 0) {
+		year2 = parseInt(year2) - 1;
+		month2 = 12;
+	}
+	var day2 = day;
+	var days2 = new Date(year2, month2, 0);
+	days2 = days2.getDate();
+	if(day2 > days2) {
+		day2 = days2;
+	}
+	if(month2 < 10) {
+		month2 = '0' + month2;
+	}
+	var t2 = year2 + '-' + month2;
+	return t2;
+}
+
+/**
+ * 获取下一个月
+ *
+ * @date 格式为yyyy-mm-dd的日期，如：2014-01-25
+ */
+function getNextMonth(date) {
+	var arr = date.split('-');
+	var year = arr[0]; //获取当前日期的年份
+	var month = arr[1]; //获取当前日期的月份
+	var day = arr[2]; //获取当前日期的日
+	var days = new Date(year, month, 0);
+	days = days.getDate(); //获取当前日期中的月的天数
+	var year2 = year;
+	var month2 = parseInt(month) + 1;
+	if(month2 == 13) {
+		year2 = parseInt(year2) + 1;
+		month2 = 1;
+	}
+	var day2 = day;
+	var days2 = new Date(year2, month2, 0);
+	days2 = days2.getDate();
+	if(day2 > days2) {
+		day2 = days2;
+	}
+	if(month2 < 10) {
+		month2 = '0' + month2;
+	}
+
+	var t2 = year2 + '-' + month2;
+	return t2;
+}

@@ -1,0 +1,66 @@
+#versionMgr {
+	margin: 5px;
+	border: 1px solid #DFE6F3;
+	background-color: #FFFFFF;
+	min-width: 1100px;
+}
+
+.heard-search-model {
+	padding: 20px 10px 17px;
+	text-align: right;
+}
+
+.heard-search-model .yt-option-btn {
+	vertical-align: initial;
+}
+
+#heardSearchBtn {
+	margin: 0 5px 3px 12px;
+	padding-bottom: 0;
+	line-height: 28px;
+}
+
+.fun-btn-group {
+	padding: 20px 10px;
+}
+
+.msg-lamp img {
+	margin-bottom: 6px;
+	margin-left: 5px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+#riskMsgFun div {
+	padding-bottom: 5px;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+.font-suc {
+	color: #009966;
+	font-weight: bold;
+}
+
+.risk-info-form {
+	background: #FFFFFF;
+}
+
+.risk-info-form table tr,
+.risk-info-form table td {
+	background: #FFFFFF !important;
+	border: 0px !important;
+	padding: 0px 0px 12px 0px !important;
+	text-align: left;
+}
+
+.fold-unfold {
+	background: #FFFFFF !important;
+}
+
+
+.yt-edit-alert .yt-edit-alert-title{
+	cursor: default;
+}

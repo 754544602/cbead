@@ -1,0 +1,191 @@
+<link rel="stylesheet" href="../../../../../resources-sasac/css/system/expensesReim/module/beforehand/trainingFeeApply.min.css?YTVERSIONCODE=2018042601" />
+<!--基础信息区域START-->
+<div class="train-district" style="padding-top: 20px;">
+	<!--事前申请详情区域START-->
+	<div class="cost-apply-model" style="display: block;">
+		<div class="label-title item">
+			<div class="title-model-sty">
+				<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+				<span class="title-text">项目预算事项信息</span>
+			</div>
+			<div class="title-line">
+				<div></div>
+			</div>
+		</div>
+		<!--培训信息START-->
+		<div class="meg-style" style="padding-top: 10px;">
+			<!--标题区域START-->
+			<div class="secondary-back" style="margin-top: 6px;"></div>
+			<div class="secondary-title" style="">
+				<span class="secondary-text" style="font-size: 16px; font-weight: bold;">培训详情</span>
+				<div style="display: inline;margin-left: 20px;">
+					<button class="yt-option-btn yt-common-btn export-but" style="display: none;" id="trainDetails">从历史预算单导入</button>
+				</div>
+			</div>
+			<!--标题区域END-->
+			<div class="verify-div" style="padding-left: 33px;">
+				<table class="from-table" border="" cellspacing="" cellpadding="" style="margin-top: 10px;">
+					<tbody>
+						<tr>
+							<td style="padding-top: 10px;" colspan="2">
+								<span class="not-null">*</span><span style="letter-spacing: 5px;">培训名</span>称：
+								<select class="yt-select" id="regionDesignation" validform="{isNull:true,blurFlag:true,changeFlag:true,msg:'请选择培训名称'}"></select>
+								<div class="valid-font" style="left: 98px;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span style="letter-spacing: 5px; padding-left: 7px;">项目类</span>型：
+								<input type="hidden" class="trainType" data-val="projectType"/>
+								<span data-text="projectTypeName">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px; padding-left: 7px;">
+								<span>开班日期：</span>
+								<span data-text="startDate" class="reportTime">--</span>
+							</td>
+							<td style="padding-top: 10px;">
+								<span>结束日期：</span>
+								<span data-text="endDate" class="endTime">--</span>
+							</td>
+							<td style="padding-top: 10px;">
+								<span>培训天数：</span><span style="color:#417095;" id="calculationSession" data-text="trainDate">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px; padding-left: 7px;">
+								<span>报到时间：</span>
+								<span class=""></span>
+								<input type="text" class="calendar-input calendar-input-bg" id="startTimeTop" style="width: 190px; background-position: 181px 7px;" placeholder="请选择日期" readonly="readonly" validform="{isNull:true,blurFlag:false,changeFlag:true,msg:'请选择开始日期'}">
+								<div class="valid-font" style="left: 111px;"></div>
+							</td>
+							<td style="padding-top: 10px;">
+								<span>离院日期：</span>
+								<input type="text" class="calendar-input calendar-input-bg" id="endTimeTop" style="width: 190px; background-position: 181px 7px;" placeholder="请选择日期" readonly="readonly" validform="{isNull:true,blurFlag:false,changeFlag:true,msg:'请选择结束日期'}">
+								<div class="valid-font" style="left: 111px;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px; padding-left: 7px;">
+								<span>学员人</span>数：
+								<input data-val="budgetTraineeSum" class="trainOfNum yt-input"/>
+							</td>
+							<td style="padding-top: 10px;">
+								<span>项目主任：</span>
+								<span data-text="projectHead">--</span>
+							</td>
+							<td style="padding-top: 10px;">
+								<span>班主任：</span>
+								<span data-text="classTeacher">--</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px; padding-left: 7px;">
+							<span>是否异地培训：</span>
+							<label class="check-label yt-radio yes">  
+							    <input class="is-off-site-training" type="radio" name="test"  value="1"/>  
+								   	 是  
+						    </label>  
+						    <label class="check-label yt-radio no">  
+							    <input class="is-off-site-training" type="radio" name="test"  value="0"/>  
+						       	  否	  
+						    </label>
+							</td>
+							<td>
+							<span>适用成本标准：</span>
+								<label class="check-label yt-radio first">
+								    <input class="cost-standard" style="cursor: pointer;" type="radio" name="test1" value="1"/>  
+								   	 	基本标准  
+							   	</label>
+							   	<label class="check-label yt-radio second">
+								    <input class="cost-standard" style="cursor: pointer;" type="radio" name="test1"  value="2"/>  
+							        	高成本标准	 
+							    </label>
+							</td>
+						</tr>
+						<tr>
+							<td style="display: flex;padding-top: 10px; padding-left: 7px;">
+							<span>异地培训特殊要求：</span>
+								<textarea type="text" class="yt-textarea offsite-training-requirement" data-val="offSiteTrainingRequirement" placeholder="请输入异地培训特殊要求"></textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!--培训详情END-->
+		<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;margin-top: 20px;"></div>
+		<!--费用申请明细START-->
+		<div class="meg-style">
+			<div class="label-title cost" style="margin-bottom: 10px;">
+				<div class="title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+					<span class="title-text">项目预算费用信息</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+			</div>
+			<!--标题区域START-->
+			<div class="secondary-back" style=""></div>
+			<div class="secondary-title" style="">
+				<span class="secondary-text" style="font-size: 16px; font-weight: bold;">教学相关费用</span>
+			</div>
+			<!--标题区域END-->
+			<!--BODY START-->
+			<div class="traffic-cost-model">
+				<!--师资费金额区域START-->
+				<div class="appDetails teacherFee" style="">
+					<table class="lectureFeeTable" id="lectureFeeTable" width="100%">
+						<thead class="yt-thead">
+							<tr>
+								<th width="150px">费用名称</th>
+								<th width="150px">金额（元）</th>
+								<th>依据说明</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr>
+								<td><input type="hidden" value="teacherFee" class="cost-code">
+								<span>师资费：</span></td>
+								<td><input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入"></td>
+								<td><textarea class="yt-textarea"></textarea></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--培训费金额区域START-->
+					<div class="appDetails">
+						<div class="secondary-back" style=""></div>
+						<div class="secondary-title" style="">
+							<span class="secondary-text" style="font-size: 16px; font-weight: bold;">后勤相关费用</span>
+						</div>
+						<table class="trainingFeeTable" id="trainingFeeTable" width="100%" style="margin-top: 20px;">
+							<thead class="yt-thead">
+							<tr>
+								<th width="150px">费用名称</th>
+								<th width="150px">金额（元）</th>
+								<th>依据说明</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr>
+								<td><input type="hidden" value="teacherFee" class="cost-code">
+								<span>师资费：</span></td>
+								<td><input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入"></td>
+								<td><input type="text" class="yt-input according-instructions gist" data-val="accordingInstructions" placeholder="请输入依据说明"></td>
+							</tr>
+						</tbody>
+						</table>
+					</div>
+					<!--培训费金额区域END-->
+				</div>
+				<!--师资费金额区域END-->
+			</div>
+			<!--BODY END-->
+		</div>
+		<!--费用申请明细END-->
+	</div>
+	<!--事前申请详情区域END-->
+<!--引用JS文件END-->
+<script type="text/javascript" src="../../../../../resources-sasac/js/projectManagement/expensesReim/module/beforehand/trainingFeeApply.js?YTVERSIONCODE=20190326"></script>

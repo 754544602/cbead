@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/ueditor/ueditor.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<title>学员手册模板编辑</title>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<button class="page-return-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+					返回
+				</button>
+			</div>
+			<!--顶部条件查询END-->
+			
+			<!--数据展示区域START-->
+			<div class="title-div-box">
+				<p class="title-p-style" ></p>
+				<p class="title-text-p">学员手册模板编辑</p>
+				<input type="hidden" value="" id="processInstanceId" />
+			</div>
+			<div class="content-div-box" style="padding: 0px; margin: 5px;">
+				<div class="valid-tab" style="width: 837px; height: 30px; margin:0px auto;margin-bottom:10px;padding: 10px 0px;position: relative;">
+					<span id="">模板名：</span>
+					<input style="width: 500px;" class="yt-input model-name" type="text" value="" placeholder="请输入模板名" validform="{isNull:true,size:20,msg:'标题名不能为空！'}" />
+					<span class="valid-font" style="position: absolute;top:39px;left: 58px;"></span>
+					<label class="check-label yt-radio check-two">
+						<input id="agree" type="radio" class="radio" name="mould" value="2"/>模板
+					</label>
+					<label class="check-label yt-radio check-three" style="margin-left: 20px;">
+					 	<input id="disagree" type="radio" class="radio" name="mould" value="3"/>手动
+					</label>
+				</div>
+				<div class="details-box valid-tab">
+					<p class="details-title">模板内容</p>
+					<script id="container" name="content" type="text/plain" style="height: 300px;"></script>
+					<span class="valid-font" style="position: absolute;top:374px;"></span>
+					
+				</div>
+			</div>
+			<div class="yt-eidt-model-bottom" style="text-align: center;margin: 10px 0px;">
+				
+				<input class="yt-model-bot-btn yt-model-sure-btn add-edit-btn"  type="button" style="margin: 0px 20px;" value="确定" />
+				<input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="取消" style="margin: 0px;"/>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/tabEdit/yt-tab-edit.js"></script>
+	<!-- 配置文件 -->
+    <script type="text/javascript" src="../../resources/js/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="../../resources/js/ueditor/ueditor.all.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/mould/studentManualMouldEdit.js"></script>
+	<script type="text/javascript" src="../../resources/js/sortable/yt-sortable.js"></script>
+</html>

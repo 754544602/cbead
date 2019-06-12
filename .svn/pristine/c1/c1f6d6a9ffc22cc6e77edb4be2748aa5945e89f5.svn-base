@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!--样式文件引用-->
+	<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+	<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+	<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+	<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+	<link rel="stylesheet" type="text/css" href="../../resources/css/modules/borrow/borrow.css" />
+	<link rel="stylesheet" type="text/css" href="../../resources/css/modules/bank/bankBillListInfo.css" />
+	<!--日期控件-->
+	<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+	<title>对账单详情（火车票）</title>
+</head>
+<!--min-width: 2764px-->
+
+<body style="overflow: scroll;">
+	<div id="project-main" style="min-width: 1362px;">
+		<div class="head-div" style="height: 20px;">
+			<div class="search-btn-slect">
+				<div class="add-release-btn key-word" style="float: left;width: auto;">
+					<button class="yt-option-btn disableList">
+						<img src="../../resources/images/icons/account-effective.png" alt="" /> 标记无效
+					</button>
+					<button class="yt-option-btn disableList">
+						<img src="../../resources/images/icons/account-invalid.png" alt="" /> 标记有效
+					</button>
+					<button class="yt-option-btn disableList">
+						<img src="../../resources/images/classStudent/guanli-daoru.png"> 追加导入
+					</button>
+					<button class="yt-option-btn exportList">
+						<img src="../../resources/images/icons/export.png" alt="" /> 导出
+					</button>
+				</div>
+				<div class="key-word">
+					<button class="page-return-btn" style="height: 30px;">
+						<img class="class-return-img" src="../../resources/images/icons/class-return.png"> 返回
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="box-list">
+			<div class="content-box budget-inf valid-tab">
+				<div class="class-info-div">
+					对账单详情（火车票）
+				</div>
+				<div class="tab-content list-box">
+					<div class="">
+						<table class="bill-info-table">
+							<tr>
+								<td style="text-align: right;">
+									<span>导入时间：</span>
+								</td>
+								<td>
+									<span>2018-1-24 16：00</span>
+								</td>
+								<td style="text-align: right;">
+									<span>导入人：</span>
+								</td>
+								<td>
+									<span>杨兴</span>
+								</td>
+								<td style="text-align: right;">
+									<span>有效金额：</span>
+								</td>
+								<td>
+									<span>46541213</span>
+									<span>元</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="class-info-div">
+					对账单
+					<span class="data-span">
+						共
+						<div class="data-info-div">96</div>
+						条有效数据
+					</span>
+
+				</div>
+				<div class="tab-content class-info get-project-inf add-project list-box">
+					<div class="list-box">
+						<div style="min-width: 1362px;">
+							<div style="font-size: 16px;margin-bottom: 12px;float: left;width:40%;">对账单信息</div>
+						</div>
+						<table class="list-table train-list-table" style="width: 1655px;margin: 0px;overflow: auto;">
+							<thead class="list-thead">
+								<tr style="height: 30px;border-bottom: none;">
+									<th class="check-box-th" style="width: 30px;">
+										<label class="check-label yt-checkbox parent-check">
+											<input type="checkbox" class="check-all" name="test" value="" />
+										</label>
+									</th>
+									<th style="width: 30px">序号</th>
+									<th class="train-th-hide" style="display: none;width: 98px;">出票日期</th>
+									<th style="width: 77px;">出发日期</th>
+									<th style="text-align: right;width: 98px;">票号</th>
+									<th style="width: 131px">乘客</th>
+									<th style="width: 116px;">行程</th>
+									<th style="width: 116px;">车次</th>
+									<th class="train-th-hide" style="display: none;width: 100px;text-align: right;">销售价（元）</th>
+									<th class="train-th-hide" style="display: none;width: 100px;text-align: right;">工本费（元）</th>
+									<th style="width: 104px;position: relative;text-align: right;">总金额（元）
+										<div class="train-more-div" style="cursor: pointer;font-size: 16px;margin-bottom: 12px;color: #7b74c7;position: absolute;top:-33px;;right: 0px;">查看更多</div>
+									</th>
+									<th class="train-th-hide" style="display: none;width: 100px;">订票人</th>
+									<th style="border-bottom: 1px #fff solid;border-top: none;background: #FFFFFF;width: 10px;"></th>
+									<th style="width:190px;position: relative;">项目名称
+										<label class="check-label yt-checkbox check" style="position: absolute;top:-33px;right: 67px;">
+											<input id="checkBox1" type="checkbox" name="test" value="0">已确认
+										</label>
+										<label class="check-label yt-checkbox" style="position: absolute;top:-33px;;right: -25px;">
+											<input id="checkBox2" type="checkbox" name="test" value="1">未确认
+										</label>
+									</th>
+									<th style="width:89px">教师</th>
+									<th style="width:74px">航班/车次</th>
+									<th class="project-th-hide" style="display: none;width: 100px;">出发地</th>
+									<th class="project-th-hide" style="display: none;width: 100px;">目的地</th>
+									<th class="project-th-hide" style="display: none;width: 100px;">起止日期</th>
+									<th class="project-th-hide" style="display: none;width: 100px;text-align: right;">交通费（元）</th>
+									<th class="project-th-hide" style="display: none;width: 100px;">改签/退票情况</th>
+									<th class="project-th-hide" style="display: none;width: 100px;text-align: right;">改签/退票费（元）</th>
+									<th style="width:67px">报销金额（元）</th>
+									<th style="width:115px;text-align: right;">差额(入账金额-对账金额)（元）</th>
+									<th style="width:71px">开票状态</th>
+									<th style="width:65px;position: relative;text-align: right;">
+										开票金额(元)
+										<div class="project-more-div" style="cursor: pointer;font-size: 16px;margin-bottom: 12px;color: #7b74c7;position: absolute;top:-33px;;right: -5px;">查看更多</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody list-tbody project-tbody">
+								<tr>
+									<td class="train-tbody-td" colspan="17" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-info table-page page1" onselectstart="return false"></div>
+					</div>
+				</div>
+				<div class="class-info-div">
+					无效记录
+				</div>
+				<div style="" class="tab-content class-info get-project-inf add-project list-box">
+					<div class="list-box">
+						<div style="font-size: 16px;margin-bottom: 12px;">无效流水单信息</div>
+						<table class="list-table" style="width: 100%;margin: 0px;min-width: 1362px;">
+							<thead class="list-thead">
+								<tr style="height: 30px;">
+									<th>出票日期</th>
+									<th>出发日期</th>
+									<th>乘客</th>
+									<th>行程</th>
+									<th>车次</th>
+									<th>销售价</th>
+									<th>工本费</th>
+									<th>总金额/元</th>
+									<th>订票人</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody list-tbody invalid-tbody">
+								<tr>
+									<td colspan="9" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<!--js文件引用-->
+<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+<script type="text/javascript" src="../../resources/js/modules/finance/reconciliationsTrain.js"></script>
+<!--日期控件-->
+<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+<!--滚动条js-->
+<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+
+</html>

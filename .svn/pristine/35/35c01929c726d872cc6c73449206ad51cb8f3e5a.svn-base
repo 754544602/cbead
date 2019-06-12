@@ -1,0 +1,567 @@
+/**
+ * 
+ * 标题栏线条样式
+ * 
+ */
+
+.title-model-sty {
+	position: relative;
+	height: 25px;
+	line-height: 25px;
+}
+.title-model-sty span.title-text{
+	position: absolute;
+    left: 35px;
+    color: #de595a;
+    font-size: 18px;
+    font-weight: bold;
+}
+.title-line {
+	padding-left: 10px;
+}
+
+.title-line div {
+	height: 1px;
+	border-bottom: 1px solid #de595a;
+}
+
+
+/**
+ * 
+ * 公用的加粗字段样式
+ * 
+ */
+
+.label-blod {
+	color: #384495;
+	font-weight: bold;
+}
+
+
+/**
+ * 
+ * 
+ * 必填红*标识
+ * 
+ * 
+ */
+
+.not-null {
+	font-size: 14px;
+	color: #FF0000;
+	vertical-align: middle;
+}
+
+
+/**
+ * 
+ * 弹出框样式
+ * 
+ */
+
+.fun-common-model {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10001;
+}
+
+.model-title {
+	background-color: #363845;
+	color: #fff;
+	height: 40px;
+	line-height: 40px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	padding: 0 10px;
+	font-size: 16px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.model-title img {
+	vertical-align: middle;
+	margin-right: 10px;
+	margin-bottom: 3px;
+}
+
+.model-content {
+	background: #FFFFFF;
+}
+
+
+/**
+ * 
+ * 暂无数据
+ * 
+ */
+
+.not-date-tr {
+	border: 0px !important;
+	background: #FFFFFF !important;
+}
+
+.not-date-tr td {
+	border: 0px !important;
+}
+
+.no-data {
+	margin: 0 auto;
+	padding-top: 60px;
+}
+
+
+/**
+ * 
+ * 风险图标样式
+ * 
+ */
+
+.risk-img {
+	margin: 0px 0px 3px 5px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+
+/**
+ * 
+ * 红色字体
+ * 
+ */
+
+.war-msg {
+	color: #c01111 !important;
+}
+
+
+/**
+ * 
+ * 
+ * 弹出框中a标签超链接字体加粗
+ * 
+ */
+
+.yt-alert-one a.yt-link {
+	font-weight: bold;
+}
+
+
+/**
+ * 
+ * 文本居左显示
+ * 
+ */
+
+.text-left {
+	text-align: left !important;
+}
+.td-r{
+	text-align: right;
+	padding-right: 2px;
+}
+
+/**
+ * 
+ * 
+ * 风险区域
+ * 
+ */
+
+.risk-model{
+	display: none;
+}
+
+
+/**
+ * 
+ * 暂无数据显示
+ * 
+ */
+
+.no-data-tr,
+.model-no-data-tr {
+	border: 0px !important;
+	background: #FFFFFF !important;
+}
+
+.no-data-tr td,
+.model-no-data-tr td {
+	border: 0px !important;
+	background: #FFFFFF !important;
+}
+
+.model-no-data-tr .no-data {
+	padding-top: 20px !important;
+}
+
+.model-no-data-tr .no-data img {
+	width: 200px !important;
+}
+.letter6{
+	letter-spacing: 5px;
+}
+.link-cont-model{
+	position: fixed;
+	background: #FFFFFF;
+	padding: 20px 5px 20px 20px;
+	z-index: 999;
+	width: 750px;
+	height: 700px;
+	overflow: auto;
+}
+.link-cont-model .yt-alert-one-bottom{
+    margin-top: 20px;
+    text-align: center;
+}
+.link-cont-model p{
+	margin: 5px 0px !important;
+}
+
+
+/**
+ * 
+ * 
+ * 20180422  log style
+ * 
+ * 
+ * 
+ * */
+
+.log-qtip-style {  
+    background-color: #fff;  
+    padding: 8px 4px;  
+    border: 1px solid #dfe6f3;  
+} 
+.log-msg-def-bak {
+    float: left;
+    display: inline;
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    width: 19px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    background: url(../../images/common/log-def-icon.png) no-repeat;
+}
+.first-log-msg {
+    float: left;
+    display: inline;
+    font-size: 12px;
+    color: #FFFFFF;
+    width: 19px;
+    height: 15px;
+    line-height: 15px;
+    background: url(../../images/common/log-first-icon.png) no-repeat;
+    text-align: center;
+}
+.log-label-text {
+	font-size: 12px;
+	color: #417095;
+	font-weight: bold;
+}
+.log-msg-model {
+	width: 380px;
+	position: relative;
+}
+.log-line-div {
+	border-left: 1px solid #D6E6F3;
+	padding: 0px 0px 8px 15px;
+	margin: 2px 0px 2px 9px;
+}
+.log-line-div .oper-status-model {
+	padding-top: 5px;
+	padding-bottom: 9px;
+}
+
+.log-line-div .oper-time-model {
+	padding-bottom: 12px;
+}
+
+.log-msg-model .user-name {
+	margin-left: 5px;
+	position: absolute;
+	top: -2px;
+}
+.log-comment-model .oper-comment-msg {
+	display: inline-block;
+	padding-bottom: 12px;
+	width: 280px;
+	vertical-align: top;
+}
+
+
+
+
+/*
+ *
+ * 20180423  详情页面流程日志style 
+ * 
+ * */
+
+.flow-log{
+	padding-top: 20px;
+}
+.log-info{
+	position: relative;
+	padding: 0 8px 20px 78px;
+	min-height: 60px;
+}
+.flow-log .log-icon {
+	width: 60px;
+	position: absolute;
+	text-align: center;
+	left: 6px;
+	right: 0;
+}
+.qtip-content{
+	max-height: 500px;
+}
+.qtip-content, .qtip-titlebar{
+	overflow: auto !important;
+}
+.log-time{
+	position: absolute;
+    right: 18px;
+    top: 8px;
+    font-size: 14px;
+}
+.log-details{
+	position: relative;
+	padding-bottom: 8px;
+    border: 1px solid #dfe6f3;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding-top: 8px;
+}
+.log-name{
+	position: inherit;
+    font-size: 18px;
+    left: 10px;
+    display: initial;
+    width: 88px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.log-task-name{
+	display: inline-block;
+	font-size: 18px;
+}
+.log-details>div{
+	margin-left: 8px;
+	margin-top: 5px;
+}
+.log-details>img{
+	position: absolute;
+	top: 8px;
+	left: -8px;
+}
+.log-details{
+	font-size: 14px;
+	line-height: 20px;
+}
+.log-details .log-ideap{
+    margin-top: 5px;
+}
+.log-details .log-idea{
+    padding-left: 70px;
+    display: block;
+    margin-top: -20px;
+}
+.log-details .log-title{
+	color: #417095;
+	font-weight: bold;
+}
+.log-icon-border{
+	position: absolute;
+    height: 100%;
+    width: 28px;
+    border-right: 3px solid #dfe6f3;
+    top: 0;
+    left: 6px;
+}
+.flow-log .log-icon img{
+	position: relative;
+	z-index: 1;
+}
+.flow-log .log-icon .log-icon-num{
+	width: 60px;
+    text-align: center;
+    position: absolute;
+    height: 39px;
+    top: 12px;
+    line-height: 40px;
+    font-size: 30px;
+    color: #417095;
+    font-weight: bold;
+    z-index: 5;
+}
+.flow-log .log-icon .log-icon-num div{
+    width: 20px;
+    position: absolute;
+    height: 30px;
+    top: 5px;
+    background: #fff;
+    opacity: .7;
+    filter:alpha(opacity=30);
+    z-index: 3;
+    left: 9px;
+    -webkit-border-radius: 50% 0 0 50%;
+    -moz-border-radius: 50% 0 0 50%;
+    border-radius: 50% 0 0 50%;
+	
+}
+.log-shadow-sty{
+	ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#96D6F4')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#96D6F4');
+    -moz-box-shadow: 0px 0px 6px #96D6F4;
+    -webkit-box-shadow: 0px 0px 6px #96D6F4;
+    box-shadow: 0px 0px 6px #96D6F4;
+}
+
+/*图片预览*/
+
+.img-list img,
+.img-list1 img {
+	height: 100px;
+	width: 200px;
+	border: 2px solid #C8C8C8;
+	cursor: -webkit-zoom-in;
+}
+
+.show-img-box {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display: none;
+	z-index: 99999;
+}
+
+.show-img-box .close-btn {
+	position: absolute;
+	top: 30px;
+	right: 50px;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	background: url(../../images/icons/atta-x.png) no-repeat;
+}
+
+.show-img-box .imgs-list {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	overflow: hidden;
+}
+
+.imgs-list ul {
+	margin: 0;
+	padding: 0;
+}
+
+.imgs-list li {
+	float: left;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+.imgs-list li img {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	background: url(../../images/icons/split-img-bg.jpg);
+}
+
+.show-img-box .next {
+	position: fixed;
+	top: 48%;
+	right: 3%;
+	width: 50px;
+	height: 50px;
+	margin: auto;
+	cursor: pointer;
+	background: url(../../images/icons/banner-right.png);
+}
+
+.show-img-box .prev {
+	position: fixed;
+	top: 48%;
+	left: 3%;
+	width: 50px;
+	height: 50px;
+	margin: auto;
+	cursor: pointer;
+	background: url(../../images/icons/banner-left.png);
+}
+
+/*流程状态弹窗样式*/
+.process-state-pop{
+	width: 600px;
+}
+.process-state-pop .model-bottom-btn{
+	text-align: center;
+	padding: 10px;
+}
+.process-state-pop .imgBox{
+	overflow: auto;
+	height: 380px;
+}
+
+
+/**
+ * 
+ * 
+ * 
+ * 流程审批样式20180727
+ * 
+ * 
+ * 
+ */
+.ordinar-div, .rece-msg{
+	padding-top: 20px;
+}
+.ordinar-div .label-title {
+    margin-bottom: 20px;
+}
+.ordinar-div .operation {
+    padding-top: 0;
+}
+.ordinar-div .count-box {
+    padding: 10px 20px;
+}
+.ordinar-div .count-box .form-label {
+    width: 49%;
+}
+.ordinar-div .form-label {
+	display: inline-block;
+    position: relative;
+    width: 33%;
+}
+.ordinar-div  .oper-select {
+    width: 200px;
+}
+.ordinar-div  .nice-select {
+    display: inline-block;
+    float: none;
+    width: 200px;
+    vertical-align: middle;
+}
+.ordinar-div .count-box .left {
+    width: 86px;
+    float: left;
+    display: inline;
+}
+.ordinar-div .count-box .right {
+    overflow: hidden;
+}

@@ -1,0 +1,309 @@
+var caList = {
+	pro:null,
+	//初始化方法
+	init: function() {
+		//初始化下拉列表
+		$('select').niceSelect();
+		
+		//初始化创建时间
+		$("#issueDayeString").calendar({
+			speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+			complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+			readonly: true, // 目标对象是否设为只读，默认：true     
+			lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+			nowData: true, //默认选中当前时间,默认true  
+			dateFmt: "yyyy-MM-dd HH:mm",
+			callback: function() {} // 点击选择日期后的回调函数  
+		});
+		//班级列表下拉框
+		var classList = caList.getClassLis();
+		if(classList != null) {
+			$.each(classList.data, function(i, n) {
+				$("#projectCode").append($('<option value="' + n.projectCode + '">' + n.className + '</option>').data("classData", n));
+			});
+		};
+		//初始化班级下拉框
+		$("#projectCode").niceSelect();
+		//选择班级获取项目主任名
+		$('#projectCode').on('change', function() {
+			var projectUserName = $('#projectCode option:selected').data("classData").projectUserName;
+			var createUser = $('#projectCode option:selected').data("classData").createUser;
+			$('#projectUserName').text(projectUserName);
+			$('#createUser').text(createUser);
+		});
+		//下一步操作人
+		var nextPersonList = caList.getNextOperatePerson();
+		if(nextPersonList != null) {
+			$.each(nextPersonList, function(i, n) {
+				$("#dealingWithPeople").append($('<option value="' + n.userCode + '">' + n.userName + '</option>').data("classData", n));
+			});
+		};
+		//初始化下一步操作人下拉框
+		$("#dealingWithPeople").niceSelect();
+		
+		//点击返回
+		$('.page-return-btn').off().on("click", function() {
+			//调用返回指定页面函数
+			caList.backNewsListPage();
+		});
+		
+		//点击取消
+		$('#cancel').off().on("click", function() {
+			//调用返回指定页面函数
+			caList.backNewsListPage();
+		});
+		
+		
+		//点击保存
+		$('#save').off('click').on('click', function() {
+			//调用判空函数
+			caList.isNoNull(1);
+		});
+		//点击提交
+		$('#submit').off('click').on('click', function() {
+			//调用判空函数
+			caList.isNoNull(2);
+		});
+		
+		var pkId = $yt_common.GetQueryString("pkId");
+		caList.getListUpdate(pkId);
+		
+	},
+	//返回列表
+	backNewsListPage:function(){
+		window.location.href = "reimbursementList.html";
+	},
+	
+	
+	/**
+	 * 获取所有班级
+	 */
+	getClassLis: function() {
+		var list = [];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "uniform/getClasslist",
+			data: {
+				
+			},
+			async: false,
+			success: function(data) {
+				list = data || [];
+			}
+		});
+		return list;
+	},
+	//点击保存，提交判断页面中数据是否为空
+	isNoNull:function(dataStates){
+		var testSelect= $("#types").val();
+		var className = $('#projectCode option:selected').val();
+		var dealingWithPeople =$('#dealingWithPeople').val();
+		$yt_valid.validForm($("#valid-tab"));
+		if(testSelect =='' || className=='' || dealingWithPeople==''){
+			//框架判空函数
+			$yt_valid.validForm($(".valid-tab"));
+		}else{
+			//调用提交，保存函数
+			caList.getUpdateDatas(dataStates);
+		}
+		
+	},
+	//点击保存，提交判断页面中数据是否为空
+	/*isNoNull:function(dataStates){
+		$yt_valid.validForm($("#valid-tab"));
+		if(title=="" || details==""){
+			$yt_valid.validForm($(".valid-tab"));
+		}else{
+			caList.addnewsInfo(dataStates);
+		}
+		
+	},*/
+	/**
+	 * 获下一步操作人
+	 */
+	getNextOperatePerson: function() {
+		var user = null;
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "uniform/workFlowOperate/getSubmitPageData",
+			data: {
+				businessCode: "news",
+				types: '1'
+			},
+			async: false,
+			success: function(data) {
+				if(data.flag == 0) {
+					$.each(data.data, function(i, n) {
+						for(var k in n) {
+							user= n[k];
+						}
+					});
+
+				}
+			}
+		});
+		return user;
+	},
+	//列表
+	getListUpdate:function(pkId){
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/teacherExpense/getBeanByIdClassExpense",
+			async: false,
+			data: {
+				pkId:pkId
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					 caList.pro =data.data;
+					 $("select.type-select").setSelectVal(data.data.expenseType);
+					 $("select.user-name-sel").setSelectVal(data.data.projectCode);
+					 var projectUserName = $('#projectCode option:selected').data("classData").projectUserName;
+					 var createUser = $('#projectCode option:selected').data("classData").createUser;
+					 $('#projectUserName').text(projectUserName);
+					 $('#createUser').text(createUser);
+					 $('.details').text(data.data.remarks);
+					 $.ajax({
+							type: "post",
+							url: $yt_option.base_path + "finance/teacherExpense/getTeacherClassExpenseDetails",
+							async: false,
+							data: {
+								projectCode:data.data.projectCode
+							},
+							success: function(data) {
+								if(data.flag == 0) {
+									var htmlTbody = $('.class-tbody');
+									var htmlTr = '';
+									if(data.data.length >0) {
+										var afterTaxSum=0;
+										var surrenderPersonalSum=0;
+										var expenseMoneySum=0;
+										var num =0;
+										$.each(data.data, function(i, v) {
+											//证件类型 1:身份证 2:护照 3:军官证 4:其他
+											var papersType =v.papersType;
+											if (papersType ==1){
+												papersType ='身份证';
+											}
+											if (papersType ==2){
+												papersType ='护照';
+											}
+											if (papersType ==3){
+												papersType ='军官证';
+											}
+											if (papersType ==4){
+												papersType ='其他';
+											}
+											var courseDateJson =v.courseDateJson;
+											var lengthJson =courseDateJson.length;
+											num =i+1;
+											var jsonTd ='';
+											$.each(courseDateJson,function(index,value){
+												jsonTd +='<td>'+value.courseDate+'</td>';
+											});
+											afterTaxSum += v.afterTax;
+											surrenderPersonalSum += v.surrenderPersonal;
+											expenseMoneySum += v.expenseMoney;
+											htmlTr += '<tr>' +
+												'<td class="teacherId" style="display:none;">' + v.teacherId  + '</td>' +
+												'<td rowspan="'+lengthJson+'">' + num + '</td>' +
+												'<td rowspan="'+lengthJson+'">' + v.teacherName+ '</td>' +
+												'<td rowspan="'+lengthJson+'">' + papersType + '</td>' +
+												'<td rowspan="'+lengthJson+'">' + v.papersNumber + '</td>' +
+												'<td rowspan="'+lengthJson+'">'+ v.registeredBank + '</td>' +
+												'<td rowspan="'+lengthJson+'">' + v.account + '</td>' + jsonTd +
+												'<td rowspan="'+lengthJson+'">' +v.afterTax + '</td>' +
+												'<td rowspan="'+lengthJson+'">' + v.surrenderPersonal + '</td>' +
+												'<td rowspan="'+lengthJson+'">' + v.expenseMoney + '</td>' +
+												'<td rowspan="'+lengthJson+'"><a class="delete-tb" style="color:red;">删除</a><span> </span><a class="update-tb">编辑</a></td>' +
+												'</tr>';
+										
+										});
+										var numb =num + 1;
+										htmlTr += '<tr><td class="num" style="display:none;">'+ numb +'</td><td>合计</td><td></td><td></td><td></td><td></td><td></td>'+
+										           '<td class="afterTaxSumNum">'+ afterTaxSum +'</td>'+
+										           '<td>'+ surrenderPersonalSum +'</td>'+
+										           '<td>'+ expenseMoneySum +'</td><td></td>'+
+										           '</tr>';
+										
+									} else {
+										htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+											'<td colspan="11" align="center" style="border:0px;">' +
+											'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+											'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+											'</div>' +
+											'</td>' +
+											'</tr>';
+									}
+									htmlTbody.html(htmlTr);
+									$yt_baseElement.hideLoading();
+								} else {
+									$yt_baseElement.hideLoading(function (){
+										$yt_alert_Model.prompt("查询失败");
+									});
+								}
+
+							}, //回调函数 匿名函数返回查询结果  
+							isSelPageNum: true //是否显示选择条数列表默认false  
+						});
+				}
+			}
+		});
+	},
+	//点击保存或提交
+	getUpdateDatas:function(dataStates){
+		$yt_baseElement.showLoading();
+		debugger;
+		var pkId = $yt_common.GetQueryString("pkId");
+		var projectCode = $('#projectCode option:selected').data("classData").projectCode;
+		var expenseType= $("#types").val();
+		var dealingWithPeople =$('#dealingWithPeople').val();
+		var details =$('.details').val();
+		var teacherCount = Number($('.class-tbody').find('.num').text())-1;
+		if (teacherCount < 0){
+			teacherCount = 0;
+		}
+		var expenseMoney = $('.class-tbody').find('.afterTaxSumNum').text();
+		var businessCode =caList.pro.businessCode;
+		var processInstanceId =caList.pro.processInstanceId;
+		var expenseClassDetails =caList.pro.expenseClassDetails;
+		var opintion =caList.pro.opintion;
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/teacherExpense/addOrUpdateBeanClassExpense",
+			data: {
+				pkId:pkId,
+				projectCode:projectCode,
+				expenseType:expenseType,
+				dataStates:dataStates,
+				remarks:details,
+				teacherCount:teacherCount,
+				expenseMoney:expenseMoney,
+				expenseClassDetails:expenseClassDetails,
+				businessCode:businessCode,
+				dealingWithPeople:dealingWithPeople,
+				opintion:opintion,
+				processInstanceId:processInstanceId,
+				nextCode:'submited'
+				
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_baseElement.hideLoading();
+					
+				} else {
+					$yt_baseElement.hideLoading(function (){
+						$yt_alert_Model.prompt("提交失败");
+					});
+				}
+				
+				//caList.backNewsListPage();
+			}
+		});
+	}	
+};
+$(function() {
+	//初始化方法
+	caList.init();
+	
+});

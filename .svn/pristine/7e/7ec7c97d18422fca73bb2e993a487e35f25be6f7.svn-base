@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/pooledAnalysis/executiveCondition.css?YTVERSIONCODE" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style>
+			.qtip-default {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="" class="ordinary-div" style="min-width: 1500px;">
+			<div id="" class="">
+				<!--基础信息区域START-->
+				<div class="base-info-model">
+					<!--标题区域START-->
+					<div class="label-title"  style="padding: 0;">
+						<div class="title-model-sty">
+							<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+							<span class="title-text">基本信息筛选</span>
+						</div>
+						<div class="title-line">
+							<div></div>
+						</div>
+					</div>
+					<!--标题区域END-->
+					<!--基础信息表单区域START-->
+					<div class="base-info-form-modle">
+						<table class="from-table" border="" cellspacing="" cellpadding="" style="padding-top: 10px;">
+							<tr>
+								<td style="width: 33%;">
+									<label><span class="letter-four">费用类</span>型：</label><select><option>选项一</option></select>
+								</td>
+								<td style="width: 33%;">
+									<label>专项编号/名称：</label><input type="text" id="" value="" class="yt-input" placeholder="请输入" />
+								</td>
+								<td>
+									<label>预算项目（经济分类）：</label><input type="text" id="" value="" class="yt-input" placeholder="请输入" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="width: 66%;">
+									<label><span class="letter-three">日期</span>从：</label><input id="startDate" class="calendar-input" style="width: 190px;" placeholder="请选择日期"  type="text" readonly="readonly"><span style="margin-left: 10px;">到：</span><input id="endDate" class="calendar-input" style="width: 190px;" placeholder="请选择日期"  type="text" readonly="readonly">
+								</td>
+								<td>
+									<div class="button-box min-but" style="text-align: left;padding: 0;">
+										<button class="yt-option-btn yt-common-btn" id="">搜索</button>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!--基础信息表单区域END-->
+				</div>
+				<!--基础信息区域END-->
+				<!--付款明细Start -->
+				<div class="payment-detail">
+					<div class="label-title">
+						<div class="title-model-sty">
+							<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+							<span class="title-text">其他支出项金额汇总信息</span>
+						</div>
+						<div class="title-line">
+							<div></div>
+						</div>
+					</div>
+					<div class="context-div">
+						<table border="0" cellspacing="0" cellpadding="0" class="from-table">
+							<tr>
+								<td style="width: 33%;">
+									<label>付款总金额：</label><span>1,849,483.00元</span>
+								</td>
+								<td class="tr">
+									其中：
+								</td>
+								<td style="width: 50%;">
+									<div><label>固定支出付款总金额：</label><span>324,000.00元</span></div>
+									
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td>
+									<div><label>人员支出付款总金额：</label><span>80,000.00元</span></div>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td>
+									<div><label>其他付款总金额：</label><span>500.00元</span></div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!--付款明细End -->
+				
+				<!--事前审批向支出明细 Start -->
+				<div class="label-title">
+					<div class="title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png"><span class="title-text">支出金额明细</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<div class="context-div" style="">
+					<div class="" style="padding: 10px 0;">
+						<label><span class="letter-four">排序条</span>件：</label><label class="check-label yt-radio check" style=""> <input id="" class="" type="radio" name="condition" value="0">按付款申请时间</label>
+						<label class="check-label yt-radio" style="margin-left: 20px;"> <input id="" class="" type="radio" name="condition" value="2">按申请支付金额</label>
+					</div>
+				</div>
+				<table border="0" cellspacing="0" cellpadding="0" class="yt-table" >
+						<thead class="yt-thead">
+							<tr>
+								<th style="width: 120px;">付款申请单编号</th>
+								<th style="">付款申请事由</th>
+								<th style="width: 200px;">费用类型<br/>(基本【人员/公用】/项目)</th>
+								<th style="width: 150px;">预算项目<br/>（经济分类）</th>
+								<th style="width: 80px;">专项编号</th>
+								<th>专项名称</th>
+								<th style="width: 70px;">申请人</th>
+								<th style="width: 80px;">申请时间</th>
+								<th style="width: 115px;">付款申请单状态</th>
+								<th style="">申请付款金额（元）</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr>
+								<td>GZSP20180215</td>
+								<td> 2018年2月基本工资发放 </td>
+								<td> 基本支出-人员经费 </td>
+								<td> 工资性支出-基本工资 </td>
+								<td>-</td>
+								<td>-</td>
+								<td> 伊人科 </td>
+								<td> 2018-02-15 </td>
+								<td>已完结</td>
+								<td class="tr">324,000.00</td>
+							</tr>
+							<tr>
+								<td>JXSP20180215</td>
+								<td> 2018年3月电费缴费 </td>
+								<td> 基本支出-公用经费 </td>
+								<td>电费</td>
+								<td>-</td>
+								<td>-</td>
+								<td>宋办科</td>
+								<td>2018-02-15</td>
+								<td>已完结</td>
+								<td class="tr">80,000.00</td>
+							</tr>
+							<tr>
+								<td>ZPSP20180308001</td>
+								<td>临时购置办公用品费用</td>
+								<td>项目支出</td>
+								<td>办公用品</td>
+								<td>zx002</td>
+								<td>地方宣传及帮扶</td>
+								<td>魏业科</td>
+								<td> 2018-03-15 </td>
+								<td>待审批</td>
+								<td class="tr">500.00</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info table-page" onselectstart="return false"><table><tbody><tr><td><div class="data-count">共100条记录，</div></td><td><div class="data-count page-index">1/7，</div></td><td><div class="frist-page">首页</div></td><td><div class="last-page">&lt;</div></td><td><div class="num-text change-btn active">1</div></td><td><div class="num-text change-btn pointer">2</div></td><td><div class="num-text change-btn pointer">3</div></td><td><div class="num-text change-btn pointer">4</div></td><td><div class="num-text change-btn pointer">5</div></td><td><div class="num-text change-btn pointer">6</div></td><td><div class="num-text change-btn pointer">7</div></td><td><div class="next-page change-btn pointer">&gt;</div></td><td><div class="end-page pointer">尾页</div></td><td class="page-num-select" style="padding:0px 5px;"><select class="yt-select page-num-list-sel" style="width: 90px; display: none;"><option value="15">15条/页</option><option value="30">30条/页</option><option value="50">50条/页</option><option value="100">100条/页</option><option value="200">200条/页</option><option value="500">500条/页</option></select><div class="nice-select yt-select page-num-list-sel" tabindex="0"><span class="current" style="color: rgb(51, 51, 51);">15条/页</span><ul class="list mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar"><div id="mCSB_1" class="mCustomScrollBox mCS-square mCSB_vertical mCSB_inside" tabindex="0" style="max-height: none;"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr"><li data-value="15" class="option selected">15条/页</li><li data-value="30" class="option">30条/页</li><li data-value="50" class="option">50条/页</li><li data-value="100" class="option">100条/页</li><li data-value="200" class="option">200条/页</li><li data-value="500" class="option">500条/页</li></div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-square mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></ul></div></td></tr></tbody></table></div>
+				<!--事前审批向支出明细 End -->
+			</div>
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--上传-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/ajaxfile/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/pooledAnalysis/otherExpenses.js?YTVERSIONCODE"></script>
+	<!--引用JS文件END-->
+
+</html>

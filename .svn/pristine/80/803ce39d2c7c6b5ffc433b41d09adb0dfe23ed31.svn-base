@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/ueditor/ueditor.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css" />
+		<title>新增教师差旅报销</title>
+		<style type="text/css">
+			.typeface-size {
+				padding-left: 20px;
+			}
+			
+			.typeface-weight {
+				font-size: 14px;
+				line-height: 72px;
+				letter-spacing: 0px;
+				color: #4d4d4d;
+			}
+			
+			td input {
+				font: 12px "微软雅黑";
+				width: 100%;
+			}
+			
+			.class-info-table {
+				width: 100%;
+			}
+			
+			.details {
+				width: 90% !important;
+			}
+			.link-li{
+				background-color: #F6F6F6;
+				float: left;
+				padding: 3px;
+				border-radius: 3px;
+				margin-right: 5px;
+			}
+			.yt-input{
+				width: auto !important;
+				padding: 0 !important;
+			}
+			.list-tbody td{
+				padding: 6px 4px
+			}
+			.nice-select .current{
+			    color:rgb(51, 51, 51) !important;
+			} 
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<button class="page-return-btn">
+					<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+					返回
+				</button>
+			</div>
+			<!--顶部条件查询END-->
+
+			<!--数据展示区域START-->
+
+			<!--班级STAR-->
+			<div class="title-div-box">
+				<p class="title-p-style"></p>
+				<p class="title-text-p" id="reimbursementTitle">新增</p>
+			</div>
+			<div class="content-div-box" style="padding: 0px; margin: 5px;padding-bottom: 5px;">
+				<table class="open-tb-style valid-tab" cellspacing="1px" cellpadding="1px" style="height: 280px;margin: 0px auto;">
+					<tr>
+						<td class="td-text-style typeface-weight" style="width: 200px;">报销申请： </td>
+						<td class="reimbursement-type" style="width: 300px; text-align: left;">
+							<select class="yt-select" id="types" style="width: 275px;">
+
+								<option selected value="2">教师差旅报销</option>
+								<option value="1">教师课酬报销</option>
+							</select>
+						</td>
+						<td class="td-text-style typeface-weight" style="width: 200px;">班级： </td>
+						<td class="projectCode" style="width: 300px; text-align: left;">
+							<select class="yt-select user-name-sel" id="projectCode" style="width: 275px;">
+								<option>请选择班级</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="td-text-style typeface-weight" style="width: 200px;">部门预算来源： </td>
+						<td class="where" style="width: 300px; text-align: left;">
+							<select class="yt-select user-where" id="where" style="width: 275px;">
+								<option value="1">部门培训费</option>
+							</select>
+						</td>
+						<td class="td-text-style typeface-weight" style="width: 200px;">项目剩余预算： </td>
+						<td class="td-style typeface-size" id="projectUsermoney"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style typeface-weight" style="width: 200px;">项目主任： </td>
+						<td class="td-style typeface-size" id="projectHead"></td>
+						<td class="td-text-style typeface-weight" style="width: 200px;">申请人： </td>
+						<td class="td-style typeface-size" id="createUserName"></td>
+					</tr>
+					<tr>
+						<td class="td-text-style typeface-weight" style="width: 200px;line-height: 0px;padding-top: 10px;" valign="top">出差任务：</td>
+						<td class="td-style" colspan="3">
+							<textarea type="text" class="yt-textarea remarks" data-val="details" validform="{blurFlag:true,size:100,msg:'所填内容不可超过100个字'}" placeholder="请输入..."></textarea>
+							<span class="valid-font"></span>
+						</td>
+
+					</tr>
+				</table>
+				<div class="list-box" style="border: none;">
+					<table class="list-table">
+						<thead class="list-thead">
+							<tr>
+								<th width="34px">序号</th>
+								<th width="60px">教师</th>
+								<th width="80px">航班/车次</th>
+								<th width="60px">出发地</th>
+								<th width="60px">目的地</th>
+								<th width="147px">起止日期</th>
+								<th>票价（元）</th>
+								<th width="75px">保险（元）</th>
+								<th>退改签费（元）</th>
+								<th width="115px">报销总金额（元）</th>
+								<th width="88px">付款方式</th>
+								<th width="100px">关联订票记录</th>
+								<th width="100px">操作</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody class-tbody list-tbody">
+							<tr class="class-tr">
+								<td colspan="13" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="list-table" style="margin-top: 30px;">
+						<caption style="text-align: center;height: 30px;line-height:30px;background-color: #f5f5f5;">教师支付信息附表</caption>
+						<thead class="list-thead">
+							<tr>
+								<th>序号</th>
+								<th>教师</th>
+								<th>证件类型</th>
+								<th>证件号</th>
+								<th>开户行</th>
+								<th>账号</th>
+								<th>付款方式</th>
+								<th>报销金额（元）</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody" id="two-table">
+							<tr class="class-tr">
+								<td colspan="8" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<table class="class-info-table">
+					<!--<tr>
+						<td style="width: 100px;" align="right" valign="top">
+							<span class="typeface-weight" style="position: relative;top: 10px;">备注：</span>
+						</td>
+						<td colspan="3">
+							<textarea type="text" class="yt-textarea details" data-val="details" validform="{blurFlag:true,size:100,msg:'所填内容不可超过100个字'}" placeholder="请输入..."></textarea>
+							<span class="valid-font"></span>
+						</td>
+					</tr>-->
+				</table>
+				<table style=" margin:20px auto;">
+					<tr>
+						<td class="typeface-weight" style="text-align: right;">下一步审批人： </td>
+						<td>
+							<select class="yt-select" id="dealingWithPeople" style="width: 275px;"></select>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+			<!--班级END-->
+			<div class="yt-eidt-model-bottom" style="width: 974px;border: none;position: relative; margin: auto;text-align: center;">
+				<input class="yt-model-bot-btn yt-model-sure-btn" id="save" type="button" value="保存" style="width: 70px;margin-top:16px; display: inline-block;" />
+				<input class="yt-model-bot-btn yt-model-sure-btn" id="submit" type="button" value="提交" style="width: 70px;margin-left: 40px;margin-top:16px; display: inline-block;" />
+				<input class="yt-model-bot-btn yt-model-canel-btn" id="cancel" type="button" value="取消" style="width: 70px;margin-left: 40px;margin-top:16px; background-color: #FFF; display: inline-block;" />
+				<div class="clear-both">
+
+				</div>
+			</div>
+			<!---->
+		</div>
+		<!--关联订票记录START-->
+		<div class="yt-pop-model yt-edit-alert travel-import-form" style="width: 1100px;">
+			<!--标题区域START-->
+			<div class="yt-edit-alert-title">
+				<span class="yt-edit-alert-title-msg">关联订票记录</span>
+			</div>
+			<!--标题区域END-->
+			<!--主体内容部分START-->
+			<div class="yt-edit-alert-main cont-edit-test">
+				<div style="margin: 20px 0px 15px 22px;position: relative;">
+					<div class="travel-top">
+						<label>关联：</label>
+						<ul style="width: 98%;display: inline-block;" class="link-ul">
+						</ul>
+					</div>
+					<div class="tab-title-list" style="overflow: hidden;margin-top: 20px;">
+						<div class="tab-title-box" style="">
+							<button class="yt-option-btn class-info-btn active cost-btn">• 机票</button>
+							<button class="yt-option-btn teacher-info-btn borrow-btn">• 火车票</button>
+							<div class="key-word" style="overflow: hidden;">
+								<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+								<button class="yt-option-btn search-btn" style="background-color:#de595a;width: 30px;">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+							</div>
+						</div>
+					</div>
+					<table class="list-table plane-list-table" style="width: 100%;margin: 0px;overflow: auto;" id="planTable">
+						<thead class="list-thead">
+							<tr style="height: 30px;border-bottom: none;">
+								<th class="check-box-th" style="width: 30px;">
+									<label class="check-label yt-checkbox parent-check checklabel-all">
+											<input type="checkbox" class="check-all" name="test" value="" />
+										</label>
+								</th>
+								<th>序号</th>
+								<th>出票日期</th>
+								<th>起飞日期</th>
+								<th>票号</th>
+								<th>乘机人</th>
+								<th>航程</th>
+								<th>航班号</th>
+								<th>销售价（元）</th>
+								<th>机建（元）</th>
+								<th>税费（元）</th>
+								<th>保险（元）</th>
+								<th>总金额（元）</th>
+								<th>订票人</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody project-tbody" id="planTableList">
+							<tr>
+								<td class="plane-tbody-td" colspan="17" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="list-table plane-list-table" style="width: 100%;margin: 0px;overflow: auto;display: none;" id="trainTable">
+						<thead class="list-thead">
+							<tr style="height: 30px;border-bottom: none;">
+								<th class="check-box-th" style="width: 30px;">
+									<label class="check-label yt-checkbox parent-check checklabel-all" >
+											<input type="checkbox" class="check-all" name="test" value="" />
+										</label>
+								</th>
+								<th>序号</th>
+								<th>出票日期</th>
+								<th>出发日期</th>
+								<th>乘客</th>
+								<th>行程</th>
+								<th>车次</th>
+								<th>销售价（元）</th>
+								<th>工本费（元）</th>
+								<th>总金额（元）</th>
+								<th>订票人</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody project-tbody" id="trainTableList">
+							<tr>
+								<td class="plane-tbody-td" colspan="17" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--主体内容部分END-->
+			<!--底部按钮START-->
+				<div class="yt-eidt-model-bottom" style="border: none;">
+					<input class="yt-model-bot-btn yt-model-sure-btn linkData" type="button" value="关联" />
+					<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />
+				</div>
+		</div>
+		<!--导入机票/火车票差旅流水END-->
+		<iframe id="teacherName" name="teacherName" style="display:none;width: 100%;position: absolute;height:100% ;"></iframe>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/tabEdit/yt-tab-edit.js"></script>
+	<!-- 配置文件 -->
+	<script type="text/javascript" src="../../resources/js/ueditor/ueditor.config.js"></script>
+	<!-- 获取数据的js -->
+	<script type="text/javascript" src="../../resources/js/modules/finance/travelAdd.js"></script>
+
+</html>

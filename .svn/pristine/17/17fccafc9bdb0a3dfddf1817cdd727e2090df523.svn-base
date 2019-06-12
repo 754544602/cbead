@@ -1,0 +1,65 @@
+.edui-default .edui-ueditor,.edui-default .edui-ueditor-toolbarboxouter,.edui-default .edui-toolbar .edui-button .edui-state-hover .edui-button-wrap,.edui-default .edui-toolbar .edui-button .edui-state-checked .edui-button-wrap{
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+.edui-default .edui-ueditor-toolbarboxouter{
+    height: 44px !important;
+    background: #DADADA !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+.edui-default .edui-toolbar .edui-button .edui-state-hover .edui-button-wrap,
+.edui-default .edui-toolbar .edui-button .edui-state-checked .edui-button-wrap,
+.edui-default .edui-toolbar .edui-splitbutton .edui-state-hover .edui-splitbutton-body,
+.edui-default .edui-toolbar .edui-menubutton .edui-state-hover .edui-menubutton-body {
+    background:none !important;
+    border: 1px solid #4A5F70 !important;
+}
+.edui-default .edui-for-undo .edui-icon{
+    background: url(../../images/ueditor/undo.png) no-repeat !important;
+}
+.edui-default .edui-for-redo .edui-icon{
+    background: url(../../images/ueditor/redo.png) no-repeat !important;
+}
+.edui-default .edui-for-bold .edui-icon{
+    background: url(../../images/ueditor/bold.png) no-repeat !important;
+}
+.edui-default .edui-for-italic .edui-icon{
+    background: url(../../images/ueditor/italic.png) no-repeat !important;
+}
+.edui-default .edui-for-underline .edui-icon{
+    background: url(../../images/ueditor/underline.png) no-repeat !important;
+}
+.edui-default .edui-for-forecolor .edui-icon{
+    background: url(../../images/ueditor/forecolor.png) no-repeat !important;
+}
+.edui-default .edui-for-justifyleft .edui-icon{
+    background: url(../../images/ueditor/justifyleft.png) no-repeat !important;
+}
+.edui-default .edui-for-justifycenter .edui-icon{
+    background: url(../../images/ueditor/justifycenter.png) no-repeat !important;
+}
+.edui-default .edui-for-justifyright .edui-icon{
+    background: url(../../images/ueditor/justifyright.png) no-repeat !important;
+}
+.edui-default .edui-for-justifyjustify .edui-icon{
+    background: url(../../images/ueditor/justifyjustify.png) no-repeat !important;
+}
+.edui-default .edui-for-attachment .edui-icon{
+    background: url(../../images/ueditor/attachment.png) no-repeat !important;
+}
+.edui-default .edui-for-simpleupload .edui-icon{
+    background: url(../../images/ueditor/simpleupload.png) no-repeat !important;
+}
+.edui-default .edui-toolbar{
+    margin-top: 7px !important;
+}
+.edui-default .edui-toolbar .edui-separator{
+    background: none !important;
+    border-left: 1px solid #999999;
+}
+.edui-default .edui-toolbar .edui-button, .edui-default .edui-toolbar .edui-splitbutton, .edui-default .edui-toolbar .edui-menubutton, .edui-default .edui-toolbar .edui-combox{
+    margin: 1px 15px !important;
+}

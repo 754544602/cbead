@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>项目预算</title>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 700px;">
+			<div class="box-list">
+				<div class="head-div" style="margin-bottom: 0px;width: 99%">
+					<button class="page-return-btn back-btn">
+						<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+						返回
+					</button>
+				</div>
+				<!--项目预算申请-->
+				<div class="content-box budget-inf valid-tab">
+					<div class="class-info-div" data-text="projectName">
+						项目预算申请
+					</div>
+					<div class="class-info get-project-inf add-project">
+						<div class="class-info-centent">
+							<table class="class-info-table">
+								<tr>
+									<td align="right">
+										<span>项目名称：</span>
+									</td>
+									<td colspan="3" class="project-name">
+										<select style="display: none;" class="yt-select type-select project-code" data-val="projectCode" style="width: 722px;">
+											<option value="">请选择</option>
+				  	    	      		</select>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>申请人：</span>
+									</td>
+									<td class="create-user-name" data-text="createUserName">
+										<!--<span class="create-user-name" data-val="createUserName"></span>-->
+									</td>
+									<td align="right" width="156px">
+										<span>项目类型：</span>
+									</td>
+									<td class="project-type" data-text="projectType">
+										<!--<span class="project-type" data-val="projectType"></span>-->
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>班主任：</span>
+									</td>
+									<td class="class-teacher" data-text="classTeacher">
+										<!--<span class="class-teacher" data-val="classTeacher"></span>-->
+									</td>
+									<td align="right" width="156px">
+										<span>项目主任：</span>
+									</td>
+									<td class="project-head" data-text="projectHead">
+										<!--<span class="project-head" data-val="projectHead"></span>-->
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>开班日期：</span>
+									</td>
+									<td class="start-date" >
+										<!--<span class="start-date" data-val=""></span>-->
+									</td>
+									<td align="right">
+										<span>结束日期：</span>
+									</td>
+									<td class="end-date">
+										<!--<span class="end-date" data-val=""></span>-->
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>报到时间：</span>
+									</td>
+									<td class="report-date" data-text="reportDate">
+										<!--<input class="calendar-input report-date" data-val="reportDate" placeholder="请选择" type="text" style="width: 275px;"/>-->
+									</td>
+									<td align="right">
+										<span>离院时间：</span>
+									</td>
+									<td class="out-hospital-date" data-text="outHospitalDate">
+										<!--<input class="calendar-input out-hospital-date" data-val="outHospitalDate" placeholder="请选择" type="text" style="width: 275px;"/>-->
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>学员人数：</span>
+									</td>
+									<td class="trainee-total" data-text="traineeTotal">
+										<!--<span class="trainee-total" data-val="traineeTotal"></span>-->
+									</td>
+									<td align="right">
+										<span>委托单位工作人数：</span>
+									</td>
+									<td class="entrust-org-count" data-text="entrustOrgCount">
+										<!--<input class="yt-input entrust-org-count" data-val="entrustOrgCount" placeholder="请输入" type="text" style="width: 275px;"/>-->
+									</td>
+								</tr>
+								<tr>
+									<td align="right" >是否异地培训：</td>
+									<td class="is-offSite-training">
+										<!--<label class="check-label yt-radio check">  
+										    <input class="is-off-site-training" data-val="isOffSiteTraining" type="radio" name="test"  value="1"/>  
+										   	 是  
+									    </label>  
+									    <label class="check-label yt-radio">  
+										    <input class="is-off-site-training" data-val="isOffSiteTraining" type="radio" name="test"  value="0"/>  
+										         否	  
+									    </label>-->
+									</td>
+									<td align="right">适用成本标准：</td>
+									<td class="cost-standard">
+										<!--<label class="check-label yt-radio check">  
+										    <input class="cost-standard" data-val="costStandard" type="radio" name="test1"  value="1"/>  
+										   	 基本标准  
+									    </label>  
+									    <label class="check-label yt-radio">  
+										    <input class="cost-standard" data-val="costStandard" type="radio" name="test1"  value="2"/>  
+										        高成本标准	  
+									    </label>-->
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<span style="position: relative;">异地培训特殊要求：</span>
+									</td>
+									<td colspan="3" valign="top">
+										<!--<textarea type="text" class="yt-textarea offsite-training-requirement" data-val="offSiteTrainingRequirement" placeholder="请输入异地培训特殊要求"></textarea>-->
+										<p class="offsite-training-requirement" data-text="offSiteTrainingRequirement" ></p>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!--预算明细-->
+					<div class="approval-change-before">
+						<div class="class-info-div">
+							预算明细
+						</div>
+						<div class="class-info">
+							<div class="class-info-centent budget-subsidiary">
+								<div class="teach-related-expenses">
+									<div class="teach-related-expenses-title">
+										<span style="background: #5b66ab url(../../resources/images/icons/left-top.png) no-repeat;">
+											教学相关费用
+										</span>
+									</div>
+									<table class="class-info-table teach-related-expenses-table" width="100%">
+										
+									</table>
+								</div>
+								<div class="logistics-related-expenses">
+									<div class="teach-related-expenses-title">
+										<span style="background: #5b66ab url(../../resources/images/icons/left-top.png) no-repeat;">
+											后勤相关费用
+										</span>
+									</div>
+									<table class="class-info-table logistics-related-expenses-table" width="100%">
+										
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="approval-change-after">
+						
+					</div>
+					<!--<div class="approval-change-after" style="display: none;">
+						<div class="class-info-div">
+							预算明细(变更后)
+						</div>
+						<div class="tab-content class-info">
+							<div class="class-info-centent budget-subsidiary-change">
+								<div class="teach-related-expenses">
+									<div class="teach-related-expenses-title">
+										<span>教学相关费用</span>
+									</div>
+									<table class="class-info-table teach-related-expenses-table">
+										
+									</table>
+								</div>
+								<div class="logistics-related-expenses">
+									<div class="teach-related-expenses-title">
+										<span>后勤相关费用</span>
+									</div>
+									<table class="class-info-table logistics-related-expenses-table">
+										
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>-->
+					<!--审批流程STAR-->
+					<div class="approval-process-module">
+						<div class="title-div-box">
+							<p class="title-p-style" ></p>
+							<p class="title-text-p">审批流程</p>
+						</div>
+						<!--隐藏部分start-->
+							<input type="hidden"  id="tastKey" />
+							<input type="hidden" class="processInstanceId" />
+						<!--隐藏部分end-->
+						<!-------------------------------------------------------------------------------------------->
+						<div class="content-div-box">
+							<div class="procedure-box" style="width: 970px;margin: 0px auto;">
+								<!--审批流程最后一步STAR-->
+								<div class="last-step last-step-div">
+									<div class="number-name-box">
+										<span class="number-box-span last-step-order" >3</span>
+										<span class="name-box-span last-step-operate-person-userName" >王大勇</span>
+										<img src="../../resources/images/open/open-sp.png" width="100%" height="100%" />
+									</div>
+									<div class="view-box-div" style="height: 210px;">
+										<span class="last-step-commentTime-span last-step-commentTime" style="width: auto;">2018-07-01 12:00</span>
+										<form>
+											<table class="add-new-tab" cellspacing="1px" cellpadding="1px" style=" ">
+												<tr>
+													<td class="operate-state-title-td">操作状态：</td>
+													<td  class="sp-state last-step-operationState" style="">
+														待教务部主任审批
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align: right; ">是否同意：</td>
+													<td style="text-align: left; ">
+														<label class="check-label yt-radio check">
+															<input class="agree-disagree" type="radio" class="radio" name="radioType" value="completed"/>同意
+														</label>
+														<label class="check-label yt-radio" style="margin-left: 20px;">
+														 	<input class="agree-disagree" type="radio" class="radio" name="radioType" value="returnedSubmit"/>拒绝
+														</label>
+													</td>
+												</tr>
+												<tr class="next-operate-person-tr hid-input">
+													<td style="text-align: right; ">下一步操作人：</td>
+													<td>
+														<select class="yt-select type-select type" id="nextPeople" style="width: 200px;float: left;"></select>
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align: right; ">操作人意见：</td>
+													<td>
+														<input id="opintion" class="yt-input" type="text" validform="{isNull:true,size:20,msg:'请输入内容,不要超过20个字'}" style="width: 719px;float: left;"/>  
+				    									<span class="valid-font"></span> 
+													</td>
+												</tr>
+											</table>
+										</form>
+									</div>
+								</div>
+								<!--审批流程最后一步END-->
+											
+								<!--审批第一步STAR-->	
+								<div class="first-step">
+									<div style="height: 150; ">
+										<div class="number-name-box">
+											<span class="number-box-span first-step-order">1</span>
+											<span class="name-box-span first-step-operate-person-userName"></span>
+											<img src="../../resources/images/open/openFlow.png" width="100%" height="100%" />
+										</div>
+									</div>
+									<div class="pad-pos" style="height: 89px;">
+										<ul class="first-step-ul">
+											<li style="height: 30px;">
+												<span class="first-step-taskName view-taskName-span" style="float: left;"></span>
+											</li>
+											<li class="view-time-li first-step-commentTime"></li>
+										</ul>
+									</div>
+								</div>
+							<!--审批第一步END-->
+							</div>
+						</div>	
+						<!--审批流程END-->
+						<div class="yt-eidt-model-bottom" style="text-align: center;margin: 10px 0px;">
+							<input class="yt-model-bot-btn yt-model-sure-btn" id="last-submit" type="button" value="确定" />
+							<input class="yt-model-bot-btn yt-model-canel-btn " id="last-cancel" type="button" value="取消" style="margin-left: 20px;" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/budgetApproval/budgetApprovalDetails.js"></script>
+
+</html>

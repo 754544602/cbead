@@ -1,0 +1,1436 @@
+var projectDetails = {
+	//初始化方法
+	init: function() {
+		//获取页面跳转传过来的值
+		var pkId = $yt_common.GetQueryString("pkId");
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		var projectType = $yt_common.GetQueryString("projectType");
+		if(projectType==3 || projectType==2 || projectType==1){
+			$(".other-income-btn").hide();
+		}
+		//点击返回
+		$('.page-return-btn').click(function(){
+			window.location.href = "projectSettlementList.html";
+		});
+		//调用获取列表数据方法
+		projectDetails.getStudetListInfo();
+		$(".settlement-tbody").on("click",".project-name", function() {
+			window.location.href = "projectSettlementList.html";
+		});
+		//点击修改费用清单按钮
+		$('.amend-expense-list').click(function() {
+			
+			if($('.project-student-tbody .yt-table-active').length == 0) {
+				$yt_alert_Model.prompt("请选择要修改的数据");
+				return false;
+			}
+			/** 
+			 * 显示编辑弹出框和显示顶部隐藏蒙层 
+			 */
+			$(".student-details-form").show();
+			/** 
+			 * 调用算取div显示位置方法 
+			 */
+			$yt_alert_Model.setFiexBoxHeight($(".student-details-form .yt-edit-alert-main"));
+			$yt_alert_Model.getDivPosition($(".student-details-form"));
+			/* 
+			 * 调用支持拖拽的方法 
+			 */
+			$yt_model_drag.modelDragEvent($(".student-details-form .yt-edit-alert-title"));
+			/**
+			* 给弹出框赋值
+			 * */
+			var realName = $(".yt-table-active").data('data').realName;
+			var groupNum =$(".yt-table-active").data('data').groupNum;
+			var gender = $(".yt-table-active").data('data').gender;
+			var phone = $(".yt-table-active").data('data').phone;
+			var idNumber = $(".yt-table-active").data('data').idNumber;
+			var groupName = $(".yt-table-active").data('data').groupName;
+			var groupOrgName = $(".yt-table-active").data('data').groupOrgName;
+			var deptPosition = $(".yt-table-active").data('data').deptPosition;
+			var roomNumber = $(".yt-table-active").data('data').roomNumber;
+			var trainingExpenseNegotiatedPrice = $(".yt-table-active").data('data').trainingExpenseNegotiatedPrice;
+			var quarterageNegotiatedPrice = $(".yt-table-active").data('data').quarterageNegotiatedPrice;
+			var mealFeeNegotiatedPrice = $(".yt-table-active").data('data').mealFeeNegotiatedPrice;
+			var incidental = $(".yt-table-active").data('data').incidental;
+			var traineeId = $(".yt-table-active").data('data').traineeId;
+			var numberDinner = Number($(".yt-table-active").data('data').breakfastFor)+Number($(".yt-table-active").data('data').numberLunch)+Number($(".yt-table-active").data('data').numberDinner);
+			var otherCost = $(".yt-table-active").data('data').otherCost;
+			console.log(traineeId)
+			 $(".student-details-form .realName").text(realName);
+			 $(".student-details-form .groupNum").text(groupNum);
+			 $(".student-details-form .gender").text(gender);
+			 $(".student-details-form .phone").text(phone);
+			 $(".student-details-form .idNumber").text(idNumber);
+			 $(".student-details-form .groupName").text(groupName);
+			 $(".student-details-form .groupOrgName").text(groupOrgName);
+			 $(".student-details-form .deptPosition").text(deptPosition);
+			 $(".student-details-form .roomNumber").text(roomNumber);
+			 $(".student-details-form .training-expense-negotiated-price-input").val(trainingExpenseNegotiatedPrice);
+			 $(".student-details-form .quarterage-negotiated-price-input").val(quarterageNegotiatedPrice);
+			 $(".student-details-form .meal-fee-negotiated-price-input").val(mealFeeNegotiatedPrice);
+			 $(".student-details-form .incidental-input").val(incidental);
+			 $(".student-details-form .traineeId-hidden-input").val(traineeId);
+			 var projectType = $yt_common.GetQueryString("projectType");
+				if(projectType==3 || projectType==2 ){
+					$(".student-details-form .training-expense-negotiated-price-hidden-input").val(trainingExpenseNegotiatedPrice);
+					$(".student-details-form .quarterage-negotiated-price-hidden-input").val(quarterageNegotiatedPrice);
+					$(".student-details-form .meal-fee-negotiated-price-hidden-input").val(mealFeeNegotiatedPrice);
+					$(".student-details-form .incidental-hidden-input").val(incidental);
+				}else if(projectType ==4){   
+					$(".student-details-form .meal-fee-negotiated-price-input").val(numberDinner);
+					$(".student-details-form .incidental-input").val(otherCost);
+				}
+			/** 
+			 * 点击确定方法
+			 */
+			$('.update-student-sure-btn').click(function() {
+				projectDetails.amendExpenseList();
+			});
+			/** 
+			 * 点击取消方法 
+			 */
+			$('.update-student-canel-btn').click(function() {
+				//隐藏页面中自定义的表单内容  
+				$(".student-details-form").hide();
+			});
+		});
+			/**
+			 * 点击学员姓名查看详情
+			 */
+			$('.project-income-div').off('click').on('click','.real-name-inf', function() {
+				console.log("asdadsa");
+				//var studentList=$('.yt-table-active').data('studentList');
+				var traineeId = $(this).parent().attr('data-train');
+				//获取班级编号
+				var projectCode = $yt_common.GetQueryString("projectCode");
+				projectDetails.seeStudentDetails(traineeId,projectCode);
+				/** 
+				 * 显示编辑弹出框和显示顶部隐藏蒙层 
+				 */
+				$(".pay-student-details-form").show();
+				/** 
+				 * 调用算取div显示位置方法 
+				 */
+				$yt_alert_Model.setFiexBoxHeight($(".pay-student-details-form .yt-edit-alert-main"));
+				$yt_alert_Model.getDivPosition($(".pay-student-details-form"));
+				/* 
+				 * 调用支持拖拽的方法 
+				 */
+				$yt_model_drag.modelDragEvent($(".pay-student-details-form .yt-edit-alert-title"));
+				/** 
+				 * 点击取消方法 
+				 */
+				$('.pay-student-details-form .yt-eidt-model-bottom .yt-model-canel-btn').off().on("click", function() {
+					//隐藏页面中自定义的表单内容  
+					$(".pay-student-details-form").hide();
+				});
+			});
+		//点击取消按钮
+		$('.expenditure-cancel-btn').click(function(){
+			$('.expenditure-sure-btn').text("修改");
+			$('.expenditure-sure-btn').attr('sure-state','true');
+			$('.otherCost-tbody tr td input').hide();
+			$('.otherCost-tbody tr td span').show();
+			$(this).hide();
+		});
+		//项目支出确定按钮
+		$('.expenditure-sure-btn').click(function() {
+			var sureState=$(this).attr('sure-state');
+			if(sureState=="true"){
+				$(this).text("确定");
+				$(this).attr('sure-state','false');
+				$('.otherCost-tbody tr').each(function(){
+					$(this).find('td').eq(3).find('input').css('width',"99%");
+					$(this).find('td').eq(2).find('input').css('text-align','right');
+				});
+				$('.otherCost-tbody tr td input').show();
+				$('.otherCost-tbody tr td span').hide();
+				$(".expenditure-cancel-btn").show();
+			}else{
+				$(this).text("修改");
+				$(this).attr('sure-state','true');
+				$('.otherCost-tbody tr td input').hide();
+				$('.otherCost-tbody tr td span').show();
+				$(".expenditure-cancel-btn").hide();
+				var costCode = "";
+				var spendMoney = "";
+				var details = "";
+				var otherCostJsonArr = [];
+				//遍历获取List<Map>对象
+				$(".otherCost-tbody tr").each(function(i, n) {
+					costCode = $(n).attr("costCode");
+					spendMoney = $(n).find('td').eq(2).find('input').val();
+					details = $(n).find('td').eq(3).find('input').val();
+					if(costCode!=null){
+						var otherCostArr = {
+							costCode: costCode,
+							spendMoney: spendMoney,
+							details: details
+						}
+						otherCostJsonArr.push(otherCostArr);
+					}
+				});
+				console.log(otherCostJsonArr);
+				var otherCost = JSON.stringify(otherCostJsonArr);
+				//获取班级编号
+				var projectCode = $yt_common.GetQueryString("projectCode");
+				$yt_baseElement.showLoading();
+				//执行接口方法
+				$.ajax({
+					type: "post",
+					url: $yt_option.base_path + "finance/settlement/addExpenditure",
+					data: {
+						projectCode:projectCode,
+						otherCost: otherCost
+					},
+					async: false,
+					success: function(data) {
+						if(data.flag == 0) {
+							$yt_baseElement.hideLoading(function() {
+								$yt_alert_Model.prompt("添加成功");
+								projectDetails.getExpenditureListInf();
+							});
+						} else {
+							$yt_baseElement.hideLoading(function() {
+								$yt_alert_Model.prompt("添加失败");
+								projectDetails.getExpenditureListInf();
+							});
+						}
+					}
+				});
+			}
+			
+		});
+		
+		/**
+		 * 点击减免列表里面的修改图标
+		 */
+		$('.project-total-cost-tbody').on('click','span',function(){
+			var repairAcc=$(this).parent().attr('repair-acc');
+			if(repairAcc=="true"){
+				$(this).parents('tr').find('td').eq(2).find('span').hide();
+				$(this).parents('tr').find('td').eq(2).find('input').show();
+				$(this).text("确定");
+				$(this).parent().attr('repair-acc',false);
+			}else{
+				//修改并提交数据
+				$(this).parents('tr').find('td').eq(2).find('span').show();
+				$(this).parents('tr').find('td').eq(2).find('input').hide();
+				//添加需要传到后台的数据
+				var costData=[];
+				var trList=$('.project-total-cost-tbody tr');
+				$.each(trList, function(i,n) {
+					var costType=$(n).find('td').eq(0).text();
+					var costReduction=$(n).find('td').eq(2).find('input').val();
+					var costMap={
+						costType:costType,
+						costReduction:costReduction
+					};
+					costData.push(costMap);
+				});
+				costData=JSON.stringify(costData);
+				projectDetails.repairAllAppe(costData);
+			
+				var img='<img style="margin-right: 2px;" src="../../resources/images/icons/amend.png">';
+				$(this).text("");
+				$(this).append(img);
+				$(this).parent().attr('repair-acc',true);
+			}
+		});
+		//页签切换
+		$(".tab-title-list button").click(function() {
+			
+			//var divIndex; 
+			$(this).addClass("active").siblings().removeClass("active");
+			$(".box-list .content-box").hide().eq($(this).index()).show();
+			//班级信息页签
+			if($(this).index() == 0) {
+				projectDetails.getStudetListInfo();
+				//$('#project-main').css("min-width","1200px");
+			} else if($(this).index() == 1) {
+				if(projectType == 2 || projectType == 3){
+					projectDetails.getStudentCostsList();
+					projectDetails.getCheckList();
+					projectDetails.getCompanyList();
+					//$('#project-main').css("min-width","1366px");
+				}else{
+					$(".project-expenses-list").hide();
+					projectDetails.getStudentCostsList1();
+					projectDetails.getCompanyList1();
+					//$('#project-main').css("min-width","1200px");
+				}
+				$(".project-student-tbody").on("click", ".cost-details", function() {
+					//显示选择所属项目弹出框
+					$(".select-teacher-div").show();
+					//计算弹出框位置
+					$yt_alert_Model.setFiexBoxHeight($(".select-teacher-div .yt-edit-alert-main"));
+					$yt_alert_Model.getDivPosition($(".select-teacher-div"));
+					$yt_model_drag.modelDragEvent($(".select-teacher-div .yt-edit-alert-title"));
+					//取消按钮
+					$('.select-teacher-canel-btn').click(function() {
+						$(".yt-edit-alert,#heard-nav-bak").hide();
+						$("#pop-modle-alert").hide();
+					});
+				});
+			} else if($(this).index() == 2) {
+				//$('#project-main').css("min-width","1200px");
+				if(projectType == 2 || projectType == 3){
+					$(".project-income-study").show();
+					$(".project-revenue-training").hide();
+					projectDetails.getIncomesList();
+					projectDetails.getIncomeCostsList();
+					projectDetails.getTotalList();
+				}else{
+					$(".project-income-study").hide();
+					$(".project-revenue-training").show();
+					projectDetails.projectRevenueTraining();
+				}
+			} else if($(this).index() == 3) {
+				//$('#project-main').css("min-width","1200px");
+				projectDetails.getOtherIncomeList();
+			} else if($(this).index() == 4) {
+				//$('#project-main').css("min-width","1200px");
+				projectDetails.getExpenditureListInf();
+			}
+		});
+		//项目收入检索
+		$(".project-income-study .search-btn").click(function(){
+			projectDetails.getIncomesList();
+		});
+	},
+	/**
+	 * 修改总减免费用
+	 */
+	repairAllAppe:function(costData){
+		//获取班级编号
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		//显示整体框架loading的方法
+		$yt_baseElement.showLoading();
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "finance/settlement/updateDetailedReduction",
+			data:{
+			projectCode:projectCode,
+			costData:costData
+			},
+			async:true,
+			success:function(data){
+				if(data.flag==0){
+					$yt_alert_Model.prompt("修改成功");
+				}else{
+					$yt_alert_Model.prompt("修改失败");
+				}
+				projectDetails.getTotalList();
+				//隐藏整体框架loading的方法
+				$yt_baseElement.hideLoading();
+			}
+		});
+		
+	},
+	/**
+	 * 查看学员详情信息
+	 */
+	seeStudentDetails:function(traineeId,projectId){
+		var headImg = new Image();
+		//显示整体框架loading的方法
+		$yt_baseElement.showLoading();
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "class/trainee/getTraineeDetails",
+			data: {
+				traineeId: traineeId,
+				projectId: projectId
+			},
+			async: true,
+			success: function(data) {
+				var htmlBody = $('.pay-student-details-form .student-details-train-record tbody');
+				var htmlTrs = '';
+				htmlBody.empty();
+				if(data.flag == 0) {
+					data.data.workTime=="0000-00-00"?data.data.workTime='':data.data.workTime=data.data.workTime;
+					detailsMsg = data.data;
+					//证件类型   1:身份证 2:护照 3:军官证 4:其他
+					if(data.data.idType == 1){
+						$(".pay-id-type").text("身份证");
+					}else if(data.data.idType == 2){
+						$(".pay-id-type").text("护照");
+					}else if(data.data.idType == 3){
+						$(".pay-id-type").text("军官证");
+					}else if(data.data.idType == 4){
+						$(".pay-id-type").text("其他");
+					}
+					detailsMsg.checkInDate = detailsMsg.checkInDate.split(" ")[0];
+					//性别
+					if(detailsMsg.gender == 1) {
+						detailsMsg.gender = "男";
+					} else {
+						detailsMsg.gender = "女";
+					}
+					//发票类型
+					if(detailsMsg.invoiceType == 0) {
+						detailsMsg.invoiceType = "暂不开票";
+					} else if(detailsMsg.invoiceType == 1) {
+						detailsMsg.invoiceType = "普通发票";
+					} else {
+						detailsMsg.invoiceType = "增值税发票";
+					}
+					//报到状态
+					if(detailsMsg.checkInState == 0) {
+						detailsMsg.checkInState = "未报到";
+					} else {
+						detailsMsg.checkInState = "已报到";
+					}
+					//缴费（对账）状态
+					if(detailsMsg.paymentState == 0) {
+						detailsMsg.paymentState = "未对账";
+					} else {
+						detailsMsg.paymentState = "已对账";
+					}
+					//开票状态
+					if(detailsMsg.isOrderNum == 0) {
+						detailsMsg.isOrderNum = "未开票";
+					} else {
+						detailsMsg.isOrderNum = "已开票";
+					}
+					$('.pay-student-details-form .cont-edit-test').setDatas(detailsMsg);
+					console.log("学员头像", detailsMsg.headPortraitUrl);
+					if(detailsMsg.headPortrait != "") {
+						headImg.src = detailsMsg.headPortraitUrl;
+						headImg.onload = function() {
+							$('.student-details-img').attr('src', headImg.src);
+							$('.student-details-img').jqthumb({
+								width: 89,
+								height: 130
+							});
+						};
+					} else {
+						$('.student-details-img').attr('src', '../../resources/images/classStudent/student-picture.png');
+						$('.student-details-img').jqthumb({
+							width: 89,
+							height: 130
+						});
+					}
+					//开票信息
+				var recordList = data.data.orderList;
+				var recordBody = $('.pay-student-details-form .student-details-tecket .order-list-tbody').empty();
+				var recordHtml = '';
+				if (recordList.length != 0) {
+					$.each(recordList, function(i,v) {
+						v.isOrderNum==1?v.isOrderNum='已开票':v.isOrderNum='未开票';
+						recordHtml='<tr>'+
+						'<td style="text-align: right;" width="80px">开票状态：</td>'+
+						'<td style="text-align: left;" width="150px">'+v.isOrderNum+'</td>';
+						if (v.isOrderNum == "未开票") {
+							recordHtml += '<td class="order-num" style="text-align: right;" width="80px">发票号：</td>'+
+							'<td style="text-align: left;" width="120px">'+v.orderNum+'</td>'+
+							'<td class="order-money" style="text-align: right;" width="80px">开票金额：</td>'+
+							'<td style="text-align: left;" width="120px">'+v.tuition+'</td>';
+						}
+						recordHtml +='<td width="80px"><div class="addorder addorder'+i+'" style="display:none;padding: 5px 10px;border: 1px dashed #E6E6E6;cursor: pointer;">合并开票</div></td>'
+						'</tr>';
+						recordBody.append(recordHtml);
+						var trainees = v.trainees.split(',');
+						if(trainees.length>1){
+							$('.addorder'+i).show().data('trainees',trainees.join('  '));
+						}
+						$('.addorder').tooltip({
+						position: 'bottom',
+						content: function() {
+							var showBox = '<table class="tip-table">' +
+								'<tr><td style="text-align:left">合并开票者：</td></tr><tr><td>' + $(this).data('trainees') + '</td></tr>' +
+								'</table>';
+							return showBox;
+						},
+						onShow: function() {
+							$(this).tooltip('tip').css({
+								backgroundColor: '#666',
+								borderColor: '#666',
+								color: '#fff'
+							});
+						}
+					});
+					});
+				}else{
+					recordHtml = '<tr style="border:0px;background-color:#fff !important;" >' +
+						'<td width="77px" align="right" style="border:0px;">开票状态：</td>' +
+						'<td align="left" style="border:0px;">未开票</td>' +
+						'</tr>';
+						recordBody.append(recordHtml);
+				}
+					//添加培训记录
+//					$.each(detailsMsg.trainList, function(i, b) {
+//						if (b.datatates == 6 || b.datatates == 4) {//datatates值为6或4显示项目（班级code）
+//							b.projectCode = b.projectCode
+//						}else{//datatates值不为6或4的项目（班级）code是乱码，不显示code
+//							b.projectCode = "";
+//						}
+//						htmlTrs = '<tr>' +
+//							'<td style="text-align: center;">' + b.projectCode + '</td>' +
+//							'<td style="text-align: left;">' + b.projectName + '</td>' +
+//							'<td style="text-align: center;">' + b.startDate + '</td>' +
+//							'<td>' + b.projectHead + '</td>' +
+//							'<td>' + b.certificateNo + '</td>' +
+//							'</tr>';
+//						htmlBody.append(htmlTrs);
+//					});
+					//隐藏整体框架loading的方法
+					$yt_baseElement.hideLoading();
+				}
+			}
+		});
+	},
+	/**
+	 * 获取班级信息
+	 */
+	getStudetListInfo: function() {
+		var pkId = $yt_common.GetQueryString("pkId");
+		//显示整体框架loading的方法
+		$yt_baseElement.showLoading();
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "project/getBeanById",
+			async: true,
+			data: {
+				pkId:pkId
+			},
+			objName: 'data',
+			success: function(data) {
+				if(data.flag == 0) {
+					if(data.data.projectType == 1) {
+						data.data.projectType = "计划";
+					} else if(data.data.projectType == 2) {
+						data.data.projectType = "委托";
+					} else if(data.data.projectType == 3) {
+						data.data.projectType = "选学";
+						$(".projectType-2").hide();
+					} else if(data.data.projectType == 4) {
+						data.data.projectType = "调训";
+					}
+					$('.project-code').text(data.data.projectCode);
+					$('.project-name').text(data.data.projectName);
+					$('.project-type').text(data.data.projectType);
+					$('.project-sell').text(data.data.projectSell);
+					$('.start-date').text(data.data.startDate);
+					$('.end-date').text(data.data.endDate);
+					$('.details').text(data.data.details);
+					$('.train-date').text(data.data.trainDate);
+					$('.customer-unit').text(data.data.groupName);
+					$('.customer-dept').text(data.data.customerDept);
+					$('.customer-linkman').text(data.data.customerLinkman);
+					$('.customer-linkman-position').text(data.data.customerLinkmanPosition);
+					$('.customer-linkman-phone').text(data.data.customerLinkmanPhone);
+					$('.customer-linkman-cellphone').text(data.data.customerLinkmanCellphone);
+					$('.customer-linkman-fax').text(data.data.customerLinkmanFax);
+					$('.customer-linkman-email').text(data.data.customerLinkmanEmail);
+					$('.customer-trainee-position').text(data.data.customerTraineePosition);
+					$('.customer-trainee-sum').text(data.data.customerTraineeSum);
+					$('.customer-trainee-age-structure').text(data.data.customerTraineeAgeStructure);
+					$('.customer-target-demand').text(data.data.customerTargetDemand);
+					$('.project-sell').text(data.data.projectSellName);
+					$('.project-head').text(data.data.projectHeadName);
+					$('.class-teacher').text(data.data.projectHeadmasterName);
+					$('.project-aid').text(data.data.projectAidName);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+			}
+		});
+	},
+	/**
+	 * 项目结算清单
+	 */
+	getCheckList: function() {
+		$yt_baseElement.showLoading();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$.ajax({
+			async: true,
+			url: $yt_option.base_path + "finance/settlement/getDetailedList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-check-List-tbody');
+					var htmlTr = '';
+					htmlTbody.empty();
+						$.each(data.data.settlementDetailedList, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td>' + (i + 1) + '</td>' +
+								'<td style="text-align:left;">' + v.name + '</td>' +
+								'<td style="text-align:right;word-wrap:break-word;">' + v.amountReceivableTotal + '</td>' +
+								'<td style="text-align:right;word-wrap:break-word;">' + v.amountReceivableNoTax + '</td>' +
+								'<td style="text-align:right;word-wrap:break-word;">' + v.amountReceivableTax + '</td>' +
+								'<td style="text-align:right;word-wrap:break-word;">' + v.netReceiptsTotal + '</td>' +
+								'<td style="text-align:right;word-wrap:break-word;">' + v.netReceiptsNoTax + '</td>' +
+								'<td style="text-align:right;word-wrap:break-word;">' + v.netReceiptsTax + '</td>' +
+								'<td style="text-align:right;word-wrap:break-word;">' + v.uncollectedTotal + '</td>' +
+								'<td style="text-align:right;word-wrap:break-word;">' + v.uncollectedNoTax + '</td>' +
+								'<td style="text-align:right;word-wrap:break-word;">' + v.uncollectedTax + '</td>' +
+								'</tr>';
+						});
+						htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+
+		});
+	},
+	/**
+	 * 单位支付信息
+	 */
+	getCompanyList: function() {
+		$yt_baseElement.showLoading();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$.ajax({
+			async: true,
+			url: $yt_option.base_path + "finance/settlement/getDetailedList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-company-tbody');
+					var htmlTr = '';
+					var htmlPlan = '';
+					var amountReceivableSum = 0;
+					var netReceiptsSum = 0;
+					var uncollectedSum = 0;
+					$(htmlTbody).empty();
+						$.each(data.data.settlementGroupDetails, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td style="text-align:left;">' + v.groupName + '</td>' +
+								'<td class="should" style="text-align:right;word-wrap:break-word;">' + v.amountReceivable + '</td>' +
+								'<td class="already" style="text-align:right;word-wrap:break-word;">' + v.netReceipts + '</td>' +
+								'<td class="account" style="text-align:right;word-wrap:break-word;">' + v.uncollected + '</td>' +
+								'</tr>';
+							amountReceivableSum += v.amountReceivable;
+							netReceiptsSum += v.netReceipts;
+							uncollectedSum += v.uncollected;
+						});
+						htmlTbody.html(htmlTr);
+						htmlPlan += '<tr>' +
+							'<td style="font-weight: bold;">' + "小计" + '</td>' +
+							'<td style="text-align:right;font-weight: bold;">' + amountReceivableSum + '</td>' +
+							'<td style="text-align:right;font-weight: bold;">' + netReceiptsSum + '</td>' +
+							'<td style="text-align:right;font-weight: bold;">' + uncollectedSum + '</td>' +
+							'</tr>';
+						htmlTbody.append(htmlPlan)
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+
+		});
+	},
+	/**
+	 * 费用清单：费用详情列表
+	 */
+	getStudentCostsList: function() {
+		
+		var selectParam = $('.selectParam').val();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$('.project-student-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/settlement/getDetailedPersonalList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode,
+				selectParam: selectParam,
+				trainingExpenseStart: "",
+				trainingExpenseEnd: "",
+				traineeNegotiatedPriceStart: "",
+				traineeNegotiatedPriceEnd: "",
+				quarterageStart: "",
+				quarterageEnd: "",
+				mealFeeStart: "",
+				mealFeeEnd: "",
+				otherChargesStart: "",
+				otherChargesEnd: "",
+				uncollectedStart: "",
+				uncollectedEnd: ""
+			}, //ajax查询访问参数
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-student-tbody');
+					var htmlTrSelection = '';
+					var htmlTrBreak = '';
+					
+					if(data.data.rows.length > 0) {
+						$('.project-student-page').show();
+						$(htmlTbody).empty();
+						$.each(data.data.rows, function(i, v) {
+							htmlTrSelection += '<tr>' +
+								'<td class="groupNum"><input type="hidden" value="' + v.headPortraitUrl + '" class="headPortraitUrl">' + v.groupNum + '</td>' +
+								'<td class="realName"><span class="stu-realname-look-info"><input type="hidden" value="' + v.gender + '" class="gender">' + v.realName + '</span></td>' +
+								'<td class="groupOrgName" style="text-align:left"><input type="hidden" value="' + v.phone + '" class="phone">' + v.groupOrgName + '</td>' +
+								'<td class="roomNumber"><input type="hidden" value="' + v.idNumber + '" class="idNumber">' + v.roomNumber + '</td>' +
+								'<td style="text-align:right" class="trainingExpenseNegotiatedPrice"><input type="hidden" value="' + v.idNumber + '" class="idNumber">' + v.trainingExpenseNegotiatedPrice + '</td>' +
+								'<td style="text-align:right"><input type="hidden" value="' + v.deptPosition + '" class="deptPosition">' + v.traineeNegotiatedPrice + '</td>' +
+								'<td style="text-align:right" class="quarterageNegotiatedPrice"><input type="hidden" value="' + v.traineeId + '" class="traineeId">' + v.quarterageNegotiatedPrice + '</td>' +
+								'<td style="text-align:right" class="mealFeeNegotiatedPrice">' + v.mealFeeNegotiatedPrice + '</td>' +
+								'<td style="text-align:right" class="incidental">' + v.incidental + '</td>' +
+								'<td style="text-align:right">' + v.smallPlan + '</td>' +
+								'<td style="text-align:right">' + v.cash + '</td>' +
+								'<td style="text-align:right">' + v.creditCard + '</td>' +
+								'<td style="text-align:right">' + v.wireTransfer + '</td>' +
+								'<td style="text-align:right">' + v.moneyTotal + '</td>' +
+								'<td style="text-align:right">' + v.uncollected + '</td>' +
+								'</tr>';
+								htmlTrSelection = $(htmlTrSelection).data("data",v);
+								htmlTbody.append(htmlTrSelection);
+						});
+							$(".detailed-hide-break").hide();
+							$(".detailed-hide-selection").show();
+					}else{
+						$('.project-student-page').hide();
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 项目结算清单
+	 */
+	/**
+	 * 单位支付信息
+	 */
+	getCompanyList1: function() {
+		$yt_baseElement.showLoading();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$.ajax({
+			async: true,
+			url: $yt_option.base_path + "finance/settlement/getNoDetailedList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-company-tbody');
+					var htmlTr = '';
+					var htmlPlan = '';
+					var amountReceivableSum = 0;
+					var netReceiptsSum = 0;
+					var uncollectedSum = 0;
+					$(htmlTbody).empty();
+						$.each(data.data, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td style="text-align:left;">' + v.groupName + '</td>' +
+								'<td class="should" style="text-align:right;word-wrap:break-word;">' + v.amountReceivable + '</td>' +
+								'<td class="already" style="text-align:right;word-wrap:break-word;">' + v.netReceipts + '</td>' +
+								'<td class="account" style="text-align:right;word-wrap:break-word;">' + v.uncollected + '</td>' +
+								'</tr>';
+							amountReceivableSum += v.amountReceivable;
+							netReceiptsSum += v.netReceipts;
+							uncollectedSum += v.uncollected;
+						});
+						htmlTbody.html(htmlTr);
+						htmlPlan += '<tr>' +
+							'<td style="font-weight: bold;">' + "小计" + '</td>' +
+							'<td style="text-align:right;font-weight: bold;">' + amountReceivableSum + '</td>' +
+							'<td style="text-align:right;font-weight: bold;">' + netReceiptsSum + '</td>' +
+							'<td style="text-align:right;font-weight: bold;">' + uncollectedSum + '</td>' +
+							'</tr>';
+						htmlTbody.append(htmlPlan)
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+
+		});
+	},
+	/**
+	 * 费用清单：学员费用详情
+	 */
+	getStudentCostsList1: function() {
+		var selectParam = $('.selectParam').val();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$('.stu-list .project-student-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/settlement/getNoDetailedPersonalList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+				projectCode:projectCode,
+				breakfastForStart:"",
+				breakfastForEnd:"",
+				numberLunchStart:"",
+				numberLunchEnd:"",
+				numberDinnerStart:"",
+				numberDinnerEnd:"",
+				otherChargesStart:"",
+				otherChargesEnd:""
+			}, //ajax查询访问参数
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-student-tbody');
+					var htmlTrSelection = '';
+					var htmlTrBreak = '';
+				
+					if(data.data.rows.length > 0) {
+						$('.project-student-page').show();
+						$(htmlTbody).empty();
+						$.each(data.data.rows, function(i, v) {
+							htmlTrBreak = '<tr>' +
+								'<td>' + v.groupNum + '</td>' +
+								'<td><a style="color: #3c4687;">' + v.realName + '</a></td>' +
+								'<td style="text-align:left">' + v.groupOrgName + '</td>' +
+								'<td>' + v.roomNumber + '</td>' + 
+								'<td style="text-align:right">' + v.breakfastFor + '</td>' +
+								'<td style="text-align:right">' + v.numberLunch + '</td>' +
+								'<td style="text-align:right">' + v.numberDinner + '</td>' +
+								'<td style="text-align:right">' + v.otherCost + '</td>' +
+								'<td><a style="color: #3c4687;" class="cost-details" href="#">' + "详情" + '</a></td>' +
+								'</tr>';
+								htmlTrBreak = $(htmlTrBreak).data('data',v);
+								htmlTbody.append(htmlTrBreak);
+						});
+							$(".detailed-hide-selection").hide();
+							$(".detailed-hide-break").show();
+							
+					}else{
+						$('.project-student-page').hide();
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//修改费用清单
+	amendExpenseList:function(){
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		var traineeId = $(".student-details-form .traineeId-hidden-input").val();
+		var costData = "";
+		var costDataArr = [];
+		$(".cost-of-listing tr td").each(function (i,n){
+			var costType = "";
+			var costOld = "";
+			var costNew = "";
+			costType = $(n).find("span>input").val();
+			costOld = $(n).find("input.hidden-input").val();
+			costNew = $(n).find("input.yt-input").val();
+				
+			var arrCouncil={
+				costType:costType,
+				costOld:costOld,
+				costNew:costNew
+			}
+			costDataArr.push(arrCouncil);
+		});
+		//var costData = JSON.stringify(costDataArr);
+		
+		$.ajax({
+			url: $yt_option.base_path + "finance/settlement/addTraineeCost", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode,
+				traineeId: traineeId,
+				costData: costDataArr
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("修改成功");
+						$(".student-details-form").hide();
+						projectDetails.getStudentCostsList();
+					});
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("修改失败");
+						$(".student-details-form").hide();
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+		});
+	},
+	/**
+	 * 项目收入
+	 */
+	getIncomesList: function() {
+		var selectParam = $('.project-income-study .selectParam').val();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$('.project-in .project-student-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/settlement/getIncomeList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+				projectCode:projectCode
+			}, //ajax查询访问参数
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					$(".actual").text(data.data.amountReceivabletotal);
+					$(".must").text(data.data.netReceiptsTotal);
+					var htmlTbody = $('.project-income-student-tbody');
+					var htmlTr = '';
+					$(htmlTbody).empty();
+					if(data.data.rows.length > 0) {
+						$('.project-student-page').show();
+						$.each(data.data.rows, function(i, v) {
+							v.moneyTotal=='0'?v.moneyTotal = Number(v.wireTransfer)+Number(v.creditCard)+Number(v.cash):v.moneyTotal=v.moneyTotal;
+							htmlTr += '<tr>' +
+										'<td>' + v.groupNum + '</td>' +
+										'<td data-train="'+v.traineeId+'"><a style="color: #3c4687;" class="real-name-inf">' + v.realName + '</a></td>' +
+										'<td style="text-align:left">' + v.groupOrgName + '</td>' +
+										'<td style="text-align:right">' + v.trainingExpenseNegotiatedPrice + '</td>' +
+										'<td style="text-align:right">' + v.traineeNegotiatedPrice + '</td>' +
+										'<td style="text-align:right">' + v.quarterageNegotiatedPrice + '</td>' +
+										'<td style="text-align:right">' + v.mealFeeNegotiatedPrice + '</td>' +
+										'<td style="text-align:right">' + v.incidental + '</td>' +
+										'<td style="text-align:right">' + v.smallPlan + '</td>' +
+										'<td style="text-align:right">' + v.cash + '</td>' +
+										'<td style="text-align:right">' + v.creditCard + '</td>' +
+										'<td style="text-align:right">' + v.wireTransfer + '</td>' +
+										'<td style="text-align:right">' + v.moneyTotal + '</td>' +
+										'</tr>';
+						});
+//						if(true) {
+//							$(".income-hide").show();
+							htmlTbody.html(htmlTr);
+//							
+//						} else {
+//							$(".income-hide").hide();
+//						}
+					}else{
+						$('.project-student-page').hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="13" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							htmlTbody.html(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 项目收入：费用减免情况
+	 */
+	getIncomeCostsList: function() {
+		var selectParam = $('.selectParam').val();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$('.project-income-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/settlement/getIncomeDetailsList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+				projectCode:projectCode
+			}, //ajax查询访问参数
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-income-cost-tbody');
+					var htmlTr = '';
+					$(htmlTbody).empty();
+					if(data.data!=null){
+					if(data.data.rows.length > 0) {
+						$('.project-income-page').show();
+						$.each(data.data.rows, function(i, v) {
+							if(v.groupNum==null){
+								v.groupNum = ""
+							}
+							htmlTr += '<tr>' +
+								'<td>' + v.groupNum + '</td>' +
+								'<td data-train="'+v.traineeId+'"><a style="color: #3c4687;" class="real-name-inf">' + v.realName + '</a></td>' +
+								'<td style="text-align:left">' + v.groupOrgName + '</td>' +
+								'<td style="text-align:right">' + v.rackRate + '</td>' +
+								'<td style="text-align:right">' + v.negotiatedPrice + '</td>' +
+								'<td style="text-align:right">' + v.checkInDate + '</td>' +
+								'<td style="text-align:right">' + v.postRemissionMoney + '</td>' +
+								'</tr>';
+						});
+					}else{
+						$('.project-income-page').hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="7" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							htmlTbody.html(htmlTr);
+					};
+					}else{
+						$('.project-income-page').hide();
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="7" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							htmlTbody.html(htmlTr);
+					}
+					htmlTbody.html(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 总计各项减免
+	 */
+	getTotalList: function() {
+		$yt_baseElement.showLoading();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$.ajax({
+			async: false,
+			url: $yt_option.base_path + "finance/settlement/getDetailedReduction", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-total-cost-tbody');
+					var htmlTr = '';
+					if(data.data!=null){
+					//if(data.data.length>0){
+						htmlTbody.empty();
+						htmlTr = '<tr>' +
+							'<td>1</td>'+
+							'<td>培训费减免</td>' +
+							'<td style="text-align:right;"><input class="yt-input" style="text-align:right;display:none;" value="' + data.data.trainingExpenseReduction + '"/><span>' + data.data.trainingExpenseReduction + '</span></td>' +
+							'<td repair-acc="true">' +'<span><img style="margin-right: 2px;" src="../../resources/images/icons/amend.png"></span>'+ '</td>' +
+							'</tr>'+
+							'<tr>' +
+							'<td>2</td>'+
+							'<td>课程费减免</td>' +
+							'<td style="text-align:right;"><input class="yt-input" style="text-align:right;display:none;" value="' + data.data.traineeNegotiatedPriceReduction + '"/><span>' + data.data.traineeNegotiatedPriceReduction + '</span></td>' +
+							'<td repair-acc="true">' +'<span><img style="margin-right: 2px;" src="../../resources/images/icons/amend.png"></span>'+ '</td>' +
+							'</tr>'+
+							'<tr>' +
+							'<td>3</td>'+
+							'<td>住宿费减免</td>' +
+							'<td style="text-align:right;"><input class="yt-input" style="text-align:right;display:none;" value="' + data.data.quarterageReduction + '"/><span>' + data.data.quarterageReduction + '</span></td>' +
+							'<td repair-acc="true">' +'<span><img style="margin-right: 2px;" src="../../resources/images/icons/amend.png"></span>'+ '</td>' +
+							'</tr>'+
+							'<tr>' +
+							'<td>4</td>'+
+							'<td>餐费减免</td>' +
+							'<td style="text-align:right;"><input class="yt-input" style="text-align:right;display:none;" value="' + data.data.mealFeeReduction + '"/><span>' + data.data.mealFeeReduction + '</span></td>' +
+							'<td repair-acc="true">' +'<span><img style="margin-right: 2px;" src="../../resources/images/icons/amend.png"></span>'+ '</td>' +
+							'</tr>'+
+							'<tr>' +
+							'<td>5</td>'+
+							'<td>杂费减免</td>' +
+							'<td style="text-align:right;"><input class="yt-input" style="text-align:right;display:none;" value="' + data.data.otherChargesReduction + '"/><span>' + data.data.otherChargesReduction + '</span></td>' +
+							'<td repair-acc="true">' +'<span><img style="margin-right: 2px;" src="../../resources/images/icons/amend.png"></span>'+ '</td>' +
+							'</tr>';
+						htmlTbody.html(htmlTr);
+					//}else{
+//						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+//							'<td colspan="7" align="center" style="border:0px;">' +
+//							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+//							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+//							'</div>' +
+//							'</td>' +
+//							'</tr>';
+//							htmlTbody.html(htmlTr);
+					//}
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+
+		});
+	},
+	//项目收入调巡
+	projectRevenueTraining: function() {
+		$yt_baseElement.showLoading();
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$.ajax({
+			async: true,
+			url: $yt_option.base_path + "finance/settlement/getNoDetailedList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.project-revenue-training-tbody');
+					var htmlTr = '';
+					$(htmlTbody).empty();
+					if(data.data.length>0){
+						$.each(data.data, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td style="text-align:left;">' + i + '</td>' +
+								'<td class="should" style="text-align:right;word-wrap:break-word;">' + v.groupName + '</td>' +
+								'<td class="already" style="text-align:right;word-wrap:break-word;">' + v.amountReceivable + '</td>' +
+								'<td class="account" style="text-align:right;word-wrap:break-word;">' + v.netReceipts + '</td>' +
+								'</tr>';
+						});
+						htmlTbody.html(htmlTr);
+					}else{
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="4" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							htmlTbody.html(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+
+		});
+	},
+	/**
+	 * 其他收入
+	 */
+	getOtherIncomeList: function() {
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		var selectParam = $('#keyword').val();
+		$('.project-income-other-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/settlement/getNoDetailedPersonalList", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: selectParam,
+				projectCode:projectCode,
+				breakfastForStart:"",
+				breakfastForEnd:"",
+				numberLunchStart:"",
+				numberLunchEnd:"",
+				numberDinnerStart:"",
+				numberDinnerEnd:"",
+				otherChargesStart:"",
+				otherChargesEnd:""
+			}, //ajax查询访问参数
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					if(data.data.otherCostTotal == null){
+						data.data.otherCostTotal = 0;
+					};
+					if (data.data.netReceiptsTotal == null) {
+						data.data.netReceiptsTotal = 0;
+					};
+					$(".other-receivables").text(data.data.otherCostTotal);
+					$(".other-paid-in").text(data.data.netReceiptsTotal);
+					var htmlTbody = $('.project-income-other-tbody');
+					var htmlTrSelection = '';
+					$(htmlTbody).empty()
+					if(data.data.rows.length > 0) {
+						$.each(data.data.rows, function(i, v) {
+							htmlTrSelection += '<tr>' +
+								'<td>' + v.groupNum + '</td>' +
+								'<td><a style="color: #3c4687;">' + v.realName + '</a></td>' +
+								'<td style="text-align:left">' + v.groupOrgName + '</td>' +
+								'<td style="text-align:right;">' + v.otherCost + '</td>' +
+								'<td style="text-align:right;">' + v.netReceipts + '</td>' +
+								'</tr>';
+						});
+						if(true) {
+							$(".income-hide").show();
+							htmlTbody.html(htmlTrSelection);
+						} else {
+							$(".income-hide").hide();
+						}
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 获取项目支出列表数据
+	 */
+	getExpenditureListInf: function() {
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$yt_baseElement.showLoading();
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/settlement/getExpenditure",
+			async: true,
+			data: {
+				projectCode:projectCode
+			},
+			objName: 'data',
+			success: function(data) {
+				if(data.flag == 0) {
+					var expenseDetails = data.data.expenseDetails;
+					var expenseClassDetails = data.data.expenseClassDetails;
+					var otherCost = data.data.otherCost;
+					var expenseDetailsTbody = $('.expenseDetails-tbody');
+					var expenseDetailsTr = '';
+					var expenseClassDetailsTbody = $('.expenseClassDetails-tbody');
+					var expenseClassDetailsTr = '';
+					var otherCostTbody = $('.otherCost-tbody');
+					var otherCostTr = '';
+					var faresNum = 0;
+					var changeFeeRefundNum = 0;
+					var expenseMoneyNum = 0;
+					$.each(expenseDetails, function(i, v) {
+						expenseDetailsTr += '<tr>' +
+							'<td teacherId="'+ v.teacherId +'">' + (i+1) + '</td>' +
+							'<td>' + v.teacherName + '</td>' +
+							'<td>' + v.flighttrainNumber + '</td>' +
+							'<td>' + v.placeDeparture + '</td>' +
+							'<td>' + v.bourn + '</td>' +
+							'<td>' + v.startEndTime + '</td>' +
+							'<td style="text-align:right;">' + v.fares + '</td>' +
+							'<td style="text-align:left;">' + v.changeFeeRefundDetails + '</td>' +
+							'<td style="text-align:right;">' + v.changeFeeRefund + '</td>' +
+							'<td style="text-align:right;">' + v.expenseMoney + '</td>' +
+							'</tr>';
+						faresNum += v.fares;
+						changeFeeRefundNum += v.changeFeeRefund;
+						expenseMoneyNum += v.expenseMoney;
+					});
+					expenseDetailsTr += '<tr>' +
+						'<td>合计</td>' +
+						'<td></td>' +
+						'<td></td>' +
+						'<td></td>' +
+						'<td></td>' +
+						'<td></td>' +
+						'<td style="text-align:right;">' + faresNum + '</td>' +
+						'<td></td>' +
+						'<td style="text-align:right;">' + changeFeeRefundNum + '</td>' +
+						'<td style="text-align:right;">' + expenseMoneyNum + '</td>' +
+						'</tr>';
+					expenseDetailsTbody.html(expenseDetailsTr);
+					var afterTaxNum = 0;
+					var surrenderPersonalNum = 0;
+					var expenseMoneyNum = 0;
+					$.each(expenseClassDetails, function(i, v) {
+						i +=1;
+						if( v.papersType ==1){
+							 v.papersType ="身份证";
+						}else if( v.papersType ==2){
+							 v.papersType ="护照";
+						}else if( v.papersType ==3){
+							 v.papersType ="军官证";
+						}else{
+							 v.papersType ="其他";
+						}
+						expenseClassDetailsTr += '<tr>' +
+							'<td><input type="hidden" value="' + v.teacherId + '" class="teacherId">' + i + '</td>' +
+							'<td>' + v.teacherName + '</td>' +
+							//1:身份证 2:护照 3:军官证 4:其他
+							'<td>' + v.papersType + '</td>' +
+							'<td>' + v.papersNumber + '</td>' +
+							'<td>' + v.registeredBank + '</td>' +
+							'<td>' + v.account + '</td>' +
+							'<td>' + v.courseDate + '</td>' +
+							'<td style="text-align:right;">' + v.afterTax + '</td>' +
+							'<td style="text-align:right;">' + v.surrenderPersonal + '</td>' +
+							'<td style="text-align:right;">' + v.expenseMoney + '</td>' +
+							'</tr>';
+						afterTaxNum += v.afterTax;
+						surrenderPersonalNum += v.surrenderPersonal;
+						expenseMoneyNum += v.expenseMoney;
+					});
+					expenseClassDetailsTr += '<tr>' +
+						'<td>合计</td>' +
+						'<td></td>' +
+						'<td></td>' +
+						'<td></td>' +
+						'<td></td>' +
+						'<td></td>' +
+						'<td></td>' +
+						'<td style="text-align:right;">' + afterTaxNum.toFixed(2) + '</td>' +
+						'<td style="text-align:right;">' + surrenderPersonalNum.toFixed(2) + '</td>' +
+						'<td style="text-align:right;">' + expenseMoneyNum.toFixed(2) + '</td>' +
+						'</tr>';
+					expenseClassDetailsTbody.html(expenseClassDetailsTr);
+					var spendMoneyNum = 0;
+					$('.otherCost-tbody tr td input').addClass('yt-input input-tr-repair');
+					if(otherCost.length!=0){
+						$.each(otherCost, function(i, v) {
+	//						fieldTeachingFee	现场教学费
+	//						trainingMaterialsFee	培训资料费
+	//						trafficFee	交通费
+	//						accommodationFee	住宿费
+	//						foodFee	伙食费
+	//						teacherFee	师资费
+	//						otherFee	其他费
+							if(v.costCode=="fieldTeachingFee"){
+								$('.otherCost-tbody tr').eq(0).attr('costCode',v.costCode);
+								$('.otherCost-tbody tr').eq(0).find('td').eq(2).find('span').text(v.spendMoney);
+								$('.otherCost-tbody tr').eq(0).find('td').eq(3).find('span').text(v.details);
+								$('.otherCost-tbody tr').eq(0).find('td').eq(2).find('input').val(v.spendMoney);
+								$('.otherCost-tbody tr').eq(0).find('td').eq(3).find('input').text(v.details);
+							}else if(v.costCode=="trainingMaterialsFee"){
+								$('.otherCost-tbody tr').eq(1).attr('costCode',v.costCode);
+								$('.otherCost-tbody tr').eq(1).find('td').eq(2).find('span').text(v.spendMoney);
+								$('.otherCost-tbody tr').eq(1).find('td').eq(3).find('span').text(v.details);
+								$('.otherCost-tbody tr').eq(1).find('td').eq(2).find('input').val(v.spendMoney);
+								$('.otherCost-tbody tr').eq(1).find('td').eq(3).find('input').text(v.details);
+							}
+							else if(v.costCode=="trafficFee"){
+								$('.otherCost-tbody tr').eq(2).attr('costCode',v.costCode);
+								$('.otherCost-tbody tr').eq(2).find('td').eq(2).find('span').text(v.spendMoney);
+								$('.otherCost-tbody tr').eq(2).find('td').eq(3).find('span').text(v.details);
+								$('.otherCost-tbody tr').eq(2).find('td').eq(2).find('input').val(v.spendMoney);
+								$('.otherCost-tbody tr').eq(2).find('td').eq(3).find('input').text(v.details);
+							}
+							else if(v.costCode=="accommodationFee"){
+								$('.otherCost-tbody tr').eq(3).attr('costCode',v.costCode);
+								$('.otherCost-tbody tr').eq(3).find('td').eq(2).find('span').text(v.spendMoney);
+								$('.otherCost-tbody tr').eq(3).find('td').eq(3).find('span').text(v.details);
+								$('.otherCost-tbody tr').eq(3).find('td').eq(2).find('input').val(v.spendMoney);
+								$('.otherCost-tbody tr').eq(3).find('td').eq(3).find('input').text(v.details);
+							}
+							else if(v.costCode=="foodFee"){
+								$('.otherCost-tbody tr').eq(4).attr('costCode',v.costCode);
+								$('.otherCost-tbody tr').eq(4).find('td').eq(2).find('span').text(v.spendMoney);
+								$('.otherCost-tbody tr').eq(4).find('td').eq(3).find('span').text(v.details);
+								$('.otherCost-tbody tr').eq(4).find('td').eq(2).find('input').val(v.spendMoney);
+								$('.otherCost-tbody tr').eq(4).find('td').eq(3).find('input').text(v.details);
+							}
+							else {
+								$('.otherCost-tbody tr').eq(5).attr('costCode',v.costCode);
+								$('.otherCost-tbody tr').eq(5).find('td').eq(2).find('span').text(v.spendMoney);
+								$('.otherCost-tbody tr').eq(5).find('td').eq(3).find('span').text(v.details);
+								$('.otherCost-tbody tr').eq(5).find('td').eq(2).find('input').val(v.spendMoney);
+								$('.otherCost-tbody tr').eq(5).find('td').eq(3).find('input').text(v.details);
+							}
+	//						otherCostTr += '<tr>' +
+	//							'<td class="costCode">' + (i+1) + '</td>' +
+	//							'<td>' + v.costName + '</td>' +
+	//							'<td style="padding: 0px;"><input type="number" class="spendMoney" style="width: 99%;height: 30px;border-radius: 2px;border:1px solid #dfe6f3;" value="' + v.spendMoney + '" /></td>' +
+	//							'<td style="padding: 0px;"><input class="details" style="width: 99%;height: 30px;border-radius: 2px;border:1px solid #dfe6f3;" value="' + v.details + '" /></td>' +
+	//							'</tr>';
+							spendMoneyNum += v.spendMoney;
+							$('.otherCost-tbody tr').eq(6).find('td').eq(1).text(spendMoneyNum);
+						});
+					}
+//					otherCostTr ='';
+//					otherCostTbody.append(otherCostTr);
+					//其他费用总计
+					$("input.spendMoney").blur(function() {
+						var firstSpendMoney = 0;
+						$("input.spendMoney").each(function(i, n) {
+							firstSpendMoney = firstSpendMoney + parseFloat($(n).val());
+						});
+						$('.spendMoneyTotal').text(firstSpendMoney);
+					});
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				};
+			}
+		});
+	}
+}
+$(function() {
+	//初始化方法
+	projectDetails.init();
+
+});

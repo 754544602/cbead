@@ -1,0 +1,19 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 100,
+		"rows": [
+			{
+				"formId":"1",
+				"formNum":"CGJH201802001",
+				"pmProject": "吊车",
+				"tissueWay": "集中采购",
+				"pmWay":"",
+				"planUseDate":"2018-03-01",
+				"planSucDate":"2018-03-31",
+				"applyUsers":"池采科",
+				"flowState":"待XX审批"
+			}
+		]
+	}
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/administrator/administrator.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>用车申请</title>
+		<style type="text/css">
+			.td-text-rigth {
+				text-align: right;
+			}
+			
+			.tr-height {
+				height: 50px;
+			}
+			
+			.td-center {
+				text-align: center !important;
+			}
+			
+			.out-list-time-input {
+				width: 190px;
+				background-position: 160px -25px;
+			}
+			.mCSB_container{
+				z-index: 100;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #FFFFFF;">
+
+		<div id="project-main" style="width: 100%;">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;">
+				<div class="search-btn-slect" style="">
+					<div class="btn-all" style="position: relative;width: auto;">
+						<span style="color: #FFF;">
+							用车日期：
+						</span>
+						<input id="carDate" class="calendar-input" style="width: 110px; background-position: 185px -25px;" value="" type="text" />
+						<button class="yt-option-btn disableList" style="float: right;margin-left: 10px;">
+							<img class="ioc-img" src="../../resources/images/open/daochu.png">
+							导出
+						</button>
+					</div>
+				</div>
+			</div>
+			<!--接送站数据展示区域START-->
+			<div class="list-box tab-content class-info class-info1" style="padding: 6px;">
+				<div class="list-title">
+					<span>接送站派车信息</span>
+				</div>
+				<table class="yt-table list-table teacher-use-car-list">
+					<thead class="list-thead">
+						<tr>
+							<th class="td-center" style="width: 40px; text-align: center;">类型</th>
+							<th class="td-center" style="">乘车人</th>
+							<th class="td-center" style="width: 85px;">联系方式</th>
+							<th class="td-center" style="width: 70px;">航班/车次</th>
+							<th class="td-center" style="width: 130px;">预计到达/起飞时间</th>
+							<th class="td-center" style="width: 80px;">接送站地点</th>
+							<th class="td-center" style="width: 150px;">出发时间</th>
+							<th class="td-center" style="width: 120px;">司机</th>
+							<th class="td-center" style="width: 120px;">车辆</th>
+							<th class="td-center" style="width: 80px;">用车人</th>
+							<th class="td-center" style="width: 85px;">联系方式</th>
+							<th class="td-center" style="width: 70px;">班级编号</th>
+							<th class="td-center">班级名称</th>
+							<th class="td-center">备注</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody class-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="15" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!--接送站数据展示区域END-->
+			</div>
+			<div class="list-box tab-content class-info2" style="padding: 6px;overflow-x: auto;">
+				<!--外出教学数据展示区域START-->
+				<div class="list-title">
+					<span>外出教学派车信息</span>
+				</div>
+				<table class="yt-table list-table out-list-table" style="margin: 8px 0px;">
+					<thead class="list-thead">
+						<tr>
+							<th class="td-center" style="width: 60px; text-align: center;">类型</th>
+							<th class="td-center" style="width: 60px;">乘车人数</th>
+							<th class="td-center" style="width: 115px;">上课时间</th>
+							<th class="td-center" style="width: 130px;">上课地点</th>
+							<th class="td-center" style="width: 200px;">出发时间</th>
+							<th class="td-center" style="width: 120px;">司机</th>
+							<th class="td-center" style="width: 160px;">车辆</th>
+							<th class="td-center" style="width: 80px;">用车人</th>
+							<th class="td-center" style="width: 85px;">联系方式</th>
+							<th class="td-center" style="width: 70px;">班级编号</th>
+							<th class="td-center">班级名称</th>
+							<th class="td-center">备注</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody class-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="11" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--外出教学数据展示区域END-->
+			<div class="class-info-bottom" style="text-align: center;margin-top: 20px;">
+			<button class="yt-model-sure-btn yt-model-bot-btn submit-form">提交</button>
+			</div>
+			
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--树形文件引用-->
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/car/useCarApply.js"></script>
+
+</html>

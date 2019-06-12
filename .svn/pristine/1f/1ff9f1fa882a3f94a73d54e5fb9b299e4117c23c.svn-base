@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge	" />
+		<title>财务首页</title>
+		<link rel="icon" href="../../resources/images/icons/ICO.png" type="image/x-icon">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-frame-base.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/index/index.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="./resources/css/common/yt-common-ie.min.css"/><![endif]-->
+
+	</head>
+<!--表格要增加暂无数据！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！-->
+	<body>
+		<div class="index-top">
+			<div class="index-top-middle">
+				<div class="index-top-model">
+					<img src="../../resources/images/index/dollar.png" />
+					<div>
+						<h5>本月收入</h5><br />
+						<span>258,000.00</span><label>元</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/income.png" />
+					<div>
+						<h5>本月实收</h5><br />
+						<span>203,000.00</span><label>元</label></div>
+				</div>
+				<div class="index-top-model">
+					<img src="../../resources/images/index/expend.png" />
+					<div>
+						<h5>本月支出</h5><br />
+						<span>128,000.00</span><label>元</label></div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="index-two">
+			<div class="reconciliation-table">
+				<table class="index-two-reconciliation">
+					<caption>对账未完成</caption>
+					<thead>
+						<tr>
+							<th>班级名称</th>
+							<th>类型</th>
+							<th>结束日期</th>
+							<th>未对账学员</th>
+							<th>未对账金额</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<tr>
+							<td>学习十九大精神</td>
+							<td width="50px">委托</td>
+							<td width="100px">2018-03-08</td>
+							<td width="100px"><span>40</span>/100</td>
+							<td width="150px">200,000.00</td>
+						</tr>
+						<tr>
+							<td>学习十九大精神</td>
+							<td>委托</td>
+							<td>2018-03-08</td>
+							<td><span>40</span>/100</td>
+							<td>200,000.00</td>
+						</tr>
+						<tr>
+							<td>学习十九大精神</td>
+							<td>委托</td>
+							<td>2018-03-08</td>
+							<td><span>40</span>/100</td>
+							<td>200,000.00</td>
+						</tr>
+						<tr>
+							<td>学习十九大精神</td>
+							<td>委托</td>
+							<td>2018-03-08</td>
+							<td><span>40</span>/100</td>
+							<td>200,000.00</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="waste-table">
+				<table class="index-two-waste">
+					<caption>
+						<h3>对账未完成</h3><br />
+						<h4>本月导入银行流水<span>1280</span>条，未对账流水<span>79</span>条</h4>
+						<div class="waste-table-caption">
+							<span>前一月</span><span>本月</span><span>后一月</span><br />
+							<div><span>催办</span></div>
+						</div>
+					</caption>
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>交易日期</th>
+							<th>摘要</th>
+							<th>交易金额</th>
+							<th>对方账号</th>
+							<th>对方户名</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<tr>
+							<td width="45px">1</td>
+							<td width="90px">2018-03-08</td>
+							<td>王娟</td>
+							<td width="100px">3400.00</td>
+							<td width="150px">6228543444345321</td>
+							<td width="80px">王娟</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>2018-03-08</td>
+							<td>王娟</td>
+							<td>3400.00</td>
+							<td>6228543444345321</td>
+							<td>王娟</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>2018-03-08</td>
+							<td>王娟</td>
+							<td>3400.00</td>
+							<td>6228543444345321</td>
+							<td>王娟</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>2018-03-08</td>
+							<td>王娟</td>
+							<td>3400.00</td>
+							<td>6228543444345321</td>
+							<td>王娟</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>2018-03-08</td>
+							<td>王娟</td>
+							<td>3400.00</td>
+							<td>6228543444345321</td>
+							<td>王娟</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>2018-03-08</td>
+							<td>王娟</td>
+							<td>3400.00</td>
+							<td>6228543444345321</td>
+							<td>王娟</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>2018-03-08</td>
+							<td>王娟</td>
+							<td>3400.00</td>
+							<td>6228543444345321</td>
+							<td>王娟</td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td>2018-03-08</td>
+							<td>王娟</td>
+							<td>3400.00</td>
+							<td>6228543444345321</td>
+							<td>王娟</td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td>2018-03-08</td>
+							<td>王娟</td>
+							<td>3400.00</td>
+							<td>6228543444345321</td>
+							<td>王娟</td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td>2018-03-08</td>
+							<td>王娟</td>
+							<td>3400.00</td>
+							<td>6228543444345321</td>
+							<td>王娟</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="reconciliation-table" style="border-bottom: none;">
+				<table class="index-two-reconciliation">
+					<caption>开票未完成</caption>
+					<thead>
+						<tr>
+							<th>班级名称</th>
+							<th>类型</th>
+							<th>结束日期</th>
+							<th>未开票人员</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<tr>
+							<td>学习十九大精神</td>
+							<td width="50px">委托</td>
+							<td width="100px">2018-03-08</td>
+							<td width="100px"><span>40</span>/100</td>
+						</tr>
+						<tr>
+							<td>学习十九大精神</td>
+							<td>委托</td>
+							<td>2018-03-08</td>
+							<td><span>40</span>/100</td>
+						</tr>
+						<tr>
+							<td>学习十九大精神</td>
+							<td>委托</td>
+							<td>2018-03-08</td>
+							<td><span>40</span>/100</td>
+						</tr>
+						<tr>
+							<td>学习十九大精神</td>
+							<td>委托</td>
+							<td>2018-03-08</td>
+							<td><span>40</span>/100</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="clear-both">
+			</div>
+		</div>
+		<div class="index-rates">
+			<table class="rates-table">
+				<caption>报销</caption>
+				<thead>
+					<tr>
+						<th>流水号</th>
+						<th>报销类型</th>
+						<th>所属班级</th>
+						<th>项目主任</th>
+						<th>报销时间</th>
+						<th>教师人数</th>
+						<th>报销金额</th>
+						<th>状态</th>
+					</tr>
+				</thead>
+				<tbody class="yt-tbody">
+					<tr>
+						<td>KC2018030813445</td>
+						<td width="140px">教师课酬报销</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td width="105px">范瑶</td>
+						<td width="110px">2018-03-08</td>
+						<td width="100px">5</td>
+						<td width="140px">56,000.00</td>
+						<td width="70px">待审批</td>
+					</tr>
+					<tr>
+						<td>KC2018030813445</td>
+						<td>教师课酬报销</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>范瑶</td>
+						<td>2018-03-08</td>
+						<td>5</td>
+						<td>56,000.00</td>
+						<td>待审批</td>
+					</tr>
+					<tr>
+						<td>KC2018030813445</td>
+						<td>教师课酬报销</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>范瑶</td>
+						<td>2018-03-08</td>
+						<td>5</td>
+						<td>56,000.00</td>
+						<td>待审批</td>
+					</tr>
+					<tr>
+						<td>KC2018030813445</td>
+						<td>教师课酬报销</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>范瑶</td>
+						<td>2018-03-08</td>
+						<td>5</td>
+						<td>56,000.00</td>
+						<td class="loadingrates">待支付</td>
+					</tr>
+					<tr>
+						<td>KC2018030813445</td>
+						<td>教师课酬报销</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>范瑶</td>
+						<td>2018-03-08</td>
+						<td>5</td>
+						<td>56,000.00</td>
+						<td class="loadingrates">待支付</td>
+					</tr>
+					<tr>
+						<td>KC2018030813445</td>
+						<td>教师课酬报销</td>
+						<td>第二期国企深化改革专题培训班</td>
+						<td>范瑶</td>
+						<td>2018-03-08</td>
+						<td>5</td>
+						<td>56,000.00</td>
+						<td class="loadingrates">待支付</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="">
+			<input id="txtDate1" class="calendar-input" style="width: 150px;position: absolute;z-index: 10;margin: 25px 0 0 120px;" value="" placeholder="请选择日期" type="text" />
+		</div>
+		<div id="echartsone">
+
+		</div>
+		<div id="echartstwo"></div>
+	</body>
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/echarts/echarts.min.js"></script>
+	<script src="../../resources/js/calendar/yt-calendar.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" defer="defer" src="../../resources/js/index/index.js"></script>
+
+</html>

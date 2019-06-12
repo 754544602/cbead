@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--窗口小图标-->
+		<link rel="icon" href="/cbead/website/resources/images/icons/ICO.png" type="image/x-icon">
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		
+		<!--提示信息控件-->
+		<!--<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" />-->
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/payment/budgetAuditReduce.min.css?YTVERSIONCODE=2018052802" /><!--?YTVERSIONCODE=2018052101-->
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+
+	<body>
+		<div id="budgetAuditReduce">
+			<!--支出申请信息START-->
+			<div class="expend-appl-info">
+				<!--标题区域START-->
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+					<span class="title-text">支出申请信息</span>
+					<div class="form-num-model">
+						<label><span style="letter-spacing: 5px;">单据编</span>号：</label><span id="formNum">支出申请单编号</span>
+						<label style="margin-left: 30px;"><span style="letter-spacing: 5px;">申请日</span>期：</label><span id="fuData">支出申请单申请日期</span>
+					</div>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<!--标题区域END-->
+				<!--基础信息表单区START-->
+				<div class="base-form-info" style="padding:10px 10px 0px;">
+					<table style="width: 100%;">
+						<tr height="30px">
+							<td>
+								<label class="field-title"><span style="letter-spacing:16px;">申请</span>人：</label><span id="applicantUser">魏业科</span>
+							</td>
+							<td>
+								<label class="field-title"><span style="letter-spacing: 40px;">部</span>门：</label><span id="applicantUserDeptName">业务部</span>
+							</td>
+							<td>
+								<label class="field-title"><span style="letter-spacing: 5px;">支出事</span>由：</label><span id="expenditureAppName">第三季度物业管理费</span>
+							</td>
+						</tr>
+						<tr height="30px">
+							<td>
+								<label class="field-title"><span>申请支出扣减预算总金额：</span></label><span id="totalAmount"></span>元
+							</td>
+							<td>
+								<label class="field-title"><span>支出申请状态：</span></label><span id="nodeNowState">已完结</span>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+					<!--<table class="yt-table" style="width: 100%;margin-top:15px">
+						<thead class="yt-thead">
+							<tr>
+								<th>支出费用内容</th><th>金额（元）</th><th>备注</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr>
+								<td>物业费</td><td style="text-align: right;">18,000.00</td><td></td>
+							</tr>
+							<tr>
+								<td>邮寄费</td><td style="text-align: right;">300.00</td><td></td>
+							</tr>
+							<tr>
+								<td>文印费</td><td style="text-align: right;">2,000.00</td><td>只包括非项目部分</td>
+							</tr>
+							<tr>
+								<td>租金</td><td style="text-align: right;">1,200.00</td><td></td>
+							</tr>
+							<tr>
+								<td>文具费</td><td style="text-align: right;">300.00</td><td></td>
+							</tr>
+							<tr>
+								<td>合计</td><td style="text-align: right;">21,800.00</td><td></td>
+							</tr>
+						</tbody>
+					</table>-->
+				</div>
+				<!--基础信息表单区END-->
+			</div>
+			<!--支出申请信息END-->
+			<div style="padding:3px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+			<div id="indexMainDiv" class="index-main-div" style="padding: 0;">
+						
+				</div>
+			<div style="margin-top:20px;padding:3px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+			<!--当前预算核减明细START-->
+			<div id="locationId">
+				<!--标题区域START-->
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+					<span class="title-text">当前预算核减明细</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<!--标题区域END-->
+				<!--预算核减内容START-->
+				<div class="last-modified-title">最近修改日期：<span class="last-modified-date">2018-05-21</span></div>
+				<table class="yt-table cut-after-examination" style="width: 100%;margin-top:15px">
+					<thead class="yt-thead">
+						<tr>
+							<th>所属预算项目</th><th>金额（元）</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<!--<tr>
+							<td>基本支出-日常公用支出-物业管理费</td><td class="budget-money-td" style="text-align: right;">21,800.00</td>
+						</tr>-->
+						<tr class="last">
+							<td>合计</td><td style="text-align: right;" class="budget-sum-money">21,800.00</td>
+						</tr>
+					</tbody>
+				</table>	
+				<!--预算核减内容END-->
+			</div>
+			<!--当前预算核减明细END-->
+			<div style="padding:3px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+			<!--手动预算核减明细START-->
+			<div>
+				<!--标题区域START-->
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+					<span class="title-text">手动预算核减明细</span>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<!--标题区域END-->
+				<!--当前预算核减明细内容START-->
+				<table class="yt-table this-budget-table" style="width: 100%;margin-top:15px">
+					<thead class="yt-thead">
+						<tr>
+							<th>所属预算项目</th><th style="width: 120px;">金额（元）</th><th style="width: 120px;">操作</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<!--<tr>
+							<td style="text-align: left;">
+								<div class="theif-budget-object" style="margin-left: 10px;float: left;">
+									<input type="hidden" class="special-code" value="394,Z3200,30209"/>
+									<span class="budget-info-td-one">基本支出-日常公用支出-物业管理费</span><span class="budget-info-td-two"></span>
+								</div>
+								<div style="float: right;margin-right: 10px;">
+									<label>可用预算余额：<span class="text-money code-mon">20,000.00万元</span></label>
+								</div>	
+							</td>
+							<td style="text-align: right;" class="budget-money-td"><span>21,800.00</span></td>
+							<td class="img-icon">
+								<span class="operate-update"><img src="../../../../../resources-sasac/images/common/edit-icon.png"></span>
+								<span class="operate-del" style="margin-left: 15px;"><img src="../../../../../resources-sasac/images/common/del-icon.png"></span>
+							</td>
+						</tr>-->
+						<!--<tr>
+							<td style="text-align: left;">
+								<div style="float: left;">
+									<select name="" class="yt-select budget-item-one">
+										<option value=""></option>
+									</select>
+									<select name="" class="yt-select budget-item-two">
+										<option value=""></option>
+									</select>
+									<select name="" class="yt-select budget-item-three">
+										<option value=""></option>
+									</select>
+									<input type="text" class="yt-input input-money" placeholder="0.00" style="margin-left:10px;text-align: right;padding-right: 4px;width:130px;display: inline-block;" />
+								</div>
+								<div style="float: right;margin-right: 10px;">
+									<div style="padding-top: 5px;display: inline-block;">可用预算余额：<span class="text-money">20,000.00</span>元</div>
+								</div>
+							</td>
+							<td style="text-align: right;">
+								<input type="text" class="yt-input input-money" placeholder="0.00" style="text-align: right;width: 95%;padding-right: 4px;" />
+							</td>
+							<td>
+								<span class="operate-save"><img src="../../../../../resources-sasac/images/common/save-icon.png"></span>
+								<span class="operate-canel"><img src="../../../../../resources-sasac/images/common/canel-icon.png"></span>
+							</td>
+						</tr>-->
+						<tr class="last">
+							<td style="padding-top: 10px;" colspan="3"><span class="add-row"><img src="../../../../../resources-sasac/images/common/addRow.png" style="width: 15px;height: 15px;"/></span></td>
+						</tr>
+						<tr class="cut-total">
+							<td>合计</td><td class="budget-sum-me-money" style="text-align: right;">0.00</td><td></td>
+						</tr>
+					</tbody>
+				</table>	
+				<!--当前预算核减明细内容END-->
+			</div>
+			<!--手动预算核减明细END-->
+			<!---按钮组区域START-->
+			<div class="bottom-btn" style="text-align: center;margin: 20px;">
+				<button class="yt-option-btn yt-common-btn" id="saveBtn" style="height: 40px;line-height: 38px;font-size: 18px;min-width: 100px;margin-right: 0px;">保存</button>
+				<button class="yt-option-btn yt-common-btn" id="saveAndCostSharingBtn" style="height: 40px;line-height: 38px;font-size: 18px;min-width: 100px;margin-left: 20px;">保存并进行费用分摊</button>
+				<button class="yt-option-btn yt-cancel-btn" id="closeBtn" style="height: 40px;line-height: 38px;font-size: 18px;min-width: 100px;margin-left: 20px;">关闭</button>
+			</div>
+			<!---按钮组区域END-->
+		</div>
+	</body>
+
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script>
+	
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用字段验证文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-valid.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/payment/budgetAuditReduce.min.js?YTVERSIONCODE=20190313"></script><!--?YTVERSIONCODE=2018052202-->
+	<!--引用JS文件END-->
+
+</html>

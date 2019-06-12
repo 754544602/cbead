@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classOccupy.css" />
+		<title>申请查询</title>
+		<style type="text/css">
+			.list-td {
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="page-main">
+			<div class="tab-title-list" style="overflow: hidden;">
+				<div class="tab-title-box" style="width: 1440px;">
+					<button class="yt-option-btn class-info-btn active cost-btn">• 费用减免</button>
+					<button class="yt-option-btn teacher-info-btn borrow-btn">• 借用发票</button>
+				</div>
+				<!--隐藏数据表示获取的是哪种数据，1  减免，2发票-->
+				<input type="hidden" id="operate-type" value="减免" />
+			</div>
+			<!--数据展示区域START-->
+			<div class="box-list">
+				<div class="content-box programme" style="border-bottom: 0px;height: 35px;">
+					<div class="key-word">
+						<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" />
+						<button class="yt-option-btn search-btn">
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+
+				</div>
+				<div class="list-box content-box" style="margin: 0px 4px;">
+					<!--减免列表STAR-->
+					<table class="yt-table list-table reduce-list">
+						<thead class="list-thead">
+							<tr>
+								<th style="width: 100px;">项目编号</th>
+								<th>项目名称</th>
+								<th class="list-td" style="width: 80px;">项目类型</th>
+								<th class="list-td" style="width: 85px;">项目主任</th>
+								<th class="list-td" style="width: 75px;">开班日期</th>
+								<th class="list-td" style="width: 110px;">结束日期</th>
+								<th class="list-td" style="width: 110px;">申请时间</th>
+								<th style="width: 110px;">减免金额（元）</th>
+								<th class="list-td" style="width: 80px;">申请人</th>
+								<th class="list-td" style="width: 60px;">状态</th>
+
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody curriculum-tbody cost-tbody">
+							<tr>
+								<td colspan="10" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--减免列表END-->
+
+					<!--发票借用列表STAR-->
+					<table class="yt-table list-table borrow-list">
+						<thead class="list-thead">
+							<tr>
+								<th style="width: 60px;">序号</th>
+								<th>发票开具单位名称</th>
+								<th style="width: 80px;">发票类型</th>
+								<th style="width: 150px;">申请时间</th>
+								<th style="width: 120px;">申请开票金额</th>
+								<th style="width: 80px;">申请人</th>
+								<th style="width: 80px;">状态</th>
+								<th style="width: 80px;">开票信息</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody list-tbody curriculum-tbody borrow-list-tod">
+							<tr>
+								<td colspan="7" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--发票借用列表END-->
+
+					<div class="page-info curriculum-page" onselectstart="return false"></div>
+				</div>
+			</div>
+			<!--数据展示区域END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/finance/applyQueryList.js"></script>
+
+</html>

@@ -1,0 +1,112 @@
+{
+	"flag":0,
+	"data":{
+		"total":101,
+		"rows":[
+			{   
+		        "amountName": "师资费-课酬费",
+		        "advanceAmount":10000,
+		        "expendAmount":8000,
+		        "differentAmount":2000,
+		        "advanceScale":"80.00%"
+		    },{  
+		       "amountName": "师资费-住宿费",
+		        "advanceAmount":10000,
+		        "expendAmount":8000,
+		        "differentAmount":2000,
+		        "advanceScale":"80.00%"
+		    },{  
+		       "amountName": "师资费-伙食费",
+		        "advanceAmount":10000,
+		        "expendAmount":8000,
+		        "differentAmount":2000,
+		        "advanceScale":"80.00%"
+		    },{  
+		       "amountName": "师资费-城市间交通费",
+		        "advanceAmount":10000,
+		        "expendAmount":8000,
+		        "differentAmount":2000,
+		        "advanceScale":"80.00%"
+		    },{  
+		       "amountName": "参训人员-住宿费",
+		        "advanceAmount":10000,
+		        "expendAmount":8000,
+		        "differentAmount":2000,
+		        "advanceScale":"80.00%"
+		    },{  
+		       "amountName": "参训人员-伙食费",
+		        "advanceAmount":10000,
+		        "expendAmount":8000,
+		        "differentAmount":2000,
+		        "advanceScale":"80.00%"
+		    },{  
+		       "amountName": "工作人员-住宿费",
+		        "advanceAmount":10000,
+		        "expendAmount":8000,
+		        "differentAmount":2000,
+		        "advanceScale":"80.00%"
+		    },{  
+		       "amountName": "工作人员-伙食费",
+		        "advanceAmount":300,
+		        "expendAmount":320,
+		        "differentAmount":-20,
+		        "advanceScale":"106.67%"
+		    },{  
+		       "amountName": "培训场地费",
+		        "advanceAmount":10000,
+		        "expendAmount":0,
+		        "differentAmount":0,
+		        "advanceScale":""
+		    },{  
+		       "amountName": "培训资料费-资料费",
+		        "advanceAmount":10000,
+		        "expendAmount":0,
+		        "differentAmount":0,
+		        "advanceScale":""
+		    },{  
+		       "amountName": "培训资料费-办公用品费",
+		        "advanceAmount":10000,
+		        "expendAmount":0,
+		        "differentAmount":0,
+		        "advanceScale":""
+		    },{  
+		       "amountName": "交通费",
+		        "advanceAmount":10000,
+		        "expendAmount":0,
+		        "differentAmount":0,
+		        "advanceScale":""
+		    },{  
+		       "amountName": "现场教学费",
+		        "advanceAmount":10000,
+		        "expendAmount":8000,
+		        "differentAmount":2000,
+		        "advanceScale":""
+		    },{  
+		       "amountName": "设备租赁费",
+		        "advanceAmount":10000,
+		        "expendAmount":0,
+		        "differentAmount":0,
+		        "advanceScale":""
+		    },{  
+		       "amountName": "文体活动费",
+		        "advanceAmount":10000,
+		        "expendAmount":0,
+		        "differentAmount":0,
+		        "advanceScale":""
+		    },{  
+		       "amountName": "医药费",
+		        "advanceAmount":10000,
+		        "expendAmount":0,
+		        "differentAmount":0,
+		        "advanceScale":""
+		    },{  
+		       "amountName": "与培训有关的其他费用",
+		        "advanceAmount":10000,
+		        "expendAmount":0,
+		        "differentAmount":0,
+		        "advanceScale":""
+		    }
+		]
+	}
+
+}

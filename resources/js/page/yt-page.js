@@ -1,0 +1,390 @@
+/**
+ * 
+ * 
+ * C(05)分页方法
+ * 
+ * 
+ * */
+
+(function($) {
+	$.fn.extend({
+		"pageInfo": function(options,param) {
+			if(options == "refresh"){
+				if(param){
+					pageInfo.pageIndexs
+				}
+				var pageData = $(this).data("pageData");
+				pageInfo.setPage(pageData.pageIndexs, $(this), pageData.total, pageData.pageSize, pageData.pageNum, pageData.isSelPageNum, pageData.selPageNumList, pageData.pageObj);
+				pageInfo.bindTrClick();
+				return this;
+			}
+			//默认参数
+			var defaults = {
+				pageIndexs: 1, //当前页码
+				pageNum: 15, //每页条数
+				pageSize: 5, //分页数量
+				pageDoc: this, //分页对象
+				url: '', //访问链接
+				type: "post", //访问方式
+				async: false, //访问类型
+				data: {}, //ajax参数
+				objName: '', //参数名称
+				success: function(data,pageIndexs) {}, //回调函数
+				before: function() {}, //回调函数
+				after: function() {}, //回调函数
+				isSelPageNum: false, //开启每页条数筛选
+				selPageNumList: [] //自定义页面筛选list
+			};
+			//整合参数配置
+			var pageObj = $.extend(defaults, options);
+			this.pageInfo = pageInfo;
+			this.pageInfo.config(pageObj,this);
+			return this;
+		}
+	});
+		var pageInfo = {
+			pageNumList: [{
+				"pageNum": "15条/页",
+				"num": 15
+			}, {
+				"pageNum": "30条/页",
+				"num": 30
+			}, {
+				"pageNum": "50条/页",
+				"num": 50
+			}, {
+				"pageNum": "100条/页",
+				"num": 100
+			}, {
+				"pageNum": "200条/页",
+				"num": 200
+			}, {
+				"pageNum": "500条/页",
+				"num": 500
+			}], //全局的每页显示条数集合
+			pageSize: 10, // 默认 10 页之后显示 ...
+			pageNum: 15, // 默认每页显示15条数据
+			total: 0, // 默认共有 0条数据	
+			pageDoc: null, // 分页的类名，默认为 "opinion-page"
+			init: function(pageIndexs, pageDoc, total, pageSize, pageNum, isSelPageNum, selPageNumList,pageObj) {
+				pageInfo.isSelPageNum = isSelPageNum;
+				pageInfo.pageObj = pageObj;
+				var me = this;
+				/**
+				 *上一页
+				 * 
+				 */
+				pageDoc.find(".last-page.pointer").unbind().bind("click", function() {
+					/*给上一页按钮解除所有事件并绑定点击事件*/
+					var pageIndexs = pageDoc.find(".num-text.active").text(); /*获取当前有选中状态的页码*/
+					pageIndexs = parseInt(pageIndexs) - 1; /*当前页码数减1*/
+					me.setPage(pageIndexs, pageDoc, total, pageSize, pageNum, isSelPageNum, selPageNumList, pageObj); /*创建新的分页*/
+				});
+				/**
+				 *下一页 
+				 * 
+				 */
+				pageDoc.find(".next-page.pointer").unbind().bind("click", function() {
+					var pageIndexs = pageDoc.find(".num-text.active").text();
+					pageIndexs = parseInt(pageIndexs) + 1;
+					me.setPage(pageIndexs, pageDoc, total, pageSize, pageNum, isSelPageNum, selPageNumList, pageObj);
+				});
+				/**
+				 *页号 
+				 * 
+				 */
+				pageDoc.find(".num-text").unbind().bind("click", function() {
+					var pageIndexs = $(this).text();
+					me.setPage(pageIndexs, pageDoc, total, pageSize, pageNum, isSelPageNum, selPageNumList, pageObj);
+				});
+				/**
+				 * 
+				 * 首页
+				 * 
+				 */
+				pageDoc.find(".frist-page.pointer").unbind().bind("click", function() {
+					me.setPage(1, pageDoc, total, pageSize, pageNum, isSelPageNum, selPageNumList, pageObj);
+				});
+	
+				/**
+				 * 尾页
+				 * */
+				pageDoc.find(".end-page.pointer").unbind().bind("click", function() {
+					var pageCount = Math.ceil(total / pageNum);
+					me.setPage(pageCount, pageDoc, total, pageSize, pageNum, isSelPageNum, selPageNumList, pageObj);
+				})
+				/**
+				 * 选择每页显示条数
+				 */
+				pageDoc.find("select.page-num-list-sel").unbind().bind("change", function() {
+					me.setPage(1, pageDoc, total, pageSize, $(this).val(), isSelPageNum, selPageNumList, pageObj);
+				});
+			},
+			/**
+			 * 点击表格行改变背景色
+			 */
+			bindTrClick: function() {
+				$(".yt-table .yt-tbody tr").unbind().bind("click", function() {
+					$(".yt-table .yt-tbody tr.yt-table-active").removeClass("yt-table-active");
+					$(this).addClass("yt-table-active");
+				});
+			},
+			/**
+			 * 
+			 * @param {Object} pageIndexs  当前页面
+			 * @param {Object} confirmFunction  获取数据回调方法
+			 * @param {Object} pageNum          每页显示条数
+			 * @param {Object} pageSize         显示...规律的数量
+			 * @param {Object} pageDoc          指定的分页类型
+			 * @param {Object} isSelPageNum     是否显示选择条数列表,默认false
+			 * @param {Object} selPageNumList   自定义条数列表
+			 */
+			config: function(pageObj,$this) {
+				/*参数：1.当前显示页码；2.获取当前页面数据的方法；3.每页显示数据的条数；4.页码大于这个参数后显示... ；5.分页的类名*/
+				//pageIndexs,confirmFunction,pageNum,pageSize,pageDoc,isSelPageNum,selPageNumList
+				if(!pageObj.pageIndexs) {
+					pageObj.pageIndexs = 1;
+				}
+				/*当前显示的页码，默认为1*/
+				//this.total = pageObj.confirmFunction(pageObj.pageIndexs).total;
+				/*从传入的方法中获取数据的总条数*/
+				if(pageObj.pageNum) {
+					this.pageNum = pageObj.pageNum;
+				} else {
+					this.pageNum = 15;
+				}
+				/*当前页面显示数据条数，默认为15条*/
+	
+				if(pageObj.pageSize) {
+					this.pageSize = pageObj.pageSize;
+				} else {
+					this.pageSize = 10
+				}
+				/*当页码数大于当前传入参数时分页显示...，默认为10*/
+	
+				if(pageObj.pageDoc) {
+					this.pageDoc = $(pageObj.pageDoc).html('<table><tr></tr></table>');
+				} else {
+					this.pageDoc = $(".opinion-page").html('<table><tr></tr></table>');
+				}
+				//访问方式  默认异步
+				if(pageObj.async == undefined) {
+					pageObj.async = true;
+				}
+				/*分页的类名，默认为opinion-page*/
+				// $(".commen-table tbody tr").setEvenTrColor();
+				$this.pageObj = pageObj;
+				this.setPage(pageObj.pageIndexs, this.pageDoc, this.total, this.pageSize, this.pageNum, pageObj.isSelPageNum, pageObj.selPageNumList, $this.pageObj);
+			},
+			setPage: function(pageIndexs, pageDoc, total, pageSize, pageNum, isSelPageNum, selPageNumList, pageObj) {
+				var pageData = {
+					pageIndexs:pageIndexs,
+					total:total,
+					pageSize:pageSize,
+					pageNum:pageNum,
+					isSelPageNum:isSelPageNum,
+					selPageNumList:selPageNumList,
+					pageObj:pageObj
+				}
+				pageDoc.data("pageData",pageData);
+				
+				pageObj.before();
+				var _this = this;
+				var newData = {};
+				//保存查询参数
+				newData = pageObj.data;
+				//更新页码
+				newData.pageIndexs = parseInt(pageIndexs);
+				pageInfo.pageIndexs = parseInt(pageIndexs);
+				//更新每页条数
+				newData.pageNum = parseInt(pageNum);
+				pageInfo.pageNum = parseInt(pageNum);
+				//执行ajax
+				$.ajax({
+					type: pageObj.type || "post",
+					url: pageObj.url,
+					async: pageObj.async,
+					data: newData,
+					success: function(data) {
+						//判断是否为字符串
+						if((typeof data == 'string') && data.constructor == String) {
+							data = eval('(' + data + ')');
+						}
+						//回调数据
+						pageObj.success(data);
+						if(pageObj.objName) {
+							//获取数量
+							total = data[pageObj.objName].total;
+						} else {
+							//获取数量
+							total = data.data.total;
+						}
+						/**
+						 *分页方法 
+						 */
+						pageIndexs = parseInt(pageIndexs); /*类型转换，并返回整数*/
+						var pageCount = Math.ceil(total / pageNum);
+						/*共有多少页，并将计算（总条数/每页显示的条数）结果上取整*/
+	
+						pageDoc.find("table tr td:not(.page-num-select)").remove(); /*清空当前分页*/
+	
+						var countHtml = '<td><div class="data-count">共' + total + '条记录，</div></td><td><div class="data-count page-index">' + pageIndexs + '/' + pageCount + '，</div></td>';
+						pageDoc.find("table tr").append(countHtml);
+						/*显示共有多少页，当前为第几页*/
+	
+						var lastButton = '<td><div class="last-page"><</div></td>';
+						var lastButtonActive = '<td><div class="last-page change-btn pointer"><</div></td>';
+						var nextButton = '<td><div class="next-page">></div></td>';
+						var nextButtonActive = '<td><div class="next-page change-btn pointer">></div></td>';
+						var firstButton = '<td><div class="frist-page">首页</div></td>';
+						var firstButtonAction = '<td><div class="frist-page pointer">首页</div></td>';
+						var endButton = '<td><div class="end-page">尾页</div></td>';
+						var endButtonAction = '<td><div class="end-page pointer">尾页</div></td>';
+	
+						if(pageCount <= pageSize + 1) {
+							/*第一种情况：总页数小于可显示的页数，则页码全显示出来没有...*/
+							/**
+							 *  1 2 3 4 5
+							 */
+							if(pageIndexs > 1) { /*如果当前显示页大于1，则显示可以点击的上一页和首页*/
+								pageDoc.find("table tr").append(firstButtonAction);
+								pageDoc.find("table tr").append(lastButtonActive);
+							} else { /*否则显示没有点击效果的页码*/
+								pageDoc.find("table tr").append(firstButton);
+								pageDoc.find("table tr").append(lastButton);
+							}
+	
+							for(var int = 1; int <= pageCount; int++) { /*循环递增显示页码数，最大值为总页数*/
+								var pageHtml = '<td><div class="num-text change-btn pointer">' + int + '</div></td>';
+								if(int == pageIndexs) { /*如果int等于当前显示的页数，则添加选中状态*/
+									var pageHtml = '<td><div class="num-text change-btn active">' + int + '</div></td>';
+								}
+								pageDoc.find("table tr").append(pageHtml);
+							}
+	
+							if(pageIndexs < pageCount) { /*如果当前页小于总页数，则显示可以点击的下一页和尾页*/
+								pageDoc.find("table tr").append(nextButtonActive);
+								pageDoc.find("table tr").append(endButtonAction);
+							} else { /*否则显示没有点击效果的页码*/
+								pageDoc.find("table tr").append(nextButton);
+								pageDoc.find("table tr").append(endButton);
+							}
+						} else if(pageCount > pageSize + 1 && pageIndexs <= pageSize - 1) {
+							/*第二种情况：总页数大于可显示的页数并且当前显示的页码小于等于可显示的页码，则后面显示...*/
+	
+							/**
+							 * 1 2 3 4 5 ··· 12
+							 */
+							if(pageIndexs > 1) { /*如果当前页大于1，则显示可以点击的首页和上一页*/
+								pageDoc.find("table tr").append(firstButtonAction);
+								pageDoc.find("table tr").append(lastButtonActive);
+							} else {
+								pageDoc.find("table tr").append(firstButton);
+								/*页码在第一页的时候，去掉上一页功能*/
+								//pageDoc.find("table tr").append(lastButton);
+							}
+	
+							for(var int = 1; int <= pageSize; int++) { /*循环递增显示页码数，最大值为页面可显示页数*/
+								var pageHtml = '<td><div class="num-text change-btn pointer">' + int + '</div></td>';
+								if(int == pageIndexs) { /*如果int等于当前显示的页数，则添加选中状态*/
+									var pageHtml = '<td><div class="num-text change-btn active">' + int + '</div></td>';
+								}
+								pageDoc.find("table tr").append(pageHtml);
+							} /*否则页面显示...*/
+							var pageHtml = '<td><div class="">···</div></td>';
+							pageDoc.find("table tr").append(pageHtml);
+							pageDoc.find("table tr").append(nextButtonActive);
+							pageDoc.find("table tr").append(endButtonAction);
+						} else if(pageCount > pageSize + 1 && pageIndexs >= pageCount - pageSize + 2) {
+							/*第三种情况：如果总页数大于可显示的页数，则在页码前面显示...*/
+	
+							/**
+							 *  1··· 4 5 6 7 8
+							 */
+	
+							pageDoc.find("table tr").append(firstButtonAction);
+							pageDoc.find("table tr").append(lastButtonActive);
+							var pageHtml = '<td><div class="">···</div></td>';
+							pageDoc.find("table tr").append(pageHtml);
+							/*页面添加可点击的首页和上一页和...*/
+	
+							for(var int = pageCount - pageSize + 1; int <= pageCount; int++) {
+								/*定义int为总页数-可显示的页数+1；递增，最大值为总页数*/
+								var pageHtml = '<td><div class="num-text change-btn pointer">' + int + '</div></td>';
+								if(int == pageIndexs) {
+									var pageHtml = '<td><div class="num-text change-btn active">' + int + '</div></td>';
+								}
+								pageDoc.find("table tr").append(pageHtml);
+							}
+	
+							if(pageIndexs < pageCount) {
+								pageDoc.find("table tr").append(nextButtonActive);
+								pageDoc.find("table tr").append(endButtonAction);
+							} else {
+								/*页码在最后一页时，去掉下一页功能*/
+								//pageDoc.find("table tr").append(nextButton);
+								pageDoc.find("table tr").append(endButton);
+							}
+	
+						} else {
+							/*第四种情况：页码前后都显示...*/
+	
+							/**
+							 *1··· 4 5 6 7 8 ···12 
+							 */
+							pageDoc.find("table tr").append(firstButtonAction);
+							pageDoc.find("table tr").append(lastButtonActive);
+							var pageHtml = '<td><div class="">···</div></td>';
+							pageDoc.find("table tr").append(pageHtml);
+							var pageSizeNum = pageSize % 2 == 0 ? pageSize / 2 : Math.ceil(pageSize / 2) - 1;
+							for(var int = pageIndexs - pageSizeNum; int <= pageIndexs + pageSizeNum; int++) {
+								var pageHtml = '<td><div class="num-text change-btn pointer">' + int + '</div></td>';
+								if(int == pageIndexs) {
+									var pageHtml = '<td><div class="num-text change-btn active">' + int + '</div></td>';
+								}
+								pageDoc.find("table tr").append(pageHtml);
+							}
+							var pageHtml = '<td><div class="">···</div></td>';
+							pageDoc.find("table tr").append(pageHtml);
+							pageDoc.find("table tr").append(nextButtonActive);
+							pageDoc.find("table tr").append(endButtonAction);
+						}
+						/**
+						 * 
+						 * 判断是否显示选择每页显示条数的
+						 * 
+						 */
+						if(isSelPageNum && pageDoc.find("table tr").find("select.page-num-list-sel").length == 0) {
+							//拼接选择下拉列表字符串
+							var selPageListStr = '<td class="page-num-select" style="padding:0px 5px;">' +
+								'<select class="yt-select page-num-list-sel" style="width:90px;"></select>' +
+								'</td>';
+							var pageSelNumList = "";
+							pageDoc.find("table tr").append(selPageListStr);
+							//判断自定义集合是否有值
+							if(selPageNumList != undefined && selPageNumList != "") {
+								pageSelNumList = selPageNumList;
+							} else {
+								pageSelNumList = pageInfo.pageNumList;
+							}
+							if(pageSelNumList.length > 0 && pageSelNumList != "") {
+								pageDoc.find("table tr").find("select.page-num-list-sel").replaceWith('<select class="yt-select page-num-list-sel" style="width:90px;"></select>');
+								$.each(pageSelNumList, function(i, n) {
+									pageDoc.find("table tr").find("select.page-num-list-sel").append('<option value="' + n.num + '">' + n.pageNum + '</option>');
+								});
+							}
+							//初始化下拉列表,在调用方法初始化时要注意,出去可输入的下拉列表
+							pageDoc.find("table tr").find("select.page-num-list-sel").niceSelect();
+						} else {
+							var ted = pageDoc.find("table tr").find("select.page-num-list-sel").parent();
+							pageDoc.find("table tr").append(ted);
+						}
+						_this.init(pageIndexs, pageDoc, total, pageSize, pageNum, isSelPageNum, selPageNumList,pageObj);
+						
+						_this.bindTrClick();
+						pageObj.after();
+					}
+				});
+			}
+		}
+})(jQuery);

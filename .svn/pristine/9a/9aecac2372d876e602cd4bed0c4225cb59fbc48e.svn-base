@@ -1,0 +1,657 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" >
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge	" />
+		<link rel="icon" href="./resources/images/icons/ICO.png" type="image/x-icon">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="./resources/js/scroll/jquery.mCustomScrollbar.css?v=20171208" />
+		<link rel="stylesheet" type="text/css" href="./resources/css/common/yt-common.min.css?v=20171208" />
+		<link rel="stylesheet" type="text/css" href="./resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="./resources/css/common/yt-frame-base.min.css?v=20171208" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="./resources/css/common/yt-common-ie.min.css"/><![endif]-->
+		<script type="text/javascript" src="./resources/js/common/jquery.min.js"></script>
+		<!--滚动条js-->
+		<script type="text/javascript" defer="defer" src="./resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script type="text/javascript" defer="defer" src="./resources/js/common/yt-option.js?v=20171208"></script>
+		<script type="text/javascript" defer="defer" src="./resources/js/common/yt-common.min.js?v=20171208"></script>
+		<script type="text/javascript" defer="defer" src="./resources/js/page/yt-page.min.js"></script>
+		<script type="text/javascript" defer="defer" src="./resources/js/common/yt-frame.min.js?v=20171208"></script>
+		<script type="text/javascript" defer="defer" src="./resources/js/valid/yt-valid.min.js?v=20171208"></script>
+		
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+	<style>
+		.qtip-default {
+			display: none;
+		}
+		.cont-edit-test{
+			box-shadow: none;
+		}
+		.revise-password-box tr,.revise-password-box td{
+		 	    height: 40px;
+		}
+		.message-box ul{
+			width: 100%;
+			height: 36px;
+			background-color: #F5F5F5;
+			border: 1px solid #E0E0E0;
+			box-sizing: border-box;
+		}
+		.message-box li{
+			float: left;
+			color: #333333;
+			font-size: 16px;
+			line-height: 36px;
+			width: 140px;
+			text-align: center;
+			font-weight: 700;
+			height: 32px;
+			cursor: pointer;
+		}
+		.message-box .active{
+			background-color: #FFFFFF;
+			color: #de595a;
+			border-bottom: 4px solid #de595a;
+		}
+		.sign{
+			width: 100%;
+			height: 20px;
+			padding:10px 0;
+		}
+		.sign span{
+			display: inline-block;
+			width: 49px;
+			height: 21px;
+			color: #FFFFFF;
+			background-color: #7b74c7;
+			float: right;
+			text-align: center;
+			margin-right:10px;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+		.page-num-select{
+			padding-bottom:15px !important;
+		}
+		/*防止左侧菜单栏被遮挡*/
+		#yt-index-left-nav{
+		    height: 100%;
+		    padding-top: 80px;
+		  	margin-top: -80px;
+		    box-sizing: border-box;
+		    -moz-box-sizing: border-box;
+		    -webkit-box-sizing: border-box;
+		}
+		#left-menu-cnt{
+			height: 100% !important;
+		    padding-bottom: 80px;
+		    box-sizing: border-box;
+		}
+	</style>
+
+	<body>
+		<div id="yt-index-head-nav">
+			<!--<img class="top-img" src="resources/images/top-img.jpg" />-->
+			<div class="head-top-nav">
+				<img src="./resources/images/common/nav-logo.png" class="heard-top-img">
+			</div>
+			<div class="nav-right-model">
+				<ul id="nav-fun-list">
+					<li>
+						<div class="home-model">
+							<img class="nav-fun-icon" src="./resources/images/common/index-icon1.png" style="margin-bottom: 5px;" /><span>首页</span>
+							<input type="hidden" class="nav-fun-hid" value="index" />
+						</div>
+					</li>
+					<li>
+						<div class="message-model">
+							<img class="nav-fun-icon" src="./resources/images/common/message.png" /><span>消息(<label class="total">0</label>)</span>
+							<input type="hidden" class="nav-fun-hid" value="" />
+						</div>
+					</li>
+					<li>
+						<div class="revise-model">
+							<img class="nav-fun-icon" src="./resources/images/common/revise.png" /><span>修改密码</span>
+							<input type="hidden" class="nav-fun-hid" value="" />
+						</div>
+					</li>
+					<li>
+						<div class="logout-model">
+							<img class="nav-fun-icon" src="./resources/images/common/logo-out-icon1.png" /><span>注销</span>
+							<input type="hidden" class="nav-fun-hid" value="out" />
+						</div>
+					</li>
+					<li class="users-info-li"><!-- <img src="resources/images/common/user-photo-def.png" /> --><span class="logo-user-name"></span></li>
+					<!--<li class="li-bak" style="display: none;"></li>-->
+				</ul>
+				<div style="clear: both;"></div>
+			</div>
+			<div id="heard-nav-bak"></div>
+		</div>
+		<div id="yt-index-bottom-nav">
+			<!--左侧菜单START-->
+			<div id="yt-index-left-nav">
+				<div id="left-menu-cnt">
+					<div id="nav-resource">
+						
+					</div>
+				</div>
+			</div>
+			<!--左侧菜单END-->
+			<!--右侧子页面内容START-->
+			<div id="frame-right-model">
+				<div id="yt-index-main-nav">
+				</div>
+			</div>
+			<!--右侧子页面内容END-->
+
+		</div>
+		
+			<!--修改密码弹窗STAR-->
+			<div class="yt-pop-model yt-edit-alert revise-password-box" style="width: 480px;z-index: 9999;">
+				<div class="yt-edit-alert-title ">
+					<span class="main-title-span">修改密码</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test">
+					<form action="">
+						<table style="margin: 0 auto;">
+							<tr><td style="text-align: right;">用户：</td><td class="yt-username"></td></tr>
+							<tr>
+								<td style="text-align: right;">原登录密码：</td>
+								<td style="position: relative;">
+									<input type="password" class="yt-input oldPassword" placeholder="请输入原登录密码" validform="{isNull:true,blurFlag:true,msg:'请输入原密码'}"/>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">新登录密码：</td>
+								<td style="position: relative;">
+									<input type="password" class="yt-input newPassword" placeholder="建议字母、数字以及符号的组合"  validform="{isNull:true,blurFlag:true,msg:'请输入新登录密码'}"/>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">重复新登录密码：</td>
+								<td style="position: relative;">
+									<input type="password" class="yt-input newPassword2" placeholder="请再次输入新登录密码" validform="{isNull:true,blurFlag:true,msg:'请再次输入新登录密码'}"/>
+									<span class="valid-font"></span>
+								</td>
+							</tr>
+						</table>
+						
+					</form>
+				</div>
+				<div class="yt-eidt-model-bottom select-teacher-btn-div">
+					<input class="yt-model-bot-btn yt-model-sure-btn" id="submit" type="button" value="确定" />
+					<input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="取消" style="margin-left: 20px;" />
+				</div>
+			</div>
+			<!--修改密码弹窗END-->
+			<!--消息弹窗START-->
+			<div class="yt-pop-model yt-edit-alert message-box" style="width: 900px;z-index: 9999;">
+				<div class="yt-edit-alert-title ">
+					<span class="main-title-span">消息</span>
+				</div>
+				<div class="yt-edit-alert-main cont-edit-test" style="max-height: 500px;">
+					<div>
+						<ul>
+						<li class="message-li active">未读</li>
+						<li class="message-li">已读</li>
+						<li class="message-li">全部</li>
+						</ul>
+					</div>
+					<div class="sign">
+						<span class="sign-no">未读</span>
+						<span class="sign-yes">已读</span>
+					</div>
+					<div style="padding: 10px;">
+					<table class="yt-table list-table" style="margin-top: 0px;">
+					<thead class="list-thead">
+						<tr>
+							<th class="check-box-th" style="width: 26px;">
+								<label class="check-label yt-checkbox" style="margin-left: 6px;">  
+            						<input class="check-box check-all"  type="checkbox"/>
+  								</label>
+							</th>
+							<th>标题内容</th>
+							<th width="160px">消息时间</th>
+							<th width="60px">操作</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody elementary-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="4" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<div class="page-info elementary-page" onselectstart="return false"></div>
+				</div>
+				<div class="yt-eidt-model-bottom select-teacher-btn-div">
+					<input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="关闭" style="margin:0 auto" />
+				</div>
+			</div>
+			<!--消息弹窗END-->
+	</body>
+
+</html>
+<script>
+	$(function() {
+		$left_menu.init();
+		var divMinHei = $(window).height() - 80;
+		$(".web-criterion-model").css("min-height", divMinHei);
+		//给滚动条设置高度
+		$("#left-menu-cnt").css("height", divMinHei);
+		//左菜单调用滚动条方法
+		$(window).load(function() {
+			$("#left-menu-cnt").mCustomScrollbar({
+				autoHideScrollbar: true,
+				theme: "square"
+			});
+		});
+	/*
+	 * 
+	 * 修改密码
+	 * 
+	 * */
+	$('.revise-model').click(function(){
+		//初始化弹出框
+		$(".revise-password-box .cont-edit-test input").val('');
+		$(".revise-password-box .cont-edit-test input").removeClass('valid-hint');
+		$(".revise-password-box .valid-font").text('');
+			modelShow(".revise-password-box");
+			$('.newPassword2').blur(function(){
+				if($('.newPassword').val() != $('.newPassword2').val()){
+					$('.newPassword2').siblings('.valid-font').text('两次密码输入不一致！')
+				}
+			})
+			$('.revise-password-box #submit').click(function(){
+				if($yt_valid.validForm($(".revise-password-box"))){
+				if($('.newPassword').val() == $('.newPassword2').val() ){
+					$.ajax({
+					type:"post",
+					url:$acl_path + "api/user/updatePassword",
+					async:true,
+					beforeSend:function(){
+						$yt_baseElement.showLoading();
+					},
+					data:{
+						userItCode:$yt_common.user_info.userName,
+						passwordNew:$('.newPassword').val(),
+						passwordOld:$('.oldPassword').val()
+					},
+					success:function(data){
+						if(data.success==0){
+						$yt_baseElement.hideLoading(function(){
+							$yt_alert_Model.prompt("修改成功");
+							//隐藏页面中自定义的表单内容  
+							$(".revise-password-box").hide();
+							//隐藏蒙层  
+							$("#pop-modle-alert").hide().css('z-index','999');
+						});	
+						}else{
+							$yt_baseElement.hideLoading(function(){
+								$yt_alert_Model.prompt(data.msg);
+							});
+						}
+					},
+					error:function(data){
+						$yt_baseElement.hideLoading(function(){
+							$yt_alert_Model.prompt("网络异常，请稍后重试");
+						});	
+					}
+				});
+				}else{
+					$('.newPassword2').siblings('.valid-font').text('两次密码输入不一致！')
+				}
+				}
+			})
+			
+	})
+	/*
+	 消息
+	 * 
+	 * */
+	messageData(0);
+	function setIntervalmessage(){
+		messageData(0,false)
+	}
+	//定时器，每五分钟刷新一次未读消息
+	var s = setInterval(setIntervalmessage,300000);
+	$('.message-model').click(function(){
+		clearInterval(s);
+		//打开消息弹窗，取消定时器
+		messageData(0);
+		$('.message-li').eq(0).addClass('active');
+		modelShow(".message-box");
+	});
+	$('.message-box li').on('click',function(){
+		$(this).addClass('active').siblings().removeClass('active');
+		if($(this).index()==0){
+			messageData(0);
+		}
+		if($(this).index()==1){
+			messageData(1);
+		}
+		if($(this).index()==2){
+			messageData(2);
+		}
+	});
+	//修改未读
+	$('.message-box .sign-no').click(function(){
+		if($(".message-box tbody input[type='checkbox']:checked").length==0){
+			$yt_alert_Model.prompt("请选择需要操作的数据");
+		}else{
+			var pkIds = [];
+			var isRead = [];
+			$.each($(".message-box tbody input[type='checkbox']:checked"), function(j,k) {
+				pkIds.push($(k).parents('tr').data('data').pkId)
+				isRead.push($(k).parents('tr').data('data').isRead)
+			});
+			pkIds = pkIds.join(',');
+			isRead = isRead.join(',');
+			messageSign(pkIds,0,isRead);
+		}
+	})
+	//修改为已读
+	$('.message-box .sign-yes').click(function(){
+		
+		if($(".message-box tbody input[type='checkbox']:checked").length==0){
+			$yt_alert_Model.prompt("请选择需要操作的数据");
+		}else{
+			var pkIds = [];
+			var isRead = [];
+			$.each($(".message-box tbody input[type='checkbox']:checked"), function(j,k) {
+				pkIds.push($(k).parents('tr').data('data').pkId);
+				isRead.push($(k).parents('tr').data('data').isRead)
+			});
+			pkIds = pkIds.join(',');
+			isRead = isRead.join(',');
+			messageSign(pkIds,1,isRead);
+		}
+	})
+	//复选框
+	//全选  
+	$(".message-box .check-all").change(function() {
+		//判断自己是否被选中  
+		if($(this).parent().hasClass("check")) {
+			//设置反选  
+			$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("uncheck");
+			$(this).parents("table").find("tbody tr").removeClass("yt-table-active");
+		} else {
+			//调用设置选中方法,全选  
+			$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("check");
+			$(this).parents("table").find("tbody tr").addClass("yt-table-active");
+		}
+
+	});
+	//修改全选按钮状态
+	$(".elementary-tbody").on("change", "input[type='checkbox']", function() {
+		if($(this).parents("table").find("tbody input[type='checkbox']").length != $(this).parents("table").find("tbody input[type='checkbox']:checked").length) {
+			$(this).parents("table").find(".check-all").setCheckBoxState("uncheck");
+		} else {
+			$(this).parents("table").find(".check-all").setCheckBoxState("check");
+		}
+	});
+	//消息列表
+	function messageData(readType,showloading){
+			$('.message-box .elementary-page').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "message/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				readType: readType,
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before:function(){
+				if(showloading!=false){
+					$yt_baseElement.showLoading();
+				}
+			},
+			after:function(){
+				$(".message-box .list-tbody tr").off().on("click",function() {
+					if($(this).find("input[type='checkbox']")[0].checked == true) {
+						$(this).find("input[type='checkbox']").setCheckBoxState("uncheck");
+						$(this).removeClass("yt-table-active");
+					} else {
+						$(this).find("input[type='checkbox']").setCheckBoxState("check");
+						$(this).addClass("yt-table-active");
+					}
+					if($(this).parents("table").find("tbody input[type='checkbox']").length != $(this).parents("table").find("tbody input[type='checkbox']:checked").length) {
+						$(this).parents("table").find(".check-all").setCheckBoxState("uncheck");
+					} else {
+						$(this).parents("table").find(".check-all").setCheckBoxState("check");
+					}
+					return false;
+				});
+			},
+			success: function(data) {
+				if(data.flag==0){
+					if(readType==0){
+					$('.total').text(data.data.total);
+					}
+					$('.message-box table').find(".check-all").setCheckBoxState("uncheck");
+					var htmlBody = $('.message-box .list-tbody').empty();
+					var htmlTr = '';
+					var total = 0 ;
+					$.each(data.data.rows,function(i,n){
+					htmlTr = '<tr>'+
+					'<td style="width:26px;">' + '<label style="margin-left:6px;" class="check-label yt-checkbox select-elementary-checkbox"><input type="checkbox" name="test"/></td>' +
+					'<td style="text-align:left"><a class="messageContent" target="_blank">'+n.messageContent+'</a></td>'+
+					'<td>'+n.createTimeString+'</td>'+
+					'<td><span class="entry-del-icon"><img class="orderBy-dele-img img-size" src="resources/images/open/delete.png"></span></td>'+
+					'</tr>';
+					htmlTr = $(htmlTr).data('data',n);
+					htmlBody.append(htmlTr);
+					})
+					$('.messageContent').off('click').click(function(){
+						messageSign($(this).parents('tr').data('data').pkId,1,$(this).parents('tr').data('data').isRead);
+						//开班式
+						if($(this).parents('tr').data('data').messageContentUrl=='openHonorsStart'){
+							window.open('view/open/lookOneInfoApprove.html?'+$(this).parents('tr').data('data').messageContentUrlParam);
+						}
+						//结业式
+						else if($(this).parents('tr').data('data').messageContentUrl=='openHonorsEnd'){
+							window.open('view/open/lookOneInfoApprove.html?'+$(this).parents('tr').data('data').messageContentUrlParam);
+						}
+						//培训班新闻稿
+						else if($(this).parents('tr').data('data').messageContentUrl=='news'){
+							window.open('view/news/addOrUpdateBean.html?'+$(this).parents('tr').data('data').messageContentUrlParam);
+						}
+						//项目立项
+						else if($(this).parents('tr').data('data').messageContentUrl=='project'){
+							window.open('view/project/projectDetails.html?' + $(this).parents('tr').data('data').messageContentUrlParam +'&projectType=2&pageType=2&approveWorkPerson=awp');
+						}
+						//借用发票
+						else if($(this).parents('tr').data('data').messageContentUrl=='invoicing'){
+							window.open('view/finance/reviseborrowApprove.html?'+$(this).parents('tr').data('data').messageContentUrlParam);
+						}
+						//费用减免
+						else if($(this).parents('tr').data('data').messageContentUrl=='reduction'){
+							window.open('view/finance/reviseOutlayApprove.html?'+$(this).parents('tr').data('data').messageContentUrlParam);
+						}
+						//教师课酬
+						else if($(this).parents('tr').data('data').messageContentUrl=='classExpense'){
+							window.open('view/finance/reimbursementDetails.html?'+$(this).parents('tr').data('data').messageContentUrlParam);
+						}
+						//教师差旅费报销
+						else if($(this).parents('tr').data('data').messageContentUrl=='travelExpense'){
+							window.open('view/finance/reimburseTravelDetails.html?'+$(this).parents('tr').data('data').messageContentUrlParam);
+						}
+						//项目预算/项目预算变更
+						else if($(this).parents('tr').data('data').messageContentUrl=='projectBudget'){
+							window.open('view/budgetApproval/budgetApprovalDetails.html?history=oldApprove&'+$(this).parents('tr').data('data').messageContentUrlParam);
+						}
+						//教学方案审批部门级别
+						//教学方案审批专家组
+						//教学方案审批院领导
+						else if($(this).parents('tr').data('data').messageContentUrl=='teachingSchemeDept'||$(this).parents('tr').data('data').messageContentUrl=='teachingSchemeExpert'||$(this).parents('tr').data('data').messageContentUrl=='teachingSchemeLeader'){
+							window.open('view/project/projectDetails.html?'+$(this).parents('tr').data('data').messageContentUrlParam+'&history=teacherApprove');
+						}
+						return false;
+					})
+					$('.message-box .orderBy-dele-img').off().click(function(){
+						messageDelete($(this).parents('tr').data('data').pkId,$(this).parents('tr').data('data').isRead)
+						
+					});
+					$yt_baseElement.hideLoading();
+				}else{
+					htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="4" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlBody.html(htmlTr);
+						$yt_baseElement.hideLoading();
+				}
+			}, //回调函数 匿名函数返回查询结果
+			isSelPageNum: true, //是否显示选择条数列表默认false
+			error:function(data){
+				$yt_baseElement.hideLoading(function(){
+					$yt_alert_Model.prompt("网络异常，请稍后重试");
+				});
+			}
+			
+		});
+		}
+	//删除消息
+	function messageDelete(pkIds,isRead){
+		$.ajax({
+			type:"post",
+			url:$yt_option.base_path + "message/delateMessage",
+			async:true,
+			data:{
+				pkIds:pkIds				
+			},
+			beforeSend:function(){
+				$yt_baseElement.showLoading();
+			},
+			success:function(data){
+				if(data.flag==0){
+					$yt_baseElement.hideLoading(function(){
+						$yt_alert_Model.prompt("删除成功");
+						if(isRead==0){
+							$('.total').text(Number($('.total').text())-1)
+						}
+						//$('.page-info').pageInfo("refresh");
+						messageData(0,false);
+					});
+				}else{
+					$yt_baseElement.hideLoading(function(){
+						$yt_alert_Model.prompt("删除失败");
+					});
+				}
+			},
+			error:function(data){
+				$yt_baseElement.hideLoading(function(){
+					$yt_alert_Model.prompt("网络异常，请稍后重试");
+				});	
+			}
+		});
+	}
+	//修改消息状态
+	function messageSign(pkId,isRead,isReadArr){
+	$.ajax({
+		type:"post",
+		url:$yt_option.base_path + "message/updateReadStates",
+		async:true,
+		data:{
+			pkIds:pkId,
+			isRead:isRead
+		},
+		beforeSend:function(){
+			$yt_baseElement.showLoading();
+		},
+		success:function(data){
+			if(data.flag==0){
+				$yt_baseElement.hideLoading(function(){
+					//修改为未读
+					if(isRead==0){
+						if($('.message-li').eq(0).hasClass('active')==false){
+							$.each(isReadArr.split(','),function(i,n){
+								if(n==1){
+									$('.total').text(Number($('.total').text())+1);
+								}
+							})
+						}
+					$yt_alert_Model.prompt("未读");
+					//修改为已读
+					}else if(isRead==1){
+						if($('.message-li').eq(1).hasClass('active')==false){
+							$.each(isReadArr.split(','),function(i,n){
+								if(n==0){
+									$('.total').text(Number($('.total').text())-1);
+								}
+							})
+						}
+						$yt_alert_Model.prompt("已读");
+					}
+					$('.elementary-page').pageInfo("refresh");
+				});
+//				messageData(0);
+				}else{
+				$yt_baseElement.hideLoading(function(){
+					$yt_alert_Model.prompt("修改失败");
+				});
+			}
+		},
+		error:function(data){
+			$yt_baseElement.hideLoading(function(){
+				$yt_alert_Model.prompt("网络异常，请稍后重试");
+			});	
+		}
+	});
+}
+	function modelShow(model){
+		$('#pop-modle-alert').css('z-index','1000');
+		$('#pop-modle-bg').css('z-index','10000');
+		$('.loading-model').css('z-index','10001');
+		/** 
+			 * 显示编辑弹出框和显示顶部隐藏蒙层 
+			 */
+			$(model).show();
+			/** 
+			 * 调用算取div显示位置方法 
+			 */
+			$yt_alert_Model.getDivPosition($(model));
+			/* 
+			 * 调用支持拖拽的方法 
+			 */
+			$yt_model_drag.modelDragEvent($(model+" .yt-edit-alert-title"));
+			$yt_alert_Model.setFiexBoxHeight($(model+" .yt-edit-alert-main"));
+			/** 
+			 * 点击取消方法 
+			 */
+			$(model +' .yt-username').text($yt_common.user_info.userRealName);
+			$(model +' .yt-eidt-model-bottom .yt-model-canel-btn').off().on("click", function() {
+				//隐藏页面中自定义的表单内容  
+				$(model).hide();
+				//隐藏蒙层  
+				$("#pop-modle-alert").hide().css('z-index','999');
+				if(model==".message-box"){
+					s= setInterval(setIntervalmessage,300000);
+				}
+			});
+	}
+	
+	});
+	/**
+	 * 关闭窗体方法
+	 */
+	function closeWindow(){
+		window.opener=null;
+		window.open('','_self');
+		window.close();
+	}
+</script>

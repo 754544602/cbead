@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/borrow/borrow.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>新增借用发票</title>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1100px;">
+			<div class="head-div" style="margin-bottom: 0px; height: 22px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<button class="page-return-btn">
+							<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+							返回
+						</button>
+						<input type="hidden" class="process-instance-id" value="" />
+					</div>
+				</div>
+			</div>
+			<div class="box-list">
+				<div class="content-box budget-inf valid-tab">
+					<div class="class-info-div">
+						新增借用发票
+					</div>
+					<div class="tab-content get-project-inf add-project" style="margin: 0px 8px;background: #FFF;">
+						<div class="class-info-centent" style="margin: 0px;">
+							<table class="class-info-table valid-tab">
+								<tr>
+									<td align="right">
+										<span style="font-weight: bold;font-size: 15px;">申请类型：</span>
+									</td>
+									<td colspan="3">
+										<span style="float: left;">借用发票</span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span style="color:red;font-weight:bold">*</span>
+										<span>申请开票金额：</span>
+										
+									</td>
+									<td>
+										<input class="yt-input  application-invoice"  placeholder="请输入开票金额" type="text" validform="{isNull:true,blurFlag:true,msg:'请输入开票金额'}" style="width: 275px;margin-right: 5px;" />元
+										<span class="valid-font"></span>
+									</td>
+									<td align="right" width="160px">
+										<span style="color:red;font-weight:bold">*</span>
+										<span>发票开具单位名称：</span>
+										
+									</td>
+									<td>
+										<input class="yt-input  invoice-org"  placeholder="请输入单位名称" type="text" validform="{isNull:true,blurFlag:true,msg:'请输入单位名称'}" style="width: 275px;" />
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span style="font-weight: bold;">开票信息：</span>
+									</td>
+									<td>
+										<span class="create-user-name" data-val="create-user-name"></span>
+									</td>
+									<td align="right" width="156px">
+										<span></span>
+									</td>
+									<td>
+										<span class="project-type" data-val="project-type"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span class="bill-type" style="color:red;font-weight:bold;display: none;">*</span>
+										<span>发票类型：</span>
+									</td>
+									<td>
+										<select class="yt-select type-select invoice-type" data-val="dealingWithPeople" style="width: 281px;">
+											<option value="">请选择</option>
+											<option value="1">普通发票</option>
+											<option value="2">增值税专用发票</option>
+										</select>
+										<span class="valid-font invoice-type-span"></span>
+									</td>
+									
+									<td align="right"></td>
+									<td>
+										<label class="check-label yt-radio check-three check-radio">
+										 	<input id="disagree" type="radio" class="radio" name="mould" value="2">企业
+										</label>
+										<label class="check-label yt-radio check-two check-radio" style="margin-left: 20px;">
+											<input id="agree" type="radio" class="radio" name="mould" value="1">个人/事业单位
+										</label>
+										
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span class="bill-name" style="color:red;font-weight:bold;display: none;">*</span>
+										<span>名称：</span>
+									</td>
+									<td>
+										<input class="yt-input org-name"  placeholder="请输入名称" validform="{isNull:false,blurFlag:true,msg:'请输入名称'}" type="text" style="width: 275px;" />
+										<span class="valid-font"></span>
+									</td>
+									<td align="right">
+										<span class="bill-num" style="color:red;font-weight:bold;display: none;">*</span>
+										<span>税号：</span>
+									</td>
+									<td>
+										<input class="yt-input tax-number"  placeholder="请输入税号" validform="{isNull:false,blurFlag:true,msg:'请输入税号'}" type="text" style="width: 275px;" />
+										<span class="valid-font"></span>
+									</td>
+									
+								</tr>
+								<tr>
+									<td align="right">
+										<span class="address-span" style="color:red;font-weight:bold;display: none;">*</span>
+										<span>地址：</span>
+									</td>
+									<td>
+										<input class="yt-input address"  placeholder="请输入地址" validform="{isNull:false,blurFlag:true,msg:'请输入地址'}" type="text" style="width: 275px;" />
+										<span class="valid-font"></span>
+									</td>
+									<td align="right">
+										<span class="telephone-span" style="color:red;font-weight:bold;display: none;">*</span>
+										<span>电话：</span>
+									</td>
+									<td>
+										<input class="yt-input telephone"  placeholder="请输入电话" validform="{isNull:false,blurFlag:true,msg:'请输入电话'}" type="text" style="width: 275px;" />
+										<span class="valid-font"></span>
+									</td>
+									
+								</tr>
+								<tr>
+									<td align="right">
+										<span class="bank-span" style="color:red;font-weight:bold;display: none;">*</span>
+										<span>开户行：</span>
+									</td>
+									<td>
+										<input class="yt-input registered-bank"  placeholder="请输入开户行" validform="{isNull:false,blurFlag:true,msg:'请输入开户行'}" type="text" style="width: 275px;" />
+										<span class="valid-font"></span>
+									</td>
+									<td align="right">
+										<span class="account-span" style="color:red;font-weight:bold;display: none;">*</span>
+										<span>账号：</span>
+									</td>
+									<td>
+										<input class="yt-input account"  placeholder="请输入账号" validform="{isNull:false,blurFlag:true,msg:'请输入账号'}" type="text" style="width: 274px;" />
+										<span class="valid-font"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<span style="position: relative;line-height: 42px;">发票借用原因：</span>
+									</td>
+									<td colspan="3" valign="top">
+										<textarea style="margin-top: 10px;width: 736px;" type="text" class="yt-textarea invoice-reason" data-val="offSiteTrainingRequirement" placeholder="请填写发票借用原因"></textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="class-info-div">
+						所属项目
+						<button style="width: 74px;" class="yt-option-btn borrow-search-btn">选择</button>
+						<button class="yt-option-btn delete-project-btn" style="margin: 0px 3px;">
+							<img src="../../resources/images/button/del-icon.png">删除
+						</button>
+					</div>
+					<div class="tab-content get-project-inf add-project" >
+						<div class="list-box">
+							<table class="yt-table list-table" style="width: 100%;">
+								<thead class="list-thead">
+									<tr style="height: 30px;">
+										<th>项目编号</th>
+										<th style="text-align: left;">项目名称</th>
+										<th>项目类型</th>
+										<th>项目主任</th>
+										<th>开班日期</th>
+										<th>结束日期</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody list-tbody project-tbody">
+									<tr>
+										<td colspan="6" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="teacher-select-div">
+						<div class="yt-pop-model yt-edit-alert select-teacher-div">
+							<div class="yt-edit-alert-title select-teacher-title-div">
+								<span class="select-teacher-title-span">选择所属项目</span>
+							</div>
+							<div class="yt-edit-alert-main">
+								<div class="key-word search-btn-slect" style="margin-top: 8px;">
+									<!--<input style="float: right;margin: 10px 10px 0px 0px;border-radius: 3px;" class="yt-model-bot-btn yt-model-sure-btn borrow-select-btn" type="button" value="搜索" />-->	
+									<!--<input style="float: right;margin: 10px 10px 0px 0px;" class="yt-input borrow-search-input" placeholder="请输入关键字" type="text" autocomplete="off" />-->
+								
+									<input style="width: 199px;" class="yt-input borrow-search-input" placeholder="请输入关键字" type="text">
+									<button class="yt-option-btn search-btn">
+										<img class="search-img" src="../../resources/images/icons/class-search.png">
+									</button>
+								</div>
+								<table class="yt-table list-table" style="width: 1080px;margin: 0px 8px;">
+									<thead class="list-thead">
+										<tr style="height: 30px;">
+											<th class="check-box-th">
+												<label class="check-label yt-checkbox parent-check"><input type="checkbox" class="check-all" name="test" value=""/>  </label>
+											</th>
+											<th style="width: 100px;">项目编号</th>
+											<th style="text-align: left;">项目名称</th>
+											<th style="width: 80px;">项目类型</th>
+											<th>项目主任</th>
+											<th style="width: 90px;">开班日期</th>
+											<th style="width: 90px;">结束日期</th>
+										</tr>
+									</thead>
+									<tbody class=" list-tbody addBorrow-tbody">
+										<tr>
+											<td colspan="7" align="center" style="border:0px;">
+												<div class="no-data" style="width: 280px;margin: 0 auto;">
+													<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="page-info borrow-page" onselectstart="return false"></div>
+							</div>
+							<div class="yt-eidt-model-bottom select-teacher-btn-div">
+								<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-sure-btn select-teacher-sure-btn" type="button" value="确定" />
+								<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-canel-btn select-teacher-canel-btn" type="button" value="取消" style="margin-left: 20px;"/>
+							</div>
+						</div>
+					</div>
+					<!--下一步操作人-->
+					<div class="tab-content next-operator">
+						<table>
+							<tr>
+								<td>下一步操作人：</td>
+								<td>
+									<select class="yt-select type-select dealing-with-people" data-val="dealingWithPeople" style="width: 140px;">
+										<option value="0">请选择</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="btn-all" style="width: 265px;">
+						<button class="yt-option-btn add-submit-budget">提交</button>
+						<button class="yt-option-btn save-budget">保存</button>
+						<button class="yt-option-btn btn-off">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/finance/borrowInfo.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/finance/addBorrowList.js"></script>
+</html>

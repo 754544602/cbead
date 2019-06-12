@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>首页跨iframe调用方法</title>
+		<script type="text/javascript" src="resources/js/common/json2.js" ></script>
+		<script>
+			window.onload = function() {
+				var funName = getParameter("funName");
+				var param = getParameter("param");
+				switch (funName){
+					case "locationToMenu":
+						parent.parent.$left_menu.locationToMenu(param);	
+					break;
+					case "closeWindow":
+						parent.parent.closeWindow();
+					break;
+				}
+			}
+			function getParameter(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return unescape(r[2]);
+				return null;
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

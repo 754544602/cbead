@@ -1,0 +1,224 @@
+var projectList = {
+	//初始化方法
+	init: function() {
+		//调用获取列表数据方法
+		projectList.getPlanListInfo();
+
+		//设置列表样式
+		$(".tab-title-list button").click(function() {
+			$(this).addClass("active").siblings().removeClass("active");
+			$(".details-box .original-box").hide().eq($(this).index()).show();
+			if($(this).index() == 0) {
+				$(".list1").show();
+				$(".list2").hide();
+				$('.keyword1').addClass('keyword2');
+				$('.search-btn1').addClass('search-btn2');
+				$('.keyword1').removeClass("keyword1");
+				$('.search-btn1').removeClass("search-btn1");
+				projectList.getPlanListInfo(); //获取待审批
+				$('.title-h1').text('待审批列表');
+			} else if($(this).index() == 1) {
+				$(".list2").show();
+				$(".list1").hide();
+				$('.keyword2').addClass('keyword1');
+				$('.search-btn2').addClass('search-btn1');
+				$('.keyword2').removeClass("keyword2");
+				$('.search-btn2').removeClass("search-btn2");
+				projectList.getPlanListInfoSure(); //获取审批记录
+				$('.title-h1').text('审批记录列表');
+			}
+		});
+		$(".list2").hide();
+		//点击流水账号跳转页面
+		$('.list-table').on("click", ".class-name1", function() {
+			var pkId = $(this).parents("tr").find('.pkId').text(); //获取班级编号
+			var expenseType = $(this).parents("tr").find('.expenseType').text(); //获取班级编号
+			//expenseType 1:教师课酬报销 2:教师差旅报销
+			if(expenseType == 1) {
+				window.location.href = "reimbursementDetails.html?pkId=" + pkId;
+			}
+			if(expenseType == 2) {
+				window.location.href = "reimburseTravelDetails.html?pkId=" + pkId;
+			}
+		});
+		//点击流水账号跳转页面
+		$('.list-table').on("click", ".class-name2", function() {
+			var pkId = $(this).parents("tr").find('.pkId').text(); //获取班级编号
+			var expenseType = $(this).parents("tr").find('.expenseType').text(); //获取班级编号
+			//expenseType 1:教师课酬报销 2:教师差旅报销
+			if(expenseType == 1) {
+				window.location.href = "reimbursementLook.html?pkId=" + pkId + '&type=1';
+			}
+			if(expenseType == 2) {
+				window.location.href = "reimburseTravelDetailsLook.html?pkId=" + pkId + '&type=1';
+			}
+		});
+		$('.search-btn1').click(function() {
+			var queryParams = $('.keyword1').val();
+			projectList.getPlanListInfo(queryParams);
+		})
+		$('.search-btn2').click(function() {
+			var queryParams = $('.keyword2').val();
+			projectList.getPlanListInfo(queryParams);
+		})
+
+	},
+	/** 
+	 * 获取待审批列表数据
+	 */
+	getPlanListInfo: function(queryParams) {
+		$yt_baseElement.showLoading();
+
+		$('.n-page').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/teacherExpense/lookForAllByApproved", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: queryParams,
+				createTimeStart: "",
+				createTimeEnd: "",
+				teacherCountStart: "",
+				teacherCountEnd: "",
+				expenseMoneyStart: "",
+				expenseMoneyEnd: "",
+				expenseType: "",
+				workFlawState: ""
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.n-tbody').empty();
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						$('.n-page').show();
+						$.each(data.data.rows, function(i, v) {
+							var expenseType = Number(v.expenseType);
+							//1:教师课酬报销 2:教师差旅报销
+							if(expenseType == 1) {
+								expenseType = '教师课酬报销';
+							}
+							if(expenseType == 2) {
+								expenseType = '教师差旅报销';
+							}
+							 v.workFlawState =='已完成'? v.workFlawState ='已通过': v.workFlawState = v.workFlawState ;
+							htmlTr = '<tr class="td-list">' +
+								'<td class="pkId" style="display:none;">' + v.pkId + '</td>' +
+								'<td><a class="class-name1"style="color: #3c4687;">' + v.flowNumber + '</a></td>' +
+								'<td class="expenseType" style="display:none;">' + v.expenseType + '</td>' +
+								'<td>' + expenseType + '</td>' +
+								'<td>' + v.projectCode + '</td>' +
+								'<td style="text-align:left;">' + v.projectName + '</td>' +
+								'<td>' + v.projectHead + '</td>' +
+								'<td>' + v.createTime + '</td>' +
+								'<td>' + v.teacherCount + '</td>' +
+								'<td>' + $yt_baseElement.fmMoney(v.expenseMoney)  + '</td>' +
+								'<td class="work-flaw-state">' + v.workFlawState + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					} else {
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+						$('.n-page').hide();
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/** 
+	 * 获取已审批列表数据
+	 */
+	getPlanListInfoSure: function(queryParams) {
+		$yt_baseElement.showLoading();
+
+		$('.y-page').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/teacherExpense/lookForAllByHi", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: queryParams,
+				createTimeStart: "",
+				createTimeEnd: "",
+				teacherCountStart: "",
+				teacherCountEnd: "",
+				expenseMoneyStart: "",
+				expenseMoneyEnd: "",
+				expenseType: "",
+				workFlawState: ""
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.y-tbody').empty();
+					var htmlTr = '';
+					if(data.data.rows.length > 0) {
+						$('.y-page').show();
+						$.each(data.data.rows, function(i, v) {
+							var expenseType = Number(v.expenseType);
+							//1:教师课酬报销 2:教师差旅报销
+							if(expenseType == 1) {
+								expenseType = '教师课酬报销';
+							}
+							if(expenseType == 2) {
+								expenseType = '教师差旅报销';
+							}
+							htmlTr = '<tr class="td-list">' +
+								'<td class="pkId" style="display:none;">' + v.pkId + '</td>' +
+								'<td><a class="class-name2"style="color: #3c4687;">' + v.flowNumber + '</a></td>' +
+								'<td class="expenseType" style="display:none;">' + v.expenseType + '</td>' +
+								'<td>' + expenseType + '</td>' +
+								'<td>' + v.projectCode + '</td>' +
+								'<td style="text-align:left;">' + v.projectName + '</td>' +
+								'<td>' + v.projectHead + '</td>' +
+								'<td>' + v.createTime + '</td>' +
+								'<td style="text-align:right;">' + v.teacherCount + '</td>' +
+								'<td style="text-align:right;">' + v.expenseMoney + '</td>' +
+								'<td>' + v.workFlawState + '</td>' +
+								'</tr>';
+							htmlTbody.append(htmlTr);
+						});
+					} else {
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="9" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+						$('.y-page').hide();
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	}
+
+};
+$(function() {
+	//初始化方法
+	projectList.init();
+});

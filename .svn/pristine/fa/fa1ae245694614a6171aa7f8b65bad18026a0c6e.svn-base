@@ -1,0 +1,333 @@
+var ticketOpenInfo = {
+	//初始化方法
+	init: function() {
+		ticketOpenInfo.getPlanListInfo();
+		//页签跳转
+		$(".tab-title-list button").click(function() {
+			$(this).addClass("active").siblings().removeClass("active");
+			operate = $(this).text();
+			if(operate == "• 项目开票") {
+				//显示减免列表
+				$('.box-ticket-list').show();
+				//隐藏发票列表
+				$('.box-class-list').hide();
+				ticketOpenInfo.getPlanListInfo();
+			};
+			//operate为2查询发票列表，
+			if(operate == "• 班级信息") {
+				//隐藏减免列表
+				$('.box-ticket-list').hide();
+				//显示发票列表
+				$('.box-class-list').show();
+				ticketOpenInfo.getBorrowListInfo();
+			};
+
+		});
+		//班级信息模糊查询
+		$(".search-btn").click(function(){
+			ticketOpenInfo.getPlanListInfo();
+		})
+		//点击学员姓名查看详情
+		$('.list-box').on('click', '.invoice-org-href', function() {
+			//			var studentList = $('.yt-table-active').data('studentList');
+			//			var traineeId = studentList.traineeId;
+			//			var headImg = new Image();
+			//			//获取班级编号
+			//			var projectCode = $yt_common.GetQueryString("projectCode");
+			//显示整体框架loading的方法
+			$yt_baseElement.showLoading();
+			//			$.ajax({
+			//				type: "post",
+			//				url: $yt_option.base_path + "class/trainee/getTraineeDetails",
+			//				data: {
+			//					traineeId: traineeId,
+			//					projectId: projectCode
+			//				},
+			//				async: true,
+			//				success: function(data) {
+			//					if(data.flag == 0) {
+			//						detailsMsg = data.data;
+			//						detailsMsg.checkInDate = detailsMsg.checkInDate.split(" ")[0];
+			//						//性别
+			//						if(detailsMsg.gender == 1) {
+			//							detailsMsg.gender = "男";
+			//						} else {
+			//							detailsMsg.gender = "女";
+			//						}
+			//						//发票类型
+			//						if(detailsMsg.invoiceType == 0) {
+			//							detailsMsg.invoiceType = "暂不开票";
+			//						} else if(detailsMsg.invoiceType == 1) {
+			//							detailsMsg.invoiceType = "普通发票";
+			//						} else {
+			//							detailsMsg.invoiceType = "增值税发票";
+			//						}
+			//						//报到状态
+			//						if(detailsMsg.checkInState == 0) {
+			//							detailsMsg.checkInState = "未报到";
+			//						} else {
+			//							detailsMsg.checkInState = "已报到";
+			//						}
+			//						//缴费状态
+			//						if(detailsMsg.paymentState == 0) {
+			//							detailsMsg.paymentState = "未缴费";
+			//						} else {
+			//							detailsMsg.paymentState = "已缴费";
+			//						}
+			//						//开票状态
+			//						if(detailsMsg.isOrderNum == 0) {
+			//							detailsMsg.isOrderNum = "未开票";
+			//						} else {
+			//							detailsMsg.isOrderNum = "已开票";
+			//						}
+			//						$('.student-details-form .cont-edit-test').setDatas(detailsMsg);
+			//
+			//						console.log("学员头像", detailsMsg.headPortraitUrl);
+			//						if(detailsMsg.headPortrait != "") {
+			//							headImg.src = detailsMsg.headPortraitUrl;
+			//							headImg.onload = function() {
+			//								$('.student-details-img').attr('src', headImg.src);
+			//								$('.student-details-img').jqthumb({
+			//									width: 89,
+			//									height: 130
+			//								});
+			//							};
+			//						} else {
+			//							$('.student-details-img').attr('src', '../../resources/images/classStudent/student-picture.png');
+			//							$('.student-details-img').jqthumb({
+			//								width: 89,
+			//								height: 130
+			//							});
+			//						}
+			//						//隐藏整体框架loading的方法
+			$yt_baseElement.hideLoading();
+			//					}
+			//				}
+			//			});
+			/** 
+			 * 显示编辑弹出框和显示顶部隐藏蒙层 
+			 */
+			$(".student-details-form").show();
+			/** 
+			 * 调用算取div显示位置方法 
+			 */
+			$yt_alert_Model.setFiexBoxHeight($(".student-details-form .yt-edit-alert-main"));
+			$yt_alert_Model.getDivPosition($(".student-details-form"));
+			/* 
+			 * 调用支持拖拽的方法 
+			 */
+			$yt_model_drag.modelDragEvent($(".student-details-form .yt-edit-alert-title"));
+			/** 
+			 * 点击取消方法 
+			 */
+			$('.student-details-form .yt-eidt-model-bottom .yt-model-sure-btn').off().on("click", function() {
+				//隐藏页面中自定义的表单内容  
+				$(".student-details-form").hide();
+			});
+		});
+		$('.update-state-btn').click(function() {
+			if($(".yt-table-active").length == 0) {
+				$yt_alert_Model.prompt("请选择一条数据进行操作");
+				return false;
+			}
+			//显示减免详情弹出框
+			$(".select-teacher-div").show();
+			//计算弹出框位置
+			$yt_alert_Model.setFiexBoxHeight($(".select-teacher-div .yt-edit-alert-main"));
+			$yt_alert_Model.getDivPosition($(".select-teacher-div"));
+			$yt_model_drag.modelDragEvent($(".select-teacher-div .yt-edit-alert-title"));
+			//			//初始化输入框
+			//			$(".types").val("0");
+			//			$('.types').niceSelect();
+			//			$('.pre-relief-standard').val("");
+			//			$('.post-remission-standard').val("");
+			//			$('.reduction-exemption').val("");
+			//			$('.post-remission-money').text("");
+			//			$('.remarks').val("");
+			$("select").niceSelect();
+			//确定按钮事件
+			$('.sreduction-details-sure-btn').off().click(function() {
+				ticketOpenInfo.isNotEmpty();
+			});
+			//取消按钮
+			$('.sreduction-details-canel-btn').off().on("click", function() {
+				//隐藏页面中自定义的表单内容  
+				$(".yt-edit-alert,#heard-nav-bak").hide();
+				$("#pop-modle-alert").hide();
+			});
+		});
+		//复选框
+		//全选  
+		$(".check-all").change(function() {
+			//判断自己是否被选中  
+			if($(this).parent().hasClass("check")) {
+				//设置反选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("uncheck");
+			} else {
+				//调用设置选中方法,全选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("check");
+			}
+
+		});
+		//修改全选按钮状态
+		$(".ticket-open-tbody,.classs-tbody").on("change", "input[type='checkbox']", function() {
+			if($(this).parents("table").find("tbody input[type='checkbox']").length != $(this).parents("table").find("tbody input[type='checkbox']:checked").length) {
+				$(this).parents("table").find(".check-all").setCheckBoxState("uncheck");
+			} else {
+				$(this).parents("table").find(".check-all").setCheckBoxState("check");
+			}
+		});
+		
+		//返回按钮
+		$('.page-return-btn').on('click', function() {
+			window.location.href = "ticketOpenList.html";
+		});
+	},
+	//项目开票，单位列表
+	getPlanListInfo: function() {
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$.ajax({
+			async: true,
+			url: $yt_option.base_path + "finance/projectInvoice/getInvoiceToGroup", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			before: function() {
+				//showLoading方法
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.ticket-open-tbody');
+					var htmlTr = '';
+					var projectType;
+					if(data.data != "") {
+						$(htmlTbody).empty()
+						$.each(data.data, function(i, v) {
+							if (v.invoiceStates == 1) {
+								v.invoiceStates = "未开票";
+							}else{
+								v.invoiceStates = "已开票";
+							}
+							if (v.isAdmission == 0) {
+								v.isAdmission = "未确认"
+							} else{
+								v.isAdmission = "已确认";
+							}
+							htmlTr += '<tr>' +
+								'<td>' + '<label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="select-teacher-pkId" value="' + v.groupId + '"/></label>' + '</td>' +
+								'<td class="groupName" style="text-align:left"><a style="color: #4169E1;" class="project-code-href">' + v.groupName + '</a></td>' +
+								'<td class="trainingExpenseNegotiatedPrice list-td" style="text-align:right;">' + v.trainingExpenseNegotiatedPrice + '</td>' +
+								'<td class="list-td"><a style="color: #4169E1;" class="look-info">查看</a></td>' +
+								'<td class="isAdmission">' + v.isAdmission + '</td>' +
+								'<td class="invoiceStates list-td">' + v.invoiceStates + '</td>' +
+								'<td class="orderReamrks list-td">' + v.orderReamrks + '</td>' +
+								'</tr>';
+							
+						});
+					}else {
+						$(htmlTbody).empty()
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="7" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.append(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			//isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 项目开票详情页面获取个人信息
+	 */
+	getBorrowListInfo: function() {
+		var projectCode = $yt_common.GetQueryString("projectCode");
+		$('.class-page').pageInfo({
+			async: true,
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/projectInvoice/getInvoiceToTrainee", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				projectCode: projectCode
+			}, //ajax查询访问参数
+			before: function() {
+				$yt_baseElement.showLoading();
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.class-tbody');
+					var htmlTr = '';
+					var num = 1;
+					var invoiceType;
+					if(data.data.rows.length > 0) {
+						$(htmlTbody).empty()
+						$.each(data.data.rows, function(i, v) {
+							htmlTr += '<tr>' +
+								'<td><label class="check-label yt-checkbox select-teacher-checkbox"><input type="checkbox" name="test" class="project-code" value="' + v.projectCode + '"/></label></td>' +
+								'<td class = "group-num">' + v.groupNum + '</td>' +
+								'<td class="real-name"><a style="color: #4169E1;" class="invoice-org-href">' + v.realName + '</a></td>' +
+								'<td class="room-number">' + v.roomNumber + '</td>' +
+								'<td class="phone" >' + v.phone + '</td>' +
+								'<td class="group-name" style="text-align:left">' + v.groupName + '</td>' +
+								'<td class="group-org-name" style="text-align:left">' + v.groupOrgName + '</td>' +
+								'<td><a style="color: #4169E1;" class="look-info">查看</a></td>' +
+								'<td class="checkIn-state">' + v.checkInState + '</td>' +
+								'<td class="is-admission">' + v.isAdmission + '</td>' +
+								'<td class="invoice-states">' + v.invoiceStates + '</td>' +
+								'<td class="invoice-remarks" style="text-align:right">' + v.invoiceRemarks + '</td>' +
+								'</tr>';
+							
+						});
+					}else {
+						$(htmlTbody).empty()
+						htmlTr += '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="12" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+					htmlTbody.append(htmlTr);
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//判空
+	isNotEmpty:function(){
+		var invoiceNumber=$('.invoice-number').val();
+		var invoiceValue=$('.invoice-value').val();
+		if (invoiceNumber==""&&invoiceValue=="") {
+			$yt_valid.validForm($(".select-teacher-table"));
+		}else{
+			
+		}
+	},
+};
+
+$(function() {
+	//初始化方法
+	ticketOpenInfo.init();
+
+});

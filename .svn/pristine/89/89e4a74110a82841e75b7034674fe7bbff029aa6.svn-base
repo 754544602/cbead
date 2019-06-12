@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--城市控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/city/city.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/busiTripApply/projectBeforehandBudget.css" />
+		<!--引用CSS文件END-->
+	</head>
+
+	<body>
+		<div id="projectDiv">
+			<!--基础信息区域START-->
+			<div class="base-info-model">
+				<!--标题区域START-->
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+					<span class="title-text">基本信息</span>
+					<div class="form-num-model">
+						<label><span style="letter-spacing: 4px;">单据编</span>号：</label><span id="formNum" class="form-num">提交后自动生成</span>
+						<label style="margin-left: 20px;"><span style="letter-spacing: 4px;">申请日</span>期：</label><span id="applicantTime">--</span>
+						<input type="hidden" name="advanceAppId" id="advanceAppId" value="" placeholder="事前申请id" />
+						<input type="hidden" name="loanAppId" id="loanAppId" value="" placeholder="借款申请表id" />
+						<input type="hidden" name="reimAppId" id="reimAppId" value="" placeholder="报销申请表id" />
+						<input type="hidden" name="reimAppNum" id="reimAppNum" value="" placeholder="报销单号" />
+						<input type="hidden" name="processInstanceId" id="processInstanceId" value="" placeholder="流程实例Id" />
+						<input type="hidden" id="applicantUser" placeholder="申请人code" />
+					</div>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<!--标题区域END-->
+				<!--基础信息表单区域START-->
+				<div class="base-info-form-modle">
+					<div class="essen-info" style="margin-bottom: 10px;">
+						<div class="field-label" style="">
+							<label class="field-title"><span style="letter-spacing:16px;">申请</span>人：</label><span id="busiUsers" class="field-cont">魏业科</span>
+						</div>
+						<div class="field-label">
+							<label class="field-title"><span style="letter-spacing: 40px;">部</span>门：</label><span id="deptName" class="field-cont">业务部门</span>
+						</div>
+						<div class="field-label">
+							<label class="field-title"><span style="letter-spacing: 40px;">职</span>务：</label><span id="jobName" class="field-cont">科员</span>
+						</div>
+						<div class="field-label">
+							<label class="field-title"><span style="letter-spacing: 40px;">电</span>话：</label><span id="telPhone" class="field-cont">022-68551115</span>
+						</div>
+					</div>
+
+					<table class="from-table" border="" cellspacing="" cellpadding="" style="padding-top: 10px;margin-left: 0px;">
+						<tr>
+							<td style="width: 33%;">
+								<label><span class="letter-five">事前申请</span>单：</label><input risk-code-val="beforeApplyForm" class="yt-input prior-approval" readonly="readonly" placeholder="请选择" />
+							</td>
+						</tr>
+						<tr>
+							<td class="tl" colspan="3">
+								<label>事前申请事由：</label>
+								<span id="advanceAppName" class="qtip-text-div">请先选择事前申请单</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="width: 66%;">
+								<label>所属预算项目：</label>
+								<span class="qtip-text-div budget-item-one">请先选择事前申请单</span>
+							</td>
+							<td>
+								<div class="special-yes" style="display: block;">
+									<label>可用预算余额：</label><span id="advanceAppBalance" class="qtip-text-div">请先选择事前申请单</span>
+								</div>
+							</td>
+						</tr>
+						<tr class="prj-name-tr" style="">
+							<td colspan="2">
+								<label><span class="letter-four">项目名</span>称：</label><span style="margin-left: 3px;" id="specialName" class="qtip-text-div">请先选择事前申请单</span>
+							</td>
+							<td>
+
+							</td>
+						</tr>
+
+					</table>
+				</div>
+				<!--基础信息表单区域END-->
+			</div>
+			<!--基础信息区域END-->
+			<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+			<!--预算调整明细START-->
+			<div id="budgetDetailed" style="padding-top: 20px;">
+				<!--标题START-->
+				<div class="label-title">
+					<div class="title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+						<span class="title-text">预算调整明细</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题END-->
+				<!--提示文字START-->
+				<div class="qtip-text-div cost-hide" style="padding: 10px 20px;">请先选择事前申请单</div>
+				<!--提示文字END-->
+				<table class="yt-table" id="costList" style="width: 100%;table-layout: initial;margin-top: 20px;margin-bottom: 20px;display: none;">
+					<thead class="yt-thead">
+						<tr>
+							<th>费用名称</th>
+							<th>已审批预算金额（元）</th>
+							<th>调整后预算金额（元）</th>
+							<th>调整金额（元）</th>
+							<th>调整原因</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						<tr>
+							<td>师资费-课酬费</td>
+							<td class="app-money" style="text-align: right;">8,000.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">2,000.00</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>师资费-住宿费</td>
+							<td class="app-money" style="text-align: right;">1,000.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">1,000.00</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>师资费-伙食费</td>
+							<td class="app-money" style="text-align: right;">500.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">500.00</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>师资费-城市间交通费</td>
+							<td class="app-money" style="text-align: right;">2,300.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">2,900.00</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>参训人员-住宿费</td>
+							<td class="app-money" style="text-align: right;">12,000.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">188,000.00</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>参训人员-伙食费</td>
+							<td class="app-money" style="text-align: right;">2,300.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>工作人员-住宿费</td>
+							<td class="app-money" style="text-align: right;">300.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">2,700.00</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>参训人员-伙食费</td>
+							<td class="app-money" style="text-align: right;">300.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">20.00</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>培训场地费</td>
+							<td class="app-money" style="text-align: right;">50,000.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>培训资料费-资料费</td>
+							<td class="app-money" style="text-align: right;">12,000.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>培训资料费-办公用品费</td>
+							<td class="app-money" style="text-align: right;">3,000.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>交通费</td>
+							<td class="app-money" style="text-align: right;">5,000.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>现场教学费</td>
+							<td class="app-money" style="text-align: right;">200.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>设施租赁费</td>
+							<td class="app-money" style="text-align: right;">5,000.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>文体活动费</td>
+							<td class="app-money" style="text-align: right;">300.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>医药费</td>
+							<td class="app-money" style="text-align: right;">500.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr>
+							<td>与培训有关的其他费用</td>
+							<td class="app-money" style="text-align: right;">200.00</td>
+							<td><input class="yt-input aft-money" style="text-align: right;" placeholder="请输入" /></td>
+							<td class="adj-money" style="text-align: right;">0</td>
+							<td><input class="yt-input adj-reason" style="text-align: right;" placeholder="请输入" /></td>
+						</tr>
+						<tr class="last">
+							<td style="font-weight: bold;">合计</td>
+							<td class="approved-money" style="text-align: right;">0.00</td>
+							<td class="after-money" style="text-align: right;">0.00</td>
+							<td class="adjustment-money" style="text-align: right;">0.00</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--预算调整明细END-->
+			<!-- 流程审批 Start -->
+			<div class="ordinar-div approve-div">
+				<div style="height: 5px;background-color: #f3f3f3;border-top: 1px solid #dfe6f3;border-bottom: 1px solid #dfe6f3;"></div>
+				<div class="label-title" style="margin-top: 10px;">
+					<div class="title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/flow-title-icon.png">
+						<span class="title-text">流程审批</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<div class="operation">
+					<div class="count-box" style="margin-left: 0px;padding-left: 0px;">
+						<div class="form-label">
+							<label><span class="not-null">*</span>选择操作流程：</label>
+							<select name="" id="operate-flow" risk-code-val="reimApplyOperFlow" class="oper-select" validform="{isNull:true,msg:'请选择操作流程'}">
+								<option value="">请选择</option>
+							</select>
+							<div class="valid-font" style="left: 105px;"></div>
+						</div>
+						<div class="form-label">
+							<label><span class="not-null">*</span>选择审批人：</label>
+							<select name="" risk-code-val="reimApplyApproveUsers" id="approve-users" class="oper-select" validform="{isNull:true,msg:'请选择审批人'}">
+								<option value="">请选择</option>
+							</select>
+							<div class="valid-font" style="left: 92px;"></div>
+						</div>
+					</div>
+					<div class="count-box" style="margin-left: 0px;padding-left: 0px;">
+						<div class="left">
+							<span style="letter-spacing: 5px;">操作意</span>见：
+						</div>
+						<div class="right">
+							<textarea id="opintion" risk-code-val="reimApplyFlowOperSug" class="yt-textarea" placeholder="请输入" style="resize: none;width: 98%;"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="button-box">
+					<button class="yt-option-btn yt-common-btn" style="margin-left: 35px;" id="savePayment">保存</button>
+					<button class="yt-option-btn yt-common-btn" style="margin-left: 35px;" id="submitPayment">提交</button>
+					<button class="yt-option-btn yt-cancel-btn" style="margin-left: 35px;" id="cancelBtn">取消</button>
+				</div>
+			</div>
+			<!-- 流程审批 End -->
+			<!-- 选择事前审批单 Start -->
+			<div class="alert-div prior-alert">
+				<div class="model-title">
+					<img src="../../../../../resources-sasac/images/common/title-edit.png"><span>选择事前审批单</span>
+				</div>
+				<div class="model-content">
+					<div class="search-box">
+						<label>申请人/申请事由：</label><input type="text" id="" value="" class="yt-input prior-approval-val" placeholder="请输入" />
+						<button class="yt-option-btn yt-search-btn prior-approval-search" id="">查询</button>
+						<button class="yt-option-btn yt-reset-btn prior-approval-reset" id="">重置</button>
+					</div>
+					<table border="0" cellspacing="0" cellpadding="0" class="yt-table prior-approval-list">
+						<thead class="yt-thead">
+							<tr>
+								<th>单据编号</th>
+								<th style="width: 80px;">申请人</th>
+								<th>所属部门</th>
+								<th>申请事由</th>
+								<th>费用类型</th>
+								<th style="width: 100px;">申请日期</th>
+								<!--<th>专项名称</th>-->
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							
+						</tbody>
+					</table>
+					<!--分页START-->
+					<div class="page-info prior-page" onselectstart="return false"></div>
+					<!--分页END-->
+					<div class="min-but">
+						<button class="yt-option-btn yt-common-btn prior-common">确定</button>
+						<button class="yt-option-btn yt-cancel-btn prior-cancel" style="margin-left: 20px;">取消</button>
+					</div>
+				</div>
+			</div>
+			<!-- 选择事前审批单 End -->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--城市控件-->
+	<!--<script type="text/javascript" src="../../../../../resources-sasac/js/city/city.min.js"></script>-->
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.js"></script>
+	<!--上传-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/ajaxfile/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/busiTripApply/projectBeforehandBudget.js"></script>
+	<!--引用JS文件END-->
+
+</html>

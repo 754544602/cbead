@@ -1,0 +1,25 @@
+.bill-info-table{
+	width: 1200px;
+	margin: 0px auto;
+}
+.bill-info-table tr{
+	height: 46px;
+}
+.data-span{
+	font-size: 15px;
+	color: #888888;
+	font-weight: normal;
+	float: right;
+	margin-right: 20px;
+}
+.data-info-div{
+	position: relative;
+    height: 45px;
+    line-height: 45px;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #de595a;
+    display: inline;
+}

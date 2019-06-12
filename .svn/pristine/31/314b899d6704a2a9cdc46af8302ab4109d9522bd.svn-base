@@ -1,0 +1,35 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 100,
+		"rows": [
+			{
+				"bankAccountRegisterId":"1",
+				"applyNumber":"",
+				"accountNumber": "",
+				"accountType": "基本存款账户",
+				"examineType":"账号开立",
+				"applyPeople":"",
+				"processState":"待XX审批"
+			},
+			{
+				"bankAccountRegisterId":"2",
+				"applyNumber":"",
+				"accountNumber": "",
+				"accountType": "一般存款账户",
+				"examineType":"账号变更",
+				"applyPeople":"",
+				"processState":"待XX审批"
+			},
+			{
+				"bankAccountRegisterId":"3",
+				"applyNumber":"",
+				"accountNumber": "",
+				"accountType": "临时存款账户",
+				"examineType":"账号撤销",
+				"applyPeople":"",
+				"processState":"待XX审批"
+			}
+		]
+	}
+}

@@ -1,0 +1,98 @@
+{
+ "flag":0,
+ "data":{
+		"total": 100,
+		"rows": [
+
+			{
+				"reimId":"1",
+				"reimNum": "BXC20171222001",
+				"reimType": "差旅费",
+				"applyUsers": "赵欣",
+				"reimMoney": "15,483.00",
+				"applyDate": "2017-12-22",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"2",
+				"reimNum": "BXC20171219008",
+				"reimType": "差旅费",
+				"applyUsers": "李元",
+				"reimMoney": "483.00",
+				"applyDate": "2017-12-19",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"3",
+				"reimNum": "BXC20171219007",
+				"reimType": "差旅费",
+				"applyUsers": "王欣桐",
+				"reimMoney": "983.00",
+				"applyDate": "2017-12-19",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"4",
+				"reimNum": "BXC20171219006",
+				"reimType": "差旅费",
+				"applyUsers": "赵小虎",
+				"reimMoney": "145.00",
+				"applyDate": "2017-12-19",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"5",
+				"reimNum": "BXC20171219005",
+				"reimType": "差旅费",
+				"applyUsers": "宋子豪",
+				"reimMoney": "9,183.00",
+				"applyDate": "2017-12-19",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"6",
+				"reimNum": "BXC20171219004",
+				"reimType": "差旅费",
+				"applyUsers": "赵欣",
+				"reimMoney": "1,923.00",
+				"applyDate": "2017-12-19",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"7",
+				"reimNum": "BXC20171219003",
+				"reimType": "差旅费",
+				"applyUsers": "李柯",
+				"reimMoney": "4,983.00",
+				"applyDate": "2017-12-19",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"8",
+				"reimNum": "BXC20171219002",
+				"reimType": "差旅费",
+				"applyUsers": "王佳",
+				"reimMoney": "3,900.00",
+				"applyDate": "2017-12-19",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"9",
+				"reimNum": "BXC20171219001",
+				"reimType": "差旅费",
+				"applyUsers": "赵欣",
+				"reimMoney": "1,567.00",
+				"applyDate": "2017-12-19",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"10",
+				"reimNum": "BXC20171216021",
+				"reimType": "差旅费",
+				"applyUsers": "李元",
+				"reimMoney": "1,509.00",
+				"applyDate": "2017-12-16",
+				"flowStatus": "待财务审批"
+			}, {
+				"reimId":"11",
+				"reimNum": "BXC2017121617",
+				"reimType": "差旅费",
+				"applyUsers": "王欣桐",
+				"reimMoney": "9,963.00",
+				"applyDate": "2017-12-16",
+				"flowStatus": "待财务审批"
+			}
+		]
+	}
+}

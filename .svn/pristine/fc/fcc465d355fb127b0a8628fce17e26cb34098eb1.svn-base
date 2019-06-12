@@ -1,0 +1,261 @@
+var projectBudgetChange = {
+	//初始化方法
+	init: function() {
+		
+		//获取跳转页面传过来的pkId
+		var pkId = $yt_common.GetQueryString('pkId');
+		//获取详细信息
+		projectBudgetChange.getBudgetInf();
+		
+		//初始化日期控件
+		$(".report-date").calendar({
+		    speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+		    complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+		    readonly: true, // 目标对象是否设为只读，默认：true     
+		    lowerLimit:"NaN", // 日期下限，默认：NaN(不限制)     
+		    nowData:true,//默认选中当前时间,默认true  
+		    dateFmt:"yyyy-MM-dd HH:mm:ss",  
+		    callback: function() { // 点击选择日期后的回调函数  
+		        //alert("您选择的日期是：" + $("#txtDate").val());  
+		    }  
+		});  
+		$(".out-hospital-date").calendar({
+		    speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+		    complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+		    readonly: true, // 目标对象是否设为只读，默认：true     
+		    lowerLimit:"NaN", // 日期下限，默认：NaN(不限制)     
+		    nowData:true,//默认选中当前时间,默认true  
+		    dateFmt:"yyyy-MM-dd HH:mm:ss",  
+		    callback: function() { // 点击选择日期后的回调函数  
+		        //alert("您选择的日期是：" + $("#txtDate").val());  
+		    }  
+		});
+		
+		//获取项目下拉框
+		var projectSelect = projectBudgetChange.getAddBudgetSelect();
+		if (projectSelect !=null){
+			$.each(projectSelect,function (i,n){
+				$(".project-code").append('<option value="'+n.projectCode+'" createUserName="'+n.createUserName+'" projectType="'+n.projectType+'" classTeacher="'+n.classTeacher+'" projectHead="'+n.projectHead+'" startDate="'+n.startDate+'" endDate="'+n.endDate+'" traineeTotal="'+n.traineeTotal+'">'+n.projectName+'</option>');
+			});
+		}
+		$(".project-code").niceSelect();
+		
+		//获取下一步操作人
+		var dealingWithPeople = projectBudgetChange.getListSelectDealingWithPeople();
+		if (dealingWithPeople !=null){
+			$.each(dealingWithPeople,function (i,n){
+				$(".dealing-with-people").append('<option value="'+n.userCode+'">'+n.userName+'</option>');
+			});
+		}
+		$(".dealing-with-people").niceSelect();
+		
+		//点击保存
+		$(".save-budget").click(function(){
+			var dataStates = 1;
+			projectBudgetChange.projectBudgetChangeInf(dataStates);
+			window.location.href="/cbead/website/view/projectBudget/budgetList.html";
+		});
+		//点击提交
+		$(".submit-budget").click(function(){
+			var dataStates = 2;
+			projectBudgetChange.projectBudgetChangeInf(dataStates);
+			window.location.href="/cbead/website/view/projectBudget/budgetList.html";
+		});
+		//点击取消
+		$(".btn-off").click(function(){
+			window.location.href="/cbead/website/view/projectBudget/budgetList.html";
+		});
+		
+		
+		
+		
+	},
+	/**
+	 * 获取下一步操作人
+	 */
+	getListSelectDealingWithPeople:function(){
+		var list =[];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path+"uniform/workFlowOperate/getSubmitPageData",
+			data:{
+				businessCode:"project",
+				processInstanceId:"",
+				parameters:"",
+				versionNum:""
+			},
+			async: false,
+			success: function(data) {
+				$.each(data.data, function(i, n) {
+						console.log(n);
+						console.log(i);
+						for(var k in n) {
+							console.log('k', k);
+							console.log("n[k]", n[k]);
+							list = n[k];
+						}
+					});
+			}
+		});
+		return list;
+	},	
+	/**
+	 * 项目下拉框查询
+	 */
+	getAddBudgetSelect:function(){
+		var list =[];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path+"finance/reduction/lookForAllProject",
+			data:{
+				searchParameters:""
+			},
+			async: false,
+			success: function(data) {
+				list = data.data || [];
+			}
+		});
+		return list;
+	},
+	/**
+	 * 预算明细查询
+	 */
+	getBudgetSubsidiary:function(){
+		var list =[];
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path+"finance/projectBudget/getProjectBudgetCostBase",
+			data:{
+				
+			},
+			async: false,
+			success: function(data) {
+				list = data.data || [];
+			}
+		});
+		return list;
+	},
+	//获取一条数据
+	getBudgetInf: function() {
+			var pkId = $yt_common.GetQueryString('pkId');
+			$.ajax({
+				type: "post", //ajax访问方式 默认 "post"  
+				url: $yt_option.base_path + "finance/projectBudget/getBeanById", //ajax访问路径  
+				data: {
+					pkId:pkId
+				}, //ajax查询访问参数
+				success: function(data) {
+					if(data.flag == 0){
+						
+						$(".budget-inf").setDatas(data.data);		
+						//从返回的值里给select赋值
+						$(".project-code").setSelectVal(data.data.projectCode);
+						$(".dealing-with-people").setSelectVal(data.data.dealingWithPeople);
+						//通过projectCode获取其他信息
+						if($(".project-code").val()!=""){
+							var createUserName=$("select.project-code option:selected").attr("createUserName");
+							var projectType=$("select.project-code option:selected").attr("projectType");
+							var classTeacher=$("select.project-code option:selected").attr("classTeacher");
+							var projectHead=$("select.project-code option:selected").attr("projectHead");
+							var startDate=$("select.project-code option:selected").attr("startDate");
+							var endDate=$("select.project-code option:selected").attr("endDate");
+							var traineeTotal=$("select.project-code option:selected").attr("traineeTotal");
+							$(".create-user-name").text(createUserName);
+							$(".project-type").text(projectType);
+							$(".class-teacher").text(classTeacher);
+							$(".project-head").text(projectHead);
+							$(".start-date").text(startDate);
+							$(".end-date").text(endDate);
+							$(".trainee-total").text(traineeTotal);
+						}
+						//获取预算明细
+						var projectBudgetDetailsArr = $.parseJSON(data.data.projectBudgetDetails);
+						var projectBudget = '';
+						if(projectBudgetDetailsArr!=null){
+							$.each(projectBudgetDetailsArr, function(i,n) {
+								projectBudget = $('<tr><td align="right"><input type="hidden" value="'+ n.costCode +'" class="cost-code"><span>'+ n.costName +'：</span></td><td><input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入"></td><td style="width: 50px;"><span>元</span></td><td><input type="text" class="yt-input according-instructions gist" data-val="accordingInstructions" placeholder="请输入依据说明"></td></tr>');
+								projectBudget.setDatas(n);
+								if(n.costType==1){
+									$(".approval-change-before .teach-related-expenses-table,.approval-change-after .teach-related-expenses-table").append(projectBudget);
+									//$(".approval-change-after .teach-related-expenses-table").append(projectBudget);
+								}
+								if(n.costType==2){
+									$(".approval-change-before .logistics-related-expenses-table,.approval-change-after .logistics-related-expenses-table").append(projectBudget);
+									//$(".approval-change-after .logistics-related-expenses-table").append(projectBudget);
+								}
+								
+							});
+						}
+					}else{
+						$yt_alert_Model.prompt("获取失败");
+					}
+				}
+			});
+	},
+		
+	//新增预算变更
+	projectBudgetChangeInf: function(dataStates) {
+		debugger
+		var pkId = $yt_common.GetQueryString('pkId');
+		var projectCode = $(".project-code").val();
+		var reportDate = $(".report-date").val();
+		var outHospitalDate = $(".out-hospital-date").val();
+		var entrustOrgCount = $(".entrust-org-count").val();
+		var isOffSiteTraining = $(".is-off-site-training").val();
+		var offSiteTrainingRequirement = $(".offsite-training-requirement").val();
+		var costStandard = $(".cost-standard").val();
+		var projectBudgetDetails = "";
+		var dealingWithPeople = $(".dealing-with-people").val();
+		
+		var projectBudgetDetailsArr=[];
+		$(".budget-subsidiary-change tr").each(function (i,n){
+			costCode=$(n).find(".cost-code").val();
+			budgetCost=$(n).find(".budget-cost").val();
+			accordingInstructions=$(n).find(".according-instructions").val();
+			
+				
+			var arrProjectBudgetDetails={
+				costCode:costCode,
+				budgetCost:budgetCost,
+				accordingInstructions:accordingInstructions
+			}
+			projectBudgetDetailsArr.push(arrProjectBudgetDetails);
+		});
+		var projectBudgetDetails = JSON.stringify(projectBudgetDetailsArr);
+		
+		$.ajax({
+			type: "post", //ajax访问方式 默认 "post"  
+			url: $yt_option.base_path + "finance/projectBudget/addOrUpdateBean", //ajax访问路径  
+			data: {
+				pkId:pkId,
+				types:2,        
+				projectCode:projectCode, 
+				reportDate:reportDate,    
+				outHospitalDate:outHospitalDate,    
+				entrustOrgCount:entrustOrgCount,      
+				isOffSiteTraining:isOffSiteTraining,  
+				offSiteTrainingRequirement:offSiteTrainingRequirement,      
+				costStandard:costStandard,      
+				projectBudgetDetails:projectBudgetDetails,  
+				dataStates:dataStates,    
+				businessCode:"projectBudget",       
+				dealingWithPeople:dealingWithPeople,  
+				opintion:"",     
+				processInstanceId:"",       
+				nextCode:"submited"
+			}, //ajax查询访问参数
+			success: function(data) {
+				if(data.flag == 0){
+				 	$yt_alert_Model.prompt("操作成功");
+				}else{
+					$yt_alert_Model.prompt("操作失败");
+				}
+			} 
+		});
+	}
+}
+$(function() {
+	//初始化方法
+	projectBudgetChange.init();
+	
+});

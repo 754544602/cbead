@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherInf.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<!--审批流程css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<title>班级管理</title>
+		<style type="text/css">
+			.teacher-index-inf table input{
+				    border: 1px solid #DFE6F3;
+			}
+			.dollarsApproveTable td{
+				padding: 10px 0 ;
+			}
+			.teacher-index-inf td{
+				height: auto
+			}
+			.dollarsApproveTableDetail td{
+				padding: 10px 0 ;
+			}
+		</style>
+	</head>
+	<body style="min-width: 1000px;">
+		<div class="project-title-div">
+			<button class="yt-option-btn btn-return">
+				<img class="return-img" src="../../resources/images/icons/class-return.png"/>
+				返回
+			</button>
+		</div>
+		<div class="box-list">
+			<div class="content-box" style="background: #FFFFFF;">
+				<div class="teacher-index-inf" style="width: 820px;">
+					<input type="hidden" id="taskKey" value="" />
+					<form style="margin-top: 15px;padding-top: 30px;">
+						<table style="margin-bottom: 60px;width: 91%;display: none;" class="dollarsApproveTable">
+							<tr>
+								<td align="right" width="79px">教师姓名：</td>
+								<td style="word-break: break-all;" colspan="2">
+									<span class="teacherName" data-text="realName"></span>
+								</td>
+								<td align="right">单位职务：</td>
+								<td style="word-break: break-all;">
+									<span class="deptName"  data-text="deptName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">授课班次：</td>
+								<td style="word-break: break-all;" colspan="2">
+									<select class="yt-select teacherProjectCode" style="width: 150px;" validform="{isNull:true,blurFlag:true,msg:'请选择授课班次'}">
+										<option value="">请选择</option>
+									</select>
+								</td>
+								<td align="right">授课主题：</td>
+								<td style="word-break: break-all;">
+									<select class="yt-select teacherCourse" style="width: 150px;" validform="{isNull:true,blurFlag:true,msg:'请选择授课主题'}">
+										<option value="">请选择</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td align="right" style="vertical-align: top;">综合评价：</td>
+								<td style="word-break: break-all;" colspan="4">
+									<p data-text="teacherEvaluate"></p>
+								</td>
+							</tr>
+							<tr>
+								<td align="right" style="vertical-align: top;" rowspan="3">课酬标准：</td>
+								<td style="word-break: break-all;width: 130px;vertical-align: top;" rowspan="3">
+									<span class="teacherMoneyHalf" data-text="dollarsStandardHalfVal">0.00</span><label>元/半天</label><br /><br />
+									<span class="teacherMoneyOne" data-text="dollarsStandardOneVal">0.00</span><label>元/天</label>
+								</td>
+								<td style="word-break: break-all;width: 140px;" rowspan="3">
+									<ul>
+										<li style="margin:10px 0"><label class="yt-radio check"><input type="radio" name="moneyType" value="1"/>长期课酬</label></li>
+										<li style="margin:10px 0"><label class="yt-radio"><input type="radio" name="moneyType" value="2"/>并行课酬</label></li>
+										<li style="margin:10px 0"><label class="yt-radio"><input type="radio" name="moneyType" value="3"/>单次课酬</label></li>
+									</ul>
+								</td>
+								<td style="word-break: break-all;padding: 5px 0 ;">
+									基础课酬：
+								</td>
+								<td style="word-break: break-all;padding: 5px 0 ;">
+									<input type="text" class="yt-input basicsStandardHalf" data-val="basicsStandardHalfVal" validform="{isNull:true}" style="width: 100px;"/><label>元/半天</label>
+									<input type="text" class="yt-input basicsStandardOne" data-val="basicsStandardOneVal" style="width: 100px;"/><label>元/天</label>
+								</td>
+							</tr>
+							<tr>
+								<td style="word-break: break-all;padding: 5px 0 ;">
+									浮动课酬：
+								</td>
+								<td style="word-break: break-all;padding: 5px 0 ;">
+									<input type="text" class="yt-input floatStandardHalf" data-val="floatStandardHalfVal" validform="{isNull:true}"  style="width: 100px;"/><label>元/半天</label>
+									<input type="text" class="yt-input floatStandardOne" data-val="floatStandardOneVal"  style="width: 100px;"/><label>元/天</label>
+								</td>
+							</tr>
+							<tr>
+								<td style="word-break: break-all;padding: 5px 0 ;">
+									订制课酬：
+								</td>
+								<td style="word-break: break-all;padding: 5px 0 ;">
+									<input type="text" class="yt-input customizedStandardHalf" data-val="customizedStandardHalfVal" validform="{isNull:true}" style="width: 100px;"/><label>元/半天</label>
+									<input type="text" class="yt-input customizedStandardOne" data-val="customizedStandardOneVal" style="width: 100px;"/><label>元/天</label>
+								</td>
+							</tr>
+						</table>
+						<!--详情-->
+						<table style="margin-bottom: 60px;width: 91%;" class="dollarsApproveTableDetail">
+							<tr>
+								<td align="right" width="100px">教师姓名：</td>
+								<td style="word-break: break-all;" colspan="2">
+									<span class="teacherName" data-text="realName"></span>
+								</td>
+								<td align="right">单位职务：</td>
+								<td style="word-break: break-all;">
+									<span class="deptName" data-text="deptName"></span>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">授课班次：</td>
+								<td style="word-break: break-all;" colspan="2" data-text="projectName">
+								</td>
+								<td align="right">授课主题：</td>
+								<td style="word-break: break-all;" data-text="courseName">
+								</td>
+							</tr>
+							<tr>
+								<td align="right" style="vertical-align: top;">综合评价：</td>
+								<td style="word-break: break-all;" colspan="4">
+									<p data-text="teacherEvaluate"></p>
+								</td>
+							</tr>
+							<tr>
+								<td align="right" style="vertical-align: top;" rowspan="3">课酬标准：</td>
+								<td style="word-break: break-all;width: 130px;vertical-align: top;" rowspan="3">
+									<span class="teacherMoneyHalf" data-text="dollarsStandardHalfVal">0.00</span><label>元/半天</label><br /><br />
+									<span class="teacherMoneyOne" data-text="dollarsStandardOneVal">0.00</span><label>元/天</label>
+								</td>
+								<td style="word-break: break-all;width: 140px;vertical-align: top;text-align: right;padding-top: 5px;" rowspan="3" data-text = "dollarsStandardTypeVal">
+								</td>
+								<td align="right"  style="word-break: break-all;padding: 5px 0 ;width: 100px;">
+									基础课酬：
+								</td>
+								<td style="word-break: break-all;padding: 5px 0 ;">
+									<span data-text="basicsStandardHalfVal"></span><label>元/半天</label>
+									<span data-text="basicsStandardOneVal"></span><label>元/天</label>
+								</td>
+							</tr>
+							<tr>
+								<td align="right"  style="word-break: break-all;padding: 5px 0 ;">
+									浮动课酬：
+								</td>
+								<td style="word-break: break-all;padding: 5px 0 ;">
+									<span data-text="floatStandardHalfVal"></span><label>元/半天</label>
+									<span data-text="floatStandardOneVal"></span><label>元/天</label>
+								</td>
+							</tr>
+							<tr>
+								<td align="right" style="word-break: break-all;padding: 5px 0 ;">
+									订制课酬：
+								</td>
+								<td style="word-break: break-all;padding: 5px 0 ;">
+									<span data-text="customizedStandardHalfVal"></span><label>元/半天</label>
+									<span data-text="customizedStandardOneVal"></span><label>元/天</label>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="approve-content-box" style="display: none;padding-bottom: 20px;">
+					<!--审批流程最后一步STAR-->
+					<div class="last-step last-step-div">
+						<div class="last-box">
+						<div class="number-name-box">
+							<span class="number-box-span last-step-order" >3</span>
+							<span class="name-box-span last-step-operate-person-userName" ></span>
+							<img src="../../resources/images/open/open-sp.png" width="100%" height="100%" />
+						</div>
+						<div class="view-box-div" style="height: 210px;">
+							<span class="last-step-commentTime" style="width: auto;float: left;margin-left: 394px;color: red;width: 400px;text-align: right;"></span>
+							<form>
+								<table class="add-new-tab" cellspacing="1px" cellpadding="1px" style=" ">
+									<tr>
+										<td class="operate-state-title-td">操作状态：</td>
+										<td  class="sp-state last-step-operationState" style=""></td>
+									</tr>
+									<tr>
+										<td style="text-align: right; ">是否同意：</td>
+										<td style="text-align: left; ">
+											<label class="check-label yt-radio check">
+												<input class="agree-disagree" type="radio" class="radio" name="radioType" value="completed"/>同意
+											</label>
+											<label class="check-label yt-radio" style="margin-left: 20px;">
+											 	<input class="agree-disagree" type="radio" class="radio" name="radioType" value="returnedSubmit"/>拒绝
+											</label>
+										</td>
+									</tr>
+									<tr class="next-operate-person-tr hid-input">
+										<td style="text-align: right; ">下一步操作人：</td>
+										<td>
+											<select class="yt-select type-select type" id="nextPeople" style="width: 200px;float: left;">
+												<option value="no">请选择下一步操作人</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td style="text-align: right; ">操作人意见：</td>
+										<td>
+											<input id="opintion" class="yt-input" type="text" validform="{isNull:true,size:20,msg:'请输入内容,不要超过20个字'}" style="width: 719px;float: left;"/>  
+	    									<span class="valid-font"></span> 
+										</td>
+									</tr>
+								</table>
+							</form>
+							</div>
+						</div>
+					</div>
+					<!--审批流程最后一步END-->
+								
+					<!--审批第一步STAR-->	
+					<div class="first-step">
+						<div style="height: 150; ">
+							<div class="number-name-box">
+								<span class="number-box-span first-step-order"></span>
+								<span class="name-box-span first-step-operate-person-userName"></span>
+								<img src="../../resources/images/open/openFlow.png" width="100%" height="100%" />
+							</div>
+						</div>
+						<div class="pad-pos" style="height: 89px;">
+							<ul class="first-step-ul">
+								<li style="height: 30px;">
+									<span class="first-step-taskName view-taskName-span" style="float: left;"></span>
+								</li>
+								<li class="view-time-li first-step-commentTime" style="text-align: right;"></li>
+								<li class="operate-view-box-li">
+									<div class="operate-view-title-li" style="width: 48px;">备注：</div>
+									<div class="operate-view-text-li first-step-comment"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--审批第一步END-->
+					<div class="yt-eidt-model-bottom btn-box" style="text-align: center;margin: 10px 0px;">
+						<input class="yt-model-bot-btn yt-model-sure-btn" id="last-submit" type="button" value="确定" />
+						<input class="yt-model-bot-btn yt-model-canel-btn " id="last-cancel" type="button" value="取消" style="margin-left: 20px;" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/teacherCourse/teacherApprovalInf.js"></script>
+</html>

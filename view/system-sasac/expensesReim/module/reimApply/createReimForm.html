@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/reimApply/reimFormPreview.min.css?YTVERSIONCODE" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+
+	<body>
+		<div id="reimFrom">
+			<!--顶部操作按钮组START-->
+			<div class="heard-btn-group">
+				<span id="twoBarCode"><img src="../../../../../resources-sasac/images/system/expensesReim/common/two-bar-codes.png"/></span>
+				<button class="yt-option-btn yt-common-btn" id="printBtn">打印</button>
+				<button class="yt-option-btn yt-common-btn yt-cancel-btn" id="closeBtn">关闭</button>
+			</div>
+			<!--顶部操作按钮组END-->
+			<!--startprint-->
+			<!--差旅费报销单(预览)区域START-->
+			<div class="reim-form-model">
+				<!--标题START-->
+				<div class="base-info-title-model title-model-sty" style="width: 1075px;">
+					<img src="../../../../../resources-sasac/images/system/expensesReim/common/create-reim-title.png">
+					<div class="create-date-model">
+						<label>制单日期：</label><span id="createFormDate"></span>
+					</div>
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<!--标题END-->
+				<div class="form-num-model"><label>单据编号：</label><span data-text="reimAppNum"></span></div>
+				<!--差旅费报销单信息START-->
+				<div class="travel-form-model">
+					<div class="travel-form-model">
+					<table style="width: 1075px;table-layout: fixed;" id="reimFormTab">
+						<tr>
+							<td width="116px">
+								<div style="width: 116px;"><label class="td-font-blod">报销人</label></div>
+							</td>
+							<td><span data-text="applicantUserName"></span></td>
+							<td width="74px">
+								<div style="width: 74px;"><label class="td-font-blod">报销事由</label></div>
+							</td>
+							<td colspan="8" style="text-align: left;"><span data-text="reimAppName"></span></td>
+						</tr>
+						<tr>
+							<td><label class="td-font-blod">出差人数</label></td>
+							<td><span data-text="travelPersonnelNum"></span></td>
+							<td><label class="td-font-blod">出差人</label></td>
+							<td colspan="5" style="text-align: left;"><span data-text="travelPersonnelsName"></span></td>
+							<td width="74px"><label class="td-font-blod">出差天数</label></td>
+							<td colspan="2"><span id="busiTripDays"></span></td>
+						</tr>
+						<tr>
+							<td><label class="td-font-blod">部门（预算来源）</label></td>
+							<td><span data-text="prjDeptName"></span></td>
+							<td><label class="td-font-blod">预算项目</label></td>
+							<td colspan="3" width="319px" style="text-align: left;">
+								<div style="width: 319px;" data-text="prjName"></div>
+							</td>
+							<td width="84px"><label class="td-font-blod">出差申请单</label></td>
+							<td><span id="travelAppNum" data-text="travelAppNum" title=""></span></td>
+							<td><label class="td-font-blod">借款单</label></td>
+							<td width="147px" colspan="2"><span data-text="loanAppNum"></span></td>
+						</tr>
+						<tr>
+							<td id="reimDetailTd" rowspan=""><label class="td-font-blod">报销明细</label></td>
+						</tr>
+						<tr>
+							<td colspan="2"><label class="td-font-blod">出发</label></td>
+							<td colspan="2"><label class="td-font-blod">到达</label></td>
+							<td rowspan="2"><label class="td-font-blod">交通方式</label></td>
+							<td rowspan="2"><label class="td-font-blod">城市间交通费</label></td>
+							<td rowspan="2"><label class="td-font-blod">住宿费</label></td>
+							<td colspan="3"><label class="td-font-blod">其他费用</label></td>
+						</tr>
+						<tr class="reim-detail-tr">
+							<td><label class="td-font-blod">日期</label></td>
+							<td><label class="td-font-blod">地点</label></td>
+							<td><label class="td-font-blod">日期</label></td>
+							<td><label class="td-font-blod">地点</label></td>
+							<td><label class="td-font-blod">费用项</label></td>
+							<td><label class="td-font-blod">金额</label></td>
+							<td><label class="td-font-blod">备注</label></td>
+						</tr>
+						<tr>
+							<td colspan="5"><label class="td-font-blod">合计</label></td>
+							<td><span class="td-font-blod" id="trafficPriceSum"></span></td>
+							<td><span class="td-font-blod" id="hotelPriceSum"></span></td>
+							<td></td>
+							<td><span class="td-font-blod" id="otherPriceSum"></span></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td style="height: 78px;line-height: 25px;">
+								<label class="td-font-blod">报销总额</label>
+								<div class="td-font-blod">（大写）</div>
+							</td>
+							<td colspan="5"><span class="money-span" id="reimMoneySum"></span></td>
+							<td><label class="td-font-blod">（小写）</label></td>
+							<td colspan="2">￥<span class="money-span"></span></td>
+							<td><label class="td-font-blod">发票张数</label></td>
+							<td><span data-text="invoiceNum"></span>张</td>
+						</tr>
+						<tr>
+							<td style="height: 54px;"><label class="td-font-blod">借款金额</label></td>
+							<td colspan="5" style="text-align: right;">￥<span id="loanPrice"></span></td>
+							<td colspan="5"></td>
+						</tr>
+						<tr>
+							<td colspan="3" width="229px" class="text-le" style="padding-left: 75px;">
+								<div style="width: 239px;"><label class="td-font-blod">接待方提供</label></div>
+							</td>
+							<td colspan="8" style="text-align: left;padding-left: 65px;line-height: normal;position: relative;">
+								<label class="check-label yt-checkbox">  
+						                    <input class="recep-box"  type="checkbox" name="test" value="1"/>住宿费
+						                  </label>
+								<label class="check-label yt-checkbox" style="margin-left: 60px;">  
+						                    <input class="recep-box" type="checkbox" name="test" value="2"/>伙食费
+						                  </label>
+								<label class="check-label yt-checkbox" style="margin-left: 60px;">  
+						                    <input class="recep-box" type="checkbox" name="test" value="3"/>交通费
+						                  </label>
+						        <div class="bak-shaow"></div>         
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" class="text-le" style="height:79px;line-height: normal;padding-left: 75px;position: relative;"><label class="td-font-blod">付款方式</label>
+								<label class="check-label yt-checkbox pay-money-checkbox">  
+						                    <input class="pay-way-box"  type="checkbox" name="test" value="1"/>
+						                </label>
+						        <div class="bak-shaow" style="height: 80px;width: 210px;"></div>
+							</td>
+							<td colspan="8" style="line-height: normal;padding-left: 45px;position: relative;">
+								<div style="width: 770px">
+									<ul class="pay-type-ul first-type-ul">
+										<li>
+											<label class="check-label yt-checkbox">  
+									                <input  type="checkbox" name="test" value="1"/>现金
+									        </label>
+											<div class="pay-type-div"><span>￥</span><span id="cash"></span></div>
+										</li>
+										<li>
+											<label class="check-label yt-checkbox">  
+									                    <input  type="checkbox" name="test" value="2"/>归还公务卡
+									                </label>
+											<div class="pay-type-div"><span>￥</span><span id="officialCard"></span></div>
+										</li>
+										<li>
+											<label class="check-label yt-checkbox">  
+									                    <input  type="checkbox" name="test" value="3"/>核销借款
+									                </label>
+											<div class="pay-type-div"><span>￥</span><span id="chargeOff"></span></div>
+										</li>
+									</ul>
+									<ul class="pay-type-ul">
+										<li>
+											<label class="check-label yt-checkbox">  
+									                    <input  type="checkbox" name="test" value="4"/>支票
+									                </label>
+											<div class="pay-type-div"><span>￥</span><span id="cheque"></span></div>
+										</li>
+										<li>
+											<label class="check-label yt-checkbox">  
+									                    <input  type="checkbox" name="test" value="5"/>电汇
+									                </label>
+											<div class="pay-type-div" style="margin-left: 55px;"><span>￥</span><span id="ableTransfer"></span></div>
+										</li>
+										<li style="padding-left: 21px;">
+											<label class="td-font-blod">合计</label>
+											<span class="td-font-blod pay-type-sum">￥<span id="payWayPriceSum"></span></span>
+										</li>
+									</ul>
+								</div>
+								<div class="bak-shaow" style="height: 80px;width: 720px;"></div>  
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="3"><label class="td-font-blod">常务副院长</label></td>
+							<td rowspan="3" colspan="2"><span class="col9"></span></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="height: 54px;"><label class="td-font-blod">分管财务院领导</label></td>
+							<td colspan="2"><span class="col9"></span></td>
+							<td colspan="2"><label class="td-font-blod">部门分管院领导</label></td>
+							<td colspan="2"><span class="col9"></span></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="height: 78px;line-height: normal;">
+								<label class="td-font-blod">费用归口部门</label>
+								<div class="td-font-blod" style="margin-top: 5px;">（专项经费）负责人</div>
+							</td>
+							<td colspan="2" class="col9"><span></span></td>
+							<td colspan="2"><label class="td-font-blod">部分负责人</label></td>
+							<td colspan="2" class="col9"><span></span></td>
+						</tr>
+					</table>
+				</div>
+				<!--差旅费报销单信息END-->
+			</div>
+			<!--差旅费报销单(预览)区域END-->
+			<!--风险列表区域START-->
+			<div class="risk-list-model">
+				<!--标题START-->
+				<div class="base-info-title-model title-model-sty">
+					<img src="../../../../../resources-sasac/images/system/expensesReim/common/risk-list-title.png">
+				</div>
+				<div class="title-line">
+					<div></div>
+				</div>
+				<!--标题END-->
+				<!--风险列表START-->
+				<table style="width: 1075px;" class="yt-table">
+					<thead class="yt-thead">
+						<tr>
+							<th>风险数据</th>
+							<th width="150px">
+								<div style="width: 150px;">风险编号</div>
+							</th>
+							<th>风险描述</th>
+							<th>关联政策法规</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody">
+						     <tr>
+						     	   <td class="text-left">吴大军2017-12-16天津-上海，处级领导应乘坐高铁二等座</td>
+					   	      	   <td>BX00000222002</td>
+					   	      	   <td class="text-left">出差人员应当按规定等级乘坐交通工具。乘坐交通工具的等级见详情；部级及相当职务人员出差，因工作需要，随行一人可乘坐同等级交通工具。未按规定等级乘坐交通工具的，超支部分由个人自理。</td>
+					   	      	   <td class="text-left">《中央和国家机关差旅费管理办法》第七条</td>
+					   	      </tr>
+					   	       <tr>
+					   	      	   <td class="text-left">吴大军、刘光国、赵欣住宿天数比申请多1天</td>
+					   	      	   <td>BX00000222005</td>
+					   	      	   <td class="text-left">根据单位差旅费管理制度，培训或会议召开前一天报到，会议或培训结束后第二天返程；如有特殊情况，需要相关说明及审批</td>
+					   	      	   <td class="text-left">《**单位差旅费管理制度》</td>
+					   	      </tr>
+					</tbody>
+				</table>
+				<!--风险列表END-->
+			</div>
+			<!--风险列表区域END-->
+			<!--endprint-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/reimApply/createReimForm.js?YTVERSIONCODE"></script>
+	<!--引用JS文件END-->
+</html>

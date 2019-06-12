@@ -1,0 +1,160 @@
+/**
+ * 费用支付反馈列表查询
+ */
+var projectList = {
+	//初始化方法
+	init: function() {
+		//调用获取列表数据方法
+		projectList.getPlanListInfo();
+		//点击流水账号跳转页面
+		$('.list-table').on("click", ".class-name", function() {
+			var pkId = $(this).parents("tr").find('.pkId').text(); //获取班级编号
+			var expenseType = $(this).parents("tr").find('.expenseType').text(); //获取班级编号
+			var workFlawState =  $(this).parents("tr").find('.workFlawState').text();
+			//expenseType 1:教师课酬报销 2:教师差旅报销
+			if(expenseType == 1) {
+				if(workFlawState=='已开票'){
+					window.location.href = "reimbursementLook.html?pkId=" + pkId;
+				}else{
+					window.location.href = "reimburDetailPayment.html?pkId=" + pkId;
+				}
+			}
+			if(expenseType == 2) {
+				if(workFlawState=='已开票'){
+					window.location.href = "reimburseTravelDetailsLook.html?pkId=" + pkId;
+				}else{
+					window.location.href = "reimburseTravelDetailsPayment.html?pkId=" + pkId;
+				}
+				
+			}
+		});
+		$('.back-btn').click(function(){
+			window.history.back();
+		})
+//		$('.key-word').hide();
+//		//列表查询按钮
+//		$('.lists-class').click(function() {
+//			$('.key-word').hide();
+//			$('#keyword').val('');
+//			projectList.getPlanListInfo();
+//		});
+//		//自定义按钮
+//		$('.custom-class').click(function() {
+//			$('.key-word').show();
+//		});
+
+		//点击搜索按钮
+		$('.search-btn').click(function() {
+			projectList.getPlanListInfo();
+		});
+	},
+	/** 
+	 * 获取列表数据
+	 */
+	getPlanListInfo: function() {
+		$yt_baseElement.showLoading();
+		var queryParams = $('#keyword').val();
+		$('.page-info').pageInfo({
+			pageIndexs: 1,
+			pageNum: 15, //每页显示条数  
+			pageSize: 10, //显示...的规律  
+			url: $yt_option.base_path + "finance/teacherExpense/lookForAll", //ajax访问路径  
+			type: "post", //ajax访问方式 默认 "post"  
+			data: {
+				selectParam: queryParams,
+				createTimeStart: "",
+				createTimeEnd: "",
+				teacherCountStart: "",
+				teacherCountEnd: "",
+				expenseMoneyStart: "",
+				expenseMoneyEnd: "",
+				expenseType: "",
+				workFlawState: "已完成"
+			}, //ajax查询访问参数
+			objName: 'data', //指获取数据的对象名称  
+			success: function(data) {
+				if(data.flag == 0) {
+					var htmlTbody = $('.open-class-tbody').empty();
+					var htmlTr = '';
+					var num = 0;
+					if(data.data.rows.length > 0) {
+
+						$.each(data.data.rows, function(i, v) {
+								num += 1;
+								var expenseType = Number(v.expenseType);
+								//1:教师课酬报销 2:教师差旅报销
+								if(expenseType == 1) {
+									expenseType = '教师课酬报销';
+								}
+								if(expenseType == 2) {
+									expenseType = '教师差旅报销';
+								}
+								v.workFlawState=='已完成'?v.workFlawState='已通过':v.workFlawState=v.workFlawState;
+								htmlTr = '<tr class="td-list">' +
+									'<td class="pkId" style="display:none;">' + v.pkId + '</td>' +
+									'<td class="paymentState" style="display:none;">' + v.paymentState + '</td>' +
+									'<td><a class="class-name"style="color: #3c4687;">' + v.flowNumber + '</a></td>' +
+									'<td class="expenseType" style="display:none;">' + v.expenseType + '</td>' +
+									'<td>' + expenseType + '</td>' +
+									'<td>' + v.projectCode + '</td>' +
+									'<td>' + v.projectName + '</td>' +
+									'<td>' + v.projectHead + '</td>' +
+									'<td>' + v.createTime + '</td>' +
+									'<td>' + v.teacherCount + '</td>' +
+									'<td>' + $yt_baseElement.fmMoney(v.expenseMoney,2)  + '</td>' +
+									'<td class="workFlawState">' + v.workFlawState + '</td>' +
+									'</tr>';
+									htmlTbody.append(htmlTr);
+						});
+					}
+					if(num == 0) {
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="8" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+							htmlTbody.append(htmlTr);
+					}
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	/**
+	 * 删除数据
+	 */
+	deleteReimbursement: function() {
+		if($("tr.yt-table-active").length == 0) {
+			$yt_alert_Model.prompt("请选择要操作的数据");
+			return false;
+		}
+		var pkId = $(".yt-table-active .pkId").text(); //获取参数pkId
+		var downUrl = $yt_option.base_path + "finance/teacherExpense/removeBeanByIdTravel";
+		$.ajaxDownloadFile({
+			url: downUrl,
+			data: {
+				pkId: pkId,
+				isDownload: true,
+			}
+		});
+	},
+	/**
+	 * 刷新列表 
+	 */
+	refreshEffective: function() {
+		$('.page-info').pageInfo("refresh");
+	}
+
+};
+$(function() {
+	//初始化方法
+	projectList.init();
+});

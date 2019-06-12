@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>班级管理</title>
+	</head>
+	<body>
+		
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="height: 20px;">
+				<div class="search-btn-slect">
+					<button class="isOperation"  acl-code="receptionNotice" style="display: none;" ></button>
+					<button class="diploma"  acl-code="diploma" style="display: none;" ></button>
+					<button class="yt-option-btn search-more" onclick="" onselectstart="return false">
+						更多
+						<img class="search-put" src="../../resources/images/icons/class-put.png"/>
+					</button>
+					<div class="key-word">
+						<input class="yt-input" id="keyword" placeholder="班级编号，班级名称，项目主任" type="text"/>
+						<button class="yt-option-btn search-btn" >
+							<img class="search-img" src="../../resources/images/icons/class-search.png" />
+						</button>
+					</div>
+				</div>
+				<!--弹出START-->
+				<div class="search-box">
+					<table class="search-table">
+						<tr>
+							<td>班级编号：</td>
+							<td>
+								<input class="yt-input project-code" style="width: 230px;" type="text" placeholder="请输入" />
+							</td>
+						</tr>
+						<tr>
+							<td>班级名称：</td>
+							<td>
+								<input class="yt-input project-name" style="width: 230px;" type="text" placeholder="请输入" />
+							</td>
+						</tr>
+						<tr>
+							<td>项目类型：</td>
+							<td>
+								<div class="base-form-model select-type">
+									<div class="project-type-box">
+										<select id="project-type" class=""  style="width: 237px;">
+											<option value="">请选择</option>
+											<option value="2">委托</option>
+											<option value="3">选学</option>
+											<option value="4">中组部调训</option>
+											<option value="5">国资委调训</option>
+										</select>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>项目销售：</td>
+							<td>
+								<input class="yt-input project-sell" style="width: 230px;" type="text" placeholder="请输入" />
+							</td>
+						</tr>
+						<tr>
+							<td>项目主任：</td>
+							<td>
+								<input class="yt-input project-head" style="width: 230px;" type="text" placeholder="请输入" />
+							</td>
+						</tr>
+						<tr>
+							<td>项目状态：</td>
+							<td>
+								<div class="base-form-model select-type">
+									<div class="project-state-box">
+										<select id="project-states" class="yt-select"  style="width: 237px;">
+											<option value="">请选择</option>
+											<option value="2">培训中</option>
+											<option value="3">未结项</option>
+											<option value="4">已结项</option>
+										</select>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>开班日期：</td>
+							<td>
+								<input class="calendar-input start-time-start" style="width: 97px;" value="" placeholder="请选择" type="text" />
+								<span class="date-line">—</span>
+								<input class="calendar-input start-time-end" style="width: 97px;" value="" placeholder="请选择" type="text" />
+							</td>
+						</tr>
+						<tr>
+							<td>结束日期：</td>
+							<td>
+								<input class="calendar-input end-time-start" style="width: 97px;" value="" placeholder="请选择" type="text" />
+								<span class="date-line">—</span>
+								<input class="calendar-input end-time-end" style="width: 97px;" value="" placeholder="请选择" type="text" />
+							</td>
+						</tr>
+					</table>
+					<!--底部按钮START-->
+					<div class="search-bottom-btn">
+						<button class="yt-model-bot-btn yt-model-sure-btn">
+							<img class="search-btn-img" src="../../resources/images/icons/class-search.png"/>
+						</button>
+						<button class="yt-model-bot-btn yt-model-reset-btn">
+							<img class="search-btn-img" src="../../resources/images/icons/class-reset.png"/>
+						</button>
+					</div>
+				</div>
+				<!--弹出END-->
+			</div>
+
+			<!--顶部条件查询END-->
+
+			<!--数据展示区域START-->
+			<div class="list-box">
+					<div class="list-title">
+						<span style="margin: 12px 0px;display: inline-block;">班级管理</span>
+					</div>
+					<table class="yt-table list-table">
+						<thead class="list-thead">
+							<tr>
+								<th width="100px" projectCode="true" style="cursor: pointer;" class="pro-number">编号</th>
+								<th  style="">班级名称</th>
+								<th width="70px">类型</th>
+								<th style="width:120px;">项目销售</th>
+								<th style="width:120px;">项目主任</th>
+								<th width="100px" class="pro-star" style="cursor: pointer;" start="true">开班日期</th>
+								<th width="100px" class="pro-end" style="cursor: pointer;" end="true">结束日期</th>
+								<th width="80px">学员数量</th>
+								<th width="85px">状态</th>
+							</tr>	
+						</thead>
+						<tbody class="yt-tbody list-tbody class-tbody">
+							<tr>
+								<td colspan="9" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info list-page" onselectstart="return false"></div>
+			</div>
+			<!--数据展示区域END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/class/classMg.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+</html>

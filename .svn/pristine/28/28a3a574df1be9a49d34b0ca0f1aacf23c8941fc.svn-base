@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/teacher/teacherList.css" />
+		<link rel="stylesheet" href="../../resources/css/modules/project/addProjectList.css" />
+		<!--日期控件css-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>未立项项目</title>
+		<style type="text/css">
+			.calendar{
+				z-index: 10000 !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1000px;">
+			<div class="head-div" style="height: 20px;">
+				<div class="chose-date">
+					<input class="calendar-input chose-year" style="width: 110px;background-position: 100px 7px;" type="text" />
+				</div>
+			</div>
+			<div class="list-btn">
+				<div class="search-btn-slect">
+					<div class="training-head-btn">
+						<div class="key-word" style="margin-top: 8px;">
+							<input class="yt-input select-param" name="selectParam" placeholder="请输入关键字" type="text"/>
+							<button class="yt-option-btn search-btn">
+								<img class="search-img" src="../../resources/images/icons/class-search.png" />
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="list-box">
+				<table class="yt-table list-table">
+					<thead class="list-thead">
+						<tr>
+							<th width="60px">项目编号</th>
+							<th style="text-align: left;">项目名称</th>
+							<th width="60px">项目类型</th>
+							<th width="100px">培训日期</th>
+							<th width="60px" style="text-align: right;">培训天数</th>
+							<th style="text-align: left;">项目销售</th>
+							<th width="60px" style="text-align: right;">学员人数</th>
+							<th width="60px">项目状态</th>
+						</tr>
+					</thead>
+					<tbody class="yt-tbody noSetProject-tbody list-tbody">
+						<tr class="class-tr">
+							<td colspan="9" align="center" style="border:0px;">
+								<div class="no-data" style="width: 280px;margin: 0 auto;">
+									<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="page-info noSetProject-page" onselectstart="return false"></div>
+			</div>
+			<!--新增选学学员弹出框-->
+			<div class="yt-pop-model yt-edit-alert add-elementary-student" style="width: 820px;">  
+		          <!--标题区域START-->  
+		          <div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">新增学员</span>  
+		          </div>  
+		          <!--标题区域END-->  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main cont-edit-test">  
+		            <form style=" overflow: auto;" class="alert-form">  
+		                <table style="margin: 0 auto;">  
+		                	<tr>  
+		                        <td align="right">班次代码:</td> 
+		                        <td>
+		                        	<select class="yt-select project-code" data-val="projectCode" style="width:200px">
+		                        		<option value="">请选择</option>
+			  	    	      		</select>
+		                        </td>  
+		                        <td width="135px" align="right">班级名称:</td> 
+		                        <td>
+		                        	<span class="class-name" data-val="className"></span>
+		                        </td>
+		                    </tr>
+		                    <tr>  
+		                        <td align="right">姓名:</td> 
+		                        <td>
+		                        	<input class="yt-input real-name" data-val="realName" type="text"  placeholder="请输入" />
+		                        </td>  
+		                        <td width="135px" align="right">性别:</td> 
+		                        <td>
+		                        	<label class="check-label yt-radio check">  
+									    <input type="radio" class="gender" data-val="gender" checked="checked" value="1"/>  
+									   	 男 
+								    </label>
+		                        	<label class="check-label yt-radio">  
+									    <input type="radio" class="gender" data-val="gender" value="2"/>  
+									 	 女 
+								    </label>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td align="right">民族:</td> 
+		                        <td>
+		                        	<select class="yt-select nation-id" data-val="nationId" style="width:200px">
+			  	    	      		</select>
+		                        </td>  
+		                        <td align="right">手机号:</td> 
+		                        <td>
+		                        	<input class="yt-input phone" data-val="phone" type="text"  placeholder="请输入" />
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">证件类型:</td> 
+		                        <td>
+		                        	<input class="yt-input id-type" data-val="idType" type="text"  placeholder="请输入" />
+		                        </td>
+		                        <td align="right">证件号码:</td> 
+		                        <td>
+		                        	<input class="yt-input id-number" data-val="idNumber" type="text"  placeholder="请输入" />
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">出生年月:</td> 
+		                        <td>
+		                        	<input class="calendar-input date-birth" data-val="dateBirth" placeholder="请选择" type="text" style="width: 190px;"/>
+		                        </td>
+		                        <td align="right">集团:</td> 
+		                        <td>
+		                        	<input class="yt-input group-id-elementary" data-val="groupId" type="text"  placeholder="请输入"/>
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">单位:</td> 
+		                        <td>
+		                        	<input class="yt-input org-id" data-val="orgId" type="text"  placeholder="请输入" />
+		                        </td> 
+		                        <td align="right">单位类型:</td> 
+		                        <td>
+		                        	<input class="yt-input org-type" data-val="orgType" type="text"  placeholder="请输入" />
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">部门/职位:</td> 
+		                        <td>
+		                        	<input class="yt-input dept-name" data-val="deptName" type="text"  placeholder="请输入" />
+		                        </td> 
+		                        <td align="right">通信地址:</td> 
+		                        <td>
+		                        	<input class="yt-input mailing-address" data-val="mailingAddress" type="text"  placeholder="请输入" />
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">邮政编码:</td> 
+		                        <td>
+		                        	<input class="yt-input postal-code" data-val="postalCode" type="text"  placeholder="请输入" />
+		                        </td> 
+		                        <td align="right">电话:</td> 
+		                        <td>
+		                        	<input class="yt-input telephone-project" data-val="telephone" type="text"  placeholder="请输入" />
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">传真:</td> 
+		                        <td>
+		                        	<input class="yt-input fax" data-val="fax" type="text"  placeholder="请输入" />
+		                        </td> 
+		                        <td align="right">电子邮箱:</td> 
+		                        <td>
+		                        	<input class="yt-input email" data-val="email" type="text"  placeholder="请输入" />
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">入党时间:</td> 
+		                        <td>
+		                        	<input class="calendar-input party-date" data-val="partyDate" placeholder="请选择" type="text" style="width: 190px;"/>
+		                        </td> 
+		                        <td align="right">参加工作时间:</td> 
+		                        <td>
+		                        	<input class="calendar-input work-time" data-val="workTime" placeholder="请选择" type="text" style="width: 190px;"/>
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">全职教育:</td> 
+		                        <td>
+		                        	<input class="yt-input education-time" data-val="educationTime" type="text"  placeholder="请输入" />
+		                        </td> 
+		                        <td align="right">毕业院校及专业:</td> 
+		                        <td>
+		                        	<input class="yt-input education-time-class" data-val="educationTimeClass" type="text"  placeholder="请输入" />
+		                        </td>
+		                    </tr>  
+		                    <tr>  
+		                        <td align="right">在职教育:</td> 
+		                        <td>
+		                        	<input class="yt-input service-time" data-val="serviceTime" type="text"  placeholder="请输入" />
+		                        </td> 
+		                        <td align="right">毕业院校及专业:</td> 
+		                        <td>
+		                        	<input class="yt-input service-time-class" data-val="serviceTimeClass" type="text"  placeholder="请输入" />
+		                        </td>
+		                    </tr>
+		                </table> 
+		                <p style="border-bottom: 1px dashed #d9d9d9;"></p>
+		                <div class="class-info-div">
+							联系人信息
+						</div>
+						<div class="tab-content class-info get-project-inf">
+							<div class="class-info-centent">
+								<table class="class-info-table" style="margin: 0 auto;">
+									<tr>  
+				                        <td align="right">联系人姓名:</td> 
+				                        <td>
+				                        	<input class="yt-input linkman" data-val="linkman" type="text"  placeholder="请输入" />
+				                        </td> 
+				                        <td width="135px" align="right">手机号:</td> 
+				                        <td>
+				                        	<input class="yt-input linkman-phone" data-val="linkmanPhone" type="text"  placeholder="请输入" />
+				                        </td>
+				                    </tr> 
+									<tr>  
+				                        <td align="right">电话:</td> 
+				                        <td>
+				                        	<input class="yt-input linkman-telephone" data-val="linkmanTelephone" type="text"  placeholder="请输入" />
+				                        </td> 
+				                        <td align="right">传真:</td> 
+				                        <td>
+				                        	<input class="yt-input linkman-fax" data-val="linkmanFax" type="text"  placeholder="请输入" />
+				                        </td>
+				                    </tr> 
+									<tr>  
+				                        <td align="right">邮箱:</td> 
+				                        <td>
+				                        	<input class="yt-input linkman-email" data-val="linkmanEmail" type="text"  placeholder="请输入" />
+				                        </td> 
+				                        <td align="right">单位地址(邮编):</td> 
+				                        <td>
+				                        	<input class="yt-input linkman-address-email" data-val="" type="text"  placeholder="请输入" />
+				                        </td>
+				                    </tr> 
+								</table>
+							</div>
+						</div>
+		            </form>  
+		            <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom">  
+		                <input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="确定" />  
+		                <input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="取消" />  
+		            </div>  
+		          </div>  
+		          <!--主体内容部分END-->  
+		    </div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/dotdotdot/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--日期控件js-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/noSetProject/noSetProjectList.min.js"></script>
+</html>

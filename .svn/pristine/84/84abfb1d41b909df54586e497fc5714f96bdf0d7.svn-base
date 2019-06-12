@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--提示信息控件-->
+        <link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" />  	
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE=20180420" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/reimApply/reimApproveList.min.css?YTVERSIONCODE=20180420" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style type="text/css">
+			.tl{
+				text-align: left !important;
+			}
+			.center-line {
+			    margin: 0 10px;
+			    color: #417095;
+			}
+			
+			.flow-win-bottom{
+			    border: none !important; 
+			}
+			#reimApproList{
+				min-width: 1030px;
+			}
+			.yt-table{
+				table-layout: auto;
+			}
+			.account{
+				vertical-align: middle;
+				margin-bottom: 6px;
+				margin-left: 5px;
+			}
+			/*还款记录弹窗样式*/
+			
+			.paym-record-pop .yt-eidt-model-bottom {
+			    border-top: 0px !important;
+			}
+			.paym-record-pop{
+				width: 450px;
+			}
+			.paym-record-pop .yt-edit-alert-main{
+				padding: 10px 10px 0px;
+			}
+			.paym-record-pop table{
+				width: 100%;
+			}
+			.paym-record-pop .base-info-table tr td{
+				padding-bottom:15px ;
+			}
+			/*还款登记弹窗样式*/
+			.paym-register-pop .yt-edit-alert-title {
+			    background-color: #417095;
+			}
+			.paym-register-pop .yt-eidt-model-bottom {
+			    border-top: 0px !important;
+			}
+			.paym-register-pop{
+				width:500px;
+			}
+			.paym-register-pop .yt-edit-alert-main{
+				padding: 10px 10px 0px;
+			}
+			.paym-register-pop .base-info-area>div{
+				padding-bottom:15px ;
+			}
+			.all-checked{
+				cursor: pointer;
+			}
+			#paymDateCalendar{
+				z-index: 1000 !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="reimApproList">
+			<!--顶部条件查询START-->
+			<div class="head-div">
+				<span class="sel-text">关键字：</span>
+				<input type="text" class="yt-input search" id="keywordInput" placeholder="请输入借款事由" />
+				<img class="clearImg" src="../../../../../resources-sasac/images/system/expensesReim/common/sc_ret.png" />
+				<button class="yt-option-btn yt-search-btn" onselectstart="return false" id="heardSearchBtn">查询 </button>
+				<button class="yt-option-btn yt-reset-btn" id="resetBtn">重置</button>
+			</div>
+			<!--顶部条件查询END-->
+			<!--数据展示区域START-->
+			<div class="screen" style="margin-left: 10px;height: 35px;">
+				<label style="letter-spacing: 15px;">打</label>印:
+				<label class="check-label yt-checkbox apply-state check" style="margin-right: 20px;margin-left:10px;padding-left: 20px!important;"><input type="checkbox" checked value="1">已打印</label>
+				<label class="check-label yt-checkbox apply-state check" style="padding-left: 20px!important;"><input type="checkbox" checked value="0">未打印</label>
+			</div>
+			<div class="tab-div">
+				<div class="tab-header">
+					<div style="float: left;display: inline;line-height: 36px;">
+						<button class="yt-option-btn yt-search-btn already-printed" style="margin-left: 10px;">已打印</button>
+						<button class="yt-option-btn yt-cancel-btn non-printing" style="margin-left: 20px;">未打印</button>
+					</div>
+					<div style="float: right;display: inline; margin-right: 10px;margin-top: 5px;">
+						<button style="margin-right: 10px;" class="yt-option-btn yt-common-btn" id="retuMoneyBtn">还款登记</button>
+						<button class="yt-option-btn yt-common-btn" id="printingLoanBtn">打印借款单</button>
+						<button class="yt-option-btn yt-common-btn" acl-code="printLoanBtnCode" id="printingLoanBtnDetails">打印借款单(明细)</button>
+					</div>
+				</div>
+				<!--第二页  已处理,已完结-->
+				<div class="tab-content">
+					<table class="handle-and-end" style="width: 100%;">
+						<thead class="yt-thead">
+							<tr>
+								<th style="width: 80px;" class="all-checked">全选</th>
+								<th style="width: 150px;">单据编号</th>
+								<th>借款事由</th>
+								<th style="width: 100px;">申请人</th>
+								<th style="width: 100px;">所属部门</th>
+								<th style="width: 100px;">借款金额(元)</th>
+								<th style="width: 100px;">借款期限</th>
+								<th style="width: 100px;">申请日期</th>
+								<th style="width: 100px;"><span id="processState">当前状态</span></th>
+								<th style="width: 100px;" class="isprint-th">打印状态</th>
+								<th style="width: 100px;">操作</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody">
+							<tr style="border:0px;background-color:#fff !important;">
+								<td colspan="9" align="center" style="border:0px;">
+									<div class="no-data" style="width: 280px;margin: 0 auto;">
+										<img src="../../../../../resources-sasac/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="page-info table-page page2" onselectstart="return false"></div>
+				</div>
+				<!--第三页  已完结-->
+				<div class="tab-content" style="display: none;"></div>
+				<!--第四页  草稿箱-->
+				<div class="tab-content" style="display: none;"></div>
+			</div>
+			<!--数据展示区域END-->
+			<!--流程弹窗-->
+			<div class="yt-pop-model yt-edit-alert flowWindow" style=" left: 61px; top: 82px;">
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-icon"><img src="../../../../../resources-sasac/images/common/loop.png"></span>
+					<span class="yt-edit-alert-title-msg">当前环节</span>
+				</div>
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<div class="imgBox"></div>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom flow-win-bottom">
+						<input class="yt-model-bot-btn yt-model-canel-btn" type="button" value="关闭">
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--流程弹窗END-->
+			<!--还款记录弹窗START-->
+			<div class="yt-pop-model yt-edit-alert paym-record-pop">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title" style="text-align: left;padding-left: 10px;">
+					<span class="yt-edit-alert-icon"><img src="../../../../../resources-sasac/images/system/expensesReim/common/zhangben.png" style="width: 30px;"/></span>
+					<span class="yt-edit-alert-title-msg">借款还款记录</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main">
+					<div class="base-info-area">
+						<table class="base-info-table">
+							<tbody>
+								<tr>
+									<td>借款金额：<span id="lonMon"></span></td>
+									<td>还款金额：<span id="paymMon"></span></td>
+								</tr>
+								<tr>
+									<td>欠款金额：<span id="debtMon"></span></td>
+									<td>处理中的还款金额：<span id="inHandPaymMon"></span></td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="yt-table paymentHistory">
+							<thead class="yt-thead">
+								<tr>
+									<th style="">单据编号/流水号</th>
+									<th style="">还款金额</th>
+									<th style="">还款日期</th>
+									<th style="">还款方式</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody"></tbody>
+						</table>
+					</div>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom" style="padding-bottom: 10px;">
+						<button class="yt-option-btn yt-cancel-btn yt-common-btn close-btn" type="button">关闭</button>
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--还款记录弹窗END-->
+			
+			<!--还款登记弹窗START-->
+			<div class="yt-pop-model yt-edit-alert paym-register-pop">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title" style="text-align: left;padding-left: 10px;">
+					<span class="yt-edit-alert-icon"><img src="../../../../../resources-sasac/images/system/expensesReim/common/zhangben.png" style="width: 30px;"/></span>
+					<span class="yt-edit-alert-title-msg">添加还款信息</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main" id="registration">
+					<div class="base-info-area">
+						<div>
+							<label><span>还款流水号：</span></label>
+							<span>提交后自动生成</span>
+						</div>
+						<div>
+							<div style="float: left;padding-top: 5px;"><label><span>还款金额：</span></label></div>
+							<div style="float: left;">
+								<input id="refundAmount" class="yt-input money-input" style="width: 160px;text-align: right;" type="text" placeholder="请输入" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'字段不能为空'}"/>元
+								<span class="valid-font"></span>
+							</div>
+							<div style="float: left;margin-left: 40px;padding-top: 5px;">
+								<label><span>欠款金额：</span></label>
+								<span id="debtMoney">--</span>元
+								<div><span style="color: #ccc;">(不包含处理中的还款金额)</span></div>
+							</div>
+						</div>
+						<div>
+							<div style="float: left;padding-top: 5px;"><label><span class="not-null">*</span><span>还款日期：</span></label></div>
+							<div style="float: left;">
+								<input id="paymDate" class="calendar-input paym-date" style="width: 160px;" placeholder="请选择日期" type="text" validform="{isNull:true,msg:'请选择开始日期'}" />
+								<span class="valid-font"></span>
+							</div>
+						</div>
+						<div>
+							<div class="refund-way" style="clear: both;padding-top: 15px;">
+							<!--<div style="display: inline;padding-left: 7px;" class="pay-met">-->
+								<!--letter-spacing: 5px;-->
+								<label><span style="">还款方</span>式：</label>
+								<label class="check-label yt-radio check">  
+								 	<input id="radio1" class="radio-inpu" type="radio" name="test" value="1">现金 
+								</label>
+								<label class="check-label yt-radio" style="margin-left: 10px;">  
+								 	<input id="radio2" class="radio-inpu" type="radio" name="test" value="3">转账
+								</label>
+								<label class="check-label yt-radio" style="margin-left: 10px;">  
+								 	<input id="radio3" class="radio-inpu" type="radio" name="test" value="2">支票 
+								</label>
+							<!--</div>-->
+							</div>
+						</div>
+					</div>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom" style="padding-bottom: 10px;">
+						<button class="yt-option-btn yt-common-btn save-btn" type="button">保存</button>
+						<button class="yt-option-btn yt-cancel-btn" type="button" style="margin-left: 20px;">取消</button>
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--还款登记弹窗END-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script> 
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE=20180420"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/business/loanBusinessList.min.js?YTVERSIONCODE=20190312"></script>
+	<!--引用JS文件end-->
+
+</html>

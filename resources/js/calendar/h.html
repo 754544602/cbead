@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/calendar/yt-calendar.css"/>
+
+		<script src="../common/jquery.min.js"></script>
+		<script src="../common/yt-common.min.js"></script>
+		<script src="../common/yt-frame.min.js"></script>
+		<script src="../common/yt-option.js"></script>
+		<script src="yt-calendar.js"></script>
+	</head>
+	<body>
+			<input type="text" style="width: 200px;" class="calendar-input calendar-input-bg question-time-startTime" readonly="readonly"/>
+			<span class="dataspan"></span>
+			<input type="text" name="" id="mobile" value="" />
+			<button></button>
+			<li id="btnSubmit">123123123123123123123</li>
+			
+			<div class="aaa">
+				<button class="ddd">
+					123123123
+				</button>
+				<button class="eee">
+					33333
+				</button>
+			</div>
+			<p id="help">Helpful notes will appear here</p>
+<p>E-mail: <input type="text" id="email" name="email"></p>
+<p>Name: <input type="text" id="name" name="name"></p>
+<p>Age: <input type="text" id="age" name="age"></p>
+	</body>
+	<script type="text/javascript">
+
+function showHelp(help) {
+  document.getElementById('help').innerHTML = help;
+}
+
+function setupHelp() {
+  var helpText = [
+      {'id': 'email', 'help': 'Your e-mail address'},
+      {'id': 'name', 'help': 'Your full name'},
+      {'id': 'age', 'help': 'Your age (you must be over 16)'}
+    ];
+
+  for (var i = 0; i < helpText.length; i++) {
+    let item = helpText[i];
+    document.getElementById(item.id).onfocus = function() {
+      showHelp(item.help);
+    }
+  }
+}
+
+setupHelp();
+
+
+$('.question-time-startTime').calendar({
+				speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+				complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+				readonly: true, // 目标对象是否设为只读，默认：true     
+				dateFmt: "yyyy-MM-dd",
+				nowData: false, //默认选中当前时间,默认true  
+				isMultiple:true,
+				callback: function() { // 点击选择日期后的回调函数  
+					//alert("您选择的日期是：" + $("#txtDate").val()); 
+				}
+			});
+//		var a = {
+//			a:1,
+//			b:2
+//		}
+//		var b = {};
+//		for (var i in a ){
+//			b[i]=a[i];
+//		}
+//		b.a = 2;
+//		console.log(a,b)
+		var a = [{x:1,y:1},{s:2,b:2}];
+		function aa(a){
+			return a;
+		}
+		var b = $.extend(true, [], a);
+		var c = $.extend([], b);
+		c[0].x = 2;
+		console.log(a,b,c)
+		
+//		{
+//			a:1,
+//			b:2
+//		}
+//		
+//		{
+//			a:2,
+//			b:2
+//		}
+function list() {
+  return Array.prototype.slice.call(arguments);
+}
+console.log(list(1,2,3))
+function add(a,b){
+  return a+b;  
+}
+function sub(a,b){
+  return a-b;  
+}
+$('#mobile').blur(function(e) {  
+    alert('blur');  
+});  
+  
+$('.aaa').off('click',('.ddd')).on('click','.ddd',function(){
+	alert(1)
+})
+  
+ $('.aaa').off('click',('.ddd')).on('click','.eee',function(){
+	alert(2)
+	
+}) 
+$('#btnSubmit').mousedown(function(e) {  
+setTimeout(function() {  
+    alert('click');  
+    },100);  
+});  
+//var a1 = add.apply(sub,[4,2]);　　//sub调用add的方法
+//var a2 = sub.apply(add,[4,2]);
+//alert(a1);  //6     
+//alert(a2);  //2
+//
+///*call的用法*/
+//var a1 = add.call(sub,4,2);
+//console.log(a1)
+function add(){
+	console.log('add')
+	add()
+}
+//for(let i=1;i<=3;i++){
+//setTimeout(function(){
+//  console.log(i)
+//}, i*1000)
+//}
+var consoles = function(mes){
+	console.log(mes)
+}
+   for(var i=0;i<4;i++){
+setTimeout(function(){
+	return consoles(i)
+}, i*1000)
+}
+ 
+ 
+ 
+ 
+ var json = {
+ 	a:1,
+ 	b:2
+ }
+ 
+ 
+ var json2 = jQuery.extend(true, {}, json); 
+ json2.a = 2;
+ console.log(json,json2);
+	</script>
+</html>

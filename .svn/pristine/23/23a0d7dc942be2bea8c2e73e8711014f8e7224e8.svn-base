@@ -1,0 +1,1180 @@
+var caList = {
+	ue: null,
+	//初始化方法
+	init: function() {
+		var me = this;
+		//初始化新增页面
+		caList.clearAlertBox();
+		//初始化下拉列表
+		$('select').niceSelect();
+		caList.deleteInfo();
+		if($("#types").val() == 1) {
+			$('#reimbursementTitle').text('新增教师课酬报销')
+		} else if($("#types").val() == 2) {
+			$('#reimbursementTitle').text('新增教师差旅报销')
+		}
+		$("#types").change(function() {
+			if($("#types").val() == 1) {
+				$('#reimbursementTitle').text('新增教师课酬报销');
+				$yt_baseElement.showLoading();
+				setTimeout(window.location.href = 'reimbursementAdd.html', 500);
+				setTimeout($yt_baseElement.hideLoading(), 500);
+
+			} else if($("#types").val() == 2) {
+				$('#reimbursementTitle').text('新增教师差旅报销');
+				$yt_baseElement.showLoading();
+				setTimeout(window.location.href = 'travelAdd.html', 500);
+				setTimeout($yt_baseElement.hideLoading(), 500);
+			}
+		})
+		//查询剩余预算
+		//		caList.lookFor();
+		caList.relevance();
+		//初始化创建时间
+		$("#issueDayeString").calendar({
+			speed: 200, //日期列表展开显示速度, 参数"slow","normal","fast"，或毫秒数值，默认：200     
+			complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true     
+			readonly: true, // 目标对象是否设为只读，默认：true     
+			lowerLimit: "2010/01/01", // 日期下限，默认：NaN(不限制)     
+			nowData: true, //默认选中当前时间,默认true  
+			dateFmt: "yyyy-MM-dd HH:mm",
+			callback: function() {} // 点击选择日期后的回调函数  
+		});
+		//班级列表下拉框
+		caList.getClassLis();
+		//下一步操作人
+		var nextPersonList = caList.getNextOperatePerson();
+		if(nextPersonList != null) {
+			$.each(nextPersonList, function(i, n) {
+				$("#dealingWithPeople").append($('<option value="' + n.userCode + '">' + n.userName + '</option>').data("classData", n));
+			});
+		};
+		//修改页面
+		var pkId = $yt_common.GetQueryString("pkId");
+		if(pkId!=null){
+			caList.getListUpdate(pkId);
+		}
+		//初始化下一步操作人下拉框
+		$("#dealingWithPeople").niceSelect();
+
+		//点击返回
+		$('.page-return-btn').off().on("click", function() {
+			//调用返回指定页面函数
+			caList.backNewsListPage();
+		});
+
+		//点击取消
+		$('#cancel').off().on("click", function() {
+			//调用返回指定页面函数
+			caList.backNewsListPage();
+		});
+
+		//点击保存
+		$('#save').off('click').on('click', function() {
+			//调用判空函数
+			caList.isNoNull(1);
+		});
+		//点击提交
+		$('#submit').off('click').on('click', function() {
+			//调用判空函数
+
+			caList.isNoNull(2);
+		});
+		//关联页签跳转
+		$(".tab-title-list button").click(function() {
+			$(this).addClass("active").siblings().removeClass("active");
+			operate = $(this).text();
+			if(operate == "• 机票") {
+				$('#planTable').show();
+				$('#trainTable').hide();
+				me.linkList(1);
+			}
+			//operate为2查询发票列表，
+			if(operate == "• 火车票") {
+				$('#planTable').hide();
+				$('#trainTable').show();
+				me.linkList(2);
+			}
+		});
+		//选择关联数据
+		$('#planTable').on('change', '.select-plan-checkbox input:checked', function() {
+			//获取当前行数据
+			var planData = $(this).parent().parent().parent().data('planData');
+			//出票日期更改格式
+			planData.dateExit = planData.dateExit.replace('-', '');
+			planData.dateExit = planData.dateExit.replace('-', '');
+			var linkLi = '';
+			linkLi = '<li class="link-li link-li' + planData.pkId + '" teacherStatementDetailsIds="' + planData.pkId + '">' + planData.dateExit + '-' + planData.passenger + '-' + planData.trainNumber + '<span class="delete-link" style="color: red;cursor: pointer;">×</span></li>';
+			$('.link-ul').append(linkLi);
+			//给一个pkId数据
+			$('.link-li' + planData.pkId).data('pkId', planData.pkId);
+		})
+		$('#planTable').on('change', '.select-plan-checkbox input:not(:checked)', function() {
+			var planData = $(this).parent().parent().parent().data('planData');
+			$('.link-li' + planData.pkId).remove();
+		})
+		//火车票
+		$('#trainTable').on('change', '.select-train-checkbox input:checked', function() {
+			//获取当前行数据
+			var trainData = $(this).parent().parent().parent().data('trainData');
+			//出票日期更改格式
+			trainData.dateExit = trainData.dateExit.replace('-', '');
+			trainData.dateExit = trainData.dateExit.replace('-', '');
+			var linkLi = '';
+			linkLi = '<li class="link-li link-li' + trainData.pkId + '" teacherStatementDetailsIds="' + trainData.pkId + '">' + trainData.dateExit + '-' + trainData.passenger + '-' + trainData.trainNumber + '<span class="delete-link" style="color: red;cursor: pointer;">×</span></li>';
+			$('.link-ul').append(linkLi);
+			//给一个pkId数据
+			$('.link-li' + trainData.pkId).data('pkId', trainData.pkId);
+		})
+		$('#trainTable').on('change', '.select-train-checkbox input:not(:checked)', function() {
+			var trainData = $(this).parent().parent().parent().data('trainData');
+			$('.link-li' + trainData.pkId).remove();
+		})
+		//全选 关联数据
+		$("#planTable .check-all").change(function() {
+			//判断自己是否被选中  
+			if($(this).parent().hasClass("check")) {
+				//设置反选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("uncheck");
+				$.each($(this).parents("table").find(".select-plan-checkbox input:not(:checked)"), function(a, b) {
+					var planData = $(b).parent().parent().parent().data('planData');
+					$('.link-li' + planData.pkId).remove();
+				})
+			} else {
+				//调用设置选中方法,全选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("check");
+				$.each($(this).parents("table").find(".select-plan-checkbox input:checked"), function(a, b) {
+					//获取当前行数据
+					var planData = $(b).parent().parent().parent().data('planData');
+					if($('.link-li').hasClass('link-li' + planData.pkId) == false) {
+						//出票日期更改格式
+						planData.dateExit = planData.dateExit.replace('-', '');
+						planData.dateExit = planData.dateExit.replace('-', '');
+						var linkLi = '';
+						linkLi = '<li class="link-li link-li' + planData.pkId + '" teacherStatementDetailsIds="' + planData.pkId + '">' + planData.dateExit + '-' + planData.passenger + '-' + planData.trainNumber + '<span class="delete-link" style="color: red;cursor: pointer;">×</span></li>';
+						$('.link-ul').append(linkLi);
+						//给一个pkId数据
+						$('.link-li' + planData.pkId).data('pkId', planData.pkId);
+					}
+				});
+			}
+		});
+		//火车票
+		$("#trainTable .check-all").change(function() {
+			//判断自己是否被选中  
+			if($(this).parent().hasClass("check")) {
+				//设置反选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("uncheck");
+				$.each($(this).parents("table").find(".select-train-checkbox input:not(:checked)"), function(a, b) {
+					var trainData = $(b).parent().parent().parent().data('trainData');
+					$('.link-li' + trainData.pkId).remove();
+				})
+			} else {
+				//调用设置选中方法,全选  
+				$(this).parents("table").find("tbody input[type='checkbox']").setCheckBoxState("check");
+				$.each($(this).parents("table").find(".select-train-checkbox input:checked"), function(a, b) {
+					//获取当前行数据
+					var trainData = $(b).parent().parent().parent().data('trainData');
+					if($('.link-li').hasClass('link-li' + trainData.pkId) == false) {
+						//出票日期更改格式
+						trainData.dateExit = trainData.dateExit.replace('-', '');
+						trainData.dateExit = trainData.dateExit.replace('-', '');
+						var linkLi = '';
+						linkLi = '<li class="link-li link-li' + trainData.pkId + '" teacherStatementDetailsIds="' + trainData.pkId + '">' + trainData.dateExit + '-' + trainData.passenger + '-' + trainData.trainNumber + '<span class="delete-link" style="color: red;cursor: pointer;">×</span></li>';
+						$('.link-ul').append(linkLi);
+						//给一个pkId数据
+						$('.link-li' + trainData.pkId).data('pkId', trainData.pkId);
+					}
+				});
+			}
+		});
+		//删除关联数据
+		$('.travel-top').on('click', '.delete-link', function() {
+			var pkId = $(this).parent().data('pkId');
+			//找到对应行的数据取消check
+			$('.planTr' + pkId).find('.select-plan-checkbox input:checked').setCheckBoxState("uncheck");
+			$('.trainTr' + pkId).find('.select-plan-checkbox input:checked').setCheckBoxState("uncheck");
+			$(this).parent().remove();
+		});
+
+		//关联提交
+		$('.linkData').click(function() {
+			//隐藏页面中自定义的表单内容  
+			$(".travel-import-form").hide();
+			//隐藏蒙层  
+			$("#pop-modle-alert").hide();
+			var trClass = $(".travel-import-form").attr('trClass');
+			var trClass = trClass.substring(trClass.lastIndexOf(" ") + 1, trClass.length);
+			$('.' + trClass).find('.bookingRecord').empty();
+			$.each($('.link-li'), function(k, c) {
+				var ctext = $(c).text().replace('×', '');
+				var divList = '<div teacherStatementDetailsId="' + $(c).attr('teacherstatementdetailsids') + '">' + ctext + '</div>';
+				$('.' + trClass).find('.bookingRecord').append(divList);
+			})
+		})
+	},
+	//返回新闻稿列表
+	backNewsListPage: function() {
+		window.location.href = 'reimbursementList.html';
+	},
+	/**
+	 * 获取所有班级
+	 */
+	getClassLis: function() {
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/reduction/lookForAllProject",
+			data: {},
+			async: false,
+			success: function(data) {
+				if(data.flag==0){
+					var userName = caList.userInfo();
+					var projectHeadCode;
+					var classTeacherCode;
+					var projectSellCode;
+					var projectAidCode;
+					$.each(data.data, function(i, n) {
+						//项目主任code
+						projectHeadCode = n.projectHeadCode;
+						//班主任code
+						classTeacherCode = n.classTeacherCode;
+						//项目销售code
+						projectSellCode = n.projectSellCode;
+						//项目助理code
+						projectAidCode = n.projectAidCode;
+						if(projectHeadCode.indexOf(userName) != -1 || classTeacherCode.indexOf(userName) != -1 || projectSellCode.indexOf(userName) != -1 || projectHeadCode.indexOf(userName) != -1 || projectAidCode.indexOf(userName) != -1){
+							$("#projectCode").append($('<option value="' + n.projectCode + '">' + n.projectName + '</option>').data("classData", n));
+						}
+					});
+					//初始化班级下拉框
+					$("#projectCode").niceSelect();
+					//选择班级获取项目主任名
+					$('#projectCode').off().on('change', function() {
+						var createUserName = $('#projectCode option:selected').data("classData").createUserName;
+						createUserName==null?createUserName='':createUserName=createUserName;
+						var projectHead = $('#projectCode option:selected').data("classData").projectHead;
+						projectHead==null?projectHead='':projectHead=projectHead;
+						$('#createUserName').text(createUserName);
+						$('#projectHead').text(projectHead);
+						//预算
+						$("#projectUsermoney").text($('#projectCode option:selected').data('classData').projectSurplusBudget);
+						var projectCode = $('#projectCode option:selected').data("classData").projectCode;
+						caList.getListAdd(projectCode);
+						$('#two-table').empty();
+						$('#two-table').parents('table').hide();
+					})
+				}else{
+					$yt_alert_Model.prompt("查询失败");
+				}
+			},
+			error:function(){
+				$yt_alert_Model.prompt("网络异常，请稍后重试");
+			}
+		});
+	},
+	//获取登录人信息
+	userInfo: function() {
+		var userName = "";
+		$.ajax({
+			async: false,
+			type: "post", //ajax访问方式 默认 "post"  
+			url: $yt_option.base_path + "uniform/user/getUsersDetails", //ajax访问路径  
+			data: {}, //ajax查询访问参数
+			success: function(data) {
+				userName = data.data.userName;
+			}
+		});
+		return userName;
+	},
+	//点击保存，提交判断页面中数据是否为空
+	isNoNull: function(dataStates) {
+		var testSelect = $("#types").val();
+		var className = $('#projectCode option:selected').val();
+		var dealingWithPeople = $('#dealingWithPeople').val();
+		$yt_valid.validForm($("#valid-tab"));
+		if(testSelect == '' || className == '' || dealingWithPeople == '') {
+			//框架判空函数
+			$yt_valid.validForm($(".valid-tab"));
+		} else {
+			//调用提交，保存函数
+			caList.addnewsInfo(dataStates);
+		}
+
+	},
+	//点击保存，提交判断页面中数据是否为空
+	/*isNoNull:function(dataStates){
+		$yt_valid.validForm($("#valid-tab"));
+		if(title=="" || details==""){
+			$yt_valid.validForm($(".valid-tab"));
+		}else{
+			caList.addnewsInfo(dataStates);
+		}
+		
+	},*/
+	/**
+	 * 获下一步操作人
+	 */
+	getNextOperatePerson: function() {
+		var user = null;
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "uniform/workFlowOperate/getSubmitPageData",
+			data: {
+				businessCode: "news",
+				types: '1'
+			},
+			async: false,
+			success: function(data) {
+				if(data.flag == 0) {
+					$.each(data.data, function(i, n) {
+						for(var k in n) {
+							user = n[k];
+						}
+					});
+
+				}
+			}
+		});
+		return user;
+	},
+	//点击新增清空弹窗内容
+	clearAlertBox: function() {
+		$('#projectCode').val("");
+		$('#projectUserName').val("");
+		$('#types').val("");
+		$('#dealingWithPeople').val("");
+		$('select').niceSelect();
+	},
+
+	getList: [],
+	//修改
+	getListUpdate: function(pkId) {
+		me = this;
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/teacherExpense/getBeanByIdTravel",
+			async: false,
+			data: {
+				pkId: pkId
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					caList.ue = data.data;
+					$("select.type-select").setSelectVal(data.data.expenseType);
+					$("select.user-name-sel").setSelectVal(data.data.projectCode);
+					var projectHead = data.data.projectHead;
+					var projectSurplusBudget =$('#projectCode option:selected').data("classData").projectSurplusBudget;			
+					$('#projectHead').text(projectHead);
+					if(pkId != '') {
+
+					}
+					$('#projectUsermoney').text(projectSurplusBudget);
+					$('#createUserName').text(data.data.createUser);
+					$('.details').text(data.data.remarks);
+					$('.remarks').val(data.data.remarks);
+					var projectCode = $('#projectCode option:selected').data("classData").projectCode;
+					me.getListAdd(projectCode);
+					$('#reimbursementTitle').text('修改教师差旅报销')
+			}}
+		})
+	},
+	//列表
+	getListAdd: function(projectCode) {
+		var me = this;
+		var pkId = $yt_common.GetQueryString("pkId");
+		pkId == null ? pkId='':pkId=pkId;
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/teacherExpense/getTeacherTrainDetails",
+			async: false,
+			data: {
+				projectCode: projectCode,
+				pkId:pkId
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					me.getList = data.data;
+					var htmlTbody = $('.class-tbody');
+					var twoBody = $('#two-table');
+					var twoTr = '';
+					var htmlTr = '';
+					htmlTbody.empty();
+					if(data.data.length > 0) {
+						var num = 0;
+						var allTravelmoney = 0;
+						//票价总和
+						var salesPriceSum = 0;
+						//退票改签费总和
+						var refundSigningFeeSum = 0;
+						//总报销费
+						var expenseMoneySum = 0;
+						//支票总计
+						var checksalesPriceSum = 0;
+						var checkrefundSigningFeeSum = 0;
+						var checkexpenseMoneySum = 0;
+						$.each(data.data, function(i, v) {
+							allTravelmoney = Number(v.salesPrice) + Number(v.insurance) + Number(v.refundSigningFee);
+							salesPriceSum += Number(v.salesPrice);
+							refundSigningFeeSum += Number(v.refundSigningFee);
+							expenseMoneySum += allTravelmoney;
+							if(v.papersType == '1') {
+								v.papersTypeVel = '身份证';
+							}
+							else if(v.papersType == '2') {
+								v.papersTypeVel = '护照';
+							}
+							else if(v.papersType == '3') {
+								v.papersTypeVel = '港澳通行证';
+							} else {
+								v.papersTypeVel = ' ';
+							}
+							if(v.paymentMethod == 1) {
+								v.paymentMethodVel = '支票';
+								checksalesPriceSum += Number(v.salesPrice);
+								checkrefundSigningFeeSum += Number(v.refundSigningFee);
+								checkexpenseMoneySum += allTravelmoney;
+							}
+							else if(v.paymentMethod == 2) {
+								v.paymentMethodVel = '电汇'
+							}
+							else if(v.paymentMethod == 3) {
+								v.paymentMethodVel = '归还公务卡'
+							}
+							else if(v.paymentMethod == 4) {
+								v.paymentMethodVel = '现金'
+							}
+							else if(v.paymentMethod == 5) {
+								v.paymentMethodVel = '核销借款'
+							}else{
+								v.paymentMethodVel = ''
+							}
+							if(v.flighttrainNumber == undefined) {
+								if(v.flightTrainNumber!=undefined){
+									v.flighttrainNumber = v.flightTrainNumber;
+								}else{
+									v.flighttrainNumber=''
+								}
+							}
+							num = i + 1;
+							var bookingRecord = '';
+							if(v.bookingRecord!=undefined){
+								$.each(v.bookingRecord, function(x, y) {
+								bookingRecord += '<div teacherStatementDetailsId="' + y.teacherStatementDetailsId + '">' + y.teacherStatementDetails + '</div>'
+								});
+							}
+							htmlTr = '<tr  class="rows tr' + i + ' row' + i + '" teacherId="' + v.teacherId + '">' +
+								/*序号*/
+								'<td style="text-align:center" class="num">' + num + '</td>' +
+								/*教师*/
+								'<td style="text-align:center"><a class="teacherName" target="teacherName" style="color:#2080bf">' + v.teacherName + '</a></td>' +
+								/*航班车次*/
+								'<td style="text-align:center">' + v.flighttrainNumber + '</td>' +
+								/*出发地*/
+								'<td>' + v.placeDeparture + '</td>' +
+								/*目的地*/
+								'<td>' + v.bourn + '</td>' +
+								/*起止时间*/
+								'<td>' + v.startEndTime + '</td>' +
+								/*票价*/
+								'<td class="salesPriceTd"><input type="text" class="salesPrice yt-input" value="' + v.salesPrice + '" readonly="readonly" style="border:none;background:none;text-align:right"/></td>' +
+								/*保险*/
+								'<td style="text-align:right" class="insurance">' + v.insurance + '</td>' +
+								/*退改签费*/
+								'<td class="refundSigningFeeTd"><input type="text" class="refundSigningFee yt-input" value="' + v.refundSigningFee + '" readonly="readonly" style="border:none;background:none;text-align:right"/></td>' +
+								/*报销总金额*/
+								'<td class="allTravelmoney" style="text-align:right">' + allTravelmoney + '</td>' +
+								/*付款方式*/
+								'<td style="text-align:center"><select class="yt-select select-hide" style="width: 100%;display:none;">' + '<option value="">请选择</option><option value="1">支票</option><option value="2">电汇</option><option value = "3" >归还公务卡 </option><option value="4">现金 </option><option value="5">核销借款</option></select>' + '</td > ' +
+								/*关联订票记录*/
+								'<td style="text-align:center" class="bookingRecord">' + bookingRecord + '</td>' +
+								/*操作*/
+								'<td style="text-align:center"><a class="relevance-tb">关联</a><span> </span><a class="delete-tb" style="color:red;">删除</a><span> </span><a class="update-tb">编辑</a></td>' +
+								'</tr>';
+								htmlTbody.append(htmlTr);
+								$('select').niceSelect();
+								$('.tr' + i).find('.select-hide').setSelectVal(v.paymentMethod);
+								v.num = i;
+								$('.tr' + i).data('trData', v);
+							if($('.tr' + i).data('trData').paymentMethod == 2) {
+								/*
+								 * me.addTwoInfo(数据，报销总额)
+								 */
+								var data = $('.tr' + i).data('trData');
+								var all = $('.tr' + i).find('.allTravelmoney').text();
+								me.addTwoInfo(data,all);
+							}
+						});
+						$('.teacherName').off('click').on('click',function(){
+							window.frames["teacherName"].location.href = '../teacher/teacherInf.html?pkId='+$(this).parents('tr').data('trData').teacherId;
+							$('#teacherName').show();
+							var iframesTop = $('#teacherName').offset().top;
+							$(document).scrollTop(iframesTop);
+							$('body').css('overflow','hidden');
+						})
+						var numb = num + 1;
+						htmlTr = '<tr><td class="numb" style="display:none;">' + numb + '</td><td colspan="6" style="text-align:center">合计：</td>' +
+							'<td class="salesPriceSum"  style="text-align:right;font-weight:bold">' + salesPriceSum + '</td>' +
+							'<td></td>' +
+							'<td id="refundSigningFeeSum" style="text-align:right;font-weight:bold">' + refundSigningFeeSum + '</td>' +
+							'<td id="expenseMoneySum" style="text-align:right;font-weight:bold">' + expenseMoneySum + '</td><td></td>' +
+							'<td></td>' +
+							'<td></td>' +
+							'</tr>' +
+							'<tr><td class="numbs" style="display:none;">' + numb + '</td><td colspan="6" style="text-align:center">支票合计：</td>' +
+							'<td class="checksalesPriceSum"  style="text-align:right;font-weight:bold">' + checksalesPriceSum + '</td>' +
+							'<td></td>' +
+							'<td id="checkrefundSigningFeeSum" style="text-align:right;font-weight:bold">' + checkrefundSigningFeeSum + '</td>' +
+							'<td id="checkexpenseMoneySum" style="text-align:right;font-weight:bold">' + checkexpenseMoneySum + '</td><td></td>' +
+							'<td></td>' +
+							'<td></td>' +
+							'</tr>';
+						htmlTbody.append(htmlTr);
+					} else {
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="11" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						htmlTbody.html(htmlTr);
+					}
+					//选择电汇
+					$(".select-hide").off('change').change(function() {
+						var all = $(this).parent().siblings('.allTravelmoney').text();
+						if($(this).val() == 2) {
+							/*
+							 * me.addTwoInfo(数据，报销总额)
+							 */
+							var data = $(this).parent().parent().data('trData');
+							me.addTwoInfo(data, all);
+							caList.addAll();
+						} else {
+							var num = $(this).parent().parent().data('trData').num;
+							var teacherId = $(this).parent().parent().data('trData').teacherId;
+							var length = 0;
+							//修改后还有几个电汇
+							$.each($('.rows[teacherid='+teacherId+']'), function(i,n) {
+								$(n).find('select.select-hide').val()==2?length++:length=length;
+							});
+							if(length==0){
+									$('.teacher' + teacherId).remove();
+							}else if(length==1){
+								if($('.teacher' + teacherId).data('data').twomoney!=undefined){
+									$('.teacher' + teacherId).find('.twotablemoney').text((Number($('.teacher' + teacherId).find('.twotablemoney').text())-all).toFixed(2));
+									$('.teacher' + teacherId).data('data').twomoney=undefined
+								}
+							}
+							if($('.twoTr').length == 0) {
+								var tr = '<tr style="border:0px;background-color:#fff !important;" >' +
+									'<td colspan="11" align="center" style="border:0px;">' +
+									'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+									'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+									'</div>' +
+									'</td>' +
+									'</tr>';
+								$('#two-table').append(tr);
+								$('#two-table').parents('table').hide();
+							}
+							caList.addAll();
+						}
+					});
+					$yt_baseElement.hideLoading();
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("查询失败");
+					});
+				}
+
+			}, //回调函数 匿名函数返回查询结果  
+			isSelPageNum: true //是否显示选择条数列表默认false  
+		});
+	},
+	//生成关联列表
+	linkList: function(types) {
+		$yt_baseElement.showLoading();
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/teacherExpense/getTeacherRelationDetails",
+			async: true,
+			data: {
+				types: types
+			},
+			success: function(data) {
+				var htmlTr = '';
+				if(data.flag==0){
+				if(types == 1) {
+					if(data.data.length > 0) {
+						$('#planTableList').empty();
+						$('.checklabel-all').removeClass('check');
+						$.each(data.data, function(i, n) {
+							n.pkId == undefined ? n.pkId = 0 : n.pkId = n.pkId;
+							htmlTr = '<tr class="planTr' + n.pkId + '">' +
+								'<td style="text-align: center;">' +
+								'<label class="check-label yt-checkbox select-plan-checkbox"><input type="checkbox" name="test" class="select-teacher-pkId" value="' + n.pkId + '"/></label>' + '</td>' +
+								'<td style="text-align:center">' + (i + 1) + '</td>' +
+								//出票时间
+								'<td style="text-align:center">' + n.dateExit + '</td>' +
+								//起飞时间
+								'<td style="text-align:center">' + n.dateDeparture + '</td>' +
+								//票号
+								'<td>' + n.ticketNumber + '</td>' +
+								//乘机人
+								'<td style="text-align:center">' + n.passenger + '</td>' +
+								//航程
+								'<td style="text-align:center">' + n.trip + '</td>' +
+								//航班号
+								'<td style="text-align:center">' + n.trainNumber + '</td>' +
+								//销售价
+								'<td style="text-align:right">' + n.salesPrice + '</td>' +
+								//机建
+								'<td style="text-align:right">' + n.construction + '</td>' +
+								//税费
+								'<td style="text-align:right">' + n.taxation + '</td>' +
+								//保险
+								'<td style="text-align:right">' + n.insurance + '</td>' +
+								//总金额
+								'<td style="text-align:right">' + n.totalAmount + '</td>' +
+								//订票人
+								'<td style="text-align:center">' + n.reservations + '</td>' +
+								'</tr>'
+							$('#planTableList').append(htmlTr);
+							$('.planTr' + n.pkId).data('planData', n);
+						});
+					} else {
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="11" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						$('#planTableList').append(htmlTr);
+					}
+				}
+				if(types == 2) {
+					if(data.data.length > 0) {
+						$('#trainTableList').empty();
+						$('.checklabel-all').removeClass('check');
+						$.each(data.data, function(i, n) {
+							htmlTr = '<tr class="trainTr' + n.pkId + '">' +
+								'<td style="text-align: center;">' +
+								'<label class="check-label yt-checkbox select-train-checkbox"><input type="checkbox" name="test" class="select-teacher-pkId" value="' + n.pkId + '"/></label>' + '</td>' +
+								'<td>' + (i + 1) + '</td>' +
+								//出票时间
+								'<td style="text-align:center">' + n.dateExit + '</td>' +
+								//出发时间
+								'<td style="text-align:center">' + n.dateDeparture + '</td>' +
+								//乘客
+								'<td style="text-align:center">' + n.passenger + '</td>' +
+								//行程
+								'<td style="text-align:center">' + n.trip + '</td>' +
+								//车次
+								'<td style="text-align:center">' + n.trainNumber + '</td>' +
+								//销售价
+								'<td style="text-align:right">' + n.salesPrice + '</td>' +
+								//工本费
+								'<td style="text-align:right">' + n.costWork + '</td>' +
+								//总金额
+								'<td style="text-align:right">' + n.totalAmount + '</td>' +
+								//订票人
+								'<td style="text-align:center">' + n.reservations + '</td>' +
+								'</tr>'
+							$('#trainTableList').append(htmlTr);
+							$('.trainTr' + n.pkId).data('trainData', n);
+						});
+					} else {
+						htmlTr = '<tr style="border:0px;background-color:#fff !important;" >' +
+							'<td colspan="11" align="center" style="border:0px;">' +
+							'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+							'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+						$('#planTableList').append(htmlTr);
+					}
+				}
+				//对勾
+				$.each($('.link-li'), function(x, y) {
+					var pkId = $(y).attr('teacherstatementdetailsids');
+					$('.trainTr' + pkId).find('input[type="checkbox"]').setCheckBoxState("check");
+					$('.planTr' + pkId).find('input[type="checkbox"]').setCheckBoxState("check");
+				})
+				$yt_baseElement.hideLoading();
+			}else{
+				$yt_baseElement.hideLoading(function(){
+					$yt_alert_Model.prompt('查询失败')
+				});
+			}
+			/** 
+			 * 调用算取div显示位置方法 
+			 */
+			$yt_alert_Model.getDivPosition($(".travel-import-form"));
+			$yt_alert_Model.setFiexBoxHeight($(".travel-import-form .cont-edit-test"));		
+			},
+			error:function(){
+				$yt_baseElement.hideLoading(function(){
+					$yt_alert_Model.prompt('网络异常')
+				});
+			}
+		});
+	},
+	//点击保存或提交
+	addnewsInfo: function(dataStates) {
+		var me = this;
+		$yt_baseElement.showLoading();
+		var pkId = $yt_common.GetQueryString("pkId")
+		//项目Code
+		var projectCode = $('#projectCode').val();
+		//部门预算来源
+		var deptBudget = $('.where').val();
+		//出差任务
+		var remarks = $('.remarks').val();
+		var teacherCountArr = [];
+		$.each($('.rows'), function(x,y) {
+			var bool =true;
+			$.each(teacherCountArr, function(i,n) {
+				if(n==$(y).data('trData').teacherName){
+					bool=false;
+				}
+			});
+			if(bool){
+				teacherCountArr.push($(y).data('trData').teacherName);
+			}
+		});
+		//教师数量
+		var teacherCount = teacherCountArr.length;
+		//报销金额
+		var expenseMoney = $('#expenseMoneySum').text();
+		//报销数据
+		var expenseDetails = [];
+		//下一步操作人
+		var dealingWithPeople = $('#dealingWithPeople').val();
+		//审批意见
+		opintion =/* $('.details').val();*/$('.remarks').val();
+		var processInstanceId = "";
+		$.each($('.rows'), function(a, b) {
+			var expenseDetailsjson = {
+			teacherId: '',
+			routeType: '',
+			salesPrice: '',
+			insurance: '',
+			refundSigningFee: '',
+			expenseMoney: '',
+			paymentMethod: '',
+			teacherStatementDetailsIds: ''
+		};
+			var idarray = [];
+			expenseDetailsjson.teacherId = $(b).attr('teacherid');
+			expenseDetailsjson.routeType = $(b).data('trData').routeType;
+			expenseDetailsjson.salesPrice = $(b).find('.salesPrice').val();
+			expenseDetailsjson.insurance = $(b).find('.insurance').text();
+			expenseDetailsjson.refundSigningFee = $(b).find('.refundSigningFee').val();
+			expenseDetailsjson.expenseMoney = $(b).find('.allTravelmoney').text();
+			expenseDetailsjson.paymentMethod = $(b).find('.select-hide').val();
+			$.each($(b).find('.bookingRecord').find('div'), function(c, d) {
+				idarray.push($(d).attr('teacherstatementdetailsid'));
+			});
+			idarray = idarray.join(',');
+			expenseDetailsjson.teacherStatementDetailsIds = idarray;
+			console.log(expenseDetailsjson.teacherStatementDetailsIds)
+			console.log(expenseDetailsjson)
+			expenseDetails.push(expenseDetailsjson);
+				
+		});
+	
+		expenseDetails = JSON.stringify(expenseDetails);
+		if(pkId!=null){
+			$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/teacherExpense/getBeanByIdTravel",
+			async: false,
+			data: {
+				pkId: pkId
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+						processInstanceId = data.data.processInstanceId;
+				}
+			}
+		});
+		}
+		
+		$.ajax({
+			type: "post",
+			url: $yt_option.base_path + "finance/teacherExpense/addOrUpdateBeanTravel",
+			data: {
+				pkId: pkId,
+				//报销类型
+				expenseType: 2,
+				//项目Code
+				projectCode: projectCode,
+				//部门预算来源
+				deptBudget: 1,
+				//出差任务
+				remarks: remarks,
+				//教师数量
+				teacherCount: teacherCount,
+				//报销金额
+				expenseMoney: expenseMoney,
+				//报销数据
+				expenseDetails: expenseDetails,
+				//保存还是提交
+				dataStates: dataStates,
+				//流程定义Key
+				businessCode: 'travelExpense',
+				//下一步操作人
+				dealingWithPeople: dealingWithPeople,
+				//审批意见
+				opintion: opintion,
+				//流程实例Id
+				processInstanceId: processInstanceId,
+				//操作流程代码   不能为空
+				nextCode: "submited"
+			},
+			success: function(data) {
+				if(data.flag == 0) {
+					$yt_alert_Model.prompt("添加成功");
+					$(".yt-edit-alert,#heard-nav-bak").hide();
+
+				} else {
+					$yt_baseElement.hideLoading(function() {
+						$yt_alert_Model.prompt("提交失败");
+					});
+				}
+				caList.backNewsListPage();
+			}
+		});
+	},
+	deleteData: [],
+	//编辑与删除
+	deleteInfo: function() {
+		var me = this;
+		//删除
+		$('.list-box').on('click', '.delete-tb', function() {
+			var that = this;
+			 $yt_alert_Model.alertOne({  
+		        alertMsg: "确认删除该数据吗?", //提示信息  
+		        confirmFunction: function() {
+		        	var teacherId = $(that).parents('tr').data('trData').teacherId;
+					var length = 0 ;
+					$.each($('.rows[teacherid='+teacherId+']'), function(i,n) {
+							$(n).find('select.select-hide').val()==2?length++:length=length;
+						});
+					if(length==1){
+						$('#two-table').find('.teacher'+teacherId).remove();
+					}else if(length==2){
+						var all = Number($(that).parents('tr').find('.allTravelmoney').text());
+						$('.teacher' + teacherId).find('.twotablemoney').text((Number($('.teacher' + teacherId).find('.twotablemoney').text())-all).toFixed(2));
+						$('.teacher' + teacherId).data('data').twomoney=undefined
+					}
+					$(that).parent().parent().remove();
+					$('.class-tbody tr').each(function(i,n){
+						$(n).find('.num').text(($(that).index()+1));
+					})
+					$('#two-table tr').each(function(i,n){
+						$(n).find('td').eq(0).text(($(that).index()+1));
+					})
+					if($('#two-table').find('tr').length==0){
+						var tr = '<tr style="border:0px;background-color:#fff !important;" >' +
+								'<td colspan="11" align="center" style="border:0px;">' +
+								'<div class="no-data" style="width: 280px;margin: 0 auto;">' +
+								'<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">' +
+								'</div>' +
+								'</td>' +
+								'</tr>';
+							$('#two-table').append(tr);
+							$('#two-table').parents('table').hide();
+					}
+					$('.numb').text($('.rows').length+1);
+					$('.numbs').text($('.rows').length+1);
+					me.allmoney();
+					/*
+					 删除
+					 * 
+					 * 
+					 * */
+		        },
+		  
+		    }); 
+			
+		});
+		//编辑
+		$('.list-box').on('click', '.update-tb', function() {
+			$(this).parents('tr').find('input').removeAttr('readonly');
+			$(this).parents('tr').find('input').css('border', '1px solid #e6e6e6');
+			$(this).parents('tr').find('div.select-hide').show();
+			$(this).attr('class','yes');
+			$(this).text('确定');
+			me.allmoney();
+		})
+		$('.list-box').on('click', '.yes', function() {
+			$(this).parents('tr').find('input').attr('readonly', 'readonly');
+			$(this).parents('tr').find('input').css('border', 'none');
+			$(this).parents('tr').find('.yes').text('编辑');
+			$(this).attr('class','update-tb');
+			me.allmoney();
+		})
+	},
+	allmoney: function() {
+		var me = this;
+		//修改票价键盘抬起
+		$('.list-box').on('keyup', '.salesPrice', function() {
+			if($(this).val() == '') {
+				$(this).val(0);
+			}
+			$(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
+			//票价
+			var salesPrice = $(this).val();
+			//退改签费
+			var refundSigningFee = $(this).parents('tr').find('.refundSigningFee').val();
+			//保险
+			var insurance = $(this).parent().siblings('.insurance').text();
+			//总金额
+			var all = Number(salesPrice) + Number(refundSigningFee) + Number(insurance);
+			//合计
+			$(this).parent().siblings('.allTravelmoney').text(all.toFixed(2));
+			var num = $(this).parents('tr').data('trData').num;
+			var teacherId =  $(this).parents('tr').data('trData').teacherId;
+			var length = 0 ;
+			$.each($('.rows[teacherid='+teacherId+']'), function(i,n) {
+					$(n).find('select.select-hide').val()==2?length++:length=length;
+				});
+				if(length==1){
+					if(num==$('.teacher' + teacherId).data('data').num){
+						$('.teacher' + teacherId).find('.twotablemoney').text(all.toFixed(2));
+					}
+				}else if(length==2){
+					var twoall = 0;
+					$.each($(".rows[teacherid="+ teacherId +"]"), function(i,n) {
+						twoall+=Number($(n).find('.allTravelmoney').text());
+					});
+					$('.teacher' + teacherId).find('.twotablemoney').text(twoall.toFixed(2));
+				}
+			caList.addAll();
+		})
+		//修改票价
+		$('.list-box').off('blur').on('blur', '.salesPrice', function() {
+			if($(this).val() == '') {
+				$(this).val(0);
+			}
+			$(this).val(Number($(this).val()).toFixed(2));
+			$(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
+			//票价
+			var salesPrice = $(this).val();
+			//退改签费
+			var refundSigningFee = $(this).parents('tr').find('.refundSigningFee').val();
+			//保险
+			var insurance = $(this).parent().siblings('.insurance').text();
+
+			//总金额
+			var all = Number(salesPrice) + Number(refundSigningFee) + Number(insurance);
+			$(this).parent().siblings('.allTravelmoney').text(all.toFixed(2));
+			var num = $(this).parent().parent().data('trData').num;
+			var teacherId =  $(this).parents('tr').data('trData').teacherId;
+			var length = 0 ;
+			$.each($('.rows[teacherid='+teacherId+']'), function(i,n) {
+					$(n).find('select.select-hide').val()==2?length++:length=length;
+				});
+				if(length==1){
+					if(num==$('.teacher' + teacherId).data('data').num){
+						$('.teacher' + teacherId).find('.twotablemoney').text(all.toFixed(2));
+					}
+				}else if(length==2){
+					var twoall = 0;
+					$.each($(".rows[teacherid="+ teacherId +"]"), function(i,n) {
+						twoall+=Number($(n).find('.allTravelmoney').text());
+					});
+					$('.teacher' + teacherId).find('.twotablemoney').text(twoall.toFixed(2));
+				}
+			caList.addAll();
+		})
+		//修改退改签费
+		$('.list-box').on('keyup', '.refundSigningFee', function() {
+			if($(this).val() == '') {
+				$(this).val(0);
+			}
+			$(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
+			var refundSigningFee = $(this).val();
+			var salesPrice = $(this).parent().siblings('.salesPriceTd').children('.salesPrice').val();
+			var insurance = $(this).parent().siblings('.insurance').text();
+			var all = Number(salesPrice) + Number(refundSigningFee) + Number(insurance);
+			$(this).parent().siblings('.allTravelmoney').text(all.toFixed(2));
+			var num = $(this).parent().parent().data('trData').num;
+			var teacherId =  $(this).parents('tr').data('trData').teacherId;
+			var length = 0 ;
+			$.each($('.rows[teacherid='+teacherId+']'), function(i,n) {
+					$(n).find('select.select-hide').val()==2?length++:length=length;
+				});
+				if(length==1){
+					if(num==$('.teacher' + teacherId).data('data').num){
+						$('.teacher' + teacherId).find('.twotablemoney').text(all.toFixed(2));
+					}
+				}else if(length==2){
+					var twoall = 0;
+					$.each($(".rows[teacherid="+ teacherId +"]"), function(i,n) {
+						twoall+=Number($(n).find('.allTravelmoney').text());
+					});
+					$('.teacher' + teacherId).find('.twotablemoney').text(twoall.toFixed(2));
+				}
+			caList.addAll();
+		});
+		$('.list-box').off('blur').on('blur', '.refundSigningFee', function() {
+			if($(this).val() == '') {
+				$(this).val(0);
+			}
+			$(this).val(Number($(this).val()).toFixed(2));
+			$(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
+			var refundSigningFee = $(this).val();
+			var salesPrice = $(this).parent().siblings('.salesPriceTd').children('.salesPrice').val();
+			var insurance = $(this).parent().siblings('.insurance').text();
+			var all = Number(salesPrice) + Number(refundSigningFee) + Number(insurance);
+			$(this).parent().siblings('.allTravelmoney').text(all.toFixed(2));
+			var num = $(this).parent().parent().data('trData').num;
+			var teacherId =  $(this).parents('tr').data('trData').teacherId;
+			var length = 0 ;
+			$.each($('.rows[teacherid='+teacherId+']'), function(i,n) {
+					$(n).find('select.select-hide').val()==2?length++:length=length;
+				});
+				if(length==1){
+					if(num==$('.teacher' + teacherId).data('data').num){
+						$('.teacher' + teacherId).find('.twotablemoney').text(all.toFixed(2));
+					}
+				}else if(length==2){
+					var twoall = 0;
+					$.each($(".rows[teacherid="+ teacherId +"]"), function(i,n) {
+						twoall+=Number($(n).find('.allTravelmoney').text());
+					});
+					$('.teacher' + teacherId).find('.twotablemoney').text(twoall.toFixed(2));
+				}
+			caList.addAll();
+		});
+		caList.addAll();
+	},
+	addAll:function(){
+		
+			var allTravelmoney = 0;
+			var salesPriceSum = 0;
+			var refundSigningFeeSum = 0;
+			var checksalesPriceSum = 0;
+			var checkrefundSigningFeeSum = 0;
+			var checkexpenseMoneySum = 0;
+			$.each($('.select-hide'), function(index, model) {
+				if($(model).val() == 1) {
+					checksalesPriceSum += Number($(model).parent().siblings('.salesPriceTd').children('.salesPrice').val());
+					checkrefundSigningFeeSum += Number($(model).parent().siblings('.refundSigningFeeTd').children('.refundSigningFee').val());
+					checkexpenseMoneySum += Number($(model).parent().siblings('.allTravelmoney').text());
+				}
+			})
+			$.each($('.salesPrice'), function(i, n) {
+//				if($(n).val() != '0') {
+//					$(n).val($(n).val().replace(/\b(0+)/gi, ""));
+//				}
+				salesPriceSum += Number($(n).val());
+			});
+			$.each($('.refundSigningFee'), function(i, n) {
+//				if($(n).val() != '0') {
+//					$(n).val($(n).val().replace(/\b(0+)/gi, ""));
+//				}
+				refundSigningFeeSum += Number($(n).val());
+			});
+			$.each($('.allTravelmoney'), function(i, n) {
+				allTravelmoney += Number($(n).text());
+			});
+			//票价总额
+			$('.salesPriceSum').text(salesPriceSum);
+			//改签费总额
+			$('#refundSigningFeeSum').text(refundSigningFeeSum);
+			//报销总金额总额
+			$('#expenseMoneySum').text(allTravelmoney);
+			//支票---票价合计
+			$('.checksalesPriceSum').text(checksalesPriceSum);
+			//支票---改签费总额
+			$('#checkrefundSigningFeeSum').text(checkrefundSigningFeeSum);
+			//支票---报销总金额
+			$('#checkexpenseMoneySum').text(checkexpenseMoneySum);
+		
+	},
+	//点击关联
+	relevance: function() {
+		var me = this;
+		$('.class-tbody').on('click', '.relevance-tb', function() {
+			me.linkList(1);
+			$('.link-ul').empty();
+			//关联订票记录值传入弹窗
+			$.each($(this).parent().siblings('.bookingRecord').find('div'), function(j, v) {
+				var teacherStatementDetailsId = $(v).attr('teacherStatementDetailsId');
+				var teacherStatementDetails = $(v).text();
+				var linkLi = '<li class="link-li link-li' + teacherStatementDetailsId + '" teacherStatementDetailsIds="' + teacherStatementDetailsId + '">' + teacherStatementDetails + '<span class="delete-link" style="color: red;cursor: pointer;">×</span></li>';
+				linkLi = $(linkLi).data('pkId',teacherStatementDetailsId);
+				$('.link-ul').append(linkLi);
+			})
+
+			$(".travel-import-form").attr('trClass', $(this).parent().parent().attr('class'));
+			/** 
+			 * 显示编辑弹出框和显示顶部隐藏蒙层 
+			 */
+			$(".travel-import-form").show();
+			/* 
+			 * 调用支持拖拽的方法 
+			 */
+			$yt_model_drag.modelDragEvent($(".travel-import-form .yt-edit-alert-title"));
+			/** 
+			 * 点击取消方法 
+			 */
+			$('.travel-import-form .yt-eidt-model-bottom .yt-model-canel-btn').off().on("click", function() {
+				//隐藏页面中自定义的表单内容  
+				$(".travel-import-form").hide();
+				//隐藏蒙层  
+				$("#pop-modle-alert").hide();
+			});
+		})
+	},
+	//教师支付信息附表
+	addTwoInfo: function(data, all) {
+		console.log(data);
+		var htmlBody = $('#two-table');
+		var htmlTr = '';
+		var bool =true;
+		if($('#two-table').find('.twoTr').length==0){
+			$('#two-table').empty();
+			$('#two-table').parents('table').hide();
+		}
+		$.each($('#two-table').find('.twoTr'), function(i,n) {
+			if($(n).data('data').teacherId==data.teacherId){
+				if($(n).data('data').twomoney==undefined){
+					$(n).data('data').twomoney = all;
+					$(n).find('.twotablemoney').text((Number($(n).data('data').twomoney)+Number($(n).find('.twotablemoney').text())).toFixed(2));
+				}
+				bool =false;
+			}
+		});
+		data.papersNumber == undefined ? data.papersNumber = '' : data.papersNumber = data.papersNumber;
+		if(bool){
+			data.onemoney = all;
+			htmlTr = '<tr class="twoTr twoTr' + data.num + ' teacher'+data.teacherId+'">' +
+			'<td style="text-align:center">' + ($('#two-table .twoTr').length + 1) + '</td>' +
+			'<td style="text-align:center"><a class="teacherName"  style="color:#2080bf">' + data.teacherName + '</a></td>' +
+			'<td style="text-align:center">' + data.papersTypeVel + '</td>' +
+			'<td>' + data.papersNumber + '</td>' +
+			'<td>' + data.registeredBank + '</td>' +
+			'<td>' + data.account + '</td>' +
+			'<td style="text-align:center">电汇</td>' +
+			'<td style="text-align:right" class="twotablemoney" >' + all + '</td>' +
+			'</tr>';
+			htmlTr = $(htmlTr).data('data',data);
+			htmlBody.append(htmlTr);
+			$('.teacherName').off('click').on('click',function(){
+				window.location.href = '../teacher/teacherInf.html?pkId='+$(this).parents('tr').data('data').teacherId;
+			})
+			if($('#two-table').find('.twoTr').length>0){
+				$('#two-table').parents('table').show();
+			}
+		}
+	}
+};
+$(function() {
+	//初始化方法
+	caList.init();
+
+});

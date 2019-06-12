@@ -1,0 +1,136 @@
+
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/busiTripApply/priorApproval.min.css?YTVERSIONCODE=2018042601" />
+
+		<style type="text/css">
+			.yt-tab-row{
+				height: 30px;
+				text-align: center;
+			}
+			.yt-tab-row td{
+				border-right: 1px solid #DFE6F3;
+			    padding: 7px 5px;
+			    vertical-align: middle;
+			    color: #333;
+			    font-size: 14px;
+			}
+			/*弹窗标题背景色*/
+			.cost-popm .yt-edit-alert-title {
+			    background-color: #417095;
+			}
+			.cost-popm .yt-eidt-model-bottom {
+			    border-top: 0px !important;
+			}
+			.base-form-model{
+				padding:20px 20px 0;
+			}
+			.yt-edit-alert{
+				width: 450px;
+			}
+			.moneyInput{
+				text-align: right;
+			}
+		</style>
+
+		<div id="" class="ordinary-approval" style="padding-top: 20px;">
+			<!--事前申请详情区域START-->
+			<div class="base-info-model">
+				<!--标题区域START-->
+				<div class="label-title">
+					<div class="title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png">
+						<span class="title-text">支出费用信息</span>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<div class="button-box min-but" style="text-align: left;padding: 0 0 10px 0;">
+							<div class="secondary-back" style="">
+								
+							</div>
+							<div class="secondary-title" style="">
+								<span class="secondary-text" style="font-size: 16px; font-weight: bold;">费用明细</span>
+								<!--<div class="secondary-line"></div>-->
+							</div>
+							<button class="yt-option-btn yt-common-btn" onclick="costDetail.showAlert()"  onselectstart="return false">新增</button>
+						</div>
+				<!--费用申请明细表格区域START-->
+				<div class="" style="padding: 0 10px;">
+					
+				</div>
+				<table class="yt-table" id="costList" style="width: 100%;table-layout: initial;margin: 10px 0;">
+					<thead class="yt-thead">
+						<tr>
+							<th>支出费用内容</th>
+							<th>金额（元）</th>
+							<th>特殊说明</th>
+							<th width="200px">操作</th>
+						</tr>
+					</thead>
+					
+					<tbody class="yt-tbody">
+						<!--<tr class="yt-tab-row">
+							<td style="text-align:left;" class="reimContent">报销费用内容</td>
+							<td style="text-align: right;" class="reimAmount">20000</td>
+							<td>
+								<span class="operate-update"><img src="../../../../../resources-sasac/images/common/edit-icon.png"></span>
+								<span class="operate-del" style="margin-left: 20px;"><img src="../../../../../resources-sasac/images/common/del-icon.png"></span>
+							</td>
+						</tr>-->
+						<tr class="last">
+							<td>合计</td>
+							<td id="reimAmountlSum" style="text-align: right;"></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<!--费用申请明细表格区域END-->
+				<!--编辑框START-->
+				<div class="yt-pop-model yt-edit-alert cost-popm">
+					<!--标题区域START-->
+					<div class="yt-edit-alert-title" style="text-align: left;padding-left: 20px;">
+						<img src="../../../../../resources-sasac/images/common/info-icon.png" style="width: 20px;height: 20px;" />
+						<span class="yt-edit-alert-title-msg">费用明细信息</span>
+					</div>
+					<!--标题区域END-->
+					<!--主体内容部分START-->
+					<div class="yt-edit-alert-main cont-edit-test ">
+						<div class="base-form-model"> 
+							<table class="valid-tab">
+								<tr>
+									<td><span class="not-null">*</span><span>支出费用内容：</span></td>
+									<td>
+										<input id="reimContent" class="yt-input" type="text" placeholder="请输入" validform="{isNull:true,size:20,blurFlag:true,msg:'此信息不能为空,不要超过20个字'}" />
+										<div class="valid-font"></div>
+									</td>
+								</tr>
+								<tr>
+									<td><span class="not-null">*</span><span style="letter-spacing:40px;">金</span>额：</td>
+									<td>
+										<input id="reimAmount" style="width: 180px;" class="yt-input moneyInput" type="text" placeholder="请输入" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'字段不能为空'}" style="width: 90%;"/>元
+										<div class="valid-font"></div>
+									</td>
+								</tr>
+								<tr valign="top">
+									<td style="padding-left: 5px;"><span style="letter-spacing:5px;">特殊说</span>明：</td>
+									<td>
+										<textarea class="yt-textarea" id="instructions" style="width: 270px;"></textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<!--底部按钮START-->
+						<div class="yt-eidt-model-bottom" style="padding-bottom: 10px;">
+							<button class="yt-option-btn yt-common-btn save-btn" type="button">保存</button><button class="yt-option-btn yt-common-btn sure-btn" type="button">保存</button>
+							<button class="yt-option-btn yt-cancel-btn" type="button" style="margin-left: 20px;">关闭</button>
+						</div>
+					</div>
+					<!--主体内容部分END-->
+				</div>
+				<!--编辑框示END-->
+			</div>
+			<!--事前申请详情区域END-->
+		</div>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/reimApply/costDetail.min.js?YTVERSIONCODE=2018011601"></script>

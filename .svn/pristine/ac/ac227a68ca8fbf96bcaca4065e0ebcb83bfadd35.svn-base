@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/borrow/borrow.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>新增借用发票</title>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1100px;">
+			<div class="head-div" style="margin-bottom: 0px;height: 22px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<button class="page-return-btn">
+							<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+							返回
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="box-list">
+				<div class="content-box budget-inf valid-tab">
+					<div class="class-info-div">
+						新增费用减免
+					</div>
+					<div class="tab-content list-box">
+						<div class="class-info-centent">
+							<table class="class-info-table">
+								<tr>
+									<td align="right">
+										<span style="font-weight: bold;font-size: 15px;">申请类型：</span>
+									</td>
+									<td colspan="3">
+										<span style="float: left;">费用减免</span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>项目编号：</span>
+									</td>
+									<td>
+										<span class="project-code" style="float: left;width: 298px;"></span>
+									</td>
+									<td align="right" width="156px" class="project-type-td">
+										<span>项目类型：</span>
+									</td>
+									<td>
+										<span class="project-type" style="float: left;width: 301px;"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>项目名称：</span>
+									</td>
+									<td colspan="3">
+										<select class="yt-select type-select project-name-select" data-val="dealingWithPeople" style="width: 720px;">
+											<option value="0">请选择项目名称</option>										</select>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>项目主任：</span>
+									</td>
+									<td>
+										<span class="project-head" style="float: left;"> </span>
+									</td>
+									<td align="right">
+										<span>班主任：</span>
+									</td>
+									<td>
+										<span class="class-teacher" style="float: left;"> </span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>开班日期：</span>
+									</td>
+									<td>
+										<span class="start-date" style="float: left;"> </span>
+									</td>
+									<td align="right">
+										<span>结束日期：</span>
+									</td>
+									<td>
+										<span class="end-date" style="float: left;"> </span>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="class-info-div">
+						减免明细
+						<button style="width: 74px;" class="yt-option-btn cost-add-btn"><img src="../../resources/images/button/add-icon.png">新增</button>
+						<button style="width: 74px;" class="yt-option-btn cost-update-btn"><img src="../../resources/images/button/update-icon.png">修改</button>
+						<button style="width: 74px;" class="yt-option-btn cost-delete-btn"><img src="../../resources/images/button/del-icon.png">删除</button>
+						<p style="float:right;margin-right:  20px;"><span>减免总金额：</span><span class="aggregate-amount">0.00</span><span>元</span></p>
+					</div>
+						<div class="list-box">
+							<table class="list-table yt-table cost-info" style="width: 100%;">
+								<thead class="list-thead">
+									<tr style="height: 30px;">
+										<th style="width: 100px;">费用类型</th>
+										<th>减免数量</th>
+										<th>减免前标准（单价）</th>
+										<th>减免后标准（单价）</th>
+										<th>减免总金额（元）</th>
+										<th style="width: 280px;">备注</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody list-tbody project-tbody cost-info-tbody">
+									<tr class="null">
+										<td colspan="6" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					<div class="class-info-div">
+						减免事由
+					</div>
+					<div class="tab-content list-box" style="">
+						<div style="margin-left: 20px;margin-top: 17px;">
+							<div style="margin: 0 auto;width: 850px;">
+								<span style="position: relative;line-height: 42px;vertical-align: top;">减免事由：</span>
+								<textarea style="margin-top: 10px;width: 726px;" type="text" class="yt-textarea remission-cause" data-val="offSiteTrainingRequirement" placeholder=""></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="teacher-select-div">
+						<div class="yt-pop-model yt-edit-alert select-teacher-div" style="width: 700px;">
+							<div class="yt-edit-alert-title select-teacher-title-div">
+								<span class="select-teacher-title-span">新增减免明细</span>
+							</div>
+							<div class="yt-edit-alert-main cont-edit-test">
+								<table class="select-teacher-table valid-tab" style="width: auto;margin-left: 160px;">
+									<tr style="height: 30px;">
+										<td align="right">
+											<span>费用类型：</span>
+										</td>
+										<td>
+											<select class="yt-select type-select types" data-val="dealingWithPeople" style="width: 281px;">
+												<option value="0">请选择</option>
+												<option value="1">培训费</option>
+												<option value="2">课程费</option>
+												<option value="3">住宿费</option>
+												<option value="4">餐费</option>
+												<option value="5">杂费</option>
+												<option value="6">场地使用费</option>
+												<option value="7">会务费</option>
+												<option value="8">其他</option>
+											</select>
+											<span class="valid-font dealing-with-people-span"></span>
+										</td>
+									</tr>
+									<tr style="height: 30px;">
+										<td align="right">
+											<span>减免前标准：</span>
+										</td>
+										<td>
+											<input class="yt-input entrust-org-count pre-relief-standard total"  placeholder="请输入减免前标准" validform="{isNull:true,blurFlag:true,msg:'请输入收费标准'}" type="text" style="width: 275px;" />
+											<span class="valid-font"></span>
+										</td>
+									</tr>
+									<tr style="height: 30px;">
+										<td align="right">
+											<span>减免后标准：</span>
+										</td>
+										<td>
+											<input class="yt-input entrust-org-count post-remission-standard total"  placeholder="请输入减免后标准" validform="{isNull:true,blurFlag:true,msg:'请输入收费标准'}" type="text" style="width: 275px;" />
+											<span class="valid-font"></span>
+										</td>
+									</tr>
+									<tr style="height: 30px;">
+										<td align="right">
+											<span>减免数量：</span>
+										</td>
+										<td>
+											<input class="yt-input entrust-org-count reduction-exemption total"  placeholder="请输入减免人数" validform="{isNull:true,blurFlag:true,msg:'请输入减免人数'}" type="text" style="width: 275px;" />
+											<span class="valid-font"></span>
+										</td>
+									</tr>
+									<tr style="height: 30px;">
+										<td align="right">
+											<span>减免后总金额：</span>
+										</td>
+										<td>
+											<span class="post-remission-money"></span>
+										</td>
+									</tr>
+									<tr style="height: 30px;">
+										<td align="right">
+											<span style="width: 200px;">备注：</span>
+										</td>
+										<td>
+											<input class="yt-input entrust-org-count remarks"  placeholder="请输入备注" type="text" style="width: 275px;" />
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="yt-eidt-model-bottom select-teacher-btn-div">
+								<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-sure-btn sreduction-details-sure-btn" type="button" value="确定" />
+								<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-canel-btn sreduction-details-canel-btn" type="button" value="取消" />
+							</div>
+						</div>
+					</div>
+					<!--审批流程STAR-->
+					<div class="class-info-div approve-info-title" style="display: none;">
+						审批流程
+					</div>
+					<div class="tab-content approve-info list-box" style="display: none;background: #FFF;padding: 20px 0px;">
+						<div class="class-info-centent" style="margin-bottom: 25px;margin: 0 auto;width: 850px;">
+							<div  style="width: 990px;;margin: 0 auto;">
+								<div class="first-step" style="">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--审批流程END-->
+					<!--下一步操作人-->
+					<div class="tab-content next-operator list-box">
+						<table>
+							<tr>
+								<td>下一步操作人：</td>
+								<td>
+									<select class="yt-select type-select dealing-with-people" data-val="dealingWithPeople" style="width: 140px;">
+										<option value="0">请选择</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="btn-all" style="width: 265px;">
+						<button class="yt-option-btn submit-budget">提交</button>
+						<button class="yt-option-btn save-budget">保存</button>
+						<button class="yt-option-btn btn-off">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/finance/addCostList.js"></script>
+
+</html>

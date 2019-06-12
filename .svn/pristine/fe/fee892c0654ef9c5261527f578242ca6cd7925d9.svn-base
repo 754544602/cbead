@@ -1,0 +1,201 @@
+.add-open-span {
+	color: #FFF;
+	font-size: 16px;
+	float: left;
+	margin: 10px;
+}
+
+.tb-box-style {
+	width: 970px;
+	height: 150px;
+	border: 1px solid #F5F5F5;
+	box-shadow: 0px 4px 10px -6px;
+	margin: 10px auto;
+	height: 150px;
+}
+
+
+.add-open-div {
+	height: 40px;
+	background-color: #363845;
+	margin-left: 5px;
+}
+
+.open-tb-style {
+	width: 970px;
+	height: 150px;
+	margin: 10px auto;
+}
+
+.p-title {
+	height: 34px;
+	float: left;
+	margin: 0px 10px;
+	font-size: 16px;
+	text-align: center;
+	line-height: 30px;
+	color: #363845;
+}
+
+.order-div-box {
+	width: 970px;
+	margin: 10px auto;
+}
+
+.star-date-input {
+	width: 264px;
+	float: left;
+	background-position: 250px -25px;
+}
+
+.order-by {
+	height: 35px;
+	text-align: center;
+}
+
+.td-input {
+	width: 698px;
+	text-align: left;
+	position: relative;
+}
+
+.td-input-time {
+	width: 60px;
+	float: left;
+	text-align: right;
+}
+
+.td-img {
+	text-align: center;
+	line-height: 35px;
+}
+
+.add-btn-div {
+	height: 30px;
+	width: 910px;
+	border: 1px dashed #DDD;
+	cursor: pointer;
+	color: #7B74C7;
+	margin: 0px 0px 0px 30px;
+	text-align: center;
+	line-height: 30px;
+}
+
+.ioc-img {
+	width: 13px;
+	height: 13px;
+	cursor: pointer;
+	margin: 0px 3px;
+}
+
+.btn-bg-color {
+	background-color: #7B74C7;
+}
+
+.lecture-tds {
+	width: 60px;
+	height: 35px;
+}
+
+.lecture-tde {
+	width: 80px;
+	text-align: left;
+	padding-left: 10px;
+}
+
+.fileName {
+	text-align: left;
+}
+
+.cylinder-p {
+	width: 6px;
+	height: 18px;
+	border-radius: 3px;
+	background-color: #363845;
+	float: left;
+	margin: 7px 0px 0px 15px;
+}
+.btn-div-nav{
+	width: 72px; 
+	height: 30px;
+	border-radius: 2px;
+	box-shadow: 0px 1px 4px #F3C986; 
+	float: right;
+	text-align: center;
+	line-height: 30px;
+	font-size:16px ; 
+	color: #fff; 
+	background-color: #F3C986;
+	border: 1px solid #F3C986; 
+	margin:8px 37px 0px 0px;"
+}
+
+/*lookOneInfoApprove样式*/
+
+.td-style{
+	width: 300px; 
+	text-align: left;
+}
+.title-p-style{
+	width: 6px;
+    height: 25px;
+    float: left;
+    border-radius: 3px;
+	background-color: #DE595A;
+	margin:10px 20px 0px 6px;
+}
+.title-text-p{
+	float: left;
+	font-size: 16px;
+	color: #DE595A;
+}
+.td-text-style{
+	text-align: right;
+}
+.title-div-box{
+	height: 45px;
+	line-height: 45px;
+}
+.content-div-box{
+	background: #FFF;
+	padding: 15px 0px;
+	margin: 0px 6px;
+}
+.list-table .tb-td-pd td{
+	padding: 0px;
+}
+.up-fileIds{
+	width: 72px;
+	height: 35px;
+	position: absolute;
+	opacity: 0;
+}
+.up-btn-div-box{
+	width: 75px;
+	float: right;
+	height: 43px;
+	position: relative;
+	float: right;
+	margin-right: 10px;
+}
+.alert-td-style{
+	text-align: left;
+}
+.tr-border-style{
+	border-bottom: 1px solid #F4F6FB;
+}
+.file-tr-border-style{
+	border: 1px dashed #E6E6E6;
+}
+.order-th-style{
+	width: 60px;
+	height: 45px;
+	text-align: left; 
+	padding-left: 10px;
+}
+.order-div-up{
+	width: 930px;
+	padding-left: 20px;
+	margin: 0px auto; 
+	height: 35px;
+}

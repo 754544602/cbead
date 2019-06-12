@@ -1,0 +1,1591 @@
+var travelSpending = {
+	selUsersName : "",
+	selUsersCode : "",
+	init : function() {
+		var me = this;
+		me.start();
+		me.events()
+	},
+	start : function() {
+		$yt_baseElement.numberInput($(".travel-div .yt-numberInput-box"));
+		$('.travel-div select:not(.busi-addres-sel)').niceSelect();
+		$("#tdStartDate").calendar({
+			controlId : "planStartDate",
+			nowData : false,
+			upperLimit : $("#tdEndDate"),
+			speed : 0,
+			callback : function() {
+				sysCommon.clearValidInfo($("#tdStartDate"))
+			}
+		});
+		$("#tdEndDate").calendar({
+			controlId : "planEndDate",
+			nowData : false,
+			lowerLimit : $("#tdStartDate"),
+			speed : 0,
+			callback : function() {
+				sysCommon.clearValidInfo($("#tdEndDate"))
+			}
+		});
+		$("#traffic-start-time").calendar({
+			controlId : "trafficStartTime",
+			nowData : false,
+			upperLimit : $("#traffic-end-time"),
+			speed : 0,
+			callback : function() {
+				sysCommon.clearValidInfo($("#traffic-start-time"))
+			}
+		});
+		$("#traffic-end-time").calendar({
+			controlId : "trafficEndTime",
+			nowData : false,
+			lowerLimit : $("#traffic-start-time"),
+			speed : 0,
+			callback : function() {
+				sysCommon.clearValidInfo($("#traffic-end-time"))
+			}
+		});
+		$("#hotelDate").calendar(
+				{
+					controlId : "hotelTime",
+					nowData : false,
+					upperLimit : $("#leaveDate"),
+					speed : 0,
+					callback : function() {
+						sysCommon.clearValidInfo($("#hotelDate"));
+						var tdStartDate = $("#hotelDate").val();
+						var tdEndDate = $('#leaveDate').val();
+						var dateFrom = new Date(tdStartDate);
+						var dateTo = new Date(tdEndDate);
+						if (tdStartDate != "" && tdEndDate != "") {
+							var diff = dateTo.valueOf() - dateFrom.valueOf();
+							var diff_day = parseInt(diff
+									/ (1000 * 60 * 60 * 24));
+							$(".hotel-form .hotel-num").css("color", "#333333")
+									.text(diff_day);
+							var money = +$('.hotel-form .cost-detail-money')
+									.val();
+							if (diff_day == 0) {
+								$('#peoDayMoney').text(money)
+							} else {
+								$('#peoDayMoney').text(
+										$yt_baseElement.fmMoney(money
+												/ diff_day))
+							}
+						}
+					}
+				});
+		$("#leaveDate").calendar(
+				{
+					controlId : "leaveTime",
+					nowData : false,
+					lowerLimit : $("#hotelDate"),
+					speed : 0,
+					callback : function() {
+						sysCommon.clearValidInfo($("#leaveDate"));
+						var tdStartDate = $("#hotelDate").val();
+						var tdEndDate = $('#leaveDate').val();
+						var dateFrom = new Date(tdStartDate);
+						var dateTo = new Date(tdEndDate);
+						if (tdStartDate != "" && tdEndDate != "") {
+							var diff = dateTo.valueOf() - dateFrom.valueOf();
+							var diff_day = parseInt(diff
+									/ (1000 * 60 * 60 * 24));
+							$(".hotel-form .hotel-num").css("color", "#333333")
+									.text(diff_day);
+							var money = +$('.hotel-form .cost-detail-money')
+									.val();
+							if (diff_day == 0) {
+								$('#peoDayMoney').text(money)
+							} else {
+								$('#peoDayMoney').text(
+										$yt_baseElement.fmMoney(money
+												/ diff_day))
+							}
+						}
+					}
+				})
+	},
+	events : function() {
+		var me = this;
+		sysCommon.costDetailModelTabEvent();
+		$('.travel-div .money-input').on('focus', function() {
+			var ts = $(this);
+			if (ts.val() != "") {
+				ts.val($yt_baseElement.rmoney(ts.val()))
+			}
+		});
+		$('.travel-div .money-input').on('blur', function() {
+			var ts = $(this);
+			if (ts.val() != '') {
+				ts.val($yt_baseElement.fmMoney(ts.val()))
+			}
+		});
+		$('.travel-div .money-input').on('keyup', function() {
+			var ts = $(this);
+			if (ts.val() != '') {
+				ts.val(ts.val().replace(/[^\d.]/g, ''))
+			}
+		});
+		$('#modelBusiType').on('change', function() {
+			var code = $(this).val();
+			if (code == 'TRAVEL_TYPE_2' || code == 'TRAVEL_TYPE_3') {
+				$('.bear-expense').show()
+			} else {
+				$('.bear-expense').hide()
+			}
+		});
+		/*var code = $('.docu-style:checked').val();
+		if("TRAVEL_APPLY"==code){
+			sysCommon.getApproveFlowData("SZ_TRAVEL_APP");
+		}*/
+		me.getDictInfoByTypeCode();
+		me.costApplyAlertEvent()
+	},
+	costApplyAlertEvent : function() {
+		var me = this;
+		$("#modelBusiUser").off().on(
+				"click",
+				function() {
+					$("#busiUserInfo").show();
+					if (!$("#busiUserInfo").hasClass("check")) {
+						me.getBusiTripUsersList($("#userPram").val())
+					}
+					me.busiTripUserModelEvent($("#modelBusiUser"),
+							$("#busiPlanEditModel .auto-font"),
+							$(".model-user-num-show"), 1)
+				});
+		$('#tripAddBtn').click(function() {
+			me.showTripAlert();
+			$('#planSaveBtn').off().on('click', function() {
+				me.appendTripList()
+			})
+		});
+		$('#tripList').on('click', '.operate-del', function() {
+			var ithis = $(this);
+			var tr = ithis.parents('tr');
+			$yt_alert_Model.alertOne({
+				alertMsg : "数据删除将无法恢复,确认删除吗?",
+				confirmFunction : function() {
+					tr.remove();
+					var trs = $('#tripList tbody tr');
+					if (trs.length <= 0) {
+						$('#traffic-list-info tbody').empty();
+						$('#hotel-list-info tbody').empty();
+						$('#other-list-info tbody').empty();
+						$('#subsidy-list-info tbody').empty()
+					} else {
+						me.setSubsidyList();
+					}
+				}
+			})
+		});
+		$('#subsidy-list-info').on('click', '.operate-del', function() {
+			var ithis = $(this);
+			var tr = ithis.parents('tr');
+			$yt_alert_Model.alertOne({
+				alertMsg : "数据删除将无法恢复,确认删除吗?",
+				confirmFunction : function() {
+					tr.remove();
+					me.setSubsidyTotal();
+					me.updateMoneySum()
+				}
+			})
+		});
+		$('#tripList').on('click', '.operate-update', function() {
+			var ithis = $(this);
+			var tr = ithis.parents('tr');
+			me.setTripAlertData(tr);
+			me.showTripAlert();
+			$('#planSaveBtn').off().on('click', function() {
+				me.appendTripList(tr)
+			})
+		});
+		$('#planCanelBtn,#busiPlanEditModel .closed-span').click(function() {
+			me.hideTripAlert();
+			$("#busiUserInfo ul li").removeClass("tr-check");
+			$("#busiUserInfo").removeClass("check");
+			$('#modelBusiAddres').html('<option value="">请输入</option>');
+			me.selUsersName = "";
+			me.selUsersCode = "";
+			me.clearAlert($('#busiPlanEditModel'))
+		});
+		$('#addCostApplyBtn')
+				.click(
+						function() {
+							me.showCostApplyAlert();
+							me.busiTripUserModelEvent();
+							$('#modelSureBtn')
+									.off()
+									.on(
+											'click',
+											function() {
+												var tabFlag = $(
+														"#costApplyAlert .cost-type-tab li.tab-check .hid-tab")
+														.val();
+												var validModel = "";
+												if (tabFlag == 0) {
+													validModel = $("#costApplyAlert .traffic-form")
+												} else if (tabFlag == 1) {
+													validModel = $("#costApplyAlert .hotel-form")
+												} else if (tabFlag == 2) {
+													validModel = $("#costApplyAlert .other-form")
+												}
+												var validFlag = $yt_valid
+														.validForm(validModel);
+												if (validFlag) {
+													me
+															.appendCostApplyList(tabFlag)
+												}
+											})
+						});
+		$("#addres-icon").off().on("click", function() {
+			var startCity = $("#fromcity option:selected");
+			var endCity = $("#tocity option:selected");
+			$("#tocity").html(startCity);
+			$("#fromcity").html(endCity);
+			me.getPlanBusiAddress($("#tocity"));
+			me.getPlanBusiAddress($("#fromcity"))
+		});
+		$(".city-cost-input,.cost-detail-money").on("focus", function() {
+			if ($(this).val() != "" && $(this).val() != null) {
+				$(this).val($yt_baseElement.rmoney($(this).val()));
+				$(this).select()
+			}
+		});
+		$(".city-cost-input,.cost-detail-money").on(
+				"blur",
+				function() {
+					var val = $yt_baseElement.rmoney($(this).val() || '0');
+					if ($(this).hasClass("cost-detail-money")) {
+						if ($(this).val() != "") {
+							var hotelDay = $(".hotel-form .hotel-num").text();
+							if (hotelDay == 0) {
+								$("#peoDayMoney").html(
+										$yt_baseElement.fmMoney(val))
+							} else {
+								$("#peoDayMoney")
+										.html(
+												$yt_baseElement.fmMoney(val
+														/ hotelDay))
+							}
+						}
+					}
+				});
+		$('#traffic-list-info,#hotel-list-info,#other-list-info')
+				.on(
+						'click',
+						'.operate-del',
+						function() {
+							var ithis = $(this);
+							var tr = ithis.parents('tr');
+							var table = ithis.parents('table');
+							$yt_alert_Model
+									.alertOne({
+										alertMsg : "数据删除将无法恢复,确认删除吗?",
+										confirmFunction : function() {
+											tr.remove();
+											if (table
+													.find('tbody tr:not(.total-last-tr)').length <= 0) {
+												var cols = table
+														.find('thead tr th').length;
+												var noDataTr = '<tr class="not-date-tr"><td colspan="'
+														+ cols
+														+ '"><div class="no-data"><img src="../../../../../resources-sasac/images/common/no-data.png" alt=""></div></td></tr>';
+												table.find('tbody').html('')
+											}
+											me.updateMoneySum(0);
+											me.updateMoneySum(1);
+											me.updateMoneySum(2);
+											me.updateApplyMeonySum()
+										}
+									})
+						});
+		$('#traffic-list-info,#hotel-list-info,#other-list-info').on(
+				'click',
+				'.operate-update',
+				function() {
+					var ithis = $(this);
+					var tr = ithis.parents('tr');
+					me.showCostApplyAlert();
+					me.setFormInfo(tr);
+					var costType = tr.find(".hid-cost-type").val();
+					$("#costApplyAlert .cost-type-tab ul li").removeClass(
+							"tab-check");
+					$(
+							'#costApplyAlert .cost-type-tab ul li input[value="'
+									+ costType + '"]').parent().addClass(
+							"tab-check");
+					if (costType == 0) {
+						$(".traffic-form").show();
+					}
+					if (costType == 1) {
+						$(".hotel-form").show();
+						$(".traffic-form").hide();
+					}
+					if (costType == 2) {
+						$(".other-form").show();
+						$(".traffic-form").hide();
+					}
+					$('#modelSureBtn').off().on('click', function() {
+						me.appendCostApplyList(costType, tr)
+					})
+				});
+		$('#modelCanelBtn,#costApplyAlert .closed-span').click(function() {
+			me.hideCostApplyAlert();
+			me.clearFormData()
+		});
+		$('#subsidy-list-info').on('click', '.operate-update', function() {
+			var ithis = $(this);
+			var tr = ithis.parents('tr');
+			me.showSubsidiesAlert();
+			$('#subsidyBusinUser').text(tr.find('.user').text());
+			$('#subsidyBusinLevel').text(tr.find('.lv').text());
+			$('#subsidiesDays').val(tr.find('.subsidy-num').text());
+			$('#subsidiesFood').val(tr.find('.food').text());
+			$('#subsidiesTraffic').val(tr.find('.traffic').text());
+			$('#subsidiesCommon').off().on('click', function() {
+				me.appendSubdisyList(tr)
+			}).text('确定')
+		});
+		$('#subsidiesCancel').click(function() {
+			me.hideSubsidiesAlert();
+			me.clearAlert($('#subdisyInfoAlert'))
+		})
+	},
+	showSubsidiesAlert : function() {
+		var me = this;
+		var alert = $('#subdisyInfoAlert');
+		$yt_baseElement.showMongoliaLayer();
+		$yt_alert_Model.getDivPosition(alert);
+		$('#pop-modle-alert').show();
+		alert.show()
+	},
+	hideSubsidiesAlert : function() {
+		$yt_baseElement.hideMongoliaLayer();
+		$('#subdisyInfoAlert').hide();
+		$('#pop-modle-alert').hide()
+	},
+	showTripAlert : function() {
+		var me = this;
+		var alert = $('#busiPlanEditModel');
+		me.setAddress();
+		$yt_baseElement.showMongoliaLayer();
+		$yt_alert_Model.getDivPosition(alert);
+		$('#pop-modle-alert').show();
+		alert.show()
+	},
+	hideTripAlert : function() {
+		$yt_baseElement.hideMongoliaLayer();
+		$('#busiPlanEditModel').hide();
+		$('#pop-modle-alert').hide();
+		$('#busiPlanEditModel .bear-expense').hide()
+	},
+	showCostApplyAlert : function() {
+		var me = this;
+		var alert = $('#costApplyAlert');
+		me.setModelUsers();
+		me.setAddress();
+		me.getPlanBusiAddress($("#fromcity"));
+		me.getPlanBusiAddress($("#tocity"));
+		$yt_baseElement.showMongoliaLayer();
+		$yt_alert_Model.getDivPosition(alert);
+		$('#pop-modle-alert').show();
+		alert.show()
+	},
+	hideCostApplyAlert : function() {
+		$yt_baseElement.hideMongoliaLayer();
+		$('#costApplyAlert').hide();
+		$('#pop-modle-alert').hide()
+	},
+	appendTripList : function(tr) {
+		var me = this;
+		var planModel = $("#busiPlanEditModel");
+		var modelBusiType = $('#modelBusiType option:selected');
+		var name = modelBusiType.text();
+		var code = modelBusiType.val();
+		var tdStartDate = $('#tdStartDate').val();
+		var tdEndDate = $('#tdEndDate').val();
+		var dateFrom = new Date(tdStartDate);
+		var dateTo = new Date(tdEndDate);
+		var diff = dateTo.valueOf() - dateFrom.valueOf();
+		var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+		var day = diff_day + 1;
+		var modelBusiAddres = $('#modelBusiAddres option:selected').val();
+		var budiAddName = $('#modelBusiAddres').next().find('.search-current')
+				.val();
+		var busiUsersName = $("#modelBusiUser").val();
+		var busiUsersCode = $("#modelUserCodes").val();
+		var busiNum = $(".model-user-num-show .users-num").text();
+		var receptionMoney = "";
+		var receptionMoneyCode = "";
+		if (planModel.find(".check-label.check").length > 0) {
+			planModel.find(".check-label.check").each(function(i, n) {
+				receptionMoney += $(n).find("span").text() + "、";
+				receptionMoneyCode += $(n).find("input").val() + ","
+			});
+			receptionMoney = receptionMoney.substring(0,
+					receptionMoney.length - 1);
+			receptionMoneyCode = receptionMoneyCode.substring(0,
+					receptionMoneyCode.length - 1)
+		} else {
+			receptionMoney = "--"
+		}
+		var html = '<tr busicode="'
+				+ code
+				+ '" usercode="'
+				+ busiUsersCode
+				+ '" rececode="'
+				+ receptionMoneyCode
+				+ '" ><td><input type="hidden" class="hid-user-code" value="'
+				+ busiUsersCode
+				+ '" /> <span class="name">'
+				+ name
+				+ '</span></td><td class="sdate">'
+				+ tdStartDate
+				+ '</td><td class="edate">'
+				+ tdEndDate
+				+ '</td><td class="day">'
+				+ day
+				+ '</td><td class="address" val="'
+				+ modelBusiAddres
+				+ '">'
+				+ budiAddName
+				+ '</td><td class="uname">'
+				+ busiUsersName
+				+ '</td><td class="numof">'
+				+ busiNum
+				+ '</td><td class="reception">'
+				+ receptionMoney
+				+ '</td><td><span class="operate-update"><img src="../../../../../resources-sasac/images/common/edit-icon.png"></span><span class="operate-del" style=""><img src="../../../../../resources-sasac/images/common/del-icon.png"></span></td></tr>';
+		if ($yt_valid.validForm($('#busiPlanEditModel'))) {
+			if (tr) {
+				tr.replaceWith(html);
+				me.hideTripAlert()
+			} else {
+				$('#tripList tbody').append(html);
+				$yt_alert_Model.prompt('填写的信息已成功加入到列表')
+			}
+			$("#busiUserInfo ul li").removeClass("tr-check");
+			$("#busiUserInfo").removeClass("check");
+			me.selUsersName = "";
+			me.selUsersCode = "";
+			$('.auto-font').show();
+			$('.model-user-num-show').hide();
+			me.clearAlert($('#busiPlanEditModel'));
+			$('#modelBusiAddres').html('<option value="">请输入</option>');
+			me.setSubsidyList();
+			me.setAddress()
+		}
+	},
+	setTripAlertData : function(tr) {
+		var planModel = $("#busiPlanEditModel");
+		var modelBusiType = $(
+				'#modelBusiType option[value="' + tr.attr('busicode') + '"]')
+				.attr('selected', true);
+		$('#modelBusiType').niceSelect();
+		var tdStartDate = $('#tdStartDate').val(tr.find('.sdate').text());
+		var tdEndDate = $('#tdEndDate').val(tr.find('.edate').text());
+		var modelBusiAddres = $('#modelBusiAddres').html(
+				'<option value="' + tr.find('.address').attr('val') + '">'
+						+ tr.find('.address').text() + '</option>');
+		var busiUsersName = $("#modelBusiUser").val(tr.find('.uname').text());
+		var busiUsersCode = $("#modelUserCodes").val(tr.attr('usercode'));
+		var busiNum = $("#busiPlanEditModel .auto-font").text(
+				tr.find('.numof').text());
+		var rececode = tr.attr('rececode');
+		var receList = rececode.split(',');
+		if (receList.length > 1) {
+			$.each(receList, function(i, n) {
+				if (n) {
+					planModel.find('.check-label input[value="' + n + '"]')
+							.setCheckBoxState('check')
+				}
+			});
+			$('#busiPlanEditModel .bear-expense').show()
+		}
+		this.getPlanBusiAddress($("#modelBusiAddres"))
+	},
+	appendCostApplyList : function(tabFlag, tr) {
+		var me = this;
+		if (tabFlag == 0) {
+			me.getTrafficCostFormInfo(tr)
+		}
+		if (tabFlag == 1) {
+			me.getHotelFormInfo(tr)
+		}
+		if (tabFlag == 2) {
+			me.getOtherCostFormInfo(tr)
+		}
+	},
+	getTrafficCostFormInfo : function(tr) {
+		var me = this;
+		var trabfficObj = $(".traffic-form");
+		sysCommon.createSumTr(0);
+		var tripUser = trabfficObj.find("#model-trip-user option:selected")
+				.text();
+		var userCode = trabfficObj.find("#model-trip-user option:selected")
+				.val();
+		var level = trabfficObj.find("#model-trip-user option:selected").attr(
+				"data-level");
+		var levelCode = trabfficObj.find("#model-trip-user option:selected")
+				.attr("data-level-code");
+		var trafficStartTime = $('#traffic-start-time').val();
+		var trafficEndTime = $('#traffic-end-time').val();
+		var fromcityName = $('#fromcity').next().find('.search-current').val();
+		var fromcity = $('#fromcity option:selected').val();
+		var tocityName = $('#tocity option:selected').text();
+		var tocity = $('#tocity option:selected').val();
+		var specialRemark = $('#special-remark').val();
+		var vehicle = "";
+		var vehicleCode = "";
+		vehicleCode = trabfficObj.find(".vehicle-sel").val();
+		var vehicleChildCode = "";
+		vehicleChildCode = (trabfficObj.find(".vehicle-two-sel").val() == null ? ""
+				: trabfficObj.find(".vehicle-two-sel").val());
+		if ($(".vehicle-two-sel").val() != ""
+				&& $(".vehicle-two-sel").val() != null) {
+			vehicle = trabfficObj.find(".vehicle-sel option:selected").text()
+					+ trabfficObj.find(".vehicle-two-sel option:selected")
+							.text()
+		} else {
+			vehicle = trabfficObj.find(".vehicle-sel option:selected").text()
+		}
+		var cityMoney = trabfficObj.find(".city-cost-input").val();
+		var trafficCostStr = '<tr><td><span>'
+				+ tripUser
+				+ '</span><input type="hidden" data-val="travelPersonnel" class="hid-traf-users" value="'
+				+ userCode
+				+ '" risk-code-val="trafficBusiUsers"/></td><td><span>'
+				+ level
+				+ '</span><input type="hidden" class="hid-level-code" value="'
+				+ levelCode
+				+ '" risk-code-val="trafficBusiUsersLevel"/></td><td data-text="goTime"><span risk-code-val="traExpStartDate">'
+				+ trafficStartTime
+				+ '</span></td><td><input data-val="goAddress" type="hidden" value="'
+				+ fromcity
+				+ '"><span data-text="goAddressName">'
+				+ fromcityName
+				+ '</span></td><td data-text="arrivalTime"><span  risk-code-val="traExpEndDate">'
+				+ trafficEndTime
+				+ '</span></td><td><input data-val="arrivalAddress" type="hidden" value="'
+				+ tocity
+				+ '"> <span data-text="arrivalAddressName">'
+				+ tocityName
+				+ '</span></td><td><span data-text="vehicle">'
+				+ vehicle
+				+ '</span><input type="hidden" class="hid-vehicle" value="'
+				+ vehicleCode
+				+ '" risk-code-val="vehicleParent"/><input type="hidden" class="hid-child-code" value="'
+				+ vehicleChildCode
+				+ '"  risk-code-val="vehicleChild"/></td><td class="font-right money-td" data-text="crafare" risk-code-val="cityTrafficCost">'
+				+ (cityMoney == '' ? "--" : $yt_baseElement.fmMoney(cityMoney))
+				+ '</td><td class="text-overflow-sty" data-text="remarks" title="'
+				+ specialRemark
+				+ '">'
+				+ (specialRemark == "" ? "" : specialRemark)
+				+ '</td><td><input type="hidden" class="hid-cost-type" value="0"/><span class="operate-update"><img src="../../../../../resources-sasac/images/common/edit-icon.png"/></span><span class="operate-del"><img src="../../../../../resources-sasac/images/common/del-icon.png"/></span></td></tr>';
+		if (tr) {
+			tr.replaceWith(trafficCostStr);
+			me.hideCostApplyAlert()
+		} else {
+			$("#traffic-list-info tbody .total-last-tr").before(trafficCostStr);
+			$yt_alert_Model.prompt('填写的信息已成功加入到列表')
+		}
+		me.updateMoneySum(0);
+		me.clearFormData();
+	},
+	setFormInfo : function(thisTr) {
+		var me = this;
+		var costType = $(thisTr).find(".hid-cost-type").val();
+		if (costType == 0) {
+			var busiUser = $(thisTr).find("td:eq(0) .hid-traf-users").val();
+			var startDate = $(thisTr).find("td:eq(2)").text();
+			var startAddre = $(thisTr).find("td:eq(3)").text();
+			var startVal = $(thisTr).find("td:eq(3)").attr('val');
+			var endDate = $(thisTr).find("td:eq(4)").text();
+			var endAddre = $(thisTr).find("td:eq(5)").text();
+			var endVal = $(thisTr).find("td:eq(5)").attr('val');
+			var vehicles = 0;
+			if ($(thisTr).find("td:eq(6) input:eq(0)").val().indexOf(".") != -1) {
+				vehicles = $(thisTr).find("td:eq(6) input:eq(0)").val().split(
+						".")
+			}
+			var vehicle = "";
+			var vehicleChildCode = "";
+			if (vehicles.length > 0) {
+				vehicle = vehicles[1];
+				vehicleChildCode = vehicles[2]
+			} else {
+				vehicle = $(thisTr).find("td:eq(6) input:eq(0)").val();
+				vehicleChildCode = $(thisTr).find("td:eq(6) .hid-child-code")
+						.val()
+			}
+			var cityMoney = $(thisTr).find("td:eq(7)").text();
+			var cityMsg = $(thisTr).find("td:eq(8)").text();
+			$('#model-trip-user option[value="' + busiUser + '"]').attr(
+					"selected", "selected");
+			$("#traffic-start-time").val(startDate);
+			$("#traffic-end-time").val(endDate);
+			$("#fromcity").html(
+					'<option value="' + startVal + '">' + startAddre
+							+ '</option>');
+			$("#tocity").html(
+					'<option value="' + endVal + '">' + endAddre + '</option>');
+			$('.traffic-form .vehicle-sel option[value="' + vehicle + '"]')
+					.attr("selected", "selected");
+			if (vehicleChildCode != "") {
+				$("#vehicleTwoDiv").css('display', 'inline-block');
+				sysCommon.vechicleChildData(vehicle);
+				$(
+						'.traffic-form .vehicle-two-sel option[value="'
+								+ vehicleChildCode + '"]').attr("selected",
+						"selected")
+			}
+			$(".traffic-form .city-cost-input").val(cityMoney);
+			$("#special-remark").val((cityMsg == "" ? "" : cityMsg));
+			$(
+					'#model-trip-user,.traffic-form .vehicle-sel,.traffic-form .vehicle-two-sel')
+					.niceSelect();
+			me.getPlanBusiAddress($("#fromcity"));
+			me.getPlanBusiAddress($("#tocity"));
+			if (vehicle != "" || vehicleChildCode != "") {
+				$(".vehicle-sel").parents("td").find(".risk-img").attr("src",
+						me.riskViaImg)
+			}
+		}
+		if (costType == 1) {
+			var busiUser = $(thisTr).find("td:eq(0) input").val();
+			var dayMoney = $(thisTr).find("td:eq(2)").text();
+			var hotelDay = $(thisTr).find("td:eq(5)").text();
+			var hotelMoney = $(thisTr).find("td:eq(6)").text();
+			var hotelAddress = $(thisTr).find("td:eq(7) input").val();
+			var sDate = $(thisTr).find('.sdate').text();
+			$('.hotel-form #hotelDate').val(sDate);
+			var eDate = $(thisTr).find('.edate').text();
+			$('.hotel-form #leaveDate').val(eDate);
+			hotelAddress = hotelAddress.split("-");
+			var hotelAddressName = $(thisTr).find('td:eq(7) span').text()
+					.split('-');
+			var textareMsg = $(thisTr).find("td:eq(8)").text();
+			$('#hotel-trip-user').val(busiUser);
+			$(".hotel-form .hotel-num").text(hotelDay);
+			if (hotelAddress.length == 3) {
+				$('#hotelParentAddress').html(
+						'<option value="' + hotelAddress[0] + '">'
+								+ hotelAddressName[0] + '</option>');
+				$('#hotelTwoAddres').html(
+						'<option value="' + hotelAddress[1] + '">'
+								+ hotelAddressName[1] + '</option>');
+				$('#hotelChildAddres').html(
+						'<option value="' + hotelAddress[2] + '">'
+								+ hotelAddressName[2] + '</option>');
+			} else if (hotelAddress.length == 2) {
+				$('#hotelChildAddres').html(
+						'<option value="' + hotelAddress[1] + '">'
+								+ hotelAddressName[1] + '</option>');
+			}
+			$(".hotel-form .hotel-money").val(hotelMoney);
+			$("#peoDayMoney").text(dayMoney);
+			$(".hotel-form .hotel-msg").val(
+					(textareMsg == "" ? "" : textareMsg));
+			me.setAddress();
+			$('#hotel-trip-user').niceSelect();
+			me.hotelChildDisa(hotelAddress[0], "CITY");
+			me.hotelChildDisa(hotelAddress[1], "AREA")
+		}
+		if (costType == 2) {
+			var costType = $(thisTr).find("td:eq(0) input").val();
+			var costMoney = $(thisTr).find("td:eq(1)").text();
+			var textareMsg = $(thisTr).find("td:eq(2)").text();
+			$('#cost-type option[value="' + costType + '"]').attr("selected",
+					"selected");
+			$(".other-form .other-money").val(costMoney);
+			$(".other-form .other-msg").val(
+					(textareMsg == "" ? "" : textareMsg));
+			$('#cost-type').niceSelect()
+		}
+	},
+	getHotelFormInfo : function(tr) {
+		var me = this;
+		var hotelObj = $(".hotel-form");
+		sysCommon.createSumTr(1);
+		var tripUser = hotelObj.find(
+				"select.hotel-trip-user-sel option:selected").text();
+		var level = hotelObj.find("select.hotel-trip-user-sel option:selected")
+				.attr("data-level");
+		var levelCode = hotelObj.find(
+				"select.hotel-trip-user-sel option:selected").attr(
+				"data-level-code");
+		var hotelAddress = "";
+		var hotelAdressCode = "";
+		var hotelParentAdres = hotelObj.find("#hotelParentAddress").next()
+				.find('.search-current').val();
+		var hotelTwoAdres = hotelObj.find("#hotelTwoAddres").next().find(
+				'.search-current').val();
+		var hotelChildAdres = hotelObj.find("#hotelChildAddres").next().find(
+				'.search-current').val();
+		if (hotelTwoAdres == "" || hotelTwoAdres == "请选择") {
+			hotelAddress = hotelParentAdres;
+			hotelAdressCode = hotelObj.find("#hotelParentAddress").val()
+		} else {
+			hotelAddress = hotelParentAdres + "-" + hotelTwoAdres + "-"
+					+ hotelChildAdres;
+			hotelAdressCode = hotelObj.find("#hotelParentAddress").val() + "-"
+					+ hotelObj.find("#hotelTwoAddres").val() + "-"
+					+ hotelObj.find("#hotelChildAddres").val()
+		}
+		var hotelCheckInDate = $("#hotelDate").val();
+		var leaveDate = $("#leaveDate").val();
+		var hotelCostStr = '<tr><td><span>'
+				+ tripUser
+				+ '</span><input type="hidden" data-val="travelPersonnel" value="'
+				+ hotelObj.find("select.hotel-trip-user-sel").val()
+				+ '" risk-code-val="hotelBusiUsers"/></td><td><span>'
+				+ level
+				+ '</span><input type="hidden" value="'
+				+ levelCode
+				+ '" risk-code-val="hotelBusiUsersLevel"/></td><td class="font-right"  risk-code-val="costDetailHotelCost"><span>'
+				+ $("#peoDayMoney").html()
+				+ '</span></td><td  risk-code-val="hotelCheckInDate" class="check-in-date"><span data-text="hotelTime" class="sdate">'
+				+ hotelCheckInDate
+				+ '</span></td><td class="leave-date"><span data-text="leaveTime" class="edate">'
+				+ leaveDate
+				+ '</span></td><td data-text="hotelDays">'
+				+ hotelObj.find(".hotel-num").text()
+				+ '</td><td class="font-right money-td" data-text="hotelExpense"  risk-code-val="hotelCost"><span>'
+				+ $yt_baseElement.fmMoney(hotelObj.find(".cost-detail-money")
+						.val()
+						|| '0')
+				+ '</span></td><td><span data-text="hotelAddressName">'
+				+ hotelAddress
+				+ '</span><input type="hidden" data-val="hotelAddress" value="'
+				+ hotelAdressCode
+				+ '"/><input type="hidden" risk-code-val="hotelProvinceAddress" value="'
+				+ hotelObj.find("#hotelParentAddress").val()
+				+ '"/><input type="hidden" risk-code-val="hotelCityAddress" value="'
+				+ hotelObj.find("#hotelTwoAddres").val()
+				+ '"/><input type="hidden" risk-code-val="hotelHaidianAddress" value="'
+				+ hotelObj.find("#hotelChildAddres").val()
+				+ '"/></td><td class="text-overflow-sty" data-text="remarks" title="'
+				+ hotelObj.find(".hotel-msg").val()
+				+ '">'
+				+ (hotelObj.find(".hotel-msg").val() == "" ? "" : hotelObj
+						.find(".hotel-msg").val())
+				+ '</td><td><input type="hidden" class="hid-set-met" data-val="setMethod"/><input type="hidden" class="hid-cost-type" value="1"/><span class="operate-update"><img src="../../../../../resources-sasac/images/common/edit-icon.png"/></span><span class="operate-del"><img src="../../../../../resources-sasac/images/common/del-icon.png"/></span></td></tr>';
+		if (tr) {
+			tr.replaceWith(hotelCostStr);
+			me.hideCostApplyAlert()
+		} else {
+			$("#hotel-list-info tbody .total-last-tr").before(hotelCostStr);
+			$yt_alert_Model.prompt('填写的信息已成功加入到列表')
+		}
+		me.updateMoneySum(1);
+		me.clearFormData();
+	},
+	getOtherCostFormInfo : function(tr) {
+		var me = this;
+		var otherObj = $(".other-form");
+		sysCommon.createSumTr(2);
+		var costType = otherObj.find("#cost-type option:selected").text();
+		var otherCostStr = '<tr><td><span>'
+				+ costType
+				+ '</span><input type="hidden" data-val="costType" risk-code-val="otherCostType" value="'
+				+ otherObj.find("#cost-type").val()
+				+ '"/></td><td class="font-right money-td" data-text="reimAmount" risk-code-val="otherCostReimPrice">'
+				+ $yt_baseElement.fmMoney(otherObj.find(".other-money").val()
+						|| '0')
+				+ '</td><td class="text-overflow-sty" data-text="remarks" title="'
+				+ otherObj.find(".other-msg").val()
+				+ '">'
+				+ (otherObj.find(".other-msg").val() == "" ? "" : otherObj
+						.find(".other-msg").val())
+				+ '</td><td><input type="hidden" class="hid-cost-type" value="2"/><span class="operate-update"><img src="../../../../../resources-sasac/images/common/edit-icon.png"/></span><span class="operate-del"><img src="../../../../../resources-sasac/images/common/del-icon.png"/></span></td></tr>';
+		if (tr) {
+			tr.replaceWith(otherCostStr);
+			me.hideCostApplyAlert()
+		} else {
+			$("#other-list-info tbody .total-last-tr").before(otherCostStr);
+			$yt_alert_Model.prompt('填写的信息已成功加入到列表')
+		}
+		me.updateMoneySum(2);
+		me.clearFormData();
+	},
+	setAddress : function() {
+		var me = this;
+		$
+				.ajax({
+					type : "get",
+					url : $yt_option.websit_path
+							+ 'resources-sasac/js/system/expensesReim/module/reimApply/regionList.json',
+					async : false,
+					success : function(data) {
+						me.addressList = data;
+						me.setAddressSelect()
+					}
+				});
+		$
+				.ajax({
+					type : "get",
+					url : $yt_option.websit_path
+							+ 'resources-sasac/js/system/expensesReim/module/reimApply/hotCityList.json',
+					async : false,
+					success : function(data) {
+						me.hotCityList = data
+					}
+				})
+	},
+	setAddressSelect : function() {
+		var me = this;
+		$("#hotelParentAddress").niceSelect(
+				{
+					search : true,
+					backFunction : function(text) {
+						$("#hotelParentAddress option").remove();
+						if (text == "") {
+							$("#hotelParentAddress").append(
+									'<option value="">请选择</option>')
+						}
+						$.each(me.addressList, function(i, n) {
+							if (n.regionName.indexOf(text) != -1
+									&& n.regionLevel == 'PROVINCE') {
+								$("#hotelParentAddress").append(
+										'<option value="' + n.regionCode
+												+ '" data-level="'
+												+ n.regionLevel + '" >'
+												+ n.regionName + '</option>')
+							}
+						})
+					}
+				});
+		$("#hotelParentAddress").off("change").on(
+				"change",
+				function() {
+					var thisSel = $(this);
+					$("#hotelTwoAddres,#hotelChildAddres").html('').append(
+							'<option value="">请选择</option>');
+					me.hotelAddressChild(thisSel.val(), "CITY")
+				});
+		$("#hotelTwoAddres").off("change").on(
+				"change",
+				function() {
+					var thisSel = $(this);
+					$("#hotelChildAddres").html('').append(
+							'<option value="">请选择</option>');
+					me.hotelAddressArea(thisSel.val(), "AREA")
+				});
+		me.getPlanBusiAddress($("#modelBusiAddres"))
+	},
+	hotelChildDisa : function(addressCode, addressLevel) {
+		var me = this;
+		if (addressLevel == "CITY") {
+			var disaFlag = true;
+			if ($("#hotelTwoAddres option").length < 1) {
+				$("#hotelTwoAddres,#hotelChildAddres").prop("disabled",
+						"disabled");
+				$("#hotelTwoAddres,#hotelChildAddres").removeAttr("validform");
+				sysCommon
+						.clearValidInfo($("div.hotel-child-addres,div.hotel-two-addres,#hotelTwoAddres,#hotelChildAddres"))
+			} else {
+				$("#hotelTwoAddres,#hotelChildAddres").prop("disabled", "");
+				$("#hotelTwoAddres").attr("validform",
+						"{isNull:true,changeFlag:true,msg:'请选择市'}");
+				$("#hotelChildAddres").attr("validform",
+						"{isNull:true,changeFlag:true,msg:'请选择区'}");
+				disaFlag = false
+			}
+			me.hotelAddressChild(addressCode, addressLevel);
+			me.hotelAddressArea(addressCode, addressLevel);
+			if (disaFlag) {
+				$("div.hotel-child-addres,div.hotel-two-addres").css(
+						"background-color", "#D0D0D0")
+			}
+		} else if (addressLevel == "AREA") {
+			var disaFlag = true;
+			if ($("#hotelChildAddres option").length < 1) {
+				$("#hotelChildAddres").prop("disabled", "disabled")
+			} else {
+				$("#hotelChildAddres").prop("disabled", "");
+				disaFlag = false
+			}
+			me.hotelAddressArea(addressCode, addressLevel);
+			if (disaFlag) {
+				$("div.hotel-child-addres").css("background-color", "#D0D0D0")
+			}
+		}
+	},
+	getModelUsersInfo : function() {
+		var me = this;
+		if (me.usersInfoList != "" && me.usersInfoList != null) {
+			me.usersInfoJson = "[" + me.usersInfoList + "]";
+			me.usersInfoJson = me.usersInfoJson.substr(0,
+					me.usersInfoJson.length - 2);
+			me.usersInfoJson += "]"
+		}
+		var optionText = '<option value="">请选择</option>';
+		$("#model-trip-user,#hotel-trip-user").empty().append(optionText);
+		if (me.usersInfoJson != "" && me.usersInfoJson.length > 0) {
+			var list = eval("(" + me.usersInfoJson + ")");
+			$.each(list, function(i, n) {
+				optionText = '<option value="' + n.userItcode
+						+ '" data-level="' + n.jobLevelName
+						+ '" data-level-code="' + n.jobLevelCode + '">'
+						+ n.userName + '</option>';
+				$("#model-trip-user,#hotel-trip-user").append(optionText)
+			})
+		}
+		$("#model-trip-user,#hotel-trip-user").niceSelect()
+	},
+	setModelUsers : function() {
+		var userStr = '';
+		var trs = $('#tripList tbody tr');
+		trs.each(function(i, n) {
+			var ls = $(n).attr('usercode').split(',');
+			$.each(ls, function(j, m) {
+				if (userStr.indexOf(m) < 0) {
+					userStr += m + ','
+				}
+			})
+		});
+		userStr = (userStr.substring(userStr.length - 1) == ',') ? userStr
+				.substring(0, userStr.length - 1) : userStr;
+		if (userStr) {
+			var userList = sysCommon.getUserAllInfo('', userStr, '');
+			var opts = '<option value="">请选择</option>';
+			$.each(userList, function(i, n) {
+				opts += '<option value="' + n.userItcode + '" data-level="'
+						+ n.jobLevelName + '"  data-level-code="'
+						+ n.jobLevelCode + '">' + n.userName + '</option>'
+			});
+			$("#model-trip-user,#hotel-trip-user").html(opts).niceSelect()
+		}
+	},
+	updateApplyMeonySum : function() {
+		var sumMoney = 0;
+		$(".cost-list-model table .money-sum").each(function(i, n) {
+			sumMoney += $yt_baseElement.rmoney($(n).text())
+		});
+		$(".cost-list-model table .city-money-td").each(function(i, n) {
+			sumMoney += $yt_baseElement.rmoney($(n).text())
+		});
+		$('#subsidy-list-info tbody tr:not(.last)').each(function(i, n) {
+			sumMoney += $yt_baseElement.rmoney($(n).find('.food').text());
+			sumMoney += $yt_baseElement.rmoney($(n).find('.traffic').text())
+		});
+		var rMoney = $yt_baseElement.fmMoney(sumMoney);
+		$("#applyTotalMoney,.count-val-num").text(rMoney).attr('num', sumMoney);
+		if ($("body").find("#reimPrice")) {
+			$("#reimPrice").text(rMoney);
+			var loanPrice = $("#loanCost").text();
+			var replPrice = sumMoney - parseFloat(loanPrice);
+			replPrice = $yt_baseElement.fmMoney(replPrice);
+			$("#givePrice").text(replPrice)
+		}
+		if (sumMoney != null && sumMoney != undefined && sumMoney > 0) {
+			var sumMoneyLower = arabiaToChinese(rMoney + '');
+			$("#TotalMoneyUpper").text(sumMoneyLower)
+		} else {
+			$("#applyTotalMoney").text("0.00")
+		}
+		$('#amountTotalMoney').text(rMoney).attr('num', sumMoney);
+		var outstandingBalance = $yt_baseElement
+				.rmoney($('#outstandingBalance').text());
+		var writeOffAmount = sumMoney >= outstandingBalance ? outstandingBalance
+				: sumMoney;
+		$('#writeOffAmount,#outWriteAmount').text(
+				$yt_baseElement.fmMoney(writeOffAmount));
+		var replaceMoney = sumMoney >= outstandingBalance ? sumMoney
+				- writeOffAmount : '0';
+		$('#replaceMoney').text($yt_baseElement.fmMoney(replaceMoney));
+		$('#balanceMoney')
+				.text(
+						$yt_baseElement
+								.fmMoney(sumMoney < outstandingBalance ? outstandingBalance
+										- sumMoney
+										: '0'))
+	},
+	updateMoneySum : function(thisTab) {
+		var me = this;
+		var moenySum = 0.00;
+		if (thisTab == 0) {
+			$("#traffic-list-info tbody .money-td").each(function(i, n) {
+				moenySum += parseFloat($yt_baseElement.rmoney($(n).text()))
+			});
+			moenySum = $yt_baseElement.fmMoney(moenySum);
+			if (moenySum != undefined && $yt_baseElement.rmoney(moenySum) > 0) {
+				$("#traffic-list-info tbody .money-sum").text(moenySum)
+			} else {
+				$("#traffic-list-info tbody .money-sum").text("0.00")
+			}
+		}
+		if (thisTab == 1) {
+			$("#hotel-list-info tbody .money-td").each(function(i, n) {
+				moenySum += parseFloat($yt_baseElement.rmoney($(n).text()))
+			});
+			moenySum = $yt_baseElement.fmMoney(moenySum);
+			if (moenySum != undefined && $yt_baseElement.rmoney(moenySum) > 0) {
+				$("#hotel-list-info tbody .money-sum").text(moenySum)
+			} else {
+				$("#hotel-list-info tbody .money-sum").text("0.00")
+			}
+		}
+		if (thisTab == 2) {
+			$("#other-list-info tbody .money-td").each(function(i, n) {
+				moenySum += parseFloat($yt_baseElement.rmoney($(n).text()))
+			});
+			moenySum = $yt_baseElement.fmMoney(moenySum);
+			if (moenySum != undefined && $yt_baseElement.rmoney(moenySum) > 0) {
+				$("#other-list-info tbody .money-sum").text(moenySum)
+			} else {
+				$("#other-list-info tbody .money-sum").text("0.00")
+			}
+		}
+		if (thisTab == 3) {
+			$("#subsidy-list-info tbody .food-money").each(function(i, n) {
+				moenySum += parseFloat($yt_baseElement.rmoney($(n).text()))
+			});
+			moenySum = $yt_baseElement.fmMoney(moenySum);
+			if (moenySum != undefined && $yt_baseElement.rmoney(moenySum) > 0) {
+				$("#subsidy-list-info tbody .money-sum").text(moenySum)
+			} else {
+				$("#subsidy-list-info tbody .money-sum").text("0.00")
+			}
+			var cityMoneySum = 0.00;
+			$("#subsidy-list-info tbody .city-money").each(function(i, n) {
+				cityMoneySum += parseFloat($yt_baseElement.rmoney($(n).text()))
+			});
+			cityMoneySum = $yt_baseElement.fmMoney(cityMoneySum);
+			if (cityMoneySum != undefined
+					&& $yt_baseElement.rmoney(cityMoneySum) > 0) {
+				$("#subsidy-list-info tbody .city-money-td").text(cityMoneySum)
+			} else {
+				$("#subsidy-list-info tbody .city-money-td").text("0.00")
+			}
+		}
+		me.updateApplyMeonySum()
+	},
+	setSubsidyList : function() {
+		var me = this;
+		var userStr = '';
+		var trs = $('#tripList tbody tr');
+		trs.each(function(i, n) {
+			var ls = $(n).attr('usercode').split(',');
+			$.each(ls, function(j, m) {
+				if (userStr.indexOf(m) < 0) {
+					userStr += m + ','
+				}
+			})
+		});
+		userStr = (userStr.substring(userStr.length - 1) == ',') ? userStr
+				.substring(0, userStr.length - 1) : userStr;
+		var userList = sysCommon.getUserAllInfo('', userStr, '');
+		var html = '';
+		$
+				.each(
+						userList,
+						function(i, n) {
+							html += '<tr class="'
+									+ n.userItcode
+									+ '" code="'
+									+ n.userItcode
+									+ '"><td><div class="user" code="'
+									+ n.userItcode
+									+ '">'
+									+ n.userName
+									+ '</div></td><td><div class="lv">'
+									+ n.jobLevelName
+									+ '</div></td><td><div class="subsidy-num">0</div></td><td><div style="text-align:right;" class="food">0.00</div></td><td><div  style="text-align:right;" class="traffic">0.00</div></td><td><span class="operate-update"><img src="../../../../../resources-sasac/images/common/edit-icon.png"></span><span class="operate-del"><img src="../../../../../resources-sasac/images/common/del-icon.png"></span></td></tr>'
+						});
+		html += '<tr class="last"><td>合计</td><td></td><td></td><td class="total-food"  style="text-align:right;">0.00</td><td class="total-traffic"  style="text-align:right;">0.00</td><td></td></tr>';
+		var jqHtml = $(html);
+		var code = '', tr = [], jqTr = [], day = 0, totalFood = 0, totalTraffic = 0, addressVal = '';
+		$.each(trs, function(i, n) {
+			tr = $(n);
+			codeList = tr.attr('usercode').length > 0 ? tr.attr('usercode')
+					.split(',') : [];
+			addressVal = tr.find('.address').attr('val').slice(0,2);
+			day = +tr.find('.day').text();
+			$.each(codeList, function(j, m) {
+				jqTr = jqHtml.siblings('[code="' + m + '"]');
+				if (jqTr.length > 0) {
+					var d = +(jqTr.find('.subsidy-num').text()) + day;
+					var tempFood='';
+					if(addressVal == '54' || addressVal == '63' || addressVal == '65'){
+						tempFood = +(jqTr.find('.food').text()) + day * 120;
+					}else{
+						tempFood = +(jqTr.find('.food').text()) + day * 100;
+					}
+					jqTr.find('.subsidy-num').text(d);
+					jqTr.find('.food').text($yt_baseElement.fmMoney(tempFood)).attr('num', tempFood);
+					jqTr.find('.traffic').text($yt_baseElement.fmMoney(d * 80))
+							.attr('num', d * 80)
+				}
+			})
+		});
+		jqHtml.find('.total-food').text($yt_baseElement.fmMoney(totalFood))
+				.attr('num', totalFood);
+		jqHtml.find('.total-traffic').text(
+				$yt_baseElement.fmMoney(totalTraffic))
+				.attr('num', totalTraffic);
+		$('#subsidy-list-info tbody').html(jqHtml);
+		me.setSubsidyTotal();
+		me.updateMoneySum()
+	},
+	appendSubdisyList : function(tr) {
+		var me = this;
+		var subsidyBusinUser = $('#subsidyBusinUser').text();
+		var subsidyBusinLevel = $('#subsidyBusinLevel').text();
+		var subsidiesDays = $('#subsidiesDays').val();
+		var subsidiesFood = $('#subsidiesFood').val();
+		var subsidiesTraffic = $('#subsidiesTraffic').val();
+		tr.find('.subsidy-num').text(subsidiesDays);
+		tr.find('.food').text(subsidiesFood);
+		tr.find('.traffic').text(subsidiesTraffic);
+		me.setSubsidyTotal();
+		me.updateMoneySum();
+		me.hideSubsidiesAlert()
+	},
+	setSubsidyTotal : function() {
+		var trs = $('#subsidy-list-info tbody tr:not(.last)');
+		var totalFood = 0, totalTraffic = 0, tr = [];
+		$.each(trs, function(i, n) {
+			tr = $(n);
+			totalFood += +($yt_baseElement.rmoney(tr.find('.food').text()));
+			totalTraffic += +($yt_baseElement
+					.rmoney(tr.find('.traffic').text()))
+		});
+		$('#subsidy-list-info tbody .total-food').text(
+				$yt_baseElement.fmMoney(totalFood)).attr('num', totalFood);
+		$('#subsidy-list-info tbody .total-traffic').text(
+				$yt_baseElement.fmMoney(totalTraffic))
+				.attr('num', totalTraffic)
+	},
+	clearFormData : function() {
+		var me = this;
+		var modelObj = $("#costApplyAlert");
+		$(
+				".traffic-form input:not(.hid-risk-code),.hotel-form input:not(.hid-risk-code),.other-form input:not(.hid-risk-code)")
+				.val('');
+		modelObj.find("textarea").val('');
+		modelObj.find("select").each(function(i, n) {
+			$(n).find("option:eq(0)").attr("selected", "selected")
+		});
+		$("#vehicleTwoDiv").hide();
+		modelObj
+				.find(
+						"#hotelParentAddress,#hotelTwoAddres,#hotelChildAddres,#fromcity,#tocity")
+				.html('<option value="">请选择</option>');
+		modelObj.find("#fromcity,#tocity")
+				.html('<option value="">请输入</option>');
+		modelObj.find("select").niceSelect();
+		modelObj.find(".hotel-num").text("自动计算").css("color", "#999999");
+		modelObj.find("#peoDayMoney").text("0.00");
+		modelObj.find("#hotelDay").text("*");
+		$("#costApplyAlert .cost-type-tab ul li").removeClass("tab-check");
+		$("#costApplyAlert .cost-type-tab ul li:eq(0)").addClass("tab-check");
+		$(".traffic-form").show();
+		$(".hotel-form,.other-form").hide();
+		$("#model-add-list-btn").show();
+		$("#model-sure-btn").hide();
+		modelObj.find(".valid-font").text("");
+		modelObj.find(".valid-hint").removeClass("valid-hint");
+		me.setAddress();
+		me.getPlanBusiAddress($("#fromcity"));
+		me.getPlanBusiAddress($("#tocity"))
+	},
+	getPlanBusiAddress : function(labelObj) {
+		var me = this;
+		$(labelObj)
+				.niceSelect(
+						{
+							search : true,
+							backFunction : function(text) {
+								$(labelObj).find("option").remove();
+								var opt = '';
+								if (text == "") {
+									opt += '<option value="" disabled="disabled">热门城市</option>';
+									$.each(me.hotCityList, function(i, n) {
+										opt += '<option value="' + n.regionCode
+												+ '" data-level="'
+												+ n.regionLevel
+												+ '" data-name="'
+												+ n.regionName + '">'
+												+ n.regionName + '/'
+												+ n.regionMergerName
+												+ '</option>'
+									})
+								} else {
+									$
+											.each(
+													me.addressList,
+													function(i, n) {
+														if (n.regionName
+																.indexOf(text) != -1) {
+															opt += '<option value="'
+																	+ n.regionCode
+																	+ '" data-level="'
+																	+ n.regionLevel
+																	+ '" data-name="'
+																	+ n.regionName
+																	+ '">'
+																	+ n.regionName
+																	+ '/'
+																	+ n.regionMergerName
+																	+ '</option>'
+														}
+														if (n.regionNamePinYin
+																.indexOf(text) != -1) {
+															opt += '<option value="'
+																	+ n.regionCode
+																	+ '" data-level="'
+																	+ n.regionLevel
+																	+ '" data-name="'
+																	+ n.regionName
+																	+ '">'
+																	+ n.regionName
+																	+ '/'
+																	+ n.regionMergerName
+																	+ '</option>'
+														}
+													})
+								}
+								$(labelObj).append(opt)
+							}
+						});
+		$(labelObj).next("div.nice-select").find(".search-current").blur(
+				function() {
+					if ($(this).val() == "") {
+						$(this).val("请输入")
+					}
+				})
+	},
+	clearAlert : function(obj) {
+		var selects = obj.find('select');
+		$.each(selects, function(i, n) {
+			$(n).find('option:eq(0)').attr('selected', true)
+		});
+		selects.niceSelect();
+		var inputs = obj
+				.find('input:not(input[type="radio"],input[type="checkbox"])');
+		inputs.val('');
+		var checks = obj.find('input[type="checkbox"]');
+		$.each(checks, function(i, n) {
+			$(n).setCheckBoxState('uncheck')
+		});
+		var textareas = obj.find('textarea');
+		textareas.val('')
+	},
+	busiTripUserModelEvent : function(busiInputObj, autoFontObj, userNumObj,
+			clickFlag) {
+		var me = this;
+		var busiTripUserModel = $("#busiTripUserModel");
+		$("#searchUser").off().on("click", function() {
+			me.getBusiTripUsersList($("#userPram").val())
+		});
+		$("#userPram").on("keyup", function() {
+			me.getBusiTripUsersList($(this).val())
+		});
+		$("#busiUserInfo ul li")
+				.off("click")
+				.on(
+						"click",
+						function() {
+							var usersDatas = "";
+							if ($(this).hasClass("tr-check")) {
+								$(this).removeClass("tr-check");
+								me.selUsersName = "";
+								me.selUsersCode = "";
+								$("#busiUserInfo ul li.tr-check")
+										.each(
+												function(i, n) {
+													usersDatas = $(this).data(
+															"userData");
+													me.selUsersName += usersDatas.userName
+															+ "、";
+													me.selUsersCode += usersDatas.userItcode
+															+ ","
+												})
+							} else {
+								$(this).addClass("tr-check");
+								usersDatas = $(this).data("userData");
+								me.selUsersName += usersDatas.userName + "、";
+								me.selUsersCode += usersDatas.userItcode + ",";
+								var checkUsersCodes = "";
+								$("#tripList tbody .hid-user-code").each(
+										function() {
+											checkUsersCodes += $(this).val()
+													+ ","
+										});
+								var selUsersCode = "," + usersDatas.userItcode
+										+ ",";
+								if (checkUsersCodes != ""
+										&& checkUsersCodes != undefined) {
+									checkUsersCodes = "," + checkUsersCodes
+								}
+								if (checkUsersCodes.indexOf(selUsersCode) < 0) {
+									var userLevel = usersDatas.jobLevelName == "--" ? ""
+											: usersDatas.jobLevelName;
+									me.usersInfoList = me.usersInfoList
+											+ '{"userItcode":"'
+											+ usersDatas.userItcode
+											+ '","jobLevelName":"'
+											+ usersDatas.jobLevelName
+											+ '","userName":"'
+											+ usersDatas.userName + '"},'
+								}
+							}
+							var selTr = $("#busiUserInfo ul li.tr-check");
+							if (selTr != "" && selTr.length > 0) {
+								var selUser = "";
+								var userCode = "";
+								selUser = me.selUsersName.substring(0,
+										me.selUsersName.length - 1);
+								userCode = me.selUsersCode.substring(0,
+										me.selUsersCode.length - 1);
+								$(busiInputObj).val(selUser);
+								$(busiInputObj).prev("input[type=hidden]").val(
+										userCode);
+								$(autoFontObj).hide();
+								$(userNumObj).show();
+								var userNums = selUser.split("、");
+								$(userNumObj).find(".users-num").text(
+										userNums.length);
+								sysCommon.clearValidInfo(busiInputObj);
+								$("#clearUser").show()
+							} else {
+								$(busiInputObj).val('');
+								$(busiInputObj).prev("input[type=hidden]").val(
+										'');
+								$(autoFontObj).show();
+								$(userNumObj).hide();
+								$(userNumObj).find(".users-num").text(0);
+								$(busiInputObj).next(".valid-font").text(
+										"请选择出差人");
+								$(busiInputObj).addClass("valid-hint");
+								me.selUsersName = "";
+								me.selUsersCode = "";
+								me.usersInfoList = "";
+								me.usersInfoJson = "";
+								var optionText = '<option value="">请选择</option>';
+								$("#clearUser").hide()
+							}
+						});
+		$("#clearUser").click(function() {
+			$(busiInputObj).val('');
+			$(busiInputObj).prev("input[type=hidden]").val('');
+			$(autoFontObj).show();
+			$(userNumObj).hide();
+			$(userNumObj).find(".users-num").text(0);
+			$(busiInputObj).next(".valid-font").text("请选择出差人");
+			$(busiInputObj).addClass("valid-hint");
+			me.selUsersName = "";
+			me.selUsersCode = "";
+			me.usersInfoList = "";
+			me.usersInfoJson = "";
+			var optionText = '<option value="">请选择</option>';
+			$("#busiUserInfo ul li").removeClass("tr-check")
+		});
+		$("#busiUserInfo").mouseleave(function() {
+			$(this).hide();
+			$(this).addClass("check")
+		})
+	},
+	getBusiTripUsersList : function(keyword) {
+		var me = this;
+		$.ajax({
+			type : "post",
+			url : 'user/userInfo/getAllUserInfoToPage',
+			async : true,
+			data : {
+				params : keyword,
+				pageIndex : 1,
+				pageNum : 99999
+			},
+			success : function(data) {
+				if (data.flag == 0) {
+					$("#busiUserInfo ul").empty();
+					var liStr = "";
+					var opts = '';
+					if (data.data.rows.length > 0) {
+						me.payeeUserList = data.data.rows;
+						$.each(data.data.rows, function(i, n) {
+							liStr = $('<li>' + n.userName + '/' + n.deptName
+									+ '</li>');
+							opts += '<option value="' + n.userItcode + '">'
+									+ n.userName + '</option>';
+							liStr.data("userData", n);
+							$("#busiUserInfo ul").append(liStr)
+						});
+						if ($("#modelUserCodes").val() != "") {
+							var usersCodes = $("#modelUserCodes").val().split(
+									",");
+							$("#busiUserInfo ul li").each(function(i, t) {
+								$.each(usersCodes, function(i, l) {
+									if ($(t).data("userData").userItcode == l) {
+										$(t).addClass("tr-check")
+									}
+								})
+							})
+						}
+						me.busiTripUserModelEvent($("#modelBusiUser"),
+								$("#busiPlanEditModel .auto-font"),
+								$(".model-user-num-show"), 1);
+						me.setPayeeNameSelect()
+					} else {
+						$("#busiUserInfo ul").append(
+								'<li style="text-align: center;">暂无数据</li>')
+					}
+				}
+			}
+		})
+	},
+	getDictInfoByTypeCode : function() {
+		$
+				.ajax({
+					type : "post",
+					url : "basicconfig/dictInfo/getDictInfoByTypeCode",
+					async : true,
+					data : {
+						dictTypeCode : 'ACTIVITY_PRO,SPECIFIC_COST_TYPE,TRAVEL_TYPE,VEHICIE_CODE,HOTEL_ADDRESS,COST_TYPE'
+					},
+					success : function(data) {
+						var list = data.data || [];
+						var start = '<option value="">请选择</option>', optone = start, opttwo = start, travelType = start, vehicieCode = start, hotel = start, cost = start;
+						$.each(list, function(i, n) {
+							if (n.dictTypeCode == 'ACTIVITY_PRO') {
+								optone += '<option value="' + n.value + '">'
+										+ n.disvalue + '</option>'
+							} else if (n.dictTypeCode == 'SPECIFIC_COST_TYPE') {
+								opttwo += '<option value="' + n.value + '">'
+										+ n.disvalue + '</option>'
+							} else if (n.dictTypeCode == 'TRAVEL_TYPE') {
+								travelType += '<option value="' + n.value
+										+ '">' + n.disvalue + '</option>'
+							} else if (n.dictTypeCode == 'VEHICIE_CODE') {
+								vehicieCode += '<option value="' + n.value
+										+ '">' + n.disvalue + '</option>'
+							} else if (n.dictTypeCode == 'HOTEL_ADDRESS') {
+								hotel += '<option value="' + n.value + '">'
+										+ n.disvalue + '</option>'
+							} else if (n.dictTypeCode == 'COST_TYPE') {
+								cost += '<option value="' + n.value + '">'
+										+ n.disvalue + '</option>'
+							}
+						});
+						$('#budgetProject').html(optone).niceSelect();
+						$('#costBreakdown').html(opttwo).niceSelect();
+						$('#modelBusiType').html(travelType).niceSelect();
+						$('select.vehicle-sel').html(vehicieCode).on("change",
+								function() {
+									var selVal = $(this).val();
+									sysCommon.vechicleChildData(selVal)
+								}).niceSelect();
+						$('select.cost-type-sel').html(cost).niceSelect()
+					}
+				})
+	},
+	setPayeeNameSelect : function() {
+		$('#payeeName')
+				.html('<option value="">请选择</option>')
+				.niceSelect(
+						{
+							search : true,
+							backFunction : function(text) {
+								console.log(text);
+								$("#payeeName option").remove();
+								if (text == "") {
+									$("#payeeName").append(
+											'<option value="">请选择</option>')
+								}
+								$
+										.each(
+												serveFunds.payeeUserList,
+												function(i, n) {
+													if (n.userName
+															.indexOf(text) != -1) {
+														$("#payeeName")
+																.append(
+																		'<option jobLevelName="'
+																				+ n.jobLevelName
+																				+ '" deptName="'
+																				+ n.deptName
+																				+ '" value="'
+																				+ n.userItcode
+																				+ '">'
+																				+ n.userName
+																				+ '</option>')
+													} else {
+													}
+												});
+								$("#payeeName")
+										.append(
+												'<option value="external">外部人员</option>');
+								if ($("#payeeName option").length == 1
+										&& $('payeeName option[value="external"]')) {
+									$("#payeeName")
+											.append(
+													'<option value="noUser">没有找到匹配的单位内部人员</option>')
+								}
+								if ($("#payeeName option").length == 2
+										&& $('payeeName option[value="noUser"]')) {
+									$(".display-rank").show();
+									$(".pe-department").text("外部人员");
+									$(".dis-r").hide();
+									$(".where-company").show();
+									$(".where-company")
+											.attr("validform",
+													"{isNull:true,blurFlag:true,msg:'请输入收款人所在单位'}")
+								}
+							}
+						})
+	},
+	hotelAddressChild : function(addressCode, addressLevel) {
+		var me = this;
+		$("#hotelTwoAddres").niceSelect(
+				{
+					search : true,
+					backFunction : function(text) {
+						$("#hotelTwoAddres option").remove();
+						if (text == "") {
+							$("#hotelTwoAddres").append(
+									'<option value="">请选择</option>')
+						}
+						$.each(me.addressList, function(i, n) {
+							if (n.regionName.indexOf(text) != -1
+									&& n.parentCode == addressCode
+									&& addressLevel == "CITY") {
+								$("#hotelTwoAddres").append(
+										'<option value="' + n.regionCode + '">'
+												+ n.regionName + '</option>')
+							}
+						})
+					}
+				});
+	},
+	hotelAddressArea : function(addressCode, addressLevel) {
+		var me = this;
+		$("#hotelChildAddres").niceSelect(
+				{
+					search : true,
+					backFunction : function(text) {
+						$("#hotelChildAddres option").remove();
+						if (text == "") {
+							$("#hotelChildAddres").append(
+									'<option value="">请选择</option>')
+						}
+						$.each(me.addressList, function(i, n) {
+							if (n.regionName.indexOf(text) != -1
+									&& n.parentCode == addressCode
+									&& addressLevel == "AREA") {
+								$("#hotelChildAddres").append(
+										'<option value="' + n.regionCode + '">'
+												+ n.regionName + '</option>')
+							}
+						})
+					}
+				});
+	}
+};
+$(function() {
+	travelSpending.init()
+});

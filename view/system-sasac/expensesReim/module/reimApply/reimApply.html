@@ -1,0 +1,790 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css"/>
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--城市控件-->
+		<link  rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/city/city.min.css"/>
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/reimApply/reimApply.css?YTVERSIONCODE" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+		<style>
+			.qtip-default{display: none;}	
+		</style>
+	</head>
+
+	<body>
+		<div id="reimApply" class="reim-apply-info">
+			<!--基础信息区域START-->
+			<div class="base-info-model">
+				<!--标题区域START-->
+				<div style="padding: 0px 5px">
+					 <div class="base-info-title-model title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+						<span class="title-text">基本信息</span>
+						<div class="form-num-model">
+							<label><span style="letter-spacing: 4px;">单据编</span>号：</label><span id="form-num">提交后自动生成</span>
+							<input type="hidden" id="hidReimId" value=""/>
+						</div>
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<!--基础信息表单区域START-->
+				<div class="base-info-form-modle">
+					<div id="firstTr">
+						<div style="padding-left:10px;" class="users-label"><label><span style="letter-spacing:17px;">出差</span>人：</label><span id="busiUsers">赵欣</span></div>
+						<div class="dept-label"><label><span style="letter-spacing: 40px;">部</span>门：</label><span id="deptName">财务处</span></div>
+						<div class="tel-label"><label><span style="letter-spacing: 40px;">电</span>话：</label><span id="telPhone">010-68551115</span></div>
+					</div>
+					<div style="clear: both;"></div>
+					<table border="0" cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 6px;">
+						<tr>
+							<td width="100px" class="text-r"><div style="width: 100px;"><span class="not-null">*</span><label><span style="letter-spacing: 6px;">报销事</span>由：</label></div></td>
+							<td colspan="3">
+								<input type="text" class="yt-input" id="reimReason" placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入报销事由'}"/>
+								<!--风险标识START-->
+							    <span class="risk-model">
+									<input type="hidden" value="reimReason" class="hid-risk-code"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+								<!--风险标识END-->
+								<div class="valid-font"></div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-left: 4px;" class="text-r"><label><span style="letter-spacing: 1px;">出差审批</span>单：</label></td>
+							<td class="busi-appr-td">
+								<input type="hidden" id="approId" value=""/>
+								<input class="yt-input" type="text" id="busiApproForm" value="" readonly="readonly" placeholder="请选择出差审批单"/>
+								<!--风险标识START-->
+								<span class="risk-model">
+									<input type="hidden" value="busiAproForm" class="hid-risk-code"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+								<!--风险标识END-->
+							</td>
+						    <td width="95px" class="text-r"><div style="width:95px;"><label><span style="letter-spacing: 6px;">出差事</span>由：</label></div></td>
+						    <td>
+						    	<span id="busiBecause"></span>
+						    	<span class="war-model"><span class="not-null">*</span><span class="war-msg">请先选择一条出差审批单</span></span>
+						    </td>
+						</tr>
+						<tr>
+							<td style="padding-left: 4px;" class="text-r"><label><span style="letter-spacing:46px;">人</span>数：</label></td>
+							<td>
+						    	<span id="busiUserNum"></span>
+						    	<span class="war-model"><span class="not-null">*</span><span class="war-msg">请先选择一条出差审批单</span></span>
+						    </td>
+						    <td class="text-r"><label><span style="letter-spacing: 1px;">接待方提</span>供：</label></td>
+							<td>
+						    	<span id="receptionGive"></span>
+						    	<span class="war-model"><span class="not-null">*</span><span class="war-msg">请先选择一条出差审批单</span></span>
+						    </td>
+						</tr>
+						<tr>
+							<td colspan="4" style="padding-left: 10px;">
+								<label>所属预算项目：</label><span id="byPpsPrj" class="by-pps-prj">--</span>
+								<label>部门(预算来源)：</label><span id="deptBy">--</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--基础信息表单区域END-->
+			</div>
+			<!--基础信息区域END-->
+			<div class="reim-detail-model">
+				<!--标题区域START-->
+				<div class="title-model">
+					<div class="travel-plan-title title-model-sty">
+						<img src="../../../../../resources-sasac/images/icons/detail-title-icon.png" />
+						<span class="title-text">报销明细</span>
+					</div>
+					<div class="title-line" style="margin-bottom: 10px;">
+						<div></div>
+					</div>
+					<span class="war-model" style="margin-left: 8px;"><span class="not-null">*</span><span class="war-msg">请先选择一条出差审批单</span></span>
+				</div>
+				<!--标题区域END-->
+			</div>
+			<!--费用申请区域START-->
+			<div class="cost-apply-model">
+				<!--标题区域START-->
+				<div class="title-model">
+					<div class="travel-plan-title title-model-sty">
+						<img src="../../../../../resources-sasac/images/system/expensesReim/common/reim-list-title.png" />
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+					<div style="padding: 20px 20px 20px 10px;">
+						<button class="yt-option-btn yt-common-btn" id="addCostApplyBtn">新增</button>
+						<button class="yt-option-btn yt-common-btn" id="importDataBtn">从出差审批单导入数据</button>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<!--费用申请多个列表显示START-->
+				<div class="cost-list-model">
+					<!--交通费列表START-->
+					<div class="traffic-cost-model">
+						<div class="cost-list-title">
+							<label>城市间交通费</label>
+							<span class="risk-model">
+								<input type="hidden" value="trafficTab" class="hid-risk-code"/>
+								<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+							</span>
+							<input  type="hidden" class="hid-tab-id" value=""/>
+							<span class="law-link"><a class="yt-link">定点订票/航空公司目录</a></span>
+						</div>
+						<table class="yt-table" width="100%" id="traffic-list-info">
+							    <thead class="yt-thead">
+							    	   <tr>
+							    	   	    <th width="180px"><div style="width: 180px;">出差人</div></th>
+							    	   	    <th width="65px"><div style="width:65px;">级别</div></th>
+							    	   	    <th width="90px"><div style="width:90px;">出发日期</div></th>
+							    	   	    <th width="88px"><div style="width:88px;">出发地点</div></th>
+							    	   	    <th width="85px"><div style="width:85px;">到达日期</div></th>
+							    	   	    <th width="90px"><div style="width:90px;">到达地点</div></th>
+							    	   	    <th width="90px"><div style="width:90px;">交通工具</div></th>
+							    	   	    <th width="98px"><div style="width:98px;">城市间交通费</div></th>
+							    	   	    <th width=""><div>特殊说明</div></th>
+							    	   	    <th width="100px"><div style="width:100px;">操作</div></th>
+							    	   </tr>
+							    </thead>
+							    <tbody class="yt-tbody"></tbody>
+						</table>
+					</div>
+					<!--交通费列表END-->
+					<!--住宿费列表START-->
+					<div class="hotel-list-model">
+						<div class="cost-list-title">
+							<label>住宿费</label>
+							<span class="risk-model">
+								<input type="hidden" value="hotelDay" class="hid-risk-code"/>
+								<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+							</span>
+							<input  type="hidden" class="hid-tab-id" value=""/>
+						</div>
+						<table class="yt-table" width="100%" id="hotel-list-info">
+							   <thead class="yt-thead">
+							   	      <tr>
+							   	      	   <th width="180px"><div style="width: 180px;">出差人</div></th>
+							   	      	   <th width="65px"><div style="width:65px ;">级别</div></th>
+							   	      	   <th width="140px"><div style="width: 140px;">人均花销(人/晚)</div></th>
+							   	      	   <th width="85px"><div style="width:85px;">住宿天数</div></th>
+							   	      	   <th width="90px"><div style="width:90px;">住宿费(元)</div></th>
+							   	      	   <th width="160px"><div style="width:160px ;">住宿地点</div></th>
+							   	      	   <th width=""><div>特殊说明</div></th>
+							   	      	   <th width="100px"><div style="width:100px ;">操作</div></th>
+							   	      </tr>
+							   </thead>
+							   <tbody class="yt-tbody"></tbody>
+						</table>
+					</div>
+					<!--住宿费列表END-->
+					<!--其他费用START-->
+					<div class="other-cost-model">
+						<div class="cost-list-title">
+							<label>其他费用</label>
+							<!--风险区域START-->
+							<span class="risk-model">
+								<input  type="hidden" class="hid-risk-code" value=""/>
+								<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+							</span>
+							<!--风险区域END-->
+							<input  type="hidden" class="hid-tab-id" value=""/>
+						</div>
+						<table class="yt-table" width="100%" id="other-list-info">
+							   <thead class="yt-thead">
+							   	    <tr>
+							   	    	<th width="340px"><div style="width: 340px;">费用类型</div></th>
+							   	    	<th width="340px"><div style="width: 340px;">费用金额</div></th>
+							   	    	<th width=""><div>特殊说明</div></th>
+							   	    	<th width="100px"><div style="width: 100px;">操作</div></th>
+							   	    </tr>
+							   </thead>
+							   <tbody class="yt-tbody"></tbody>
+						</table> 
+					</div>
+					<!--其他费用END-->
+					<!--补助明细列表START-->
+					<div class="subsidy-model">
+						<div class="cost-list-title">
+							<label>补助明细</label>
+							<span class="risk-model">
+								<input type="hidden" value="subsidyDetail" class="hid-risk-code"/>
+								<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+							</span>
+							<input type="hidden" class="hid-tab-id" value=""/>
+						</div>
+						<table class="yt-table" width="100%" id="subsidy-list-info" style="margin-bottom: 20px;">
+							   <thead class="yt-thead">
+							   	      <tr>
+							   	      	  <th width="180px"><div style="width: 180px;">出差人</div></th>
+							   	      	  <th width="130px"><div style="width:130px ;">级别</div></th>
+							   	      	  <th width="185px"><div style="width: 185px;">补助天数</div></th>
+							   	      	  <th width=""><div style="width: ;">伙食补助费</div></th>
+							   	      	  <th width=""><div style="width: ;">城市内交通</div></th>
+							   	      	  <th width="100px"><div style="width: 100px;">操作</div></th>
+							   	      </tr>
+							   </thead>
+							   <tbody class="yt-tbody"></tbody>
+						</table>
+					</div>
+					<!--补助明细列表END-->
+					<!--申请预算总金额区域START-->
+					<div class="apply-cost-total-model">
+						<div class="cost-list-title"><label>报销合计</label></div>
+						<div class="cost-total-rmb">
+							  <div>
+							  	   <label>报销金额合计：</label><span id="applySumMoney">0.00</span><span>元</span>
+							  </div>
+							  <div class="reim-total-lower-div">
+							  	   <label>人民币大写：</label><span id="applyMoneyLower">--</span>
+							  </div>
+						</div>
+						<div style="padding-left: 6px;">
+							<table style="width: 100%;">
+								<tr>
+									<td width="90px" class="text-right-td" style="padding-left: 10px;">
+										<div style="width: 90px;"><label><span style="letter-spacing: 5px;">发票张</span>数：</label></div>
+									</td>
+									<td class="invoice-num-td">
+										<input  type="text" class="yt-input" id="invoiceNum" onkeyup="value=value.replace(/[^\d.]/g,'')" placeholder="请输入"/>
+										<!--风险标识START-->
+										<span class="risk-model">
+											<input  type="hidden" class="hid-risk-code" value="invoiceNum"/>
+											<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+										</span>
+										<!--风险标识END-->
+									</td>
+									<td class="text-right-td" width="85px"><div style="width: 85px;"><label><span style="letter-spacing: 12px;">借款</span>单：</label></div></td>
+									<td>
+										<input type="hidden" id="hidLoanFormId" value=""/>
+										<input type="text" class="yt-input" id="loanFrom" readonly="readonly" placeholder="请选择"/>
+										<!--风险标识START-->
+										<span class="risk-model">
+											<input  type="hidden" class="hid-risk-code" value="loanForm"/>
+											<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+										</span>
+										<!--风险标识END-->
+										<label class="loan-money-label"><span style="letter-spacing: 5px;">借款金</span>额：</label><span id="loanPrice">0.00</span><span>元</span>
+									</td>
+								</tr>
+							  </table>
+						</div>
+						<div style="padding: 5px 10px 0px 10px;">
+							 <table width="100%" id="replacementTab">
+							  	   <tr>
+							  	   	   <th rowspan="3" width="120px"><div style="width: 120px;">报销金额</div></th>
+							  	   	   <th rowspan="3" width="152px"><div style="width: 152px;">冲销金额</div></th>
+							  	   	   <th rowspan="3" width="170px"><div style="width: 170px;">补领金额</div></th>
+							  	   </tr>
+							  	   <tr>
+							  	   	   <th colspan="5" style="background: #3f5465;">补领方式</th>
+							  	   </tr>
+							  	   <tr>
+							  	   	   <th width="120px"><div style="width: 120px;">公务卡</div></th>
+							  	   	   <th width="125px"><div style="width: 125px;">现金</div></th>
+							  	   	   <th width="130px"><div style="width: 130px;">支票</div></th>
+							  	   	   <th width="120px"><div style="width: 120px;">转账</div></th>
+							  	   	   <th>合计</th>
+							  	   </tr>
+							  	   <tr>
+							  	   	   <td><span id="reimPrice">0.00</span></td>
+							  	   	   <td><span id="loanCost">0.00</span></td>
+							  	   	   <td><span id="givePrice">0.00</span></td>
+							  	   	   <td style="text-align: center;"><input type="text" class="com-input repl-way-inpu" id="officialCard" value="0.00"/></td>
+							  	   	   <td style="text-align: center;"><input type="text" class="com-input repl-way-inpu" id="cash" value="0.00"/></td>
+							  	   	   <td style="text-align: center;"><input type="text" class="com-input repl-way-inpu" id="check" value="0.00"/></td>
+							  	   	   <td style="text-align: center;"><input type="text" class="com-input repl-way-inpu" id="carryOver" value="0.00"/></td>
+							  	   	   <td><span id="replPriceSum">0.00</span></td>
+							  	   </tr>
+							  </table>
+						</div>
+					</div>
+					<!--申请预算总金额区域END-->
+					<!--操作按钮组区域START-->
+					<!--<div class="operate-btn-group-model">
+						<button class="yt-option-btn yt-common-btn" id="applySaveBtn">保存</button>
+						<button class="yt-option-btn yt-common-btn" id="lookReimBtn">预览报销单</button>
+						<button class="yt-option-btn yt-common-btn yt-cancel-btn" id="applyCanelBtn" style="margin-right: 0px;">取消</button>
+					</div>-->
+					<!--操作按钮组区域END-->
+				</div>
+				<!--费用申请多个列表显示END-->
+			</div>
+			<!--费用申请区域END-->
+			<!--流程审批区域START-->
+			<div class="flow-approve-model">
+				<!--标题区域START-->
+				<div class="title-model">
+					<div class="travel-plan-title title-model-sty">
+						<img src="../../../../../resources-sasac/images/system/expensesReim/common/flow-approve-title.png" />
+					</div>
+					<div class="title-line">
+						<div></div>
+					</div>
+				</div>
+				<!--标题区域END-->
+				<div style="padding-left: 2px;">
+					 <table width="100%" id="flow-approve-tab">
+					   <tr>
+					   	   <td width="113px" align="center"><span class="not-null">*</span><label>选择操作流程：</label></td>
+					   	   <td width="255px">
+					   	   	   <select class="yt-select operate-flow-sel" id="operate-flow" validform="{isNull:true,changeFlag:true,msg:'请选择操作流程'}">
+					   	   	   	       <option value="">请选择</option>
+					   	   	   </select>
+					   	   	   <!--风险标识START-->
+							    <span class="risk-model" style="position: absolute;top: 25px;">
+									<input  type="hidden" class="hid-risk-code" value="operFlow"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+								<!--风险标识END-->
+								<div class="valid-font" style="top:49px;"></div>
+					   	   </td>
+					   	   <td align="right" class="approvel-users"><div><span class="not-null">*</span><label>选择审批人：</label></div></td>
+					   	   <td>
+					   	   	   <div>
+					   	   	   	    <select class="yt-select approve-users-sel" id="approve-users">
+					   	   	   	       <option value="">请选择</option>
+						   	   	    </select>
+						   	   	    <!--风险标识START-->
+								    <span class="risk-model" style="position: absolute;top: 25px;">
+										<input  type="hidden" class="hid-risk-code" value="approveUsers"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+					   	   	   </div>
+					   	   </td>
+					   </tr>
+					   <tr>
+					   	   <td valign="top" align="right"><label style="padding-right: 2px;">操作意见：</label></td>
+					   	   <td colspan="3">
+					   	   	   <textarea class="yt-textarea" id="operate-msg" placeholder="请输入"></textarea>
+					   	   	   <!--风险标识START-->
+							    <span class="flow-textare-risk risk-model">
+									<input  type="hidden" class="hid-risk-code" value="flowOperSug"/>
+									<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+								</span>
+								<!--风险标识END-->
+					   	   </td>
+					   </tr>
+					   <tr>
+					   	   <td colspan="4" align="center" style="padding-bottom: 20px;">
+							<button class="yt-option-btn yt-common-btn preview-btn" id="lookReimBtn">预览报销单</button>
+					   	   	<button class="yt-option-btn yt-common-btn sub-btn" id="subCreateFormBtn">提交并生成报销单</button>
+					   	   	<button class="yt-option-btn yt-cancel-btn save-btn" id="applySaveBtn">保存</button>
+					   	   	<!--<button class="yt-option-btn yt-common-btn yt-cancel-btn" id="apprCanelBtn">取消</button>-->
+					   	   </td>
+					   </tr>
+					</table>
+				</div>
+			</div>
+			<!--流程审批END-->
+			<!--差旅报销明细填写START-->
+			<div class="cost-detail-info-model" id="cost-apply-model">
+			  <div class="model-title">
+			  	   <img src="../../../../../resources-sasac/images/common/list.png"><span>差旅报销明细填写</span>
+			  </div>
+			  <div class="model-content">
+			  	    <!--tab区域START-->
+			  	    <div class="cost-type-tab">
+			  	    	 <ul>
+			  	    	 	 <li class="tab-check traffic-tab">城市间交通费用<input type="hidden" class="hid-tab" value="0"/></li>
+			  	    	 	 <li class="hotel-tab">住宿费<input type="hidden" class="hid-tab" value="1"/></li>
+			  	    	 	 <li class="other-tab">其他费用<input type="hidden" class="hid-tab" value="2"/></li>
+			  	    	 	 <li style="width: 213px;"></li>
+			  	    	 </ul>
+			  	    </div>
+			  	    <!--tab区域END-->
+			  	    <!--交通费表单区域START-->
+			  	    <div class="traffic-form" style="display: block;">
+			  	    	<table>
+							<tr>
+								<td width="88px" class="td-r">
+									<div style="width: 88px;"><span class="not-null">*</span><label><span style="letter-spacing: 7px;">出差</span>人：</label></div>
+								</td>
+								<td width="105px">
+									<select class="yt-select model-busi-trip-user-sel" dataRiskCode="traExpBusiTripUsers" id="model-trip-user" validform="{isNull:true,changeFlag:true,msg:'请选择出差人'}">
+										<option value="">请选择</option>
+									</select>
+									<div class="valid-font model-valid-sty"></div>
+									<!--风险标识START-->
+								    <span class="mar-t risk-model">
+										<input  type="hidden" class="hid-risk-code" value="traExpBusiTripUsers"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+								<td align="right" style="width: 90px;">
+									<div style="width: 90px;"><span class="not-null">*</span><label>出发日期：</label></div>
+								</td>
+								<td width="150px">
+									<input type="text" class="calendar-input time-input" id="traffic-start-time" validform="{isNull:true,msg:'请选择出发日期'}" placeholder="请选择日期" />
+									<div class="valid-font"></div>
+									<!--风险标识START-->
+								    <span class="risk-model">
+										<input  type="hidden" class="hid-risk-code" value="traExpStartDate"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+								<td align="right" width="90px">
+									<span class="not-null">*</span><label>到达日期：</label>
+								</td>
+								<td width="150px">
+									<input type="text" class="calendar-input time-input" id="traffic-end-time" placeholder="请选择日期" validform="{isNull:true,msg:'请选择到达日期'}" />
+									<div class="valid-font"></div>
+									<!--风险标识START-->
+								    <span class="risk-model">
+										<input  type="hidden" class="hid-risk-code" value="traExpEndDate"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+							</tr>
+							<tr>
+								<td class="td-r"><span class="not-null">*</span><label>出发地点：</label></td>
+								<td colspan="5">
+									<input class="yt-input address-input start-place" id="fromcity" type="text" placeholder="请选择" validform="{isNull:true,msg:'请选择出发地点'}"/>
+									<div class="valid-font"></div>
+									<span><img id="addres-icon" src="../../../../../resources-sasac/images/common/addres-change-icon.png"/></span>
+									<input class="yt-input address-input end-place" id="tocity" type="text" placeholder="请选择" validform="{isNull:true,msg:'请选择到达地点'}"/>
+									<div class="valid-font" style="left: 120px;"></div>
+									<!--风险标识START-->
+								    <span class="risk-model">
+										<input  type="hidden" class="hid-risk-code" value="traExpAdress"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+									
+								</td>
+							</tr>
+							<tr>
+								<td class="td-r"><span class="not-null">*</span><label>交通工具：</label></td>
+								<td colspan="5" style="padding-right: 30px;">
+									<div style="float: left;display: inline;">
+										<div style="float: left;display: inline;">
+										<select class="yt-select vehicle-sel" dataRiskCode="costDetailVehicle" validform="{isNull:true,changeFlag:true,msg:'请选择交通工具'}">
+											<option value="">请选择</option>
+											</select>
+											<div class="valid-font model-valid-sty"></div>
+										</div>
+										<div id="vehicleTwoDiv">
+											<select class="yt-select vehicle-two-sel" dataRiskCode="costDetailVehicle" validform="{isNull:true,changeFlag:true,msg:'请选择交通工具'}">
+												<option value="">请选择</option>
+											</select>
+											<div class="valid-font model-valid-sty" style="left: 120px;"></div>
+										</div>
+										<!--风险标识START-->
+										<span class="risk-model">
+			  	    	  	     	 	 	<input type="hidden" class="hid-risk-code"  value="costDetailVehicle"/>
+			  	    	  	     	 	 	<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img" style="margin: 5px 0px 0px 5px;"/>
+				  	    	  	     	</span>
+				  	    	  	     	<!--风险标识END-->
+									</div>
+									<div style="display: inline;position: relative;float: right;">
+										<span class="not-null">*</span><label>城市间交通费：</label>
+										<input class="yt-input city-cost-input" type="text" placeholder="0.00" onkeyup="value=value.replace(/[^\d.]/g,'')" validform="{isNull:true,blurFlag:true,msg:'请输入金额'}"/><span>元</span>
+									    <div class="valid-font" style="left: 108px;"></div>
+									    <!--风险标识START-->
+									    <span class="risk-model">
+											<input  type="hidden" class="hid-risk-code" value="cityTrafficCost"/>
+											<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+										</span>
+										<!--风险标识END-->
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top" class="td-r" style="padding-left: 5px;"><label>特殊说明：</label></td>
+								<td colspan="5">
+									<textarea class="yt-textarea" id="special-remark" placeholder="最多填写100字"></textarea>
+									<!--风险标识START-->
+								    <span class="textare-risk risk-model">
+										<input type="hidden" class="hid-risk-code" value="trafficSpecialRem"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+							</tr>
+
+						</table>
+			  	    </div>
+			  	    <!--交通费表单区域END-->
+			  	    <!--住宿费表单区域START-->
+			  	    <div class="hotel-form">
+			  	    	  <table>
+							<tr>
+								<td width="88px" class="td-r">
+									<div style="width: 88px;"><span class="not-null">*</span><label><span style="letter-spacing: 7px;">出差</span>人</label>：</div>
+								</td>
+								<td width="150px">
+									<select class="yt-select hotel-trip-user-sel" datariskcode="traExpBusiTripUsers" id="hotel-trip-user" validform="{isNull:true,changeFlag:true,msg:'请选择出差人'}">
+										<option value="">请选择</option>
+									</select>
+									<div class="valid-font model-valid-sty"></div>
+									<!--风险标识START-->
+								    <span class="mar-t risk-model">
+										<input  type="hidden" class="hid-risk-code" value="traExpBusiTripUsers"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+								<td colspan="2"><span class="not-null">*</span><label>住宿日期：</label><input type="text"  datariskcode="hotelDate" class="calendar-input time-input" id="hotelDate" placeholder="请选择日期" validform="{isNull:true,msg:'请选择住宿日期'}" />
+								    <div class="valid-font" style="left: 75px;"></div>
+								    <!--风险标识START-->
+								    <span class="risk-model">
+										<input  type="hidden" class="hid-risk-code" value="hotelDate"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+								<td style="text-align: right;width: 82px;">
+									<div style="width: 82px;"><span class="not-null">*</span><label>住宿天数：</label></div>
+								</td>
+								<td>
+									<div class="yt-numberInput-box" style="float: left;">
+										<input class="yt-numberInput" type="text" value="1" onkeyup="value=value.replace(/[^\d.]/g,'')" datariskcode="hotelDayNum" step="1" validform="{isNull:true,blurFlag:true,msg:'请输入住宿天数'}" style="ime-mode:disabled">
+										<div class="yt-spin-wrap">
+											<div class="yt-spin yt-spin-up" data-node="up"></div>
+											<div class="yt-spin yt-spin-down" data-node="down"></div>
+										</div>
+										<div class="valid-font"></div>
+									</div>
+									<!--风险标识START-->
+								    <span class="mar-t risk-model">
+										<input  type="hidden" class="hid-risk-code" value="hotelDayNum"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+							</tr>
+							<tr>
+								<td class="td-r"><span class="not-null">*</span><label>住宿地点：</label></td>
+								<td colspan="5">
+									<div class="hotel-address-div">
+										<select class="yt-select hotel-addres-sel hotel-parent-addres" datariskcode="hotelAddress" id="hotelParentAddress" validform="{isNull:true,changeFlag:true,msg:'请选择省份'}">
+											<option value="">请选择</option>
+										</select>
+										<div class="valid-font model-valid-sty"></div>
+									</div>
+									<div class="hotel-address-div" style="position: relative;">
+										<select class="yt-select hotel-addres-sel hotel-two-addres" datariskcode="hotelAddress" id="hotelTwoAddres" validform="{isNull:true,changeFlag:true,msg:'请选择市'}">
+										<option value="">请选择</option>
+										</select>
+										<div class="valid-font model-valid-sty"></div>
+									</div>
+									<div class="hotel-address-div" style="position: relative;margin-right: 0px;">
+										<select class="yt-select hotel-addres-sel hotel-child-addres" datariskcode="hotelAddress" id="hotelChildAddres" validform="{isNull:true,changeFlag:true,msg:'请选择区'}">
+											<option value="">请选择</option>
+										</select>
+										<div class="valid-font model-valid-sty"></div>
+									</div>
+									<!--风险标识START-->
+								    <span class="mar-t risk-model">
+										<input  type="hidden" class="hid-risk-code" value="hotelAddress"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+							</tr>
+							<tr>
+								<td class="td-r"><span class="not-null">*</span><label><span style="letter-spacing: 7px;">住宿</span>费：</label></td>
+								<td colspan="5">
+									<input class="yt-input hotel-money cost-detail-money" datariskcode="hotelCost"  placeholder="0.00" validform="{isNull:true,blurFlag:true,msg:'请输入住宿费'}" onkeyup="value=value.replace(/[^\d.]/g,'')" /><span>元</span>
+									<div class="valid-font"></div>
+									<!--风险标识START-->
+								    <span class="risk-model">
+										<input  type="hidden" class="hid-risk-code" value="hotelCost"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+									<span style="float: right;display: inline;padding-right: 37px;">
+										   <label>住宿费：</label><span><span datariskcode="costDetailHotelCost" id="peoDayMoney">0.00</span>元/人<span id="hotelDay">*</span>天</span>
+											<!--风险标识START-->
+											<span class="risk-model">
+				  	    	  	    			<input type="hidden" class="hid-risk-code" value="costDetailHotelCost"/>
+				  	    	  	    			<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img" style="margin: 0px 0px 7px 5px "/>
+					  	    	  	    	</span>
+					  	    	  	    	<!--风险标识END-->
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top" class="td-r" style="padding-left: 5px;"><label>特殊说明：</label></td>
+								<td colspan="5">
+									<textarea class="yt-textarea hotel-msg" style="width: 543px;" placeholder="最多填写100字"></textarea>
+									<!--风险标识START-->
+								    <span class="textare-risk risk-model">
+										<input  type="hidden" class="hid-risk-code" value="hotelSpecialRem"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+							</tr>
+						</table>
+			  	    </div>
+			  	    <!--住宿费表单区域END-->
+			  	    <!--其他费用表单区域START-->
+			  	    <div class="other-form">
+			  	    	 <table>
+							<tr>
+								<td width="85px" class="td-r">
+									<div style="width: 85px;"><span class="not-null">*</span><label>费用类型：</label></div>
+								</td>
+								<td>
+									<select class="yt-select cost-type-sel" id="cost-type" validform="{isNull:true,changeFlag:true,msg:'请选择费用类型'}">
+										<option value="">请选择</option>
+									</select>
+								    <div class="valid-font model-valid-sty"></div>
+								    
+								    <span class="risk-model"><input  type="hidden" class="hid-risk-code" value="otherCostType"/>
+								   	 <img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img" style="margin: 5px 0px 0px 5px;"/>
+								    </span>
+								</td>
+							</tr>
+							<tr>
+								<td class="td-r"><span class="not-null">*</span><label>报销金额：</label></td>
+								<td>
+									<input type="text" class="yt-input cost-detail-money other-money" value="" validform="{isNull:true,blurFlag:true,msg:'请输入报销金额'}" onkeyup="value=value.replace(/[^\d.]/g,'')" placeholder="0.00" />元
+									<div class="valid-font"></div>
+									<!--风险标识START-->
+								    <span class="risk-model">
+										<input  type="hidden" class="hid-risk-code" value="reimPrice"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+							</tr>
+							<tr>
+								<td valign="top"  class="td-r" style="padding-left: 5px;">特殊说明：</td>
+								<td>
+									<textarea class="yt-textarea other-msg" placeholder="最多填写100字"></textarea>
+									<!--风险标识START-->
+								    <span class="textare-risk risk-model">
+										<input  type="hidden" class="hid-risk-code" value="otherSpecialRem"/>
+										<img src="../../../../../resources-sasac/images/common/war-red.png" class="risk-img"/>
+									</span>
+									<!--风险标识END-->
+								</td>
+							</tr>
+						</table>
+			  	    </div>
+			  	    <!--其他费用表单区域END-->
+			  	    <!--底部按钮操作区域START-->
+			  	    <div class="model-bottom-btn">
+			  	    	 <button class="yt-option-btn yt-common-btn" id="model-add-list-btn">加入到列表</button>
+    	  	     	 	 <button class="yt-option-btn yt-common-btn" id="model-sure-btn">确定</button>
+    	  	     	 	 <button class="yt-option-btn yt-cancel-btn" id="model-canel-btn" style="margin-right: 0;">取消</button>
+			  	    </div>
+			  	    <!--底部按钮操作区域END-->
+			  </div>
+		</div>
+			<!--差旅报销明细填写END--> 
+			<!--出差审批单弹出框START-->
+			<div class="busi-trip-form-model" id="busiAproFormModel">
+				  <div class="model-title">
+			  	    <img src="../../../../../resources-sasac/images/common/list.png"><span>选择出差审批单</span>
+			 	  </div>
+			 	  <div class="model-content">
+			 	  	   <div class="heard-search-model">
+			 	  	   	     <input  class="yt-input keyword-inpu" type="text" id="keywordInpu" placeholder="请输入关键字"/>
+			 	  	   	     <button class="yt-option-btn yt-search-btn" id="aproSearchBtn">查询</button>
+			 	  	   	     <button class="yt-option-btn yt-reset-btn" id="aproRestBtn">重置</button>
+			 	  	   </div>
+			 	  	   <div class="appro-list-model">
+			 	  	   	    <table class="yt-table" id="busiTripTab">
+			 	  	   	    	   <thead class="yt-thead">
+			 	  	   	    	   	    <tr>
+			 	  	   	    	   	    	<th width="158px"><div style="width:158px;">单据编号</div></th>
+			 	  	   	    	   	    	<th width="285px">出差事由</th>
+			 	  	   	    	   	    </tr>
+			 	  	   	    	   </thead>
+			 	  	   	    	   <tbody class="yt-tbody"></tbody>
+			 	  	   	    </table>
+			 	  	   	    <!--分页START-->  
+							<div class="page-info table-page approve-page" onselectstart="return false"></div>  
+							<!--分页END-->  
+			 	  	   </div>
+			 	  	   <!--底部按钮操作区域START-->
+				  	    <div class="model-bottom-btn">
+	    	  	     	 	 <button class="yt-option-btn yt-common-btn" id="aproSureBtn">确定</button>
+	    	  	     	 	 <button class="yt-option-btn yt-cancel-btn" id="aproCanelBtn" style="margin-right: 0;">取消</button>
+				  	    </div>
+				  	    <!--底部按钮操作区域END-->
+			 	  </div>
+			</div>
+			<!--出差审批单弹出框END-->
+			<!--借款单弹出框START-->
+			<div class="loan-form-model" id="loanFormModel">
+				  <div class="model-title">
+			  	    <img src="../../../../../resources-sasac/images/common/list.png"><span>选择借款单</span>
+			 	  </div>
+			 	  <div class="model-content">
+			 	  	   <div class="heard-search-model">
+			 	  	   	     <input  class="yt-input keyword-inpu" type="text" id="loanKeyWord" placeholder="请输入关键字"/>
+			 	  	   	     <button class="yt-option-btn yt-search-btn model-search-btn" id="loanSearchBtn">查询</button>
+			 	  	   	     <button class="yt-option-btn yt-reset-btn" id="loanResetBtn">重置</button>
+			 	  	   </div>
+			 	  	   <div class="loan-list-model">
+			 	  	   	    <table class="yt-table" id="loanFormTab">
+			 	  	   	    	   <thead class="yt-thead">
+			 	  	   	    	   	    <tr>
+			 	  	   	    	   	    	<th width="158px"><div style="width:158px;">单据编号</div></th>
+			 	  	   	    	   	    	<th width="285px">借款金额</th>
+			 	  	   	    	   	    </tr>
+			 	  	   	    	   </thead>
+			 	  	   	    	   <tbody class="yt-tbody"></tbody>
+			 	  	   	    </table>
+			 	  	   	    <!--分页START-->  
+							<div class="page-info loan-page" onselectstart="return false"></div>  
+							<!--分页END-->  
+			 	  	   </div>
+			 	  	   <!--底部按钮操作区域START-->
+				  	    <div class="model-bottom-btn">
+	    	  	     	 	 <button class="yt-option-btn yt-common-btn model-sure-btn" id="loanSureBtn">确定</button>
+	    	  	     	 	 <button class="yt-option-btn yt-cancel-btn" id="loanCanelBtn" style="margin-right: 0;">取消</button>
+				  	    </div>
+				  	    <!--底部按钮操作区域END-->
+			 	  </div>
+			</div>
+			<!--借款单弹出框END-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--城市控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/city/city.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/reimApply/reimApply.min.js?YTVERSIONCODE"></script>
+	<!--引用JS文件END-->
+
+</html>

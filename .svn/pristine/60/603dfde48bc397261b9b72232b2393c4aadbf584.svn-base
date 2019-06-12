@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>项目预算新增</title>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1200px;">
+			<div class="box-list">
+				<!--项目预算申请-->
+				<div class="content-box budget-inf valid-tab">
+					<div class="class-info-div">
+						项目预算申请
+					</div>
+					<div class="tab-content class-info get-project-inf add-project">
+						<div class="class-info-centent">
+							<table class="class-info-table">
+								<tr>
+									<td align="right">
+										<span>项目名称：</span>
+										<input type="hidden" class="hid-project" data-val="projectCode" />
+										<input type="hidden" class="hid-is-offSite-training" data-val="isOffSiteTraining" />
+										<input type="hidden" class="hid-cost-standard" data-val="costStandard" />
+									</td>
+									<td colspan="3">
+										<span class="project-span"></span>
+										<select class="yt-select type-select project-code" style="width: 722px;">
+											<option value="">请选择</option>
+				  	    	      		</select>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>申请人：</span>
+									</td>
+									<td>
+										<span class="create-user-name" data-val="createUserName"></span>
+									</td>
+									<td align="right" width="156px">
+										<span>项目类型：</span>
+									</td>
+									<td>
+										<span class="project-type" data-val="projectType"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>班主任：</span>
+									</td>
+									<td>
+										<span class="class-teacher" data-val="classTeacher"></span>
+									</td>
+									<td align="right" width="156px">
+										<span>项目主任：</span>
+									</td>
+									<td>
+										<span class="project-head" data-val="projectHead"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>开班日期：</span>
+									</td>
+									<td>
+										<span></span>
+										<span class="start-date" data-val="startDate"></span>
+									</td>
+									<td align="right">
+										<span>结束日期：</span>
+									</td>
+									<td>
+										<span class="end-date" data-val="endDate"></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>报到时间：</span>
+									</td>
+									<td>
+										<input class="calendar-input report-date" data-val="reportDate" placeholder="请选择" type="text" style="width: 275px;"/>
+									</td>
+									<td align="right">
+										<span>离院时间：</span>
+									</td>
+									<td>
+										<input class="calendar-input out-hospital-date" data-val="outHospitalDate" placeholder="请选择" type="text" style="width: 275px;"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>学员人数：</span>
+									</td>
+									<td>
+										<span class="trainee-total" data-val="traineeTotal"></span>
+									</td>
+									<td align="right">
+										<span>委托单位工作人数：</span>
+									</td>
+									<td>
+										<span></span>
+										<input class="yt-input entrust-org-count" data-val="entrustOrgCount" placeholder="请输入" type="text" style="width: 275px;"/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" >是否异地培训：</td>
+									<td>
+										<span class="training-span"></span>
+										<label class="check-label yt-radio">  
+										    <input class="is-off-site-training training-true " type="radio" name="test"  value="1"/>  
+										   	 是  
+									    </label>  
+									    <label class="check-label yt-radio">  
+										    <input class="is-off-site-training training-false" type="radio" name="test"  value="0"/>  
+										         否	  
+									    </label>
+									</td>
+									<td align="right">适用成本标准：</td>
+									<td>
+										<span class="cost-span"></span>
+										<label class="check-label yt-radio">  
+										    <input class="cost-standard cost-low" type="radio" name="costStandard"  value="1"/>  
+										   	 基本标准  
+									    </label>  
+									    <label class="check-label yt-radio ">  
+										    <input class="cost-standard cost-height" type="radio" name="costStandard"  value="2"/>  
+										        高成本标准	  
+									    </label>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" valign="top">
+										<span style="position: relative;">异地培训特殊要求：</span>
+									</td>
+									<td colspan="3" valign="top">
+										<p style="width: 715px;min-height: 135px;"></p>
+										<textarea type="text" class="yt-textarea offsite-training-requirement" data-val="offSiteTrainingRequirement" placeholder="请输入异地培训特殊要求"></textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!--预算明细-->
+					<div class="approval-change-before">
+						<div class="class-info-div">
+							预算明细
+						</div>
+						<div class="class-info">
+							<div class="class-info-centent budget-subsidiary">
+								<div class="teach-related-expenses">
+									<div class="teach-related-expenses-title">
+										<span style="background: #5b66ab url(../../resources/images/icons/left-top.png) no-repeat;">教学相关费用</span>
+									</div>
+									<table class="class-info-table teach-related-expenses-table">
+										
+									</table>
+								</div>
+								<div class="logistics-related-expenses">
+									<div class="teach-related-expenses-title">
+										<span style="background: #5b66ab url(../../resources/images/icons/left-top.png) no-repeat;">后勤相关费用</span>
+									</div>
+									<table class="class-info-table logistics-related-expenses-table">
+										
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="approval-change-after"></div>
+					<!--变更输入框-->
+					<div class="class-info-div">
+						预算变更
+					</div>
+					<div class="tab-content class-info">
+						<div class="class-info-centent budget-subsidiary">
+							<div class="teach-related-expenses">
+								<div class="teach-related-expenses-title">
+									<span style="background: #5b66ab url(../../resources/images/icons/left-top.png) no-repeat;">
+										教学相关费用
+									</span>
+								</div>
+								<table class="class-info-table edit-teach-related-expenses-table">
+									<tbody>
+										<tr>
+											<td align="right">
+												<input type="hidden" value="teacherFee" class="cost-code"><span>师资费：</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入">
+											</td>
+											<td style="width: 50px;">
+												<span>元</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input according-instructions gist" data-val="accordingInstructions" placeholder="请输入依据说明">
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><input type="hidden" value="fieldTeachingFee" class="cost-code">
+												<span>现场教学费：</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入">
+											</td>
+											<td style="width: 50px;">
+												<span>元</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input according-instructions gist" data-val="accordingInstructions" placeholder="请输入依据说明">
+											</td>
+										</tr>
+										<tr>
+											<td align="right">
+												<input type="hidden" value="trainingMaterialsFee" class="cost-code">
+												<span>培训资料费：</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入">
+											</td>
+											<td style="width: 50px;">
+												<span>元</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input according-instructions gist" data-val="accordingInstructions" placeholder="请输入依据说明">
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><input type="hidden" value="trafficFee" class="cost-code">
+												<span>交通费：</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入">
+											</td>
+											<td style="width: 50px;">
+												<span>元</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input according-instructions gist" data-val="accordingInstructions" placeholder="请输入依据说明">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="logistics-related-expenses">
+								<div class="teach-related-expenses-title">
+									<span style="background: #5b66ab url(../../resources/images/icons/left-top.png) no-repeat;">后勤相关费用</span>
+								</div>
+								<table class="class-info-table edit-logistics-related-expenses-table">
+									<tbody>
+										<tr>
+											<td align="right"><input type="hidden" value="accommodationFee" class="cost-code">
+												<span>住宿费：</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入">
+											</td>
+											<td style="width: 50px;">
+												<span>元</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input according-instructions gist" data-val="accordingInstructions" placeholder="请输入依据说明">
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><input type="hidden" value="foodFee" class="cost-code">
+												<span>伙食费：</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入">
+											</td>
+											<td style="width: 50px;">
+												<span>元</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input according-instructions gist" data-val="accordingInstructions" placeholder="请输入依据说明">
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><input type="hidden" value="otherFee" class="cost-code">
+												<span>其他费：</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input budget-cost" data-val="budgetCost" placeholder="请输入">
+											</td>
+											<td style="width: 50px;">
+												<span>元</span>
+											</td>
+											<td>
+												<input type="text" class="yt-input according-instructions gist" data-val="accordingInstructions" placeholder="请输入依据说明">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!--下一步操作人-->
+					<div class="tab-content class-info next-operator">
+						<table>
+							<tr>
+								<td>下一步操作人：</td>
+								<td>
+									<select class="yt-select type-select dealing-with-people" data-val="dealingWithPeople" style="width: 140px;">
+										<option value="">请选择</option>			
+									</select>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="btn-all" style="width: 265px;">
+						<button class="yt-option-btn submit-budget">提交</button>
+						<button class="yt-option-btn save-budget">保存</button>
+						<button class="yt-option-btn btn-off">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/projectBudget/projectBudgetChange.js"></script>
+
+</html>

@@ -1,0 +1,36 @@
+/*外边边框*/
+.datagrid-wrap.panel-body.panel-body-noheader,.datagrid-header{
+	border: none !important;
+}
+/*头部*/
+.datagrid-header-inner{
+	background: #f5f5f5 !important;
+}
+
+.datagrid-header td, .datagrid-btable td {
+   	/*border: none !important;
+	/*border-bottom: solid 1px #E6E6E6 !important;*/
+	/*border: solid 1px #E6E6E6 !important;   	
+    margin: 0 !important;
+    padding: 0 !important;*/
+   border-style: solid !important;
+   
+}
+.datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber{
+	padding: 10px 2px !important;
+}
+.datagrid-row-selected,.datagrid-row-over{
+	background: none !important;
+}
+/*去掉图标*/
+.tree-file,.tree-folder-open,.tree-folder{
+	background: none !important;
+}
+/*调整整个树列表的大小*/
+.datagrid-view2{
+/*width: 900px !important;*/
+}
+/*调整表格边框*/
+.panel.datagrid.easyui-fluid{
+	border: 1px solid #e6e6e6 !important;
+}

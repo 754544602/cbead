@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/js/jquery-easyui-1.5.1/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classOccupy.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/ticketOpen/ticketOpenInfo.css" />
+		<title>项目开票</title>
+		<style type="text/css">
+			.list-td {
+				
+				text-align: center;
+			}
+			.write-bill-info-table tr{
+				height: 50px;
+			}
+			.write-bill-table tr{
+				height: 50px;
+			}
+			.look-bill-info-table tr{
+				height: 50px;
+			}
+			.duty-table td{
+				border: 1px solid #dfe6f3;
+			}
+			.duty-table td input{
+				border: none;
+			}
+			.valid-font{
+				left: auto;
+				top: auto;
+			}
+			.ticket-form-input{
+			    border: 1px solid #DFE6F3 !important;
+			}
+			label.yt-checkbox input, label.yt-radio input{
+				    left: -10000px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-main">
+			<!--顶部条件查询START-->
+			<div class="head-div" style="margin-bottom: 0px;height: 22px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<button class="page-return-btn">
+							<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+							返回
+						</button>
+					</div>
+					<!--隐藏数据-->
+					<input type="hidden" class="hid-project-code" />
+					<input type="hidden" class="hid-types" />
+					<input type="hidden" class="hid-order-num" />
+					<input type="hidden" class="hid-trainee-or-group-id" />
+					<input type="hidden" class="hid-check-true-or-false" />
+				</div>
+			</div>
+
+			<!--顶部条件查询END-->
+			<div class="tab-title-list" style="overflow: hidden;margin-top: 0px;">
+				<div class="tab-title-box" style="width: 1440px;">
+					<button class="yt-option-btn teacher-info-btn borrow-btn active">• 班级信息</button>
+					<button class="yt-option-btn class-info-btn cost-btn">• 项目开票</button>
+				</div>
+				<input type="hidden" id="operate-type" value="减免" />
+			</div>
+			<div class="content-box programme" style="border-bottom: 0px;height: 35px;background: none;display: none;">
+				<button class="yt-option-btn edit-bill-info" style="margin: 0px 3px 0px 10px;">
+					<img src="../../resources/images/button/update-icon.png" alt="">
+					修改开票信息
+				</button>
+				<button class="yt-option-btn write-bill-btn" style="margin: 0px 3px;">
+					<img src="../../resources/images/button/k-bill.png" alt="">
+					开具发票
+				</button>
+				<button class="yt-option-btn manual-bill-btn" style="margin: 0px 3px;">
+					<img src="../../resources/images/button/k-bill.png" alt="">
+					手动开具发票
+				</button>
+				<button class="yt-option-btn merge-bill-btn" style="margin: 0px 3px;">
+					<img src="../../resources/images/button/c-bill.png" alt="">
+					合并开票
+					<input type="hidden" class="hid-merge" value="1"/>
+				</button>
+				<button class="yt-option-btn separate-bill-btn" style="margin: 0px 3px;">
+					<img src="../../resources/images/button/q-bill.png" alt="">
+					取消合并开票
+					<input type="hidden" class="hid-separate" value="2"/>
+				</button>
+				<button class="yt-option-btn edit-remark-btn" style="margin: 0px 3px;">
+					<img src="../../resources/images/button/remark.png" alt="">
+					备注
+				</button>
+				<button class="yt-option-btn invoice-export" style="margin: 0px 3px;">
+					<img src="../../resources/images/icons/export.png" alt=""> 导出
+				</button>
+			</div>
+			
+			<!--发票START-->
+			<div class="bill-div" style="display: none;">
+				<!--数据展示区域START-->
+				<div class="box-ticket-list">
+					<!--单位发票列表-->
+					<div class="list-box content-box" style="margin: 0px 4px;">
+						<table class="list-table company-list check-all-tab">
+							<thead class="list-thead">
+								<tr>
+									<th class="check-box-th" style="width: 30px;">
+										<label class="check-label yt-checkbox parent-check">
+											<input class="check-box check-all" type="checkbox">
+										</label>
+									</th>
+									<th style="text-align: left;">单位名称</th>
+									<th style="width: 110px;text-align: right;">培训费(元)</th>
+									<th style="width: 80px;">开票信息</th>
+									<th style="width: 100px;">对账状态</th>
+									<th style="width: 100px;">开票状态</th>
+									<th style="width: 90px;">备注</th>
+								</tr>
+							</thead>
+							<tbody class=" list-tbody ticket-open-tbody yt-tbody">
+								<tr>
+									<td colspan="7" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-info ticket-open-page" onselectstart="return false"></div>
+					</div>
+				</div>
+				<!--个人发票-->
+				<div class="box-class-list" style="margin-top: 20px;padding: 10px 0px;">
+					<div class="content-box bill-btn-div" style="border-bottom: 0px;height: 35px;padding-top: 8px;">
+						<div class="key-word">
+							<input class="yt-input" id="keyword" placeholder="请输入关键字" type="text" style="float: left;"/>
+							<button class="yt-option-btn search-person-btn" style="width: 28px;">
+								<img class="search-img" src="../../resources/images/icons/class-search.png" />
+							</button>
+						</div>
+						<div class="check-search" style="float: right;margin: 5px 15px;">
+							<label class="check-label yt-checkbox">  
+	                    		<input id="checkBox1" type="checkbox" name="test" value="2"/>已开票 
+	          				</label>
+							<label class="check-label yt-checkbox">  
+	                    		<input id="checkBox2" type="checkbox" name="test" value="1"/>未开票  
+	                		</label>
+						</div>
+	
+					</div>
+					<!--个人信息列表-->
+					<div class="list-box content-box person-list-div" style="margin: 0px 4px;position: relative;">
+						<table class="list-table trainee-bill-table">
+							<thead class="list-thead">
+								<tr>
+									<th class="check-box-th" style="width: 30px;">
+										<label class="check-label yt-checkbox parent-check" style="margin-left: 7px;"><input type="checkbox" class="check-all" name="test" value=""/>  </label>
+									</th>
+									<th style="width: 60px;">分组</th>
+									<th style="width: 90px;">姓名</th>
+									<th style="width: 60px;">房间号</th>
+									<th style="width: 100px;">手机号</th>
+									<th>集团</th>
+									<th>单位</th>
+									<th style="width: 80px;">开票信息</th>
+									<th style="width: 85px;">报到状态</th>
+									<th style="width: 85px;">对账状态</th>
+									<th style="width: 75px;">开票状态</th>
+									<th style="width: 110px;">备注</th>
+								</tr>
+							</thead>
+							<tbody class="yt-tbody list-tbody class-tbody">
+								<tr>
+									<td colspan="12" align="center" style="border:0px;">
+										<div class="no-data" style="width: 280px;margin: 0 auto;">
+											<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-info class-page" onselectstart="return false"></div>
+					</div>
+				</div>
+				<!--数据展示区域END-->
+				
+				<!--修改备注STAR-->
+				<div class="yt-pop-model yt-edit-alert edit-remark-alert" style="width: 400px;"> 
+					<div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">修改备注</span>  
+		          </div>  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main">  
+		            <form style=" overflow: auto;" class="alert-form">
+						<div class="tab-content">
+							<div class="class-info-centent">
+				                <table class="edit-remark" style="margin: 0 auto;">  
+				                <tr>
+				                	<td style="vertical-align: top;">备注：</td>
+				                	<td>
+				                		<textarea class="remark-text" style="resize: none;min-height: 50px;width: 300px;"></textarea>
+				                	</td>
+				                </tr>
+				                </table> 
+				            </div>
+				        </div> 
+		            </form>  
+		            <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom remark-btn-box">  
+		                <input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-sure-btn remark-sure-btn" type="button" value="确定" />
+						<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-canel-btn remark-canel-btn" type="button" value="取消" />
+		            </div>  
+		          </div>  
+		          <!--主体内容部分END-->  
+		    </div>
+		    <!--修改备注END-->
+			
+			<!--修改开票信息详情STAR-->
+			<div class="yt-pop-model yt-edit-alert look-billing-inf-alert" style="width: 620px;">  
+	          <!--标题区域START-->  
+	          <div class="yt-edit-alert-title">  
+	                <span class="yt-edit-alert-title-msg">开票信息</span>  
+	          </div>  
+	          <!--标题区域END-->  
+	          <!--主体内容部分START-->  
+	          <div class="yt-edit-alert-main cont-edit-test invoice-inf">  
+	            <form style=" overflow: auto;" class="alert-form"> 
+					<div class="tab-content class-info get-project-inf">
+						<div class="class-info-centent">
+							
+			                <table class="look-bill-info-table" style="margin: 0 auto;">  
+			                    <tr>  
+			                        <td align="right" style="width: 100px;">发票类型：</td> 
+			                        <td style="width: 200px;" align="left" class="invoice-model-info"></td>  
+			                        <td width="100px" align="right">名称：</td> 
+			                        <td style="width: 200px;" align="left" class="org-name-info"></td>  
+			                    </tr>
+			                    <tr>
+			                        <td align="right">税号：</td> 
+			                        <td align="left" class="tax-number-info"></td>  
+			                        <td align="right" >地址：</td> 
+			                        <td align="left" class="address-info"></td>
+			                    </tr>  
+			                    <tr>  
+			                        <td align="right">电话：</td> 
+			                        <td align="left" class="telephone-info"></td>
+			                        <td align="right">开户行：</td> 
+			                        <td align="left" class="registered-bank-info"></td>
+			                    </tr>  
+			                    <tr>  
+			                        <td align="right">账号：</td> 
+			                        <td align="left" class="account-info"></td>
+			                    </tr>
+			                </table> 
+			            </div>
+			        </div> 
+	            </form> 
+	          </div>  
+	          <!--主体内容部分END--> 
+	          <div class="yt-eidt-model-bottom"> 
+					<input style="border-radius: 3px;margin: 0px;color: #FFF;background: #de595a;" class="yt-model-bot-btn yt-model-canel-btn" type="button" value="关闭" />
+	            </div> 
+		    </div>
+		    <!--开票信息详情END-->
+			
+			<!--修改开票信息STAR-->
+			<div class="yt-pop-model yt-edit-alert billing-inf-alert" style="width: 820px;">  
+	          <!--标题区域START-->  
+	          <div class="yt-edit-alert-title">  
+	                <span class="yt-edit-alert-title-msg">开票信息</span>  
+	          </div>  
+	          <!--标题区域END-->  
+	          <!--主体内容部分START-->  
+	          <div class="yt-edit-alert-main cont-edit-test invoice-inf">  
+	            <form style=" overflow: auto;" class="alert-form">  
+	            	<div class="class-info-div">
+						开票信息
+					</div>
+					<div class="tab-content class-info get-project-inf" style="height: 250px;">
+						<div class="class-info-centent edit-bill-div">
+							<input class="hid-invoice-id" type="hidden"/>
+			                <table class="write-bill-info-table" style="margin: 0 auto;position: relative;">  
+			                    <tr>  
+			                        <td align="right">发票类型：</td> 
+			                        <td>
+			                        	<select id="project-states" class="yt-select invoiceModel" style="width: 201px;" >
+											<option value="1">普通发票</option>
+											<option value="2">增值税专用发票</option>
+										</select>
+			                        </td>  
+			                       <td class="is-not-comp" colspan="2">
+			                       	<label class="check-label yt-radio check" style="margin-left: 88px;">  
+									    <input id="radio1" type="radio" name="test"  value="1"/>  
+									  	个人/事业单位  
+								    </label>  
+								    <label class="check-label yt-radio" style="margin-left: 65px;">  
+									    <input id="radio2" type="radio" name="test"  value="2"/>  
+									   	 单位
+								    </label>  
+			                       </td>
+			                    </tr>
+			                    <tr>
+			                    	 <td align="right"><span class="per-span" style="color: #F00000;">*</span>名称：</td> 
+			                        <td style="position: relative;">
+			                        	<input class="yt-input orgName" type="text" validform="{isNull:true,msg:'请填写名称'}"  placeholder="请输入" />
+			                        	<span style="position: absolute;top: 38px;left: 0px;" class="valid-font"></span>
+			                        </td>  
+			                        <td width="135px" align="right"><span class="comp-span" style="color: #F00000;"></span>税号：</td> 
+			                        <td style="position: relative;">
+			                        	<input class="yt-input taxNumber" type="text" validform="{isNull:true,msg:'请填写税号'}"  placeholder="请输入" />
+			                       		<span style="position: absolute;top: 38px;left: 0px;" class="valid-font"></span>
+			                        </td>  
+			                    </tr>  
+			                    <tr>  
+			                    	<td align="right"><span class="comp-label-span" style="color: #F00000;"></span>地址：</td> 
+			                        <td style="position: relative;">
+			                        	<input class="yt-input address" type="text" validform="{isNull:true,msg:'请填写地址'}"  placeholder="请输入" />
+			                        	<span style="position: absolute;top: 38px;left: 0px;" class="valid-font"></span>
+			                        </td>
+			                        <td align="right"><span class="comp-label-span" style="color: #F00000;"></span>电话：</td> 
+			                        <td style="position: relative;">
+			                        	<input class="yt-input telephone" type="text" validform="{isNull:true,msg:'请填写电话号'}"  placeholder="请输入" />
+			                        	<span style="position: absolute;top: 38px;left: 0px;" class="valid-font"></span>
+			                        </td>
+			                    </tr>  
+			                    <tr>  
+			                    	<td align="right"><span class="comp-label-span" style="color: #F00000;"></span>开户行：</td> 
+			                        <td style="position: relative;">
+			                        	<input class="yt-input registeredBank" type="text" validform="{isNull:true,msg:'请填写开户行'}"  placeholder="请输入" />
+			                        	<span style="position: absolute;top: 38px;left: 0px;" class="valid-font"></span>
+			                        </td>
+			                        <td align="right"><span class="comp-label-span" style="color: #F00000;"></span>账号：</td> 
+			                        <td style="position: relative;">
+			                        	<input class="yt-input account" type="text" validform="{isNull:true,msg:'请填写账号'}"  placeholder="请输入" />
+			                        	<span style="position: absolute;top: 38px;left: 0px;" class="valid-font"></span>
+			                        </td>
+			                    </tr>
+			                </table> 
+			            </div>
+			        </div> 
+	            </form>  
+	            <!--底部按钮START-->  
+	            <div class="yt-eidt-model-bottom">  
+	               <input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-sure-btn sreduction-details-sure-btn" type="button" value="确定" />
+						<input style="border-radius: 3px;" class="yt-model-bot-btn yt-model-canel-btn sreduction-details-canel-btn" type="button" value="取消" />
+	            </div>  
+	          </div>  
+	          <!--主体内容部分END-->  
+		    </div>
+		    <!--开票信息END-->
+		    
+		    <!--开具发票STAR-->
+				<div class="yt-pop-model yt-edit-alert write-billing-alert" style="width: 1100px;">  
+		          <!--标题区域START-->  
+		          <div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">开具发票</span>  
+		          </div>  
+		          <!--标题区域END-->  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main cont-edit-test invoice-inf">  
+		            <form style=" overflow: auto;" class="alert-form">  
+		            	<div class="class-info-div">
+							开具发票
+						</div>
+						<div class="tab-content class-info get-project-inf">
+							<div class="class-info-centent">
+				                <table class="write-bill-table" style="margin: 0 auto;">
+				                	<tr>
+				                		<td style="text-align: right;">发票类型：</td>
+				                		<td class="invoice-type-td" style="width: 300px;">
+				                			<!--<label class="check-label yt-radio check">
+												<input class="invoice-type radio" type="radio" name="radioType1" value="2"/>增值税专用发票
+											</label>
+											<label class="check-label yt-radio" style="margin-left: 20px;">
+											 	<input class="invoice-type radio" type="radio" name="radioType1" value="1"/>普通发票
+											</label>-->
+											<select class="yt-select invoice-type bill-invoice-type" style="width: 201px;" >
+											<option value="1">普通发票</option>
+											<option value="2">增值税专用发票</option>
+										</select>
+				                		</td>
+				                		<td colspan="2" class="invoice-model-td" style="width: 230px;">
+				                			<label class="check-label yt-radio  bill-check group-check check">
+												<input class="invoice-model radio" type="radio" name="radioType" value="2"/>企业
+											</label>
+											<label class="check-label yt-radio bill-check person-check" style="margin-left: 20px;">
+											 	<input class="invoice-model radio" type="radio" name="radioType" value="1"/>个人/事业单位
+											</label>
+				                		</td>
+				                	</tr>
+				                    <tr>  
+				                        <td width="135px" align="right">名称：<span class="org-name-span" style="color:red;font-weight:bold">*</span></td> 
+				                        <td style="position: relative;">
+				                        	<input class="yt-input duty-org-name" data-val="orgName" type="text"  placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入名称'}"/>
+				                        	<span class="valid-font" style="position: absolute; top: 40px;left: 0px;"></span>
+				                        </td>  
+				                         <td align="right">税号：<span class="tax-number-span" style="color:red;font-weight:bold;">*</span></td> 
+				                        <td>
+				                        	<input class="yt-input duty-tax-number" data-val="taxNumber" type="text"  placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入税号'}"/>
+				                        	<span class="valid-font"></span>
+				                        </td> 
+				                    </tr> 
+				                    <tr>  
+				                        <td align="right">电话：<span class="telephone-span" style="color:red;font-weight:bold;display: none;">*</span></td> 
+				                        <td style="position: relative;">
+				                        	<input class="yt-input duty-telephone" data-val="telephone" type="text"  placeholder="请输入" validform="{isNull:false,blurFlag:false,type:'phone',msg:'请输入电话'}"/>
+				                        	<span class="valid-font" style="top: 40px;left: 0px;"></span>
+				                        </td>
+				                       <td align="right">地址：<span class="address-span" style="color:red;font-weight:bold;display: none;">*</span></td> 
+				                        <td>
+				                        	<input class="yt-input duty-address" data-val="address" type="text"  placeholder="请输入" validform="{isNull:false,blurFlag:false,msg:'请输入地址'}"/>
+				                        	<span class="valid-font"></span>
+				                        </td>
+				                    </tr>  
+				                    <tr>  
+				                    	 <td align="right">开户行：<span class="bank-span" style="color:red;font-weight:bold;display: none;">*</span></td> 
+				                        <td style="position: relative;">
+				                        	<input class="yt-input duty-registered-bank" data-val="registeredBank" type="text"  placeholder="请输入" validform="{isNull:false,blurFlag:false,msg:'请输入开户行'}"/>
+				                        	<span class="valid-font" style="top: 40px;left: 0px;"></span>
+				                        </td>
+				                        <td align="right">账号：<span class="account-span" style="color:red;font-weight:bold;display: none;">*</span></td> 
+				                        <td>
+				                        	<input class="yt-input duty-account" data-val="account" type="text"  placeholder="请输入" validform="{isNull:false,blurFlag:false,msg:'请输入账号'}"/>
+				                      		<span class="valid-font"></span>		
+				                        </td>
+				                    </tr>
+				                </table> 
+				                <table class="duty-table" style="margin:10px auto;">
+				                	<tr>
+				                		<td style="text-align: center;height: 40px;">货物或应税劳务、服务名称</td>
+				                		<td style="text-align: center;">规格型号</td>
+				                		<td style="text-align: center;">单位</td>
+				                		<td style="text-align: center;">数量</td>
+				                		<td style="text-align: center;">单价（含税）</td>
+				                		<td style="text-align: center;">金额（含税）</td>
+				                		<td style="text-align: center;">税率</td>
+				                		<td style="text-align: center;">税额</td>
+				                	</tr>
+				                	<tr>
+				                		<td style="height: 40px;">
+				                			<select style="width: 200px;" class="yt-select duty-invoiceOrder-type" name="">
+				                				<option value="1">培训费</option>
+				                				<option value="2">住宿费</option>
+				                				<option value="3">餐费</option>
+				                				<option value="4">咨询服务费</option>
+				                				<option value="5">培训服务费</option>
+				                				<option value="6">会议费</option>
+				                			</select>
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: left;" class="yt-input iduty-specification-model" type="text" placeholder="请输入规格型号" />
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: left;" class="yt-input iduty-invoice-group" type="text" placeholder="请输入单位" />
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: right;" class="yt-input iduty-invoice-number" type="text" placeholder="请输入数量" />
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: right;" class="yt-input iduty-invoice-unit-price" type="text" placeholder="请输入单价" />
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: right;" class="yt-input iduty-tuition" type="text" placeholder="请输入总金额" />
+				                		</td>
+				                		<td style="width: 100px;text-align: right;" class="taxt-rat">%16</td>
+				                		<td style="width: 100px;text-align: right;" class="taxt-rat-money"></td>
+				                	</tr>
+				                </table>
+				            </div>
+				        </div> 
+		            </form>  
+		            <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom duty-sure-btn-table">  
+		                <input class="yt-model-bot-btn yt-model-sure-btn duty-sure-btn" type="button" value="确定" />  
+		                <input class="yt-model-bot-btn yt-model-canel-btn duty-canle-btn" type="button" value="取消" />  
+		            </div>  
+		          </div>  
+		          <!--主体内容部分END-->  
+		    </div>
+		    <!--开具发票END-->
+		    
+		    <!--查询学员详情START-->
+			<div class="yt-pop-model yt-edit-alert student-details-form" style="width: 1080px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title">
+					<span class="yt-edit-alert-title-msg">学员详情</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+
+					<div style="height: 209px;position: relative;">
+						<table class="student-details-table">
+							<tr>
+								<td align="right">姓名：</td>
+								<td data-text="realName" style="width: 330px;"></td>
+								<td align="right">组号：</td>
+								<td data-text="groupNum"></td>
+							</tr>
+							<td align="right">性别：</td>
+							<td data-text="gender"></td>
+							<td align="right">电话：</td>
+							<td data-text="phone"></td>
+							</tr>
+							<td align="right">身份证号：</td>
+							<td data-text="idNumber"></td>
+							<td align="right">集团：</td>
+							<td data-text="groupName"></td>
+							</tr>
+							<td align="right">单位：</td>
+							<td data-text="groupOrgName"></td>
+							<td align="right">部门/职位：</td>
+							<td data-text="deptName"></td>
+							</tr>
+						</table>
+						<div style="display: inline-table; width: 102px;height: 136px;border:1px dashed #cdcdcd;position: absolute;top: 40px;">
+							<img class="student-details-img" src="../../resources/images/icons/loading123.gif" style="width: 32px;height:32px;margin: 50px 0px 0px 35px;" />
+						</div>
+					</div>
+					<div class="student-details-tecket">
+						<span class="ticket-open-msg" style="background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;color:#FFF;">开票信息</span>
+						<table style="width: 960px;margin-top: 20px;">
+							<tr>
+								<td align="right" style="width: 85px;">发票类型：</td>
+								<td style="width: 200px;" data-text="invoiceType"></td>
+								<td align="right" style="width: 53px;">名称：</td>
+								<td data-text="orgName"></td>
+								<td align="right" style="width:60px">税号：</td>
+								<td data-text="taxNumber" style="width: 255px;"></td>
+							</tr>
+							<tr>
+								<td align="right" style="width: 43px;">电话：</td>
+								<td data-text="telephoneProject"></td>
+								<td align="right" width="70px">开户行：</td>
+								<td data-text="registeredBank" style="width: 255px;"></td>
+								<td align="right">账号：</td>
+								<td data-text="account" style="width: 200px;"></td>
+							</tr>
+							<tr>
+								<td align="right" style="width: 43px;">地址：</td>
+								<td colspan="5" data-text="address"></td>
+							</tr>
+						</table>
+					</div>
+					
+					<div style="width: -webkit-fit-content;margin: 13px auto 0px;">
+						<div class="student-details-msgges" style="width: 247px;">
+							<span class="ticket-open-msg" style="background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;color:#FFF;">报到信息</span>
+							<p><span>报到状态：</span><span data-text="checkInState"></span></p>
+							<p><span>报到时间：</span><span data-text="checkInDate"></span></p>
+						</div>
+						<div class="student-details-msgges" style="width: 247px;">
+							<span class="ticket-open-msg" style="background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;color:#FFF;">对账信息</span>
+							<p><span>对账状态：</span><span data-text="paymentState"></span></p>
+							<p><span>对账时间：</span><span data-text="paymentDate"></span></p>
+						</div>
+						<div class="student-details-msgges" style="width: 247px;">
+							<span class="ticket-open-msg" style="background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;color:#FFF;">住宿信息</span>
+							<p><span>住宿房间：</span><span data-text="roomNumber"></span></p>
+							<p><span>入住时间：</span><span data-text="roomNumberDate"></span></p>
+						</div>
+						<div class="student-details-msgges" style="width: 247px;">
+							<span class="ticket-open-msg" style="background: #5B66AB url(../../resources/images/icons/left-top.png) no-repeat;color:#FFF;color:#FFF;">开票信息</span>
+							<p><span>开票状态：</span><span data-text="isOrderNum"></span></p>
+							<p><span>发票号：</span><span data-text="orderNum"></span></p>
+						</div>
+					</div>
+				</div>
+
+				<!--底部按钮START-->
+				<div class="yt-eidt-model-bottom" style="border: none;">
+					<input class="yt-model-bot-btn yt-model-sure-btn" type="button" value="关闭" />
+				</div>
+				<!--主体内容部分END-->
+			</div>
+		    <!--查询学员详情START-->
+		    
+	    </div>
+	    <!--发票END-->
+	    
+	    
+	    
+	    
+	    <div class="content-box class-div" style="background: #f3f3f3;">
+			<div class="class-info-div">
+				班级信息
+			</div>
+			<div class="tab-content class-info">
+				<div class="class-info-centent">
+					<table class="class-info-table">
+						<tr>
+							<td width="160px">
+								<span class="project-code-span">班级编号：</span>
+							</td>
+							<td width="360px">
+								<div type="text" class="project-code project-div"></div>
+							</td>
+							<td width="160px">
+								<span>班级名称：</span>
+							</td>
+							<td>
+								<div type="text" class="project-name project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>项目类型：</span>
+							</td>
+							<td>
+								<div type="text" class="project-type project-div"></div>
+							</td>
+							<td>
+								<span>培训天数：</span>
+							</td>
+							<td colspan="3">
+								<div type="text" class="train-date project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>培训日期：</span>
+							</td>
+							<td>
+								<div type="text" class="start-date project-div"></div>
+							</td>
+							<td>
+								<span>结束日期：</span>
+							</td>
+							<td>
+								<div type="text" class="end-date project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>项目简介：</span>
+							</td>
+							<td colspan="3" class="details project-div">
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!--委托单位信息-->
+			<div class="class-info-div entrust-info-title" style="margin-left: 0px;">
+				委托单位信息
+			</div>
+			<div class="tab-content entrust-info">
+				<div class="entrust-info-centent">
+					<table class="entrust-info-table">
+						<tr>
+							<td width="160px">
+								<span>单位名称：</span>
+							</td>
+							<td width="360px">
+								<div type="text" class="customer-unit project-div"></div>
+							</td>
+							<td width="160px">
+								<span>负责部门：</span>
+							</td>
+							<td>
+								<div type="text" class="customer-dept project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>联系人：</span>
+							</td>
+							<td>
+								<div type="text" class="customer-linkman project-div"></div>
+							</td>
+							<td>
+								<span>职务：</span>
+							</td>
+							<td>
+								<div type="text" class="customer-linkman-position project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>电话：</span>
+							</td>
+							<td>
+								<div type="text" class="customer-linkman-phone project-div"></div>
+							</td>
+							<td>
+								<span>手机：</span>
+							</td>
+							<td>
+								<div type="text" class="customer-linkman-cellphone project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>传真：</span>
+							</td>
+							<td>
+								<div type="text" class="customer-linkman-fax project-div"></div>
+							</td>
+							<td>
+								<span>邮箱：</span>
+							</td>
+							<td>
+								<div type="text" class="customer-linkman-email project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>学员职务：</span>
+							</td>
+							<td>
+								<div type="text" class="customer-trainee-position project-div"></div>
+							</td>
+							<td>
+								<span>学员人数：</span>
+							</td>
+							<td>
+								<div type="text" class="customer-trainee-sum project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>学员年龄结构：</span>
+							</td>
+							<td colspan="3">
+								<div type="text" class="customer-trainee-age-structure project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td valign="top">
+								<span>培训目标及课程需求：</span>
+							</td>
+							<td colspan="3" class="customer-target-demand">
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!--负责人信息-->
+			<div class="class-info-div">
+				项目负责人
+			</div>
+			<div class="person-info">
+				<div class="person-info-centent">
+	
+					<table class="person-info-table">
+						<tr>
+							<td width="160px">
+								<span>项目销售：</span>
+							</td>
+							<td width="360px">
+								<div type="text" class="project-sell project-div"></div>
+							</td>
+							<td width="160px">
+								<span class="class-boss">班主任：</span>
+							</td>
+							<td>
+								<div type="text" class="class-teacher project-div"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>项目主任：</span>
+							</td>
+							<td>
+								<div type="text" class="project-head project-div"></div>
+							</td>
+							<td>
+								<span>项目助理：</span>
+							</td>
+							<td>
+								<div type="text" class="project-aid project-div"></div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--开票历史记录-->
+				
+			</div>
+		</div>
+	      <!--开具发票STAR-->
+				<div class="yt-pop-model yt-edit-alert mergeInvoiceAlert" style="width: 1100px;">  
+		          <!--标题区域START-->  
+		          <div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">合并开票</span>  
+		          </div>  
+		          <!--标题区域END-->  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main cont-edit-test invoice-inf">  
+		            <form style=" overflow: auto;" class="alert-form">  
+		            	<div class="class-info-div">
+							合并开票
+						</div>
+						
+						<div>
+							<ul class="invoicePeople" style="height: 60px;">
+								<!--<li class="yt-list-li"><label class="check-label yt-radio"><input type="radio"/><span>赵瑞祥</span><img src="../../resources/images/icons/eyes.png" class="eyes" style="margin-left:5px;"/></label></li>-->
+							</ul>
+							<div class="clear-both"></div>
+						</div>
+						<div class="tab-content class-info">
+							<div class="class-info-centent">
+				                <table class="write-bill-table mergeInvoiceTable" style="margin: 0 auto;">
+				                	<tr>
+				                		<td style="text-align: right;">发票类型：</td>
+				                		<td class="invoice-type-td" style="width: 300px;">
+											<select class="yt-select invoice-type" style="width: 201px;" >
+											<option value="1">普通发票</option>
+											<option value="2">增值税专用发票</option>
+				                		</td>
+				                		<td style="text-align: right;"><span class="invoiceModelTitle">发票抬头：</span></td>
+				                		<td class="invoice-model-td" style="width: 230px;">
+				                			<label class="check-label yt-radio">
+												<input class="invoice-model radio" type="radio" name="radioType" value="2"/>单位
+											</label>
+											<label class="check-label yt-radio" style="margin-left: 20px;">
+											 	<input class="invoice-model radio" type="radio" name="radioType" value="1"/>个人/事业单位
+											</label>
+				                		</td>
+				                	</tr>
+				                    <tr id="invoice-tax">  
+				                        <td width="135px" align="right">名称：</td> 
+				                        <td id="invoice-org-name">
+				                        	<input class="yt-input invoice-org-name" type="text" data-val="orgName" validform="{isNull:true,msg:'请填写名称'}"  placeholder="请输入" />
+				                        	<span class="valid-font"></span>
+				                        </td>  
+				                         <td align="right">税号：</td> 
+				                        <td id="invoice-tax-number">
+				                        	<input class="yt-input invoice-tax-number" type="text" data-val="taxNumber" validform="{isNull:true,msg:'请填写税号'}" placeholder="请输入" />
+				                       		<span class="valid-font"></span>
+				                        </td> 
+				                    </tr> 
+				                    <tr>  
+				                        <td align="right">电话：</td> 
+				                        <td>
+				                        	<input class="yt-input invoice-telephone" type="text" data-val="telephone" validform="{isNull:true,msg:'请填写电话'}" placeholder="请输入" />
+				                        	<span class="valid-font"></span>
+				                        </td>
+				                       <td align="right">地址：</td> 
+				                        <td>
+				                        	<input class="yt-input invoice-address" type="text" data-val="address" validform="{isNull:true,msg:'请填写地址'}" placeholder="请输入" />
+				                       		<span class="valid-font"></span>
+				                        </td>
+				                    </tr>  
+				                    <tr>  
+				                    	 <td align="right">开户行：</td> 
+				                        <td>
+				                        	<input class="yt-input invoice-registered-bank" type="text" data-val="registeredBank" validform="{isNull:true,msg:'请填写开户行'}" placeholder="请输入" />
+				                        	<span class="valid-font"></span>
+				                        </td>
+				                        <td align="right">账号：</td> 
+				                        <td>
+				                        	<input class="yt-input invoice-account" type="text" data-val="account" validform="{isNull:true,msg:'请填写账号'}" placeholder="请输入" />
+				                        	<span class="valid-font"></span>
+				                        </td>
+				                    </tr>
+				                </table> 
+				                <table class="duty-table" style="margin:10px auto;">
+				                	<tr>
+				                		<td style="text-align: center;height: 40px;">货物或应税劳务、服务名称</td>
+				                		<td style="text-align: center;">规格型号</td>
+				                		<td style="text-align: center;">单位</td>
+				                		<td style="text-align: center;">数量</td>
+				                		<td style="text-align: center;">单价（含税）</td>
+				                		<td style="text-align: center;">金额（含税）</td>
+				                		<td style="text-align: center;">税率</td>
+				                		<td style="text-align: center;">税额</td>
+				                	</tr>
+				                	<tr>
+				                		<td style="height: 40px;">
+				                			<select style="width: 200px;" class="yt-select invoice-invoiceOrder-type" name="">
+				                				<option value="1">培训费</option>
+				                				<option value="2">住宿费</option>
+				                				<option value="3">餐费</option>
+				                				<option value="4">咨询服务费</option>
+				                				<option value="5">培训服务费</option>
+				                				<option value="6">会议费</option>
+				                			</select>
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: left;" class="yt-input invoice-specification-model" type="text" placeholder="请输入规格型号" />
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: left;" class="yt-input invoice-invoice-group" type="text" placeholder="请输入单位" />
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: right;" class="yt-input invoice-invoice-number" type="text" placeholder="请输入数量" />
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: right;" class="yt-input invoice-invoice-unit-price" type="text" placeholder="请输入单价" />
+				                		</td>
+				                		<td>
+				                			<input style="width: 120px;text-align: right;" class="yt-input invoice-tuition" type="text" placeholder="请输入总金额" />
+				                		</td>
+				                		<td style="width: 100px;text-align: right;" class="taxt-rate"></td>
+				                		<td style="width: 100px;text-align: right;" class="taxt-rate-money"></td>
+				                	</tr>
+				                </table>
+				            </div>
+				        </div> 
+		            </form>  
+		            <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom">  
+		                <input class="yt-model-bot-btn yt-model-sure-btn " type="button" value="确定" />  
+		                <input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="取消" />  
+		            </div>  
+		          </div>  
+		          <!--主体内容部分END-->  
+		    </div>
+		    <!--开具发票END-->
+		    <div class="yt-pop-model yt-edit-alert invoiceHistory" style="width:910px;">  
+		          <!--标题区域START-->  
+		          <div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">开票历史记录</span>  
+		          </div>  
+		          <!--标题区域END-->  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main cont-edit-test invoice-inf" style="padding: 20px;">
+		          	
+		          </div>  
+		          <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom">  
+		                <input class="yt-model-bot-btn yt-model-canel-btn " type="button" value="取消" />  
+		            </div>  
+		          <!--主体内容部分END-->  
+		    </div>
+		     <!--开具发票STAR-->
+				<div class="yt-pop-model yt-edit-alert manual-invoice-alert" style="width: 600px;">  
+		          <!--标题区域START-->  
+		          <div class="yt-edit-alert-title">  
+		                <span class="yt-edit-alert-title-msg">手动开具发票</span>  
+		          </div>  
+		          <!--标题区域END-->  
+		          <!--主体内容部分START-->  
+		          <div class="yt-edit-alert-main cont-edit-test manual-invoice">  
+		            <form style=" overflow: auto;" class="alert-form">  
+						<div class="tab-content class-info get-project-inf">
+							<div style="padding: 30px;">
+				                <table class="manual-invoice-table" style="margin: 0 auto;">
+				                    <tr style="height: 80px;">  
+				                        <td width="70px" align="right">发票号：<span style="color:red;font-weight:bold">*</span></td> 
+				                        <td style="position: relative;">
+				                        	<input class="yt-input manual-invoice-number" type="text"  placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入发票号'}"/>
+				                        	<span class="valid-font"></span>
+				                        </td>  
+				                         <td align="right">金额：<span style="color:red;font-weight:bold;">*</span></td> 
+				                        <td>
+				                        	<input class="yt-input manual-invoice-dollar" type="text"  placeholder="请输入" validform="{isNull:true,blurFlag:true,msg:'请输入金额'}"/>
+				                        	<span class="valid-font"></span>
+				                        </td> 
+				                    </tr> 
+				                    <tr>  
+				                        <td align="right" valign="top">备注：<span style="color:red;font-weight:bold;display: none;">*</span></td> 
+				                        <td colspan="3">
+				                        	<textarea class="yt-textarea manual-invoice-remark" style="width: 100%;"></textarea>
+				                        </td>
+				                    </tr>  
+				                </table> 
+				               
+				            </div>
+				        </div> 
+		            </form>  
+		            <!--底部按钮START-->  
+		            <div class="yt-eidt-model-bottom duty-sure-btn-table">  
+		                <input class="yt-model-bot-btn yt-model-sure-btn manual-sure-btn" type="button" value="确定" />  
+		                <input class="yt-model-bot-btn yt-model-canel-btn manual-canle-btn" type="button" value="取消" />  
+		            </div>  
+		          </div>  
+		          <!--主体内容部分END-->  
+		    </div>
+		    <!--开具发票END-->
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/ticketOpen/ticketOpenInfo.js"></script>
+	<!--图片居中裁-->
+	<script type="text/javascript" src="../../resources/js/jqthumb/jqthumb.min.js"></script>
+</html>

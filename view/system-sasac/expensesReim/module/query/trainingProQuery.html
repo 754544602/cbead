@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--引用CSS文件START-->
+		<!--滚动条样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-frame-base.min.css" />
+		<!--提示信息控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/qtip/jquery.qtip.min.css" />
+		<!--分页控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/page/yt-page.min.css" />
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/calendar/yt-calendar.min.css" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/yt-common-ie.min.css"/><![endif]-->
+		<!--引用系统页面公用样式-->
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/common/sysCommon.min.css?YTVERSIONCODE" />
+		<link rel="stylesheet" type="text/css" href="../../../../../resources-sasac/css/system/expensesReim/module/query/trainingProQuery.min.css?YTVERSIONCODE=2018061801" />
+		<!--引用CSS文件END-->
+		<title>中国大连高级经理学院教学管理ERP信息系统</title>
+	</head>
+
+	<body>
+		<div class="pmPlanQuery" id="proCostUsageQuery">
+			<div class="heard-query-model">
+				<div>
+					<!--顶部查询区域START-->
+					<div class="heard-query" style="padding:15px 30px;">
+						<div>
+							<span>事前申请事由：</span>
+							<div style="display: inline-block;">
+								<!--<input type="hidden" class="query-pid" value="" />-->
+								<input type="text" class="keyword-input yt-input query-text"  placeholder="请输入关键字" style="width: 200px;" />
+								<img class="clearImg" src="../../../../../resources-sasac/images/system/expensesReim/common/sc_ret.png" />
+							</div>
+							<div style="display: inline-block;margin-left:40px ;">
+								<span>申请日期：</span><input class="calendar-input top-date" style="width: 195px;" id="startDate" type="text" placeholder="请选择日期" /><label class="separator">-</label>
+								<input class="calendar-input bottom-date" style="width: 195px;" id="endDate" type="text" placeholder="请选择日期" />
+								<button class="yt-option-btn yt-search-btn" onselectstart="return false " style="margin-left: 20px;" id="heardSearchBtn">查询 </button>
+								<button class="yt-option-btn yt-reset-btn" style="margin-left: 10px;" id="resetBtn">重置</button>
+							</div>
+						</div>
+					</div>
+					<!--顶部查询区域END-->
+					<!--拆分页面START-->
+					<div class="interval-div"></div>
+					<!--拆分页面END-->
+				</div>
+				<div style="padding: 20px 25px 0;">
+					<label style="color: #111111;font-weight: bold;font-size:16px;">培训项目事前申请情况</label>
+					<div class="sort-btn-list" style="padding-top: 15px;">
+						<span style="font-size: 16px;">排序方式：</span>
+						<button class="yt-option-btn yt-search-btn money-sort-btn" id="" btn-val="IFNULL(IFNULL(m.NEW_ADVANCE_AMOUNT,IFNULL(m.ADVANCE_AMOUNT,0.00))-IFNULL(m.ADVANCE_AMOUNT,0.00),0.00)">按差异金额倒序排列</button>
+						<button class="yt-option-btn yt-search-btn money-count-sort-btn" style="margin-left: 10px;" btn-val="m.NEW_ADVANCE_NUM" id="">按金额调整次数倒序排列</button>
+						<button class="yt-option-btn yt-search-btn date-sort-btn" style="margin-left: 10px;" btn-val="m.APPLICANT_TIME" id="">按申请日期倒序排列</button>
+						<button class="yt-option-btn yt-search-btn export-excel" id="" style="float: right;">导出查询结果</button>
+					</div>
+					<div style="padding-top: 15px;" class="radio-input-list">
+						<span style="font-size: 16px;">筛选条件：</span>
+						<label class="check-label yt-radio" style="margin-right: 40px;">  
+						    <input id="radio1" type="radio" name="test"  value="m.NEW_ADVANCE_NUM>0"/> 只看调整过  
+					    </label>
+						<label class="check-label yt-radio" style="margin-right: 40px;">  
+						    <input id="radio2" type="radio" name="test"  value="m.NEW_ADVANCE_NUM=0"/> 只看未调整  
+					    </label>
+						<label class="check-label yt-radio check" >  
+						    <input id="radio3" type="radio" name="test"  value=""/> 全部  
+					    </label>
+					    
+					</div>
+				</div>
+				<!--列表显示区域START-->
+				<div class="plan-list-model" style="margin: 15px 25px;">
+					<div style="float: right;margin-bottom:10px ;">调整总金额：<span class="all-amount" style="font-weight: bold;font-size: 18px;"></span>元</div>
+					<table class="yt-table pro-cost-table" width="100%">
+						<thead class="yt-thead">
+							<tr>
+								<th style="width: 130px;">事前申请单据编号</th>
+								<th>事前申请事由</th>
+								<th style="width: 60px;">金额调整次数</th>
+								<th style="width: 100px;">初始申请金额（元）</th>
+								<th style="width: 100px;">调整后金额（元）</th>
+								<th style="width: 110px;">调整金额（元）<br />【调整后-初始】</th>
+								<!--<th style="width: 110px;">差异率<br />【调整后/初始】</th>-->
+								<th style="width: 80px;">申请人</th>
+								<th style="width: 70px;">部门</th>
+								<th style="width: 100px;">申请日期</th>
+								<th style="width: 70px;">操作</th>
+							</tr>
+						</thead>
+						<tbody class="yt-tbody tbody-content">
+						</tbody>
+					</table>
+					<!--<div>大额度资金使用</div>-->
+					<!--分页START-->
+					<div class="page-info table-page payment-table-page" onselectstart="return false"></div>
+					<!--分页END-->
+				</div>
+				<!--列表显示区域END-->
+			</div>
+			<!--弹出窗START-->
+			<div class="yt-pop-model yt-edit-alert adjust-number-pop" style="width: 450px;">
+				<!--标题区域START-->
+				<div class="yt-edit-alert-title model-title">
+					<span class="yt-edit-alert-icon"><img src="../../../../../resources-sasac/images/common/jilubai.png" style="width: 23px;height:25;color: #fff;"></span>
+					<span class="yt-edit-alert-title-msg">金额调整详情</span>
+				</div>
+				<!--标题区域END-->
+				<!--主体内容部分START-->
+				<div class="yt-edit-alert-main cont-edit-test">
+					<div style="padding: 15px;">
+						<div style="padding-bottom:10px;"><span style="font-weight: bold;">事前申请事由：</span><span class="app-name"></span></div>
+						<div style="padding-bottom:10px;"><span style="font-weight: bold;">项目调整总金额：</span><span class="update-advance-amount"></span>元</div>
+						<div class="content-table-div">
+							<table class="yt-table content-table" style="width: 100%;">
+								<thead class="yt-thead">
+									<tr>
+										<th>事前申请变更单据编号</th>
+										<th>调整金额（元）</th>
+										<th>调整日期</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody">
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--底部按钮START-->
+					<div class="yt-eidt-model-bottom">
+						<input style="margin-left: 0px;" class="yt-model-bot-btn yt-model-canel-btn" type="button" value="关闭" />
+					</div>
+				</div>
+				<!--主体内容部分END-->
+			</div>
+			<!--弹出窗END-->
+		</div>
+	</body>
+	<!--引用JS文件START-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/jquery.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--提示信息控件js-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/qtip/jquery.qtip.min.js"></script>
+	<!--分页控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/page/yt-page.min.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/calendar/yt-calendar.min.js"></script>
+	<!--上传-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/ajaxfile/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/yt-frame.min.js"></script>
+	<!--引用系统公用文件-->
+	<script type="text/javascript" src="../../../../../resources-sasac/js/common/sysCommon.min.js?YTVERSIONCODE"></script>
+	<script type="text/javascript" src="../../../../../resources-sasac/js/system/expensesReim/module/query/trainingProQuery.min.js?YTVERSIONCODE=20180705"></script>
+	<!--?YTVERSIONCODE=2018042802-->
+	<!--引用JS文件END-->
+
+</html>

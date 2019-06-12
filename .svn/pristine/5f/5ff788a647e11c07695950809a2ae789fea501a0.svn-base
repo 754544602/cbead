@@ -1,0 +1,1137 @@
+.customer-trainee-sum {
+	width: 76px;
+}
+
+.class-info-table span {
+	vertical-align: top;
+	float: right;
+}
+
+.entrust-info-table span {
+	vertical-align: top;
+	float: right;
+}
+
+.person-info-table span {
+	vertical-align: top;
+	float: right;
+}
+
+.teacher-div {
+	display: none;
+}
+
+.class-info {
+	background-color: #ffffff;
+	border-radius: 5px;
+	border: solid 1px #f5f5f5;
+}
+
+.entrust-info {
+	margin: 0px 0px 6px 5px;
+	background-color: #ffffff;
+	border-radius: 5px;
+	border: solid 1px #f5f5f5;
+}
+
+.person-info {
+	margin: 0px 0px 6px 5px;
+	background-color: #ffffff;
+	border-radius: 5px;
+	border: solid 1px #f5f5f5;
+}
+
+.class-info-centent {
+	margin-left: 20px;
+	margin-top: 17px;
+	height: auto;
+}
+
+.entrust-info-centent {
+	margin-left: 20px;
+	margin-top: 17px;
+	height: auto;
+}
+
+.person-info-centent {
+	margin-left: 20px;
+	margin-top: 17px;
+	height: auto;
+}
+
+.class-info-title {
+	margin: 7px 0px 0px 20px;
+}
+
+.entrust-info-title {
+	margin: 7px 0px 0px 20px;
+}
+
+.person-info-title {
+	margin: 7px 0px 0px 20px;
+}
+
+.class-info-div {
+	background: #EDEBEC;
+	position: relative;
+	height: 45px;
+	line-height: 45px;
+	font-size: 18px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #de595a;
+	padding-left: 30px;
+}
+
+.class-info-div:before {
+	position: absolute;
+	top: 50%;
+	margin-top: -13px;
+	left: 6px;
+	content: '';
+	display: inline-block;
+	height: 26px;
+	width: 6px;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+	background: #de595a;
+}
+
+.entrust-info-div {
+	height: 18px;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	font-weight: normal;
+	font-stretch: normal;
+	color: #333333;
+	margin: -11px 0px 0px -15px;
+}
+
+.person-info-div {
+	height: 18px;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	font-weight: normal;
+	font-stretch: normal;
+	color: #333333;
+	margin: -11px 0px 0px -15px;
+}
+
+.class-info-table td,
+.entrust-info-table td,
+.person-info-table td {
+	padding: 15px 0;
+	word-break: break-all;
+}
+
+.class-info-table,
+.entrust-info-table,
+.person-info-table {
+	margin: 0 auto;
+	width: 850px;
+}
+
+.details,
+.customer-target-demand {
+	resize: none;
+	width: 709px;
+	border: none;
+}
+
+.project-title-list {
+	width: width;
+	height: 51px;
+	background-color: #ffffff;
+	border-radius: 5px;
+	border: solid 4px rgba(245, 245, 245, 0.5);
+	margin: 0px 0px 6px 5px;
+	text-align: center;
+}
+
+.class-btn {
+	margin-top: 12px;
+	text-align: center;
+	line-height: 36px;
+	float: left;
+	width: 120px;
+	height: 35px;
+	border-radius: 3px;
+	border: solid 0px #cccccc;
+	font-family: MicrosoftYaHei;
+	font-size: 14px;
+	color: #6495BC;
+	background: #F9F9F9;
+}
+
+.class-info-icon1 {
+	position: absolute;
+}
+
+.class-info-icon2 {
+	margin: 10px 0px -8px 0px;
+}
+
+.class-info-name {
+	margin-left: 15px;
+	border-bottom: solid 1px #6495BC;
+}
+
+
+/*授课教师*/
+
+.teacher-info-btn-list {
+	margin: 0px 0px 0px 5px;
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 5px;
+	border: solid 4px rgba(245, 245, 245, 0.5);
+}
+
+.teacher-list-div {
+	margin: 12px 0px 0px 5px;
+	padding: 10px 0px 0px 10px;
+	background-color: #ffffff;
+	border-radius: 5px;
+	border: solid 1px #f5f5f5;
+}
+
+.teacher-tbody tr {
+	border: solid 0px #FAFAFA;
+	border-bottom: solid 1px #E6E6E6;
+}
+
+.teacher-tbody td {
+	font-size: 12px;
+
+	border-right: solid 0px #FAFAFA;
+	text-align: left;
+	padding: 12px 0px 12px 0px;
+}
+
+.teacher-content {
+	font-size: 14px;
+	color: #888888;
+	font-weight: 500;
+	margin: 12px 0px 12px 0px;
+	text-align: center;
+}
+
+.teacher-table {
+	width: 100%;
+}
+
+.teacher-realname {
+	width: 74px;
+}
+
+.teacher-gender {
+	width: 48px;
+}
+
+.teacher-phone {
+	width: 110px;
+}
+
+.teacher-dollarsstandard-half {
+	width: 117px;
+}
+
+.teacher-dollarsstandard-one {
+	width: 107px;
+}
+
+.teacher-teacherstates {
+	width: 56px;
+}
+
+.teacher-info-span {
+	float: left;
+	width: 98px;
+	height: 16px;
+	font-family: MicrosoftYaHei;
+	font-size: 16px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #111111;
+}
+
+.check-box-th {
+	text-align: center;
+	width: 43px;
+}
+
+.check-box {
+	width: 14px;
+	height: 14px;
+	background-color: #ffffff;
+	border-radius: 2px;
+	border: solid 1px #cccccc;
+}
+
+.project-code-span {
+	width: 70px;
+}
+
+.select-teacher-div {
+	width: 1100px;
+	background-color: #ffffff;
+	box-shadow: 0px 2px 4px 0px rgba(156, 156, 156, 0.5);
+	border-radius: 2px;
+}
+
+.select-teacher-table {
+	width: 1080px;
+	margin-left: 10px;
+}
+
+.select-teacher-thead {
+	width: 1080px;
+	height: 30px;
+	background-color: #f5f5f5;
+	border-radius: 2px;
+	margin-left: 10px;
+}
+
+.select-teacher-btn-div {
+	border: none !important;
+}
+
+.teacher-select-content {
+	font-size: 14px;
+	font-family: MicrosoftYaHei;
+	color: #666;
+	font-weight: bold;
+}
+
+.seach-btn {
+	position: relative;
+	background-color: #6495BC;
+	border: none;
+	float: right;
+	width: 250px;
+	height: 30px;
+	margin-right: 14px;
+	padding: 0px 0px 0px 0px;
+	margin: 10px 10px 10px 0px;
+}
+
+#keyword {
+	position: relative;
+	margin: 0px 0px 0px -10px !important;
+	display: block;
+	width: 220px;
+}
+
+.class-search-img {
+	height: 15px;
+	width: 15px;
+	position: absolute;
+	top: 8px;
+	right: 7px;
+}
+
+.ticket-teacher-table input {
+	width: 122px;
+}
+
+.ticket-teacher-use {
+	width: 80px;
+}
+
+.calendar {
+	z-index: 10000;
+}
+
+.ticket-teacher-title-span {
+	float: left;
+	margin-left: 10px;
+}
+
+.form-label {
+	width: 130px;
+	text-align: right;
+}
+
+.date-border {
+	display: inline-block;
+	width: 14px;
+	border: 1px solid #dfe6f3;
+	position: relative;
+	top: -4px;
+}
+
+.teacher-table tbody .yt-checkbox {
+	margin-left: 4px;
+}
+
+.add-course-box td {
+	padding: 10px 0;
+	position: relative;
+}
+
+.textbox {
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border: solid 1px #dfe6f3;
+}
+
+.textbox-focused {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.add-course-box .yt-radio {
+	margin-right: 20px;
+}
+
+.bgn {
+	background: #fff;
+}
+
+.course-list-tbody tr td {
+	position: relative;
+}
+
+.checkbox-top {
+	position: absolute;
+	width: 25px;
+	height: 45px;
+	background: none;
+	top: 0;
+	left: 0;
+}
+
+.upload-file-btn {
+	position: absolute;
+	width: 200px;
+	height: 35px;
+	right: 0;
+	top: 10px;
+	font-size: 98px;
+	overflow: hidden;
+	opacity: 0;
+}
+
+.file-name {
+	color: #005daf;
+	cursor: pointer;
+}
+
+.file-name:hover {
+	text-decoration: underline;
+}
+
+#l-map {
+	height: 300px;
+	width: 100%;
+}
+
+#r-result {
+	width: 100%;
+}
+
+.tangram-suggestion-main {
+	z-index: 1000;
+	height: 380px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.address-top {
+	font-size: 14px;
+	color: #333333;
+}
+
+.border-table {
+	width: 100%;
+}
+
+.border-table td,
+.border-table th {
+	border: 1px solid #e2e9ef;
+	padding: 5px;
+	text-align: left;
+	color: #333333;
+	position: relative;
+}
+
+.border-table th {
+	color: #888888;
+}
+
+.sun-head {
+	background: url(../../../images/img/sun-icon.png) no-repeat;
+}
+
+.sat-head {
+	background: url(../../../images/img/sat-icon.png) no-repeat;
+}
+
+.address-top {
+	position: relative;
+	height: 50px;
+	line-height: 50px;
+}
+
+.address-top .yt-select {
+	position: absolute;
+	top: 10px;
+	display: block;
+	left: 73px;
+}
+
+.rooms-search .all-use span,
+.rooms-search .sub-use span {
+	display: inline-block;
+	margin-right: 10px;
+	width: 8px;
+	height: 9px;
+	background: #847ccf;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+}
+
+.rooms-search .sub-use span {
+	background: #df94e0;
+}
+
+.rooms-search label {
+	margin: 0 25px 0 7px;
+	color: #555555;
+	font-size: 12px;
+}
+
+.rooms-search {
+	line-height: 38px;
+	height: 38px;
+	margin-bottom: 7px;
+}
+
+.rooms-search .key-word {
+	margin: 0;
+	top: 5px;
+	line-height: 0;
+}
+
+.select-room-box table label.check-label {
+	padding: 0;
+	margin: 0;
+	width: 15px;
+	padding-left: 0 !important;
+}
+
+.address-search {
+	position: relative;
+	height: 28px;
+	width: 348px;
+	border: 1px solid #b5b5b5;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	margin-left: 4px;
+}
+
+.address-search input {
+	border: none;
+	width: 309px;
+	height: 100%;
+	outline: none;
+	padding: 0 30px 0 10px;
+}
+
+.address-search .search-btn {
+	top: -1px;
+	right: -1px;
+	-webkit-border-radius: 0 3px 3px 0;
+	-moz-border-radius: 0 3px 3px 0;
+	border-radius: 0 3px 3px 0;
+}
+
+.tip-table td.tip-lable {
+	text-align: right;
+	color: #968deb;
+}
+
+.tip-table td {
+	color: #fff;
+	padding: 5px 0;
+}
+
+.border-table th.state-day {
+	text-align: center;
+}
+
+.state-day.all-use:after,
+.state-day.sub-use:after {
+	content: '';
+	position: absolute;
+	display: inline-block;
+	top: 50%;
+	left: -1px;
+	width: 100%;
+	height: 10px;
+	padding: 0 1px;
+	margin-top: -5px;
+	background: #847ccf;
+}
+
+.state-day.sub-use:after {
+	background: #df94e0;
+}
+
+.state-day.all-use.start-state:after,
+.state-day.sub-use.start-state:after {
+	-webkit-border-radius: 5px 0 0 5px;
+	-moz-border-radius: 5px 0 0 5px;
+	border-radius: 5px 0 0 5px;
+}
+
+.state-day.all-use.end-state:after,
+.state-day.sub-use.end-state:after {
+	-webkit-border-radius: 0 5px 5px 0;
+	-moz-border-radius: 0 5px 5px 0;
+	border-radius: 0 5px 5px 0;
+}
+
+.state-day.all-use.end-state.start-state:after,
+.state-day.sub-use.end-state.start-state:after {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.sign-address {
+	height: 60px;
+	margin-top: 10px;
+}
+
+.sign-address p {
+	margin-bottom: 10px;
+}
+
+.BMap_cpyCtrl.BMap_noprint.anchorBL,
+.anchorBL {
+	display: none;
+}
+
+
+/*打印与合并评分*/
+
+.print-couse-form table thead tr th {
+	border:1px solid #e6e6e6 ;
+	font-size: 15px;
+}
+
+.print-couse-form table tbody tr td {
+	border:1px solid #e6e6e6 ;
+	text-align: center;
+}
+
+.print-count {
+	text-align: right;
+	border: none;
+	width: 85px;
+}
+/**
+ * 合并评分列表
+ */
+.merge-score-form thead th {
+	padding: 0px 40px;
+	font-size: 15px;
+    border: 1px solid #e6e6e6;
+}
+
+.check-test-tab {
+	width: 788px;
+	margin: 10px 15px 0px 15px;
+}
+
+.merge-score-form table {
+	width: 788px;
+	margin: 10px 15px 0px 15px;
+}
+
+.print-couse-form table thead th,
+.merge-score-form table thead th,
+.apply-car-form table thead th,
+.add-apply-car-form table thead th,
+.details-tab {
+	background-color: #F5F5F5;
+	height: 35px;
+}
+
+.merge-record thead th {
+	padding: 0px 25px;
+	font-size: 15px;
+}
+
+.print-counts {
+	border: 1px solid #DFE6F3;
+}
+
+.print-tr {
+	border-bottom: solid 1px #E6E6E6;
+}
+
+.print-tr>td {
+	padding: 10px 0px;
+}
+
+.merge-record tbody tr {
+	border-bottom: solid 1px #E6E6E6;
+}
+
+.merge-record tbody td {
+	padding: 10px 0px;
+}
+
+.cancel-merge-btn {
+	cursor: pointer;
+}
+
+.yt-alert-one-msg {
+	text-align: left;
+}
+
+.merge-record {
+	border-top: 1px dashed #d9d9d9;
+	padding-top: 15px;
+	margin-top: 15px;
+}
+
+.tab-1 td{
+	padding: 7px 0px;
+}
+.apply-car-form .check-test-tab{
+	text-align: center;
+}
+.apply-car-form .check-test-tab thead th{
+	border: solid 1px #E6E6E6;
+}
+.apply-car-form .check-test-tab td{
+	padding: 15px 0px;
+	border: solid 1px #E6E6E6;
+}
+.cancel-car{
+	cursor: pointer;
+}
+ .pro-desc{  
+            width: 200px;  
+            overflow: hidden;  
+            text-overflow: ellipsis;  
+            white-space: nowrap;  
+        }  
+.class-student-form .yt-select,.class-student-stration-form .yt-select,.ticket-class-student-form .yt-select{
+	width: 201px;
+}
+.class-student-form .student-msg td,.class-student-stration-form .student-msg td,.ticket-class-student-form .student-msg td{
+	padding: 15px 0px;
+}
+.class-student-mail-form .student-msg{
+	width: 800px;
+	margin: 11px 10px;   
+}
+.class-student-mail-form .student-msg tbody td{
+	padding: 15px 10px;
+	border: solid 1px #E6E6E6;
+	text-align: left;
+}
+.class-student-mail-form .student-msg thead th{
+	border: 1px solid #e6e6e6;
+	text-align: left;
+	color: #687784;
+	padding: 0px 10px;
+}
+.class-student-upload-form .cont-edit-test .file{
+    width: 72px;
+    height: 30px;
+    background: #363845;
+    color: #ffffff;
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+	#fileName,#fileNames,#ticketeName{
+		position: absolute;
+		left: 72px;
+		opacity: 0;
+		width: 66px;
+		height: 30px;
+		font-size: 21px;
+	}	
+	.class-student-upload-form .class-student-upload-img{
+		height: 100px;
+		width: 420px;
+		margin: 0 auto;
+		overflow: auto;
+		border:1px solid #DFE6F3;
+		margin-bottom: 12px;
+		border-radius: 4px;
+	}
+.student-div .student-list-tbody td{
+	padding: 13px 0px;
+}
+.batch-import-choose{
+    display: inline-block;
+    background: #363845;
+    width: 52px;
+    height: 30px;
+    border: 1px solid #dfe6f3;
+    border-radius: 4px;
+    line-height: 30px;
+    font-size: 15px;
+    vertical-align:top;
+}
+/**
+ * 预定房间按钮
+ */
+.class-reserve-room-from .list-tbody td,.class-reserve-room-from th{
+	border: 1px solid #e6e6e6;
+}
+.class-reserve-room-from .list-tbody td input{
+	width: 50px;
+}
+.class-student-set-group-from table{
+	   width: 330px;
+    margin: 0px auto 10px;
+}
+.class-student-set-group-from table td{
+	padding-top: 20px;
+}
+.class-student-set-group-from .set-group-list{
+	    width: 277px;
+    height: 90px;
+    border: 1px solid #DFE6F3;
+    overflow: auto;
+}
+.class-student-set-group-post-from .set-group-lable label,.class-student-set-committee-from .set-group-lable label{
+	margin-left: 23px;
+}
+.student-details-table{
+	width: 800px;
+	margin-left: 50px;
+	display: inline-block;
+}
+.student-details-table td{
+	padding: 15px 0px;
+}
+.ticket-open-msg{
+	display: block;
+    background: #5b66ab;
+    color: #ffffff;
+    height: 31px;
+    width: 83px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 2px;
+}
+.pring-list{
+	height: 200px;
+	overflow: auto;
+}
+.pring-list table{
+    width: 800px;
+    margin: 11px auto;
+    height: 135px;
+}
+.pring-list tbody td{
+	border:1px solid #f4f6fb ;
+	padding: 13px 4px;
+}
+.pring-list thead tr{
+	background: #f5f5f5;
+    height: 30px;
+    text-align: left;
+}
+.print-opera{
+    width: 800px;
+    height: 180px;
+    margin: 27px auto 10px;
+}
+.print-opera tbody td{
+	padding: 13px 0px;
+}
+/**
+ * 查看学员详细信息css
+ */
+.student-details-tecket{
+	width: 1040px;
+	height: 192px;
+	border: 1px solid #F6F6F6;
+	margin-left: 17px;
+}
+.student-details-tecket tbody td{
+	padding: 10px 0px;
+}
+.student-details-msgges{
+	width: 247px;
+	height: 145px;
+	border: 1px solid #f2f2f2;
+	display: inline-block;
+	margin: 0px 6px;
+}
+.student-details-msgges p{
+	margin: 25px 0px 10px 8px ;
+}
+.student-details-train-record{
+	width: 1000px;
+	margin: 15px auto 0;
+}
+.student-details-train-record thead tr{
+	background: #F5F5F5;
+	height: 30px;
+}
+.student-details-train-record thead tr th,.student-details-train-record tbody td{
+	text-align: left;
+
+	border:1px solid #E6E6E6;
+}
+.student-details-train-record thead tr th{
+	padding-left: 10px;
+}
+.jqthumb{
+	margin: 3px 6px;
+}
+/**
+ * 学员手册样式
+ */
+.student-manual-page{
+	height: 46px;
+	background: #F5F5F5;
+	border-radius: 0px 0px 2px 2px;
+	border: solid 1px #E5E5E5;
+	margin: 0px 6px;
+	font-size: 0;
+}
+.student-manual-btn{
+	width: 120px;
+	height: 46px;
+	cursor: pointer;
+	border-radius: 0;
+	color: black;
+	background: #F5F5F5;
+    border-top: 5px solid #F5F5F5;
+}
+.teach-content{
+	padding: 20px ;
+	background: #FFFFFF;
+	border: solid 1px #f5f5f5;
+	border-radius: 2px;
+}
+.teach-content-box{
+	margin: 0 auto;
+	width: 840px;
+}
+.upload-or-code-img{
+	width: 125px;
+	height: 125px;
+	display: block;
+}
+#uploadOrCode{
+    width: 111px;
+    height: 22px;
+    font-size: 23px;
+    position: absolute;
+    left: 17px;
+    opacity: 0;
+    cursor: pointer;
+    overflow: hidden;
+}
+.work-personnel-table{
+	width: 800px;
+	margin: 0 auto 10px;
+}
+.work-personnel-table thead tr{
+	height: 30px;
+    background: #f5f5f5;
+    border-radius: 2px;
+    text-align: left;
+}
+.work-personnel-table thead th{
+	padding-left: 10px;
+}
+.work-personnel-table tbody tr{
+	border-bottom:1px solid #E6E6E6 ;
+}
+.work-personnel-table tbody td{
+	padding: 10px 0px;
+	text-align: left;
+}
+.work-personnel-table tbody input{
+	width: 150px;
+}
+.work-personnel-table tbody img{
+	margin-left: 6px;
+	cursor: pointer;
+}
+.add-student-manual,.add-notice-reception{
+    text-align: center;
+    height: 30px;
+    width: 800px;
+    margin: 0 auto;
+    line-height: 30px;
+    color: #7b74c7;
+    border: 1px dashed #e6e6e6;
+    cursor: pointer;
+}
+.add-student-manual img{
+	position: absolute;
+	left: -24px;
+	top: 3px;
+}
+.preview-div{
+	text-align: center;
+}
+.preview-div:before{
+	display: none;
+}
+/**
+ * 改变页签按钮的样式
+ */
+.change-page-sign{
+	border-top: 5px solid #3c4687;
+	color: #3c4687;
+	background: #edebec;
+}
+#edui1{
+	z-index:0 !important;
+}
+.flight-train-number,.place-departure,.bourn,.fares,.change-fee-refund{
+	width: 90px;
+	border: 1px solid #dfe6f3;
+	height: 30px;
+}
+/**
+ * 授课教师页面添加样式
+ */
+.select-ticket-div thead th,.select-teacher-div thead th{
+	border: 1px solid #E6E6E6;
+}
+.select-ticket-div .ticket-teacher-tbody td{
+	padding:4px;
+}
+.shuttle-box tbody td{
+	padding: 4px;
+}
+.route-give{
+	color: #a8a3dc;
+}
+.route-meet{
+	color: #f8deb9;
+}
+/**
+ * 出勤管理
+ */
+.page-switch{
+	height: 46px;
+	margin-left: 10px;
+	background-color: #F5F5F5;
+}
+.switch-btn{
+	height: 46px;
+    width: 100px;
+    padding: 0px;
+    border-radius: 0px;
+    background: #f5f5f5;
+    color: black;
+    border-top: 4px solid #f5f5f5;
+}
+.switch-btn-change{
+	border-top: 4px solid #3C4687;
+	border-radius: 1px;
+	background: #edebec;
+    color: #3c4687;
+}
+#edui27{
+	z-index: 0 !important;
+}
+.colour-yellow{
+	 color: #f59700;;
+}
+.colour-blue{
+	color: #847ccf;
+}
+/**
+ * 结业证
+ */
+.certificate-end-div .graduation-form table{
+	margin: 0 auto;
+}
+.certificate-end-div .graduation-form table tr td{
+	padding: 10px 0px;
+}
+/**
+ * 接待通知
+ */
+.little-title{
+	width: 221px;
+	height: 34px;
+	margin-left: 15px;
+	position: relative;
+	background: url(../../../images/classStudent/bianhao2.png) no-repeat;
+}
+.reception-notice td{
+	padding: 16px 0px;
+}
+.little-title-content{
+	margin: 10px 0px ;
+}
+.little-title-content table{
+	width: 99%;
+	margin: 0 auto;
+}
+.little-title-content thead tr{
+	background: #F5F5F5;
+	height: 30px;
+}
+.little-title-content thead td{
+	text-align: center;
+	border: 1px solid #E6E6E6;
+}
+.little-title-content tbody td{
+	text-align: center;
+	padding: 5px 0px;
+	border: 1px solid #E6E6E6;
+}
+.project-head-select{
+	width: 200px;
+}
+#edui51{
+	z-index: 0 !important;
+}
+#treeDiv{
+	width: 200px !important;
+}
+.yt-must{
+	background: url(../images/icons/must-icon.png) no-repeat;
+    height: 8px;
+    width: 7px;
+    display: inline-block;
+}
+.preview-course tbody td{
+	border:1px solid #E6E6E6;
+}
+.preview-student-list table td{
+	padding: 10px 0px;
+	border:1px solid #E6E6E6;
+}
+.tip-input{
+	    border: 1px solid #DFE6F3 !important;
+}
+.leave-resion{
+	width: 252px;
+	overflow: hidden;  
+    text-overflow: ellipsis;  
+	white-space: nowrap;  
+}
+.pring-list thead th{
+	border: solid 1px #E6E6E6;
+}

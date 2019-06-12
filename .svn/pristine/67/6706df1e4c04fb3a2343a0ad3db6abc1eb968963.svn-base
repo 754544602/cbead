@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=Edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--样式文件引用-->
+		<link rel="stylesheet" type="text/css" href="../../resources/js/scroll/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/common/yt-common.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/page/yt-page.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/project/addProjectList.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/class/classInfo.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/borrow/borrow.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/news/news.css" />
+		<link rel="stylesheet" type="text/css" href="../../resources/css/modules/open/newOpenStyle.css"/>
+		<!--日期控件-->
+		<link rel="stylesheet" type="text/css" href="../../resources/css/calendar/yt-calendar.min.css" />
+		<title>费用减免审批</title>
+	</head>
+
+	<body>
+		<div id="project-main" style="min-width: 1100px;">
+			<div class="head-div" style="margin-bottom: 0px;">
+				<div class="search-btn-slect">
+					<div class="">
+						<button class="page-return-btn">
+							<img class="class-return-img" src="../../resources/images/icons/class-return.png">
+							返回
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="box-list">
+				<!--项目预算申请-->
+				<div class="content-box budget-inf valid-tab">
+					<div class="class-info-div">
+						费用减免详情
+						<div style="margin-right: 25px;">
+							<span class="work-flaw-state" style="float: right;font-size: 15px"></span>
+							<span style="float: right;font-weight: bold;font-size: 15px;">状态：</span>
+						</div>
+						
+						<!--隐藏数据-->
+						<input type="hidden" class="hid-process-instance-id" value=""/>
+						<input type="hidden" class="hid-tast-key" value="" />
+					</div>
+					<div class="tab-content class-info get-project-inf add-project">
+						<div class="class-info-centent" style="margin-bottom: 25px;margin: 0 auto;width: 850px;">
+							<table class="class-info-table">
+								<tr>
+									<td align="right">
+										<span style="font-weight: bold;font-size: 15px;">申请类型：</span>
+									</td>
+									<td colspan="3">
+										<span style="float: left;">费用减免</span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span style="width:160px">申请人：</span>
+									</td>
+									<td width="300px">
+										<span style="float: left;width: 300px;text-align: left;" class="create-user" data-val=""></span>
+									</td>
+									<td align="right">
+										<span style="width: 90px;">申请部门：</span>
+									</td>
+									<td width="300px">
+										<span style="float: left;width: 300px;text-align: left;" class="dept-name" data-val=""></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>申请时间：</span>
+									</td>
+									<td>
+										<span style="float: left;" class="create-time-string" data-val=""></span>
+									</td>
+									<td align="right">
+										<span>班主任：</span>
+									</td>
+									<td>
+										<span style="float: left;" class="class-teacher" data-val=""></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>项目编号：</span>
+									</td>
+									<td>
+										<span style="float: left;" class="project-code" data-val=""></span>
+									</td>
+									<td align="right">
+										<span>项目名称：</span>
+									</td>
+									<td>
+										<span style="float: left;" class="project-name" data-val=""></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>项目类型：</span>
+									</td>
+									<td>
+										<span style="float: left;" class="project-type" data-val=""></span>
+									</td>
+									<td align="right">
+										<span>项目主任：</span>
+									</td>
+									<td>
+										<span style="float: left;" class="project-head" data-val=""></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span>开班日期：</span>
+									</td>
+									<td>
+										<span style="float: left;" class="start-date" data-val=""></span>
+									</td>
+									<td align="right">
+										<span>结束日期：</span>
+									</td>
+									<td>
+										<span style="float: left;" class="end-date" data-val=""></span>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span style="font-weight: bold;">减免总金额：</span>
+									</td>
+									<td colspan="3">
+										<span class="post-remission-money" style="font-weight: bold;float: left;"></span>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="class-info-div">
+						减免明细
+					</div>
+					<div class="tab-content class-info get-project-inf add-project">
+						<div class="">
+							<table class="select-teacher-table" style="width: 100%;margin: 0px;">
+								<thead class="select-teacher-thead">
+									<tr style="height: 30px;">
+										<th style="text-align: center;">费用类型</th>
+										<th style="text-align: center;">减免人数</th>
+										<th style="text-align: center;">减免前标准（单价）</th>
+										<th style="text-align: center;">减免后标准（单价）</th>
+										<th style="text-align: center;">减免总金额</th>
+									</tr>
+								</thead>
+								<tbody class="yt-tbody list-tbody project-tbody">
+									<tr>
+										<td colspan="6" align="center" style="border:0px;">
+											<div class="no-data" style="width: 280px;margin: 0 auto;">
+												<img src="../../resources/images/common/no-data.png" alt="" style="padding: 35px 0 20px;">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="class-info-div">
+						减免事由
+					</div>
+					<div class="tab-content class-info get-project-inf add-project" style="">
+						<div style="margin-left: 20px;margin-top: 17px;">
+							<div style="margin: 0 auto;width: 850px;">
+								<div class="remission-cause-div" style="width: 150px;text-align: right;float: left;">
+									<span style="position: relative;line-height: 42px;vertical-align: top;">减免事由：</span>
+								</div>
+								<div>
+									<span style="line-height: 42px;" class="remission-cause" data-val=""></span>
+								</div>
+							</div>
+						</div>
+					</div>
+<!------------------------------------------------------------------------------------------------------>			
+					<!--审批流程STAR-->
+					<div class="class-info-div">
+								审批流程
+					</div>
+					<div class="content-div-box">
+						<div class="procedure-box" style="width: 970px;margin: 0px auto;">
+							<!--审批流程最后一步STAR-->
+							<div class="last-step last-step-div">
+								<div class="number-name-box">
+									<span class="number-box-span last-step-order" >3</span>
+									<span class="name-box-span last-step-operate-person-userName" >王大勇</span>
+									<img src="../../resources/images/open/open-sp.png" width="100%" height="100%" />
+								</div>
+								<div class="view-box-div" style="height: 210px;">
+									<span class="last-step-commentTime-span last-step-commentTime" style="width: auto;">2018-07-01 12:00</span>
+									<form>
+										<table class="add-new-tab" cellspacing="1px" cellpadding="1px" style=" ">
+											<tr>
+												<td class="operate-state-title-td">操作状态：</td>
+												<td  class="sp-state last-step-operationState" style="">
+													待教务部主任审批
+												</td>
+											</tr>
+											<tr>
+												<td style="text-align: right; ">是否同意：</td>
+												<td style="text-align: left; ">
+													<label class="check-label yt-radio check">
+														<input class="agree-disagree" type="radio" class="radio" name="radioType" value="completed"/>同意
+													</label>
+													<label class="check-label yt-radio" style="margin-left: 20px;">
+													 	<input class="agree-disagree" type="radio" class="radio" name="radioType" value="returnedSubmit"/>拒绝
+													</label>
+												</td>
+											</tr>
+											<tr class="next-operate-person-tr hid-input">
+												<td style="text-align: right; ">下一步操作人：</td>
+												<td>
+													<select class="yt-select type-select type" id="next-people" style="width: 200px;float: left;">
+														<option value="no">请选择下一步操作人</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td style="text-align: right; ">操作人意见：</td>
+												<td>
+													<input id="opintion" class="yt-input" type="text" validform="{isNull:true,size:20,msg:'请输入内容,不要超过20个字'}" style="width: 719px;float: left;"/>  
+			    									<span class="valid-font" style="padding-left: 10px;"></span> 
+												</td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</div>
+							<!--审批流程最后一步END-->
+										
+							<!--审批第一步STAR-->	
+							<div class="first-step">
+								<div style="height: 150; ">
+									<div class="number-name-box">
+										<span class="number-box-span first-step-order"></span>
+										<span class="name-box-span first-step-operate-person-userName"></span>
+										<img src="../../resources/images/open/openFlow.png" width="100%" height="100%" />
+									</div>
+								</div>
+								<div class="pad-pos" style="height: 89px;">
+									<ul class="first-step-ul">
+										<li style="height: 30px;">
+											<span class="first-step-taskName view-taskName-span" style="float: left;">sdasfd</span>
+										</li>
+										<li class="view-time-li middle-step-commentTime">2018-01-01 12:00</li>
+										<!--<li class="operate-view-box-li">
+											<div class="operate-view-title-li">备注：</div>
+											<div class="operate-view-text-li first-step-comment" style="padding-left: 10px;">申请提交</div>
+										</li>-->
+									</ul>
+								</div>
+							</div>
+						<!--审批第一步END-->
+						</div>
+					</div>	
+					<!--审批流程END-->
+					<div class="yt-eidt-model-bottom" style="text-align: center;margin: 10px 0px;">
+						<input class="yt-model-bot-btn yt-model-sure-btn" id="last-submit" type="button" value="确定" />
+						<input class="yt-model-bot-btn yt-model-canel-btn " id="last-cancel" type="button" value="取消" style="margin-left: 20px;" />
+					</div>
+<!-------------------------------------------------------------------------------------------------------->			
+		
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--js文件引用-->
+	<script type="text/javascript" src="../../resources/js/common/jquery.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-option.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-common.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/common/yt-frame.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/page/yt-page.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/valid/yt-valid.min.js"></script>
+	<script type="text/javascript" src="../../resources/js/modules/finance/reviseOutlayApprove.js"></script>
+	<!--日期控件-->
+	<script type="text/javascript" src="../../resources/js/calendar/yt-calendar.min.js"></script>
+	<!--滚动条js-->
+	<script type="text/javascript" src="../../resources/js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+
+</html>

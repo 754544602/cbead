@@ -1,0 +1,18 @@
+{
+ "flag":0,
+ "data":{
+	    "total": 100,
+		"rows": [
+			{
+				"repairMatterId":"1",
+				"assetsNumber":"BG-1082-001",
+				"assetsName":"联想电脑",
+				"specificationsModel":"联想E430",
+				"useDepartment":"基建处",
+				"usePeople":"钱建科",
+				"repairStartDate":"2018-2-16",
+				"repairEndDate":""
+			}
+		]
+	}
+}

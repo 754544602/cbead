@@ -1,0 +1,19 @@
+{
+ "flag":0,
+ "data":{
+		"rows": [
+			{
+				"moneyCode":"1",
+				"moneyName": "基本支出"
+			},
+			{
+				"moneyCode":"2",
+				"moneyName": "项目支出"
+			},
+			{
+				"moneyCode":"3",
+				"moneyName": "经营性支出"
+			}
+		]
+	}
+}
